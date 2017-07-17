@@ -23,3 +23,20 @@
 #include <atlbase.h>
 #include <atlcom.h>
 #include <atlctl.h>
+
+// xzm_@_
+//////////////////////////////////////////////////////////////////////////
+#include <atlstr.h> // for error C2039: “CString”: 不是“ATL”的成员
+using namespace ATL; // for error C2504: “CRegKey”: 未定义基类
+
+
+/// 包含STL库声明
+#include <vector>
+#include <list>
+#include <map>
+using namespace std;
+
+#include "HXBaseDef.h"
+
+#define SQLITE_HAS_CODEC // 使用sqlite3_key函数需要把这个宏打开，否则报错
+

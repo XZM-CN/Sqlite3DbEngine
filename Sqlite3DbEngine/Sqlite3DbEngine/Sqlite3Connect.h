@@ -7,6 +7,8 @@
 
 #include "Sqlite3DbEngine_i.h"
 
+#include "Sqlite3Wrapper.h"
+
 
 
 #if defined(_WIN32_WCE) && !defined(_CE_DCOM) && !defined(_CE_ALLOW_SINGLE_THREADED_OBJECTS_IN_MTA)
@@ -26,6 +28,7 @@ class ATL_NO_VTABLE CSqlite3Connect :
 public:
 	CSqlite3Connect()
 	{
+		m_pSqlite3Wrapper = NULL;
 	}
 
 DECLARE_REGISTRY_RESOURCEID(IDR_SQLITECONNECT)
@@ -49,10 +52,10 @@ END_COM_MAP()
 	{
 	}
 
+protected:
+	/// Sqlite功能封装类
+	CSqlite3Wrapper *m_pSqlite3Wrapper;
 public:
-
-
-
 	STDMETHOD(Open)(BSTR bstrDbFile, BSTR bstrPW, VARIANT_BOOL bCreateFlag);
 };
 

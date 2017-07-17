@@ -56,3 +56,25 @@
 #endif
 
 
+
+// xzm_@_
+//////////////////////////////////////////////////////////////////////////
+#ifndef WIN64
+#ifdef _DEBUG
+#import "..\\bin\\Debug\\Sqlite3DbEngine.dll" no_namespace, raw_interfaces_only, raw_native_types, named_guids
+#else
+#import "..\\bin\\Release\\Sqlite3DbEngine.dll" no_namespace, raw_interfaces_only, raw_native_types, named_guids
+#endif
+#else
+#ifdef _DEBUG
+#import "..\\..\\Release\\X64\\HXEng.dll" no_namespace, raw_interfaces_only, raw_native_types, named_guids
+#else
+#import "..\\..\\Release\\X64\\HXEng.dll" no_namespace, raw_interfaces_only, raw_native_types, named_guids
+#endif
+#endif
+
+/// °üº¬STL¿âÉùÃ÷
+#include <vector>
+#include <list>
+#include <map>
+using namespace std;

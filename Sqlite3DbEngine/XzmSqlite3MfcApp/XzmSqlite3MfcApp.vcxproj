@@ -43,6 +43,7 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin\$(Configuration)\$(ProjectName)\</IntDir>
+    <IncludePath>..\Common;$(IncludePath);C:\BCGSoft\BCGControlBarPro\BCGCBPro</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -137,6 +138,7 @@
     <ClInclude Include="CalendarBar.h" />
     <ClInclude Include="ChildFrm.h" />
     <ClInclude Include="ClassView.h" />
+    <ClInclude Include="ComTestDockablePane.h" />
     <ClInclude Include="FileView.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="OutputWnd.h" />
@@ -144,7 +146,10 @@
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="TreeListCtrl.h" />
+    <ClInclude Include="TreeListWnd.h" />
     <ClInclude Include="ViewTree.h" />
+    <ClInclude Include="XzmMfcRegKey.h" />
     <ClInclude Include="XzmSqlite3MfcApp.h" />
     <ClInclude Include="XzmSqlite3MfcAppDoc.h" />
     <ClInclude Include="XzmSqlite3MfcAppView.h" />
@@ -153,15 +158,20 @@
     <ClCompile Include="CalendarBar.cpp" />
     <ClCompile Include="ChildFrm.cpp" />
     <ClCompile Include="ClassView.cpp" />
+    <ClCompile Include="ComTestDockablePane.cpp" />
     <ClCompile Include="FileView.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="OutputWnd.cpp" />
     <ClCompile Include="PropertiesWnd.cpp" />
+    <ClCompile Include="PublicFunc.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="TreeListCtrl.cpp" />
+    <ClCompile Include="TreeListWnd.cpp" />
     <ClCompile Include="ViewTree.cpp" />
+    <ClCompile Include="XzmMfcRegKey.cpp" />
     <ClCompile Include="XzmSqlite3MfcApp.cpp" />
     <ClCompile Include="XzmSqlite3MfcAppDoc.cpp" />
     <ClCompile Include="XzmSqlite3MfcAppView.cpp" />

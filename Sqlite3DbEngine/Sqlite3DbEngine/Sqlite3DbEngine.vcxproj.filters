@@ -31,10 +31,16 @@
     <ClCompile Include="Sqlite3DbEngine_i.c">
       <Filter>生成的文件</Filter>
     </ClCompile>
-    <ClCompile Include="Sqlite3Wraper.cpp">
+    <ClCompile Include="Sqlite3Connect.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Sqlite3Connect.cpp">
+    <ClCompile Include="..\Common\BaseFuncLib.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\HXRegKey.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Sqlite3Wrapper.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -54,10 +60,22 @@
     <ClInclude Include="Sqlite3DbEngine_i.h">
       <Filter>生成的文件</Filter>
     </ClInclude>
-    <ClInclude Include="Sqlite3Wraper.h">
+    <ClInclude Include="Sqlite3Connect.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Sqlite3Connect.h">
+    <ClInclude Include="..\Common\BaseFuncLib.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\common.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\HXBaseDef.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\HXRegKey.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Sqlite3Wrapper.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

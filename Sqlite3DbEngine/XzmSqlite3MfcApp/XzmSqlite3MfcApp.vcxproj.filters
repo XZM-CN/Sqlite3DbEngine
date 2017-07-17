@@ -159,6 +159,18 @@
     <ClInclude Include="CalendarBar.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="ComTestDockablePane.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="XzmMfcRegKey.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="TreeListCtrl.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="TreeListWnd.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="XzmSqlite3MfcApp.cpp">
@@ -195,6 +207,21 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="CalendarBar.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ComTestDockablePane.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="PublicFunc.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="XzmMfcRegKey.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="TreeListCtrl.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="TreeListWnd.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

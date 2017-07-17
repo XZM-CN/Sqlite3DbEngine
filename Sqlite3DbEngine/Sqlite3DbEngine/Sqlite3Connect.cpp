@@ -11,6 +11,10 @@
 STDMETHODIMP CSqlite3Connect::Open(BSTR bstrDbFile, BSTR bstrPW, VARIANT_BOOL bCreateFlag)
 {
 	// TODO: 在此添加实现代码
+	ATLASSERT(!m_pSqlite3Wrapper);
+	m_pSqlite3Wrapper = new CSqlite3Wrapper();
 
+	CString strReadDB(bstrDbFile);
+	BOOL bOpenFlag = m_pSqlite3Wrapper->Open(strReadDB,bstrPW);
 	return S_OK;
 }

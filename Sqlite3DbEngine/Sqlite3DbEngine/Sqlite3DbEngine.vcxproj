@@ -42,6 +42,7 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin\$(Configuration)\$(ProjectName)\</IntDir>
+    <IncludePath>../common;$(IncludePath);</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IgnoreImportLibrary>true</IgnoreImportLibrary>
@@ -116,6 +117,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\Common\BaseFuncLib.cpp" />
+    <ClCompile Include="..\Common\HXRegKey.cpp" />
     <ClCompile Include="dllmain.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -133,7 +136,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Sqlite3Wraper.cpp" />
+    <ClCompile Include="Sqlite3Wrapper.cpp" />
     <ClCompile Include="Sqlite3Connect.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -141,10 +144,14 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Common\BaseFuncLib.h" />
+    <ClInclude Include="..\Common\common.h" />
+    <ClInclude Include="..\Common\HXBaseDef.h" />
+    <ClInclude Include="..\Common\HXRegKey.h" />
     <ClInclude Include="dllmain.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Sqlite3DbEngine_i.h" />
-    <ClInclude Include="Sqlite3Wraper.h" />
+    <ClInclude Include="Sqlite3Wrapper.h" />
     <ClInclude Include="Sqlite3Connect.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />

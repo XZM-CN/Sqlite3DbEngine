@@ -5,6 +5,7 @@
 #pragma once
 #include "FileView.h"
 #include "ClassView.h"
+#include "ComTestDockablePane.h"
 #include "OutputWnd.h"
 #include "PropertiesWnd.h"
 #include "CalendarBar.h"
@@ -42,18 +43,19 @@ public:
 #endif
 
 protected:  // 控件条嵌入成员
-	CMFCMenuBar       m_wndMenuBar;
-	CMFCToolBar       m_wndToolBar;
-	CMFCStatusBar     m_wndStatusBar;
-	CMFCToolBarImages m_UserImages;
-	CFileView         m_wndFileView;
-	CClassView        m_wndClassView;
-	COutputWnd        m_wndOutput;
-	CPropertiesWnd    m_wndProperties;
-	COutlookBar       m_wndNavigationBar;
-	CMFCShellTreeCtrl m_wndTree;
-	CCalendarBar      m_wndCalendar;
-	CMFCCaptionBar    m_wndCaptionBar;
+	CMFCMenuBar           m_wndMenuBar;
+	CMFCToolBar           m_wndToolBar;
+	CMFCStatusBar         m_wndStatusBar;
+	CMFCToolBarImages     m_UserImages;
+	CFileView             m_wndFileView;
+	CClassView            m_wndClassView;
+	CComTestDockablePane  m_wndComTestDockablePane;
+	COutputWnd            m_wndOutput;
+	CPropertiesWnd        m_wndProperties;
+	COutlookBar           m_wndNavigationBar;
+	CMFCShellTreeCtrl     m_wndTree;
+	CCalendarBar          m_wndCalendar;
+	CMFCCaptionBar        m_wndCaptionBar;
 
 // 生成的消息映射函数
 protected:

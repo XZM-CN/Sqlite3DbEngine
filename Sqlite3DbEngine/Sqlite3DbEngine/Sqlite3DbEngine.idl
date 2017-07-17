@@ -1,0 +1,35 @@
+// Sqlite3DbEngine.idl : Sqlite3DbEngine 的 IDL 源
+//
+
+// 此文件将由 MIDL 工具处理以
+// 产生类型库(Sqlite3DbEngine.tlb)和封送处理代码。
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+[
+	object,
+	uuid(A833E77A-6A51-4FBE-A608-C2AC6972A85B),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+interface ISqlite3Connect : IDispatch{
+	[id(1), helpstring("方法Open")] HRESULT Open([in] BSTR bstrDbFile, [in] BSTR bstrPW, [in] VARIANT_BOOL bCreateFlag);
+};
+[
+	uuid(27E8485B-F781-4320-848D-BD0887CCE3FC),
+	version(1.0),
+]
+library Sqlite3DbEngineLib
+{
+	importlib("stdole2.tlb");
+	[
+		uuid(86E88897-1EAE-4E56-B280-EA7B5ABB1509)		
+	]
+	coclass Sqlite3Connect
+	{
+		[default] interface ISqlite3Connect;
+	};
+};
+

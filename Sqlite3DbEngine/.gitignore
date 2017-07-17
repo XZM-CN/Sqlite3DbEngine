@@ -6,6 +6,7 @@
 ###############################################################################
 .*
 !.gitignore
+!.gitattributes
 
 #
 # exclude binaries and temporary files
@@ -110,7 +111,7 @@ local.properties
 #  
 #  
 ###############################################################################
-*.suo
+#*.suo
 *.user
 *.sln.docstates
 
@@ -179,7 +180,7 @@ ipch/
 *.aps
 *.ncb
 *.opensdf
-*.sdf
+#*.sdf
 
 #
 # Visual Studio profiler

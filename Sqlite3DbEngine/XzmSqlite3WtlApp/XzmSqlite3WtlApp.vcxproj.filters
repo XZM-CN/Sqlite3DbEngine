@@ -2,15 +2,15 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Source Files">
-      <UniqueIdentifier>{5554e5d4-9016-4bde-a04a-499dd154e57b}</UniqueIdentifier>
+      <UniqueIdentifier>{653d87ee-4964-4e5e-a718-10d99783a4b1}</UniqueIdentifier>
       <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm</Extensions>
     </Filter>
     <Filter Include="Header Files">
-      <UniqueIdentifier>{a94a18d4-368f-4caf-9ba7-e9403e7c297d}</UniqueIdentifier>
+      <UniqueIdentifier>{068100cb-664e-4d94-b3ac-ea1e8f091d36}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
     </Filter>
     <Filter Include="Resource Files">
-      <UniqueIdentifier>{4726e2ad-505f-4fa6-9aa9-442c5a9299f9}</UniqueIdentifier>
+      <UniqueIdentifier>{390f7d18-3cd1-48c1-84e0-7dee51e70b4b}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;jpg;jpeg;jpe;manifest</Extensions>
     </Filter>
   </ItemGroup>
@@ -26,16 +26,7 @@
     <ClInclude Include="stdafx.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MainFrm.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ChildFrm.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="XzmSqlite3WtlAppView.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AboutDlg.h">
+    <ClInclude Include="MainDlg.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
@@ -48,13 +39,7 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="res\toolbar.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="res\XzmSqlite3WtlApp.ico">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\XzmSqlite3WtlAppDoc.ico">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

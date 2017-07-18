@@ -1,0 +1,16 @@
+HKCR
+{
+	NoRemove CLSID
+	{
+		ForceRemove {B0608C1D-7C13-4298-AC27-01AC8FF2AB2F} = s 'JsonService Class'
+		{
+			ForceRemove Programmable
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Both'
+			}
+			TypeLib = s '{317A4F7C-2924-44F9-95D6-4E25F2B4BB76}'
+			Version = s '1.0'
+		}
+	}
+}

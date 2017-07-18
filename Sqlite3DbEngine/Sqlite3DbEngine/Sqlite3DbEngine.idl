@@ -7,6 +7,57 @@
 import "oaidl.idl";
 import "ocidl.idl";
 
+typedef enum ESqliteDataType
+{
+	SQLITEDB_DATATYPE_INTEGER	= 1,
+	SQLITEDB_DATATYPE_FLOAT	= ( SQLITEDB_DATATYPE_INTEGER + 1 ) ,
+	SQLITEDB_DATATYPE_TEXT	= ( SQLITEDB_DATATYPE_FLOAT + 1 ) ,
+	SQLITEDB_DATATYPE_BLOB	= ( SQLITEDB_DATATYPE_TEXT + 1 ) ,
+	SQLITEDB_DATATYPE_NULL	= ( SQLITEDB_DATATYPE_BLOB + 1 ) 
+} 	EDBDataType;
+
+typedef enum EHXCodingType
+{
+	CODINGTYPE_UNKNOWN	= 0,
+	CODINGTYPE_ANSI	= ( CODINGTYPE_UNKNOWN + 1 ) ,
+	CODINGTYPE_US2	= ( CODINGTYPE_ANSI + 1 ) ,
+	CODINGTYPE_UTF8	= ( CODINGTYPE_US2 + 1 ) ,
+	CODINGTYPE_UTF16	= ( CODINGTYPE_UTF8 + 1 ) 
+} 	ECodingType;
+
+typedef enum EHXJsonType
+{
+	JSONTYPE_NULL	= 0,
+	JSONTYPE_INT	= ( JSONTYPE_NULL + 1 ) ,
+	JSONTYPE_UINT	= ( JSONTYPE_INT + 1 ) ,
+	JSONTYPE_REAL	= ( JSONTYPE_UINT + 1 ) ,
+	JSONTYPE_STRING	= ( JSONTYPE_REAL + 1 ) ,
+	JSONTYPE_BOOL	= ( JSONTYPE_STRING + 1 ) ,
+	JSONTYPE_ARRAY	= ( JSONTYPE_BOOL + 1 ) ,
+	JSONTYPE_OBJECT	= ( JSONTYPE_ARRAY + 1 ) 
+} 	EJsonType;
+
+typedef enum EHXSafeLogType
+{
+	SAFELOGTYPE_UNKNOWN	= 0,
+	SAFELOGTYPE_UNWHITEFILEDENY	= 0x4,
+	SAFELOGTYPE_UNWHITEFILERUN	= 0x5,
+	SAFELOGTYPE_WHITEFILERUN	= 0x6,
+	SAFELOGTYPE_PROTECTEXE	= 0x8,
+	SAFELOGTYPE_USBACCESS	= 0x9,
+	SAFELOGTYPE_PROTECTDIR	= 0x10,
+	SAFELOGTYPE_PROTECTREG	= 0x11,
+	SAFELOGTYPE_ALERTDISK	= 0x3,
+	SAFELOGTYPE_USBOPT_CREATEFILE	= 0x80,
+	SAFELOGTYPE_USBOPT_WRITEFILE	= 0x81,
+	SAFELOGTYPE_USBOPT_DELETEFILE	= 0x82,
+	SAFELOGTYPE_USBOPT_RENAMEFILE	= 0x83,
+	SAFELOGTYPE_SELFRUN	= 4096,
+	SAFELOGTYPE_OPERATION	= 8192
+} 	ESafeLogType;
+
+interface ISqlite3Statement;
+
 [
 	object,
 	uuid(A833E77A-6A51-4FBE-A608-C2AC6972A85B),
@@ -15,7 +66,125 @@ import "ocidl.idl";
 	pointer_default(unique)
 ]
 interface ISqlite3Connect : IDispatch{
-	[id(1), helpstring("方法Open")] HRESULT Open([in] BSTR bstrDbFile, [in] BSTR bstrPW, [in] VARIANT_BOOL bCreateFlag);
+	[propput, id(1), helpstring("属性 bstrPassword")] HRESULT Password([in] BSTR newVal);
+	[propput, id(2), helpstring("属性 TimeoutSecond")] HRESULT TimeoutSecond([in] long newVal);
+	[propget, id(2), helpstring("属性 TimeoutSecond")] HRESULT TimeoutSecond([out, retval] long* pVal);
+	[propput, id(3), helpstring("属性 Para")] HRESULT ParaValue([in] BSTR bstrKeyName,[in] BSTR newVal);
+	[propget, id(3), helpstring("属性 Para")] HRESULT ParaValue([in] BSTR bstrKeyName,[out, retval] BSTR* pVal);
+	[propget, id(4), helpstring("属性 是否只读打开")] HRESULT ReadOnly([out, retval] VARIANT_BOOL* pVal);
+
+	[id(5), helpstring("方法ReadOpen")] HRESULT ReadOpen([in] BSTR bstrDbFile,[in] BSTR bstrPW);
+	[id(6), helpstring("方法Open")] HRESULT Open([in] BSTR bstrDbFile,[in] BSTR bstrPW,[in] VARIANT_BOOL bCreateFlag);
+	[propget, id(7), helpstring("属性 TableCount")] HRESULT TableCount([in] VARIANT_BOOL bTemFlag,[out, retval] LONG* pVal);
+	[propget, id(8), helpstring("属性 DriverVersion")] HRESULT DriverVersion([out, retval] BSTR* pVal);
+	[propget, id(9), helpstring("属性 DBVersion")] HRESULT DBVersion([out, retval] BSTR* pVal);
+	[propget, id(10), helpstring("属性 DbPathFile")] HRESULT DbPathFile([out, retval] BSTR* pVal);
+
+	[id(11), helpstring("方法TableIsExist")] HRESULT TableIsExist([in] BSTR bstrDbFile,[in] VARIANT_BOOL bTemFlag,[out, retval] VARIANT_BOOL *pVal);
+	[id(12), helpstring("方法GetTableSql")] HRESULT GetTableSql([in] BSTR bstrDbFile,[in] VARIANT_BOOL bTemFlag,[out, retval] BSTR *pVal);
+	
+	[id(16), helpstring("方法BeginTransaction")] HRESULT BeginTransaction();
+	[id(17), helpstring("方法ExecCommond")] HRESULT ExecCommond([in] BSTR bstrSqlString);
+	[id(18), helpstring("方法PrepareCommond")] HRESULT PrepareCommond([in] BSTR bstrSqlString,[out, retval] ISqlite3Statement** pVal);
+	[id(19), helpstring("方法CommitTransaction")] HRESULT CommitTransaction();
+	[id(20), helpstring("方法RollbackTransaction")] HRESULT RollbackTransaction(void);
+	[propget, id(21), helpstring("属性 TransactionStatus")] HRESULT TransactionStatus([out, retval] VARIANT_BOOL* pVal);
+	
+	[id(26), helpstring("方法ExecQuery")] HRESULT ExecQuery([in] BSTR bstrSqlString);
+	[id(27), helpstring("方法ExecQueryEx")] HRESULT ExecQueryEx([in] BSTR bstrSqlString,[out, retval] ISqlite3Statement** pVal);
+	[propget, id(28), helpstring("属性 FieldCount")] HRESULT FieldCount([out, retval] ULONG* pVal);
+	[propget, id(29), helpstring("属性 RecordCount")] HRESULT RecordCount([out, retval] ULONG* pVal);
+	[id(30), helpstring("方法GetFieldName")] HRESULT GetFieldName([in] LONG lFieldIndex, [out,retval] BSTR* pbstrName);
+	[id(31), helpstring("方法NextRow")] HRESULT NextRow(void);
+	[id(32), helpstring("方法GetValueString")] HRESULT GetValueString([in] LONG lFieldIndex, [out,retval] BSTR* pbstrValue);
+	[id(33), helpstring("方法GetValueInt")] HRESULT GetValueInt([in] LONG lFieldIndex, [out,retval] LONG* pVal);
+	[id(34), helpstring("方法GetValueDouble")] HRESULT GetValueDouble([in] LONG lFieldIndex, [out,retval] DOUBLE* pVal);
+	[id(35), helpstring("方法GetValueLong")] HRESULT GetValueLong([in] LONG lFieldIndex, [out,retval] LONGLONG* pVal);
+	
+	[id(57), helpstring("方法SysBackup")] HRESULT SysBackup([in] BSTR bstrFileName);
+	[id(58), helpstring("方法CompressDB")] HRESULT CompressDB();
+	[propget, id(59), helpstring("属性 LastErrorInfo")] HRESULT LastErrorInfo([out, retval] BSTR* pVal);
+	[id(60), helpstring("方法Close")] HRESULT Close();
+};
+[
+	object,
+	uuid(A5934ED4-37FD-4EEC-89D4-6AB0D436CD7B),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+interface ISqlite3Statement : IDispatch{
+	[propget, id(1), helpstring("属性 FieldCount")] HRESULT FieldCount([out, retval] ULONG* pVal);
+	[propget, id(2), helpstring("属性 RecordCount")] HRESULT RecordCount([out, retval] ULONG* pVal);
+
+	[id(5), helpstring("方法GetFieldName")] HRESULT GetFieldName([in] LONG lFieldIndex, [out,retval] BSTR* pbstrName);
+	[id(6), helpstring("方法GetDataType")] HRESULT GetDataType([in] LONG lFieldIndex, [out,retval] EDBDataType* pVal);
+	[id(7), helpstring("方法GetFieldType")] HRESULT GetFieldType([in] LONG lFieldIndex, [out,retval] SHORT* pVal);
+	[id(8), helpstring("方法GetValueInt")] HRESULT GetValueInt([in] LONG lFieldIndex, [out,retval] LONG* pVal);
+	[id(9), helpstring("方法GetValueString")] HRESULT GetValueString([in] LONG lFieldIndex, [out,retval] BSTR* pVal);
+	[id(10), helpstring("方法GetValueDouble")] HRESULT GetValueDouble([in] LONG lFieldIndex, [out,retval] DOUBLE* pVal);
+	[id(11), helpstring("方法GetValueLong")] HRESULT GetValueLong([in] LONG lFieldIndex, [out,retval] LONGLONG* pVal);
+	[id(12), helpstring("方法GetValueBlob")] HRESULT GetValueBlob([in] LONG lFieldIndex, [out] BYTE** ppData, [out,retval] ULONG* pLen);
+	[id(13), helpstring("方法GetValueBlobFile")] HRESULT GetValueBlobFile([in] LONG lFieldIndex, [in] BSTR bstrFilePath);
+	
+	[id(16), helpstring("方法BindString")] HRESULT BindString([in] LONG lFieldIndex, [in] BSTR bstrValue);
+	[id(17), helpstring("方法BindDouble")] HRESULT BindDouble([in] LONG lFieldIndex, [in] DOUBLE dValue);
+	[id(18), helpstring("方法BindInt")] HRESULT BindInt([in] LONG lFieldIndex, [in] LONG lValue);
+	[id(19), helpstring("方法BindBlob")] HRESULT BindBlob([in] LONG lFieldIndex,[in] BYTE* pData,[in] ULONG nDataLen);
+	[id(20), helpstring("方法BindBlobFile")] HRESULT BindBlobFile([in] LONG lFieldIndex, [in] BSTR bstrFilePath);
+	[id(21), helpstring("方法BindNull")] HRESULT BindNull([in] LONG lFieldIndex);
+
+	[id(26), helpstring("方法NextRow")] HRESULT NextRow(void);
+	[id(27), helpstring("方法Execute")] HRESULT Execute(void);
+	[id(28), helpstring("方法Reset")] HRESULT Reset(void);
+};
+[
+	object,
+	uuid(DD672881-576B-4628-8486-7D7355D50A79),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+interface ISqlite3ConnectStatement : IDispatch{
+	[propput, id(1), helpstring("属性 bstrPassword")] HRESULT Password([in] BSTR newVal);
+	[propput, id(2), helpstring("属性 TimeoutSecond")] HRESULT TimeoutSecond([in] long newVal);
+	[propget, id(2), helpstring("属性 TimeoutSecond")] HRESULT TimeoutSecond([out, retval] long* pVal);
+	[propput, id(3), helpstring("属性 Para")] HRESULT ParaValue([in] BSTR bstrKeyName,[in] BSTR newVal);
+	[propget, id(3), helpstring("属性 Para")] HRESULT ParaValue([in] BSTR bstrKeyName,[out, retval] BSTR* pVal);
+	[propget, id(4), helpstring("属性 是否只读打开")] HRESULT ReadOnly([out, retval] VARIANT_BOOL* pVal);
+
+	[id(5), helpstring("方法ReadOpen")] HRESULT ReadOpen([in] BSTR bstrDbFile,[in] BSTR bstrPW);
+	[id(6), helpstring("方法Open")] HRESULT Open([in] BSTR bstrDbFile,[in] BSTR bstrPW,[in] VARIANT_BOOL bCreateFlag);
+	[propget, id(7), helpstring("属性 TableCount")] HRESULT TableCount([in] VARIANT_BOOL bTemFlag,[out, retval] LONG* pVal);
+	[propget, id(8), helpstring("属性 DriverVersion")] HRESULT DriverVersion([out, retval] BSTR* pVal);
+	[propget, id(9), helpstring("属性 DBVersion")] HRESULT DBVersion([out, retval] BSTR* pVal);
+	[propget, id(10), helpstring("属性 DbPathFile")] HRESULT DbPathFile([out, retval] BSTR* pVal);
+
+	[id(11), helpstring("方法TableIsExist")] HRESULT TableIsExist([in] BSTR bstrDbFile,[in] VARIANT_BOOL bTemFlag,[out, retval] VARIANT_BOOL *pVal);
+	[id(12), helpstring("方法GetTableSql")] HRESULT GetTableSql([in] BSTR bstrDbFile,[in] VARIANT_BOOL bTemFlag,[out, retval] BSTR *pVal);
+	
+	[id(16), helpstring("方法BeginTransaction")] HRESULT BeginTransaction();
+	[id(17), helpstring("方法ExecCommond")] HRESULT ExecCommond([in] BSTR bstrSqlString);
+	[id(18), helpstring("方法PrepareCommond")] HRESULT PrepareCommond([in] BSTR bstrSqlString,[out, retval] ISqlite3Statement** pVal);
+	[id(19), helpstring("方法CommitTransaction")] HRESULT CommitTransaction();
+	[id(20), helpstring("方法RollbackTransaction")] HRESULT RollbackTransaction(void);
+	[propget, id(21), helpstring("属性 TransactionStatus")] HRESULT TransactionStatus([out, retval] VARIANT_BOOL* pVal);
+	
+	[id(26), helpstring("方法ExecQuery")] HRESULT ExecQuery([in] BSTR bstrSqlString);
+	[id(27), helpstring("方法ExecQueryEx")] HRESULT ExecQueryEx([in] BSTR bstrSqlString,[out, retval] ISqlite3Statement** pVal);
+	[propget, id(28), helpstring("属性 FieldCount")] HRESULT FieldCount([out, retval] ULONG* pVal);
+	[propget, id(29), helpstring("属性 RecordCount")] HRESULT RecordCount([out, retval] ULONG* pVal);
+	[id(30), helpstring("方法GetFieldName")] HRESULT GetFieldName([in] LONG lFieldIndex, [out,retval] BSTR* pbstrName);
+	[id(31), helpstring("方法NextRow")] HRESULT NextRow(void);
+	[id(32), helpstring("方法GetValueString")] HRESULT GetValueString([in] LONG lFieldIndex, [out,retval] BSTR* pbstrValue);
+	[id(33), helpstring("方法GetValueInt")] HRESULT GetValueInt([in] LONG lFieldIndex, [out,retval] LONG* pVal);
+	[id(34), helpstring("方法GetValueDouble")] HRESULT GetValueDouble([in] LONG lFieldIndex, [out,retval] DOUBLE* pVal);
+	[id(35), helpstring("方法GetValueLong")] HRESULT GetValueLong([in] LONG lFieldIndex, [out,retval] LONGLONG* pVal);
+	
+	[id(57), helpstring("方法SysBackup")] HRESULT SysBackup([in] BSTR bstrFileName);
+	[id(58), helpstring("方法CompressDB")] HRESULT CompressDB();
+	[propget, id(59), helpstring("属性 LastErrorInfo")] HRESULT LastErrorInfo([out, retval] BSTR* pVal);
+	[id(60), helpstring("方法Close")] HRESULT Close();
 };
 [
 	uuid(27E8485B-F781-4320-848D-BD0887CCE3FC),
@@ -30,6 +199,20 @@ library Sqlite3DbEngineLib
 	coclass Sqlite3Connect
 	{
 		[default] interface ISqlite3Connect;
+	};
+	[
+		uuid(AA9BC565-C56B-4B9B-9003-1BC2FBE584B2)		
+	]
+	coclass Sqlite3Statement
+	{
+		[default] interface ISqlite3Statement;
+	};
+	[
+		uuid(C7EDAD67-48DF-4A1A-8AFC-2BA227AA0620)		
+	]
+	coclass Sqlite3ConnectStatement
+	{
+		[default] interface ISqlite3ConnectStatement;
 	};
 };
 

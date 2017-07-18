@@ -1,0 +1,156 @@
+// ATLComPjt.idl : ATLComPjt 的 IDL 源
+//
+
+// 此文件将由 MIDL 工具处理以
+// 产生类型库(ATLComPjt.tlb)和封送处理代码。
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+[
+	object,
+	uuid(8727AEE6-43A6-41F3-A490-46BB51D4DFAA),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+interface IDemo01 : IDispatch{
+};
+[
+	object,
+	uuid(6BA7AA6C-B4CB-454A-89AD-DDC4A3171F2F),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+interface IDemo : IDispatch{
+};
+[
+	object,
+	uuid(429048EC-ECA3-4FEB-BAB3-688E72639F4F),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+interface IDemo_Single : IDispatch{
+};
+[
+	object,
+	uuid(581B9660-35CC-431F-92A4-AA8202FDC8BD),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+interface IDemo_Apartment : IDispatch{
+};
+[
+	object,
+	uuid(70BCBF73-467C-4CC7-9089-E58019DBA4C9),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+interface IDemo_Both : IDispatch{
+};
+[
+	object,
+	uuid(1BE2B8D4-915A-442E-81AD-D71E0035D15B),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+interface IDemo_Free : IDispatch{
+};
+[
+	object,
+	uuid(24F83B2B-E35A-4CE5-AD0D-A7CE588BD7D4),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+interface IDemo_Neutral : IDispatch{
+};
+[
+	object,
+	uuid(487E6409-6914-49BD-A523-1F3E63BD50FC),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+interface IDemo_Both_Support : IDispatch{
+};
+[
+	uuid(89C5AFBA-1F9B-4952-9CFF-5E4AABA94815),
+	version(1.0),
+]
+library ATLComPjtLib
+{
+	importlib("stdole2.tlb");
+	[
+		uuid(711159BC-FA73-4F2B-8D6D-4F09F39DF500)		
+	]
+	coclass Demo01
+	{
+		[default] interface IDemo01;
+	};
+	[
+		uuid(A68B94DC-FD6A-4E41-99B8-8CA04D7D69CE)		
+	]
+	coclass Demo
+	{
+		[default] interface IDemo;
+	};
+	[
+		uuid(89178619-BDF9-4133-843A-DD103A2ED71B)		
+	]
+	coclass Demo_Single
+	{
+		[default] interface IDemo_Single;
+	};
+	[
+		uuid(1A300033-D722-441F-8706-11B84311F128)		
+	]
+	coclass Demo_Apartment
+	{
+		[default] interface IDemo_Apartment;
+	};
+	[
+		uuid(EED4FD28-7197-41E9-BB8D-296D131C1104)		
+	]
+	coclass Demo_Both
+	{
+		[default] interface IDemo_Both;
+	};
+	[
+		uuid(368A35FB-C7B7-4D4B-A0C6-E98CB33BD161)		
+	]
+	coclass Demo_Free
+	{
+		[default] interface IDemo_Free;
+	};
+	[
+		uuid(E2D67F03-02C4-4AA0-8E5D-ACC8E96316A3)		
+	]
+	coclass Demo_Neutral
+	{
+		[default] interface IDemo_Neutral;
+	};
+	[
+		uuid(7062AC4C-E768-488E-AB3F-DE64C295EBA5)		
+	]
+	dispinterface _IDemo_Both_SupportEvents
+	{
+		properties:
+		methods:
+	};
+	[
+		uuid(103F4323-ED93-4A9D-9065-C5792F738066)		
+	]
+	coclass Demo_Both_Support
+	{
+		[default] interface IDemo_Both_Support;
+		[default, source] dispinterface _IDemo_Both_SupportEvents;
+	};
+};
+
+import "shobjidl.idl";

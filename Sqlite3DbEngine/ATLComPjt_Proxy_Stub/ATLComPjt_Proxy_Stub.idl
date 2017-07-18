@@ -1,0 +1,18 @@
+// ATLComPjt_Proxy_Stub.idl : ATLComPjt_Proxy_Stub 的 IDL 源
+//
+
+// 此文件将由 MIDL 工具处理以
+// 产生类型库(ATLComPjt_Proxy_Stub.tlb)和封送处理代码。
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+[
+	uuid(038D75CC-A345-4C16-8D1B-D54016DA46C6),
+	version(1.0),
+]
+library ATLComPjt_Proxy_StubLib
+{
+	importlib("stdole2.tlb");
+};
+

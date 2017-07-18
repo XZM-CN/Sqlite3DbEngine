@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{6521016C-0CD7-423A-92E7-BDE99D9C4D1C}</ProjectGuid>
+    <ProjectGuid>{0D20BFCF-5AA9-42BB-83F6-36F335BB30FE}</ProjectGuid>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -42,6 +42,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)bin\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -116,20 +118,15 @@
     <ClCompile Include="XzmSqlite3WtlApp.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AboutDlg.h" />
-    <ClInclude Include="ChildFrm.h" />
-    <ClInclude Include="MainFrm.h" />
+    <ClInclude Include="MainDlg.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="XzmSqlite3WtlAppView.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="XzmSqlite3WtlApp.rc" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="res\toolbar.bmp" />
     <None Include="res\XzmSqlite3WtlApp.ico" />
-    <None Include="res\XzmSqlite3WtlAppDoc.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

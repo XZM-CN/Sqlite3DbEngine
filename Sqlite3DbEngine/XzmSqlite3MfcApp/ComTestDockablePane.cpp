@@ -94,13 +94,20 @@ int CComTestDockablePane::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_cTreeList.SetUserDataSize(512);
 	// 设置Herder列
 	m_cTreeList.InsertColumn(0,_T("func"),TVCFMT_CENTER  ,250);
-	m_cTreeList.InsertColumn(1,_T("pwd"),TVCFMT_CENTER,200);
-	m_cTreeList.InsertColumn(2,_T("path"),TVCFMT_LEFT  ,200);
-	m_cTreeList.InsertColumn(3,_T("zzz"),TVCFMT_LEFT  ,200);
+	m_cTreeList.InsertColumn(1,_T("pwd"),TVCFMT_LEFT,200);
+	m_cTreeList.InsertColumn(2,_T("path/dbName"),TVCFMT_LEFT  ,200);
+	m_cTreeList.InsertColumn(3,_T("特定条件"),TVCFMT_CENTER  ,200);
 	// 设置1,2列可以双击编辑
 	m_cTreeList.SetColumnAutoEdit(1,TVAE_EDIT  | TVAE_DBLCLICK);
 	m_cTreeList.SetColumnAutoEdit(2,TVAE_EDIT  | TVAE_DBLCLICK);
-	m_cTreeList.SetColumnAutoEdit(3,TVAE_COMBO | TVAE_DBLCLICK,'|',_T("xzmTrue|xzmFalse"));
+	m_cTreeList.SetColumnAutoEdit(3,TVAE_COMBO | TVAE_DBLCLICK,
+		'|',
+		_T("密码可以为空|")
+		_T("密码不可以为空|")
+		_T("路径是绝对地址|")
+		_T("数据库名称|")
+		_T("数据库名称必须是全路径，密码不为空|")
+		);
 
 	// 加载图像:
 	m_wndToolBar.Create(this, AFX_DEFAULT_TOOLBAR_STYLE, IDR_SORT);
@@ -404,6 +411,8 @@ void CComTestDockablePane::FillComTestBar()
 	hComItem = m_cTreeList.InsertItem(_T("GetComPtr通过绝对路径"), 3, 3, hCom01);
 	m_cTreeList.SetItem(hComItem,3,TVIF_IMAGE|TVIF_TEXT,_T("xzmTrue"),3,3,0,0,0);
 	hComItem = m_cTreeList.InsertItem(_T("GetComPtr通过动态路径"), 3, 3, hCom01);
+	m_cTreeList.SetItem(hComItem,1,TVIF_IMAGE|TVIF_TEXT,_T("qwer123114"),3,3,0,0,0);
+	m_cTreeList.SetItem(hComItem,2,TVIF_IMAGE|TVIF_TEXT,CPublicFunc::GetAppTruncDirByModular(),3,3,0,0,0);
 	m_cTreeList.SetItem(hComItem,3,TVIF_IMAGE|TVIF_TEXT,_T("xzmTrue"),3,3,0,0,0);
 	m_cTreeList.Expand(hCom01, TVE_EXPAND);
 
@@ -424,6 +433,7 @@ void CComTestDockablePane::FillComTestBar()
 	m_cTreeList.Expand(hCom05, TVE_EXPAND);
 
 	m_cTreeList.Expand(hClass, TVE_EXPAND);
+	m_cTreeList.Expand(hCom  , TVE_EXPAND);
 
 	m_hSelItem = NULL;
 }
@@ -496,8 +506,19 @@ void CComTestDockablePane::OnNMClickTree(NMHDR *pNMHDR, LRESULT *pResult)
 						::MessageBox(NULL,_T("不允许密码为空"),_T(""),MB_OK);
 					}
 
+					strPath = strPath + _T("\\XzmSqlite3MfcApp.sqlite3");
+					if(CPublicFunc::IsPathExist(strPath))
+					{
+						::SetFileAttributes(strPath,FILE_ATTRIBUTE_NORMAL);
+						BOOL bDelFlag = ::DeleteFile(strPath);
+						if(!bDelFlag)
+						{
+							::MessageBox(NULL,_T("删除旧数据库文件失败!"),_T(""),MB_OK);
+							return;
+						}
+					}
 
-					m_spiSqlite3Connect->Open(_T("wqeqwe"),_T("wqeqwe"),TRUE);
+					m_spiSqlite3Connect->Open(CComBSTR(strPath),CComBSTR(strPwd),TRUE);
 				}
 			}
 			else if(0 == str.Compare( _T("Test01")))

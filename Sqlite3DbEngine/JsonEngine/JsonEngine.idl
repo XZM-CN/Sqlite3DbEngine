@@ -1,0 +1,149 @@
+// JsonEngine.idl : JsonEngine 的 IDL 源
+//
+
+// 此文件将由 MIDL 工具处理以
+// 产生类型库(JsonEngine.tlb)和封送处理代码。
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+typedef enum ESqliteDataType
+{ 
+	SQLITEDB_DATATYPE_INTEGER = 1,
+	SQLITEDB_DATATYPE_FLOAT,
+	SQLITEDB_DATATYPE_TEXT,
+	SQLITEDB_DATATYPE_BLOB,
+	SQLITEDB_DATATYPE_NULL
+} EDBDataType;
+
+/// EHXCodingType,编码类型
+typedef enum EHXCodingType
+{
+	CODINGTYPE_UNKNOWN	= 0,	/// 无效类型
+	CODINGTYPE_ANSI,			/// ANSI编码
+	CODINGTYPE_US2,				/// UNICODE编码
+	CODINGTYPE_UTF8,			/// UTF-8编码
+	CODINGTYPE_UTF16			/// UTF-16编码
+} ECodingType;
+
+typedef enum EHXJsonType
+{
+	JSONTYPE_NULL = 0,	/// 空值
+	JSONTYPE_INT,		/// 整形
+	JSONTYPE_UINT,		/// 无符号整形
+	JSONTYPE_REAL,		/// REAL值
+	JSONTYPE_STRING,	/// 字符串值
+	JSONTYPE_BOOL,		/// BOOL值
+	JSONTYPE_ARRAY,		/// 数组
+	JSONTYPE_OBJECT		/// 对象
+} EJsonType;
+
+/// 安全日志类型
+typedef enum EHXSafeLogType
+{
+	SAFELOGTYPE_UNKNOWN			= 0,	/// 未知类型
+	///////////// 底层驱动上报日志 /////////////
+	SAFELOGTYPE_UNWHITEFILEDENY		= 0x00000004,	/// 非白名单拒绝运行日志
+	SAFELOGTYPE_UNWHITEFILERUN		= 0x00000005,	/// 非白名单运行日志
+	SAFELOGTYPE_WHITEFILERUN		= 0x00000006,	/// 白名单运行日志
+	SAFELOGTYPE_PROTECTEXE			= 0x00000008,	/// 进程保护日志
+	SAFELOGTYPE_USBACCESS			= 0x00000009,	/// USB访问日志
+	SAFELOGTYPE_PROTECTDIR			= 0x00000010,	/// 目录保护日志
+	SAFELOGTYPE_PROTECTREG			= 0x00000011,	/// 注册表保护日志
+
+	SAFELOGTYPE_ALERTDISK			= 0x00000003,	/// 占用磁盘预警
+	SAFELOGTYPE_USBOPT_CREATEFILE	= 0x00000080,	/// USB创建文件
+	SAFELOGTYPE_USBOPT_WRITEFILE	= 0x00000081,	/// USB写文件
+	SAFELOGTYPE_USBOPT_DELETEFILE	= 0x00000082,	/// USB删除文件
+	SAFELOGTYPE_USBOPT_RENAMEFILE	= 0x00000083,	/// 重命名文件
+
+	//////////////////////////////////////////////////////
+	SAFELOGTYPE_SELFRUN				= 4096,	/// 自身程序运行日志
+	SAFELOGTYPE_OPERATION			= 8192,	/// 用户操作日志
+} ESafeLogType;
+
+interface IParaService;
+
+[
+	object,
+	uuid(F8809EDC-3A88-42FC-BF64-85CA00205B91),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+interface IJsonService : IDispatch{
+	[propget, id(1)] HRESULT CodingType([out, retval] ECodingType* pVal);
+	[propput, id(1)] HRESULT CodingType([in] ECodingType newVal);
+	[propget, id(2)] HRESULT FilePath([out, retval] BSTR* pVal);
+	[propput, id(2)] HRESULT FilePath([in] BSTR newVal);
+	[id(3), helpstring("方法 ParseString，解析字符串内容")] HRESULT ParseString([in] BSTR bstrContent, [out,retval] VARIANT_BOOL* pVal);
+	[id(4), helpstring("方法 ParseFile，解析指定文件内容")] HRESULT ParseFile([in] BSTR bstrFilePath, [out,retval] VARIANT_BOOL* pVal);
+	[propget, id(5)] HRESULT Type([out, retval] EJsonType* pVal);
+	[propget, id(6)] HRESULT Value([out, retval] VARIANT* pVal);
+	[propput, id(7)] HRESULT IntValue([in] BSTR bstrKeyName, [in] LONGLONG newVal);
+	[propput, id(8)] HRESULT StringValue([in] BSTR bstrKeyName, [in] BSTR newVal);
+	[propput, id(9)] HRESULT ChildValue(BSTR bstrKeyName, [in] VARIANT newVal);
+	[propget, id(10)] HRESULT ArraySize([out, retval] ULONG* pVal);
+	[propget, id(11)] HRESULT IsExist([in] BSTR bstrKeyName, [out, retval] VARIANT_BOOL* pVal);
+	[propget, id(12)] HRESULT ObjectString([out, retval] BSTR* pVal);
+	[propget, id(13)] HRESULT ErrInfo([out, retval] BSTR* pVal);
+
+	[id(21), helpstring("方法 GetValueType，获得Value类型")] HRESULT GetValueType([in] BSTR bstrKeyName, [out,retval] EJsonType* pVal);
+	[id(22), helpstring("方法 GetStringValue，获得Value字符串值")] HRESULT GetStringValue([in] BSTR bstrKeyName, [out,retval] BSTR* pVal);
+	[id(23), helpstring("方法 GetBoolValue，获得Value BOOL值")] HRESULT GetBoolValue([in] BSTR bstrKeyName, [out,retval] VARIANT_BOOL* pVal);
+	[id(24), helpstring("方法 GetIntValue，获得Value Int值")] HRESULT GetIntValue([in] BSTR bstrKeyName, [out,retval] LONGLONG* pVal);
+	[id(25), helpstring("方法 GetUIntValue，获得Value UINT值")] HRESULT GetUIntValue([in] BSTR bstrKeyName, [out,retval] ULONGLONG* pVal);
+	[id(27), helpstring("方法 GetDoubleValue，获得Value DOUBLE值")] HRESULT GetDoubleValue([in] BSTR bstrKeyName, [out,retval] DOUBLE* pVal);
+	[id(28), helpstring("方法 GetVariantValue，获得Value 变体值")] HRESULT GetVariantValue([in] BSTR bstrKeyName, [out,retval] VARIANT* pVal);
+	[id(29), helpstring("方法 GetArrayValue，获得数组指定序号变体值")] HRESULT GetArrayValue([in] SHORT sIndex,[out] BSTR* pKey, [out,retval] VARIANT* pVal);
+
+	[id(41)] HRESULT GetChildByName([in] BSTR bstrKeyName, [out,retval] IJsonService** pVal);
+	[id(42)] HRESULT GetChildByIndex([in] LONG nIndex, [out,retval] IJsonService** pVal);
+	[id(43)] HRESULT CreateChild([in] BSTR bstrKeyName, [out,retval] IJsonService** pVal);
+	[id(44)] HRESULT PutChild([in] BSTR bstrKeyName, [in] IJsonService* pVal);
+	[id(45)] HRESULT GetString([out,retval] IParaService** pVal);
+
+	[id(51)] HRESULT Save(void);
+	[id(52)] HRESULT Clear(void);
+};
+[
+	object,
+	uuid(E485B568-C7DB-47F0-9904-0331373AC31C),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+interface IParaService : IDispatch{
+	[id(1), helpstring("方法 AddNumber，添加整形参数")] HRESULT AddNumber([in] BSTR bstrName,[in] ULONG nValue);
+	[id(2), helpstring("方法 AddString，添加字符串参参数")] HRESULT AddString([in] BSTR bstrName,[in] BSTR bstrValue);
+	[id(3), helpstring("方法 IsExist，判断是否存在指定参数")] HRESULT IsExist([in] BSTR bstrName,[out,retval] VARIANT_BOOL* pVal);
+	[id(4), helpstring("方法 GetNumber，获取整形参数")] HRESULT GetNumber([in] BSTR bstrName,[out,retval] ULONG* pVal);
+	[id(5), helpstring("方法 GetString，获取字符串参数")] HRESULT GetString([in] BSTR bstrName,[out,retval] BSTR* pVal);
+	[propget, id(6), helpstring("方法 Count，获得参数个数")] HRESULT Count([out, retval] SHORT* pVal);
+	[id(7), helpstring("方法 RemovePara，移除指定名称参数")] HRESULT RemovePara([in] BSTR bstrName);
+	[id(8), helpstring("方法 Clear，清除所有参数")] HRESULT Clear();
+	[id(9), helpstring("方法 GetJson，转换参数到JSON对象")] HRESULT GetJson([out,retval] IJsonService** pVal);
+};
+[
+	uuid(317A4F7C-2924-44F9-95D6-4E25F2B4BB76),
+	version(1.0),
+]
+library JsonEngineLib
+{
+	importlib("stdole2.tlb");
+	[
+		uuid(B0608C1D-7C13-4298-AC27-01AC8FF2AB2F)		
+	]
+	coclass JsonService
+	{
+		[default] interface IJsonService;
+	};
+	[
+		uuid(076016AC-0050-4330-B3A1-8D4460CEA0EC)		
+	]
+	coclass ParaService
+	{
+		[default] interface IParaService;
+	};
+};
+

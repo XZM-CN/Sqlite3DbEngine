@@ -1,0 +1,16 @@
+HKCR
+{
+	NoRemove CLSID
+	{
+		ForceRemove {C7EDAD67-48DF-4A1A-8AFC-2BA227AA0620} = s 'Sqlite3ConnectStatement Class'
+		{
+			ForceRemove Programmable
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+			TypeLib = s '{27E8485B-F781-4320-848D-BD0887CCE3FC}'
+			Version = s '1.0'
+		}
+	}
+}

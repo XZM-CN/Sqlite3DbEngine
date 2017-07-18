@@ -127,6 +127,8 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="md5.cpp" />
+    <ClCompile Include="Sqlite3ConnectStatement.cpp" />
     <ClCompile Include="Sqlite3DbEngine.cpp" />
     <ClCompile Include="Sqlite3DbEngine_i.c">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
@@ -136,6 +138,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Sqlite3Statement.cpp" />
     <ClCompile Include="Sqlite3Wrapper.cpp" />
     <ClCompile Include="Sqlite3Connect.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -146,11 +149,15 @@
   <ItemGroup>
     <ClInclude Include="..\Common\BaseFuncLib.h" />
     <ClInclude Include="..\Common\common.h" />
+    <ClInclude Include="..\Common\DBItemDef.h" />
     <ClInclude Include="..\Common\HXBaseDef.h" />
     <ClInclude Include="..\Common\HXRegKey.h" />
     <ClInclude Include="dllmain.h" />
+    <ClInclude Include="md5.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="Sqlite3ConnectStatement.h" />
     <ClInclude Include="Sqlite3DbEngine_i.h" />
+    <ClInclude Include="Sqlite3Statement.h" />
     <ClInclude Include="Sqlite3Wrapper.h" />
     <ClInclude Include="Sqlite3Connect.h" />
     <ClInclude Include="stdafx.h" />
@@ -162,8 +169,10 @@
   <ItemGroup>
     <None Include="ReadMe.txt" />
     <None Include="Sqlite3Connect.rgs" />
+    <None Include="Sqlite3ConnectStatement.rgs" />
     <None Include="Sqlite3DbEngine.def" />
     <None Include="Sqlite3DbEngine.rgs" />
+    <None Include="Sqlite3Statement.rgs" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="Sqlite3DbEngine.idl" />

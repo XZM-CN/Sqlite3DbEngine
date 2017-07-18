@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "XzmSqlite3WtlApp", "XzmSqlite3WtlApp.vcxproj", "{6521016C-0CD7-423A-92E7-BDE99D9C4D1C}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "XzmSqlite3WtlApp", "XzmSqlite3WtlApp.vcxproj", "{0D20BFCF-5AA9-42BB-83F6-36F335BB30FE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,10 +9,10 @@ Global
 		Release|Win32 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{6521016C-0CD7-423A-92E7-BDE99D9C4D1C}.Debug|Win32.ActiveCfg = Debug|Win32
-		{6521016C-0CD7-423A-92E7-BDE99D9C4D1C}.Debug|Win32.Build.0 = Debug|Win32
-		{6521016C-0CD7-423A-92E7-BDE99D9C4D1C}.Release|Win32.ActiveCfg = Release|Win32
-		{6521016C-0CD7-423A-92E7-BDE99D9C4D1C}.Release|Win32.Build.0 = Release|Win32
+		{0D20BFCF-5AA9-42BB-83F6-36F335BB30FE}.Debug|Win32.ActiveCfg = Debug|Win32
+		{0D20BFCF-5AA9-42BB-83F6-36F335BB30FE}.Debug|Win32.Build.0 = Debug|Win32
+		{0D20BFCF-5AA9-42BB-83F6-36F335BB30FE}.Release|Win32.ActiveCfg = Release|Win32
+		{0D20BFCF-5AA9-42BB-83F6-36F335BB30FE}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

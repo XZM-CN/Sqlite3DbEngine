@@ -55,5 +55,14 @@ public:
 	 * @return 
 	 */
 	static CString GetAppTruncDirByModular();
+
+	/**
+	 * @brief ÅĞ¶ÏÂ·¾¶ÊÍ·Å´æÔÚ
+	 *
+	 *
+	 * @param strPath 
+	 * @return 
+	 */
+	static BOOL IsPathExist(const CString& strPath) throw();
 };
 

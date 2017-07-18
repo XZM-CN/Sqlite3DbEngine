@@ -76,3 +76,77 @@ CString CPublicFunc::GetAppTruncDirByModular()
 
 	return strTempPath;
 }
+
+BOOL CPublicFunc::IsPathExist(const CString& strPath) throw()
+{
+	BOOL bRet = FALSE;
+	if(strPath.IsEmpty())
+		return bRet;
+	WIN32_FIND_DATA	data;
+	BOOL bFindDir = FALSE;
+
+	CString strFind(strPath);
+	if (0 == strPath.Right(1).CompareNoCase( _T("\\")))
+	{
+		/// 查找目录
+		bFindDir = TRUE;
+		strFind+=_T("*.*");
+	}
+	
+	/**
+	 * @brief             FindFirstFile（）
+	 *
+	 * @Function          
+	 *
+	 * @param[  _In_   ]  
+	 *
+	 * @param[  _Out_  ]  
+	 *
+	 * @param[_Out_opt_]  
+	 *
+	 * @return            如果函数成功，则得到一个句柄，否则失败将得到值INVALID_HANDLE_VALUE
+	 *
+	 * @Date xzm_@_2017/06/30  13:40:11
+	*/
+	HANDLE hFindFile = ::FindFirstFile(strFind,&data);
+	if(INVALID_HANDLE_VALUE != hFindFile)
+	{
+		if(bFindDir)
+		{
+			while(INVALID_HANDLE_VALUE != hFindFile)
+			{
+				if ((data.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) == FILE_ATTRIBUTE_DIRECTORY )
+				{
+					
+					bRet = TRUE;
+					break;
+				}
+				/**
+				 * @brief             FindNextFile
+				 *
+				 * @Function          
+				 *
+				 * @param[  _In_   ]  
+				 *
+				 * @param[  _Out_  ]  
+				 *
+				 * @param[_Out_opt_]  
+				 *
+				 * @return            如果函数成功，则返回值不为零，lpFindFileData 参数包含有关找到的下一个文件或目录的信息。
+				 *                    如果函数失败，则返回值为零，并且lpFindFileData的内容 是不确定的。要获取扩展错误信息，请调用 GetLastError函数。
+				 *
+				 * @Date xzm_@_2017/06/30  13:40:11
+				*/
+				if (!FindNextFile(hFindFile,&data))
+					break;
+			}
+		}
+		else
+			bRet = TRUE;
+		::FindClose(hFindFile);
+		hFindFile = NULL;
+	}
+	else
+		bRet=FALSE;
+	return bRet;
+}

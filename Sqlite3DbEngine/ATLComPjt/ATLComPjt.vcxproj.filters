@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="生成的文件">
+      <UniqueIdentifier>{021c744e-16ec-4812-a361-20f92d0d59df}</UniqueIdentifier>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ATLComPjt.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="dllmain.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ATLComPjt_i.c">
+      <Filter>生成的文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Demo01.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Demo.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Demo_Single.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Demo_Apartment.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Demo_Both.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Demo_Free.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Demo_Neutral.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Demo_Both_Support.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="dllmain.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ATLComPjt_i.h">
+      <Filter>生成的文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Demo01.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Demo.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Demo_Single.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Demo_Apartment.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Demo_Both.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Demo_Free.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Demo_Neutral.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="_IDemo_Both_SupportEvents_CP.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Demo_Both_Support.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="ATLComPjt.rc">
+      <Filter>资源文件</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+    <None Include="ATLComPjt.rgs">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="ATLComPjt.def">
+      <Filter>源文件</Filter>
+    </None>
+    <None Include="Demo01.rgs">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="Demo.rgs">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="Demo_Single.rgs">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="Demo_Apartment.rgs">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="Demo_Both.rgs">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="Demo_Free.rgs">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="Demo_Neutral.rgs">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="Demo_Both_Support.rgs">
+      <Filter>资源文件</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Midl Include="ATLComPjt.idl">
+      <Filter>源文件</Filter>
+    </Midl>
+  </ItemGroup>
+</Project>

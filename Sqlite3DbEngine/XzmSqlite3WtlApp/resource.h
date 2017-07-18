@@ -7,7 +7,7 @@
 #define IDD_ABOUTBOX				100
 #define IDR_MAINFRAME				128
 //#define IDR_XZMSQLITE3WTLAPPTYPE	129
-#define IDR_MDICHILD				129
+#define IDD_MAINDLG				129
 
 // Next default values for new objects
 // 

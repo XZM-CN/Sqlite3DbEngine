@@ -13,13 +13,29 @@
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
-// English (U.S.) resources
+// 中文(简体，中国) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
+#pragma code_page(936)
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_ALYSON              BITMAP                  "res\\aly.bmp"
+IDB_ALYSON_IMGLIST      BITMAP                  "res\\alyson_iml.bmp"
+#endif    // 中文(简体，中国) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// 英语(美国) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
-#ifdef _WIN32
 LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 #pragma code_page(1252)
-#endif //_WIN32
 
 #ifdef APSTUDIO_INVOKED
 /////////////////////////////////////////////////////////////////////////////
@@ -60,29 +76,52 @@ IDR_MAINFRAME           ICON                    "res\\XzmSqlite3WtlApp.ico"
 // Dialog
 //
 
-IDD_ABOUTBOX DIALOG  0, 0, 187, 102
-STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+IDD_ABOUTBOX DIALOG 0, 0, 187, 102
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "About"
 FONT 8, "MS Shell Dlg"
 BEGIN
     DEFPUSHBUTTON   "OK",IDOK,130,81,50,14
-    CTEXT           "XzmSqlite3WtlApp Application v1.0\n\n(c) Copyright 2017",IDC_STATIC,25,57,78,
-                    32
+    CTEXT           "XzmSqlite3WtlApp Application v1.0\n\n(c) Copyright 2017",IDC_STATIC,25,57,78,32
     ICON            IDR_MAINFRAME,IDC_STATIC,55,26,18,20
     GROUPBOX        "",IDC_STATIC,7,7,115,88
 END
 
-IDD_MAINDLG DIALOG  0, 0, 187, 98
-STYLE WS_MINIMIZEBOX | WS_CAPTION | WS_SYSMENU
+IDD_MAINDLG DIALOGEX 0, 0, 734, 358
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_MINIMIZEBOX | WS_CAPTION | WS_SYSMENU
 CAPTION "XzmSqlite3WtlApp"
-FONT 8, "MS Shell Dlg"
+FONT 8, "MS Shell Dlg", 0, 0, 0x0
 BEGIN
-    DEFPUSHBUTTON   "OK",IDOK,130,7,50,14
-    PUSHBUTTON      "Cancel",IDCANCEL,130,24,50,14
-    PUSHBUTTON      "&About",ID_APP_ABOUT,130,77,50,14
+    DEFPUSHBUTTON   "OK",IDOK,652,14,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,652,31,50,14
+    PUSHBUTTON      "&About",ID_APP_ABOUT,652,62,50,14
+    CONTROL         "",IDC_TREEXZM,"SysTreeView32",TVS_HASBUTTONS | TVS_HASLINES | TVS_LINESATROOT | TVS_SHOWSELALWAYS | WS_BORDER | WS_HSCROLL | WS_TABSTOP,383,14,243,329
+    LTEXT           "Visit CodeProject",IDC_CP_LINK,652,85,55,8
+    LTEXT           "&Which season is your favorite?",IDC_SEASON_LABEL,652,102,55,18
+    EDITTEXT        IDC_FAV_SEASON,652,124,40,14,ES_AUTOHSCROLL
+    LTEXT           "&CCheckListViewCtrl:",IDC_STATIC,19,193,64,8
+    LTEXT           "Owner-draw button:",IDC_STATIC,263,204,67,8
+    LTEXT           "&Tree: Nodes not allowed to collapse",IDC_STATIC,19,19,118,8
+    LTEXT           "WTL CBitmapButton:",IDC_STATIC,263,282,67,8
+    CONTROL         "",IDC_CHECK_LIST,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,19,207,215,137
+    CONTROL         "",IDC_TREE,"SysTreeView32",TVS_HASBUTTONS | TVS_HASLINES | TVS_LINESATROOT | TVS_DISABLEDRAGDROP | TVS_SHOWSELALWAYS | WS_BORDER | WS_HSCROLL | WS_GROUP | WS_TABSTOP,19,28,131,145
+    CONTROL         "",IDC_RELATIONSHIP_TREE,"SysTreeView32",TVS_HASBUTTONS | TVS_HASLINES | TVS_LINESATROOT | TVS_DISABLEDRAGDROP | TVS_SHOWSELALWAYS | WS_BORDER | WS_HSCROLL | WS_GROUP | WS_TABSTOP,198,28,131,145
+    PUSHBUTTON      "Button1",IDC_ALYSON_BTN,263,219,67,48
+    PUSHBUTTON      "Button1",IDC_ALYSON_BMPBTN,263,296,67,48
+    LTEXT           "CT&reeViewCtrlEx:",IDC_STATIC,198,19,57,8
 END
 
-
+IDD_MAINAPPDLG DIALOGEX 0, 0, 671, 358
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_MINIMIZEBOX | WS_CAPTION | WS_SYSMENU
+CAPTION "XzmSqlite3WtlApp"
+FONT 8, "MS Shell Dlg", 0, 0, 0x0
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,614,15,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,614,32,50,14
+    PUSHBUTTON      "&About",ID_APP_ABOUT,614,63,50,14
+    CONTROL         "",IDC_TREEXZM,"SysTreeView32",TVS_HASBUTTONS | TVS_HASLINES | TVS_LINESATROOT | TVS_SHOWSELALWAYS | WS_BORDER | WS_HSCROLL | WS_TABSTOP,22,14,243,329
+    CONTROL         "",IDC_TREEDLGS,"SysTreeView32",TVS_HASBUTTONS | TVS_HASLINES | TVS_LINESATROOT | TVS_SHOWSELALWAYS | WS_BORDER | WS_HSCROLL | WS_TABSTOP,311,14,243,329
+END
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -91,7 +130,7 @@ END
 //
 
 #ifdef APSTUDIO_INVOKED
-GUIDELINES DESIGNINFO 
+GUIDELINES DESIGNINFO
 BEGIN
     IDD_ABOUTBOX, DIALOG
     BEGIN
@@ -104,9 +143,17 @@ BEGIN
     IDD_MAINDLG, DIALOG
     BEGIN
         LEFTMARGIN, 7
-        RIGHTMARGIN, 180
+        RIGHTMARGIN, 727
         TOPMARGIN, 7
-        BOTTOMMARGIN, 91
+        BOTTOMMARGIN, 351
+    END
+
+    IDD_MAINAPPDLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 664
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 351
     END
 END
 #endif    // APSTUDIO_INVOKED
@@ -117,7 +164,7 @@ END
 // Accelerator
 //
 
-IDR_MAINFRAME ACCELERATORS 
+IDR_MAINFRAME ACCELERATORS
 BEGIN
     "N",            ID_FILE_NEW,            VIRTKEY, CONTROL
     "O",            ID_FILE_OPEN,           VIRTKEY, CONTROL
@@ -158,33 +205,33 @@ BEGIN
     BEGIN
         BLOCK "040904B0"
         BEGIN
-            VALUE "CompanyName", "\0"
-            VALUE "FileDescription", "XzmSqlite3WtlApp Module\0"
-            VALUE "FileVersion", "1, 0, 0, 1\0"
-            VALUE "InternalName", "XzmSqlite3WtlApp\0"
-            VALUE "LegalCopyright", "Copyright 2017\0"
-            VALUE "OriginalFilename", "XzmSqlite3WtlApp.exe\0"
-            VALUE "ProductName", "XzmSqlite3WtlApp Module\0"
-            VALUE "ProductVersion", "1, 0, 0, 1\0"
+            VALUE "FileDescription", "XzmSqlite3WtlApp Module"
+            VALUE "FileVersion", "1, 0, 0, 1"
+            VALUE "InternalName", "XzmSqlite3WtlApp"
+            VALUE "LegalCopyright", "Copyright 2017"
+            VALUE "OriginalFilename", "XzmSqlite3WtlApp.exe"
+            VALUE "ProductName", "XzmSqlite3WtlApp Module"
+            VALUE "ProductVersion", "1, 0, 0, 1"
         END
     END
     BLOCK "VarFileInfo"
     BEGIN
-        VALUE "Translation", 0x0409, 0x04B0
+        VALUE "Translation", 0x409, 1200
     END
 END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
 // String Table
 //
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
-    IDR_MAINFRAME	"XzmSqlite3WtlApp"
+    IDR_MAINFRAME           "XzmSqlite3WtlApp"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     ID_FILE_NEW             "Create a new document\nNew"
     ID_FILE_OPEN            "Open an existing document\nOpen"
@@ -197,19 +244,19 @@ BEGIN
     ID_FILE_PRINT_PREVIEW   "Display full pages\nPrint Preview"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     ID_APP_ABOUT            "Display program information, version number and copyright\nAbout"
     ID_APP_EXIT             "Quit the application; prompts to save documents\nExit"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     ID_NEXT_PANE            "Switch to the next window pane\nNext Pane"
     ID_PREV_PANE            "Switch back to the previous window pane\nPrevious Pane"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     ID_WINDOW_NEW           "Open another window for the active document\nNew Window"
     ID_WINDOW_ARRANGE       "Arrange icons at the bottom of the window\nArrange Icons"
@@ -219,7 +266,7 @@ BEGIN
     ID_WINDOW_SPLIT         "Split the active window into panes\nSplit"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     ID_EDIT_CLEAR           "Erase the selection\nErase"
     ID_EDIT_CLEAR_ALL       "Erase everything\nErase All"
@@ -234,7 +281,7 @@ BEGIN
     ID_EDIT_REDO            "Redo the previously undone action\nRedo"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     ATL_IDS_SCSIZE          "Change the window size"
     ATL_IDS_SCMOVE          "Change the window position"
@@ -245,22 +292,24 @@ BEGIN
     ATL_IDS_SCCLOSE         "Close the active window and prompts to save the documents"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     ATL_IDS_SCRESTORE       "Restore the window to normal size"
     ATL_IDS_SCTASKLIST      "Activate Task List"
     ATL_IDS_MDICHILD        "Activate this window"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     ATL_IDS_IDLEMESSAGE     "Ready"
+END
+
+STRINGTABLE
+BEGIN
     ATL_IDS_MRU_FILE        "Open this document"
 END
 
-#endif    // English (U.S.) resources
+#endif    // 英语(美国) resources
 /////////////////////////////////////////////////////////////////////////////
 
 
-#ifndef APSTUDIO_INVOKED
-#endif    // not APSTUDIO_INVOKED

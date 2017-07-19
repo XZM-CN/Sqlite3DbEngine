@@ -38,7 +38,7 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin\$(Configuration)\$(ProjectName)\</IntDir>
-    <IncludePath>C:\WTL91_5321_Final\Include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\WTL91_5321_Final\Include;../common;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -111,24 +111,56 @@
     </Midl>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\Common\BaseFuncLib.cpp" />
+    <ClCompile Include="..\Common\HXRegKey.cpp" />
+    <ClCompile Include="AboutDlg.cpp" />
+    <ClCompile Include="BuffyTreeCtrl.cpp" />
+    <ClCompile Include="ButtonImpl.cpp" />
+    <ClCompile Include="MainAppDlg.cpp" />
+    <ClCompile Include="Point.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="TreeCtrlDlg.cpp" />
+    <ClCompile Include="MyCheckListCtrl.cpp" />
+    <ClCompile Include="ODButtonImpl.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="TreeViewCtrlExImpl.cpp" />
     <ClCompile Include="XzmSqlite3WtlApp.cpp" />
+    <ClCompile Include="XzmTreeViewCtrl.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MainDlg.h" />
+    <ClInclude Include="..\Common\BaseFuncLib.h" />
+    <ClInclude Include="..\Common\HXRegKey.h" />
+    <ClInclude Include="AboutDlg.h" />
+    <ClInclude Include="BuffyTreeCtrl.h" />
+    <ClInclude Include="ButtonImpl.h" />
+    <ClInclude Include="MainAppDlg.h" />
+    <ClInclude Include="Point.h" />
+    <ClInclude Include="TreeCtrlDlg.h" />
+    <ClInclude Include="MyCheckListCtrl.h" />
+    <ClInclude Include="ODButtonImpl.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="TreeViewCtrlExImpl.h" />
+    <ClInclude Include="XzmTreeViewCtrl.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="XzmSqlite3WtlApp.rc" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="res\aly.bmp" />
+    <None Include="res\alyson_iml.bmp" />
     <None Include="res\XzmSqlite3WtlApp.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties RESOURCE_FILE="XzmSqlite3WtlApp.rc" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>

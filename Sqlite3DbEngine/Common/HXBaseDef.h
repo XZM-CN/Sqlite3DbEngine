@@ -1,6 +1,14 @@
 #pragma once
 
 
+/// 包含STL库声明
+#include <vector>
+#include <list>
+#include <map>
+
+/// 使用ATL的CString
+#include <atlstr.h>
+
 
 typedef enum EHXLogType
 {

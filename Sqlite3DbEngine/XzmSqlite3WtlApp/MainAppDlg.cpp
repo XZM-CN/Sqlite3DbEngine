@@ -170,8 +170,6 @@ void CMainAppDlg::InitDlgTree()
 	m_TreeDlgs.Expand(hItem, TVE_EXPAND);//展开上一级树
 	hRoot = hItem;
 
-	InitDlgTreeSurplus(hItem,TCItem);
-
 	HTREEITEM hItem1 = InsertXzmTree( m_TreeDlgs, hItem, TCItem, _T("01"));
 	InsertXzmTree( m_TreeDlgs, hItem1, TCItem, _T("GetComPtr通过绝对路径"));
 	InsertXzmTree( m_TreeDlgs, hItem1, TCItem, _T("GetComPtr通过动态路径"));
@@ -181,6 +179,8 @@ void CMainAppDlg::InitDlgTree()
 	InsertXzmTree( m_TreeDlgs, hItem2, TCItem, _T("x2"));
 	InsertXzmTree( m_TreeDlgs, hItem2, TCItem, _T("x3"));
 	HTREEITEM hItem3 = InsertXzmTree( m_TreeDlgs, hItem, TCItem, _T("03"));
+
+	InitDlgTreeSurplus(hItem,TCItem);
 
 
 	m_TreeDlgs.Expand(hRoot, TVE_EXPAND);//展开上一级树
@@ -279,9 +279,9 @@ void CMainAppDlg::OnDataExchangeError(UINT nCtrlID, BOOL bSave)
 
 LRESULT CMainAppDlg::OnTreeXzmClickTree(NMHDR* phdr)
 {
-	CPoint pt;
+	POINT pt;
 	GetCursorPos(&pt);
-	CPoint MousePosition = pt;
+	POINT MousePosition = pt;
 	m_TreeXzm.ScreenToClient ( &MousePosition );
 	TVHITTESTINFO HitInfo;
 	HitInfo.pt = MousePosition;

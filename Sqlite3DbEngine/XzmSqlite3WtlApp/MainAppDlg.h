@@ -60,8 +60,12 @@ public:
 	BEGIN_DDX_MAP(CMainAppDlg)
 		DDX_CONTROL(IDC_TREEXZM, m_TreeXzm)
 		DDX_CONTROL(IDC_TREEDLGS, m_TreeDlgs)
+		DDX_TEXT(IDC_EDIT_DBNAME, m_strDbName)
+		DDX_TEXT(IDC_EDIT_DBPWD, m_DbPwd)
+		DDX_TEXT(IDC_EDIT_DBPATH, m_strDbPath)
+		DDX_TEXT(IDC_EDIT_DBFOLDERPATH, m_DbFolderPath)
+		DDX_TEXT(IDC_EDIT_DBMODIFYPWD, m_DbModifyPwd)
 	END_DDX_MAP()
-
 	// Handler prototypes (uncomment arguments if needed):
 	// LRESULT MessageHandler(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/)
 	// LRESULT CommandHandler(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
@@ -91,6 +95,12 @@ protected:
 	CXzmTreeViewCtrl    m_TreeDlgs;
 	CButtonImpl/*CContainedWindow*/ m_wndOKBtn, m_wndExitBtn;
 	CButtonImpl      m_wndAboutBtn;
+
+	CString m_strDbName;    // 数据库的名字
+	CString m_DbPwd;        // 数据库的密码
+	CString m_strDbPath;    // 数据库的绝对路径
+	CString m_DbFolderPath; // 数据库所在文件夹的路径
+	CString m_DbModifyPwd;  // 数据库新密码
 
 public:
 	CComPtr <ISqlite3Connect> m_spiSqlite3Connect;

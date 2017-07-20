@@ -133,6 +133,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Common\BaseFuncLib.h" />
+    <ClInclude Include="..\Common\common.h" />
+    <ClInclude Include="..\Common\DBItemDef.h" />
+    <ClInclude Include="..\Common\HXBaseDef.h" />
     <ClInclude Include="..\Common\HXRegKey.h" />
     <ClInclude Include="AboutDlg.h" />
     <ClInclude Include="BuffyTreeCtrl.h" />

@@ -417,9 +417,9 @@ LRESULT CTreeCtrlDlg::OnTreeXzmSelChanged(NMHDR* phdr)
 
 LRESULT CTreeCtrlDlg::OnTreeXzmClickTree(NMHDR* phdr)
 {
-	CPoint pt;
+	POINT pt;
 	GetCursorPos(&pt);
-	CPoint MousePosition = pt;
+	POINT MousePosition = pt;
 	m_wndXzmTree.ScreenToClient ( &MousePosition );
 	TVHITTESTINFO HitInfo;
 	HitInfo.pt = MousePosition;

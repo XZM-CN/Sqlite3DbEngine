@@ -117,9 +117,6 @@
     <ClCompile Include="BuffyTreeCtrl.cpp" />
     <ClCompile Include="ButtonImpl.cpp" />
     <ClCompile Include="MainAppDlg.cpp" />
-    <ClCompile Include="Point.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
-    </ClCompile>
     <ClCompile Include="TreeCtrlDlg.cpp" />
     <ClCompile Include="MyCheckListCtrl.cpp" />
     <ClCompile Include="ODButtonImpl.cpp" />
@@ -141,7 +138,6 @@
     <ClInclude Include="BuffyTreeCtrl.h" />
     <ClInclude Include="ButtonImpl.h" />
     <ClInclude Include="MainAppDlg.h" />
-    <ClInclude Include="Point.h" />
     <ClInclude Include="TreeCtrlDlg.h" />
     <ClInclude Include="MyCheckListCtrl.h" />
     <ClInclude Include="ODButtonImpl.h" />

@@ -6,7 +6,6 @@
 #include "BaseFuncLib.h"
 
 
-#include "Point.h"
 
 CMainAppDlg::CMainAppDlg(void)
 	: m_wndOKBtn(0x01), m_wndExitBtn(0x02),m_wndAboutBtn(0x03)
@@ -46,7 +45,8 @@ LRESULT CMainAppDlg::OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lPa
 	m_wndAboutBtn.SubclassWindow ( GetDlgItem(ID_APP_ABOUT) );
 
 	// Hook up controls & variables没有这一行，变量与控件关联失败
-	DoDataExchange(false);
+	if(!DoDataExchange(false))
+		return FALSE;
 
 	InitXzmTree();
 	InitDlgTree();

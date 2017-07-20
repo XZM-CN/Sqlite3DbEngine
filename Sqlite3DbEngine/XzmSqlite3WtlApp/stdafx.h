@@ -11,12 +11,28 @@
 #define _WIN32_IE		0x0501
 #define _RICHEDIT_VER	0x0500
 
+#define _ATL_CSTRING_EXPLICIT_CONSTRUCTORS      // 某些 CString 构造函数将是显式的
+#define _CRT_SECURE_NO_WARNINGS
+#define _CRT_NON_CONFORMING_SWPRINTFS
+
 #include <atlbase.h>
+
+/// 定义使用ATL的CString
+#define _CSTRING_NS	ATL
+//#define __ATLDLGS_H__
+
+#define _WTL_NEW_PAGE_NOTIFY_HANDLERS
+
 #include <atlapp.h>
+#include <atlctrls.h>
+#include <atlctrlx.h>
 
 extern CAppModule _Module;
 
 #include <atlwin.h>
+
+#include <atlframe.h>
+#include <atldlgs.h>
 
 #if defined _M_IX86
 #pragma comment(linker, "/manifestdependency:\"type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' processorArchitecture='x86' publicKeyToken='6595b64144ccf1df' language='*'\"")
@@ -28,27 +44,19 @@ extern CAppModule _Module;
 #pragma comment(linker, "/manifestdependency:\"type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' processorArchitecture='*' publicKeyToken='6595b64144ccf1df' language='*'\"")
 #endif
 
-
-// xzm_@_
-//////////////////////////////////////////////////////////////////////////
-#include <atlctrls.h >   // for CTreeViewCtrlEx
-#include <atlframe.h >   // for COwnerDraw
-#include <atlctrlx.h >   // for CCheckListViewCtrlImplTraits
-#include <atlcrack.h>    // for REFLECTED_NOTIFY_CODE_HANDLER_EX
-// WTL里的CString 坚决不能加，一加就特么出事儿了
-//#include <atlmisc.h>
-#include <atlddx.h>      // for DDX_CONTROL
-
-#define  _WTL_USE_CSTRING 
-#include <atlstr.h> // for error C2039: “CString”: 不是“ATL”的成员
-using namespace ATL; // for error C2504: “CRegKey”: 未定义基类
-
-#if _ATL_VER < 0x0700
-#undef BEGIN_MSG_MAP
-#define BEGIN_MSG_MAP(x) BEGIN_MSG_MAP_EX(x)
-#endif
+#include "OLEIDL.h"
 
 #include "HXBaseDef.h"
+//#include <vld.h>
+
+#undef SubclassWindow
+
+#pragma comment(lib, "comctl32.lib")
+#pragma comment(lib, "oledlg.lib")
+
+#include <atlddx.h>      // for DDX_CONTROL
+#include <atlcrack.h>    // for REFLECTED_NOTIFY_CODE_HANDLER_EX
+
 
 #ifndef WIN64
 #ifdef _DEBUG

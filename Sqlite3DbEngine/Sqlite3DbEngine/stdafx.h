@@ -37,6 +37,7 @@ using namespace ATL; // for error C2504: “CRegKey”: 未定义基类
 using namespace std;
 
 #include "HXBaseDef.h"
+#include "DBItemDef.h"
 
 #define SQLITE_HAS_CODEC // 使用sqlite3_key函数需要把这个宏打开，否则报错
 

@@ -1,0 +1,40 @@
+// EncryEngine.idl : EncryEngine 的 IDL 源
+//
+
+// 此文件将由 MIDL 工具处理以
+// 产生类型库(EncryEngine.tlb)和封送处理代码。
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+[
+	object,
+	uuid(3044B4F5-8A04-4926-AFD4-892EB48364AC),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+interface ISoftEncry : IDispatch{
+	[id(1), helpstring("AES ECB加密")] HRESULT AesEcbEnc([in] BYTE *szIn,[in] ULONG nInLen,[in] BYTE *szKey,[out] ULONG* pnOutLen,[out,retval] BYTE** ppBuf);
+	[id(2), helpstring("AES ECB解密")] HRESULT AesEcbDes([in] BYTE *szIn,[in] ULONG nInLen,[in] BYTE *szKey,[out] ULONG* pnOutLen,[out,retval] BYTE** ppBuf);
+	[id(3), helpstring("AES CBC加密")] HRESULT AesCbcEnc([in] BYTE *szIn,[in] ULONG nInLen,[in] BYTE *szKey,[in] BYTE *szIV,[out] ULONG* pnOutLen,[out,retval] BYTE** ppBuf);
+	[id(4), helpstring("AES CBC解密")] HRESULT AesCbcDes([in] BYTE *szIn,[in] ULONG nInLen,[in] BYTE *szKey,[in] BYTE *szIV,[out] ULONG* pnOutLen,[out,retval] BYTE** ppBuf);
+	
+	[id(9), helpstring("释放内存")] HRESULT ReleaseBuf([in,out] BYTE* pBuf);
+};
+[
+	uuid(7D7A6FE7-04F4-4C6A-AE87-932820F3341A),
+	version(1.0),
+]
+library EncryEngineLib
+{
+	importlib("stdole2.tlb");
+	[
+		uuid(32D4B109-7846-4A43-97FD-1D73FA11F3DA)		
+	]
+	coclass SoftEncry
+	{
+		[default] interface ISoftEncry;
+	};
+};
+

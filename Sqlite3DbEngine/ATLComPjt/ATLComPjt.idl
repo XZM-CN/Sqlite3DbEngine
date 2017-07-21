@@ -24,6 +24,10 @@ interface IDemo01 : IDispatch{
 	pointer_default(unique)
 ]
 interface IDemo : IDispatch{
+	[id(1), helpstring("ddddd")] HRESULT dddddd([in] BSTR ddd);
+	[id(2), helpstring("asdasd"), hidden, local, restricted, source] HRESULT asdasd(BSTR* asdsa, [in] BYTE asdasdaaa);
+	[id(3), helpstring("sdssa"), local] HRESULT asdasdaaa([in] BSTR* asd, [out,retval] CY* asdaaa);
+	[id(4), call_as(asdasdaaa)] HRESULT sdasdad(void);
 };
 [
 	object,

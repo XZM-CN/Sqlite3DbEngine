@@ -1,0 +1,43 @@
+// SKFEncryLib.idl : SKFEncryLib 的 IDL 源
+//
+
+// 此文件将由 MIDL 工具处理以
+// 产生类型库(SKFEncryLib.tlb)和封送处理代码。
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+[
+	object,
+	uuid(546FAE59-D650-4787-8EA2-A6C7F421B99A),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+interface ISafeService : IDispatch{
+};
+[
+	uuid(7DC5F9E6-2F65-4737-BC35-B60973769CDA),
+	version(1.0),
+]
+library SKFEncryLibLib
+{
+	importlib("stdole2.tlb");
+	[
+		uuid(2F2A8D12-62C7-4F19-89EA-89D9098B07CF)		
+	]
+	dispinterface _ISafeServiceEvents
+	{
+		properties:
+		methods:
+	};
+	[
+		uuid(638FC147-287F-4FDE-9648-72ADA0771D4F)		
+	]
+	coclass SafeService
+	{
+		[default] interface ISafeService;
+		[default, source] dispinterface _ISafeServiceEvents;
+	};
+};
+

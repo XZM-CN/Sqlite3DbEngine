@@ -49,6 +49,7 @@
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin\$(Configuration)\$(ProjectName)\</IntDir>
+    <IncludePath>../Common;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -86,8 +87,9 @@
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <Optimization>MaxSpeed</Optimization>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_USRDLL;SQLITE_HAS_CODEC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Midl>
       <MkTypLibCompatible>false</MkTypLibCompatible>
@@ -119,6 +121,7 @@
   <ItemGroup>
     <ClCompile Include="..\Common\BaseFuncLib.cpp" />
     <ClCompile Include="..\Common\HXRegKey.cpp" />
+    <ClCompile Include="ConnectHelper.cpp" />
     <ClCompile Include="dllmain.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -152,6 +155,8 @@
     <ClInclude Include="..\Common\DBItemDef.h" />
     <ClInclude Include="..\Common\HXBaseDef.h" />
     <ClInclude Include="..\Common\HXRegKey.h" />
+    <ClInclude Include="..\Common\HXVersionDef.h" />
+    <ClInclude Include="ConnectHelper.h" />
     <ClInclude Include="dllmain.h" />
     <ClInclude Include="md5.h" />
     <ClInclude Include="Resource.h" />
@@ -167,6 +172,7 @@
     <ResourceCompile Include="Sqlite3DbEngine.rc" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ConnectHelper.rgs" />
     <None Include="ReadMe.txt" />
     <None Include="Sqlite3Connect.rgs" />
     <None Include="Sqlite3ConnectStatement.rgs" />

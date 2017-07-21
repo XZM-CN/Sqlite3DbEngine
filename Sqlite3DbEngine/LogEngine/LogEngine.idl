@@ -1,0 +1,81 @@
+// LogEngine.idl : LogEngine 的 IDL 源
+//
+
+// 此文件将由 MIDL 工具处理以
+// 产生类型库(LogEngine.tlb)和封送处理代码。
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+typedef 
+enum EHXSafeLogType
+    {	SAFELOGTYPE_UNKNOWN	= 0,
+	SAFELOGTYPE_UNWHITEFILEDENY	= 0x4,
+	SAFELOGTYPE_UNWHITEFILERUN	= 0x5,
+	SAFELOGTYPE_WHITEFILERUN	= 0x6,
+	SAFELOGTYPE_PROTECTEXE	= 0x8,
+	SAFELOGTYPE_USBACCESS	= 0x9,
+	SAFELOGTYPE_PROTECTDIR	= 0x10,
+	SAFELOGTYPE_PROTECTREG	= 0x11,
+	SAFELOGTYPE_ALERTDISK	= 0x3,
+	SAFELOGTYPE_USBOPT_CREATEFILE	= 0x80,
+	SAFELOGTYPE_USBOPT_WRITEFILE	= 0x81,
+	SAFELOGTYPE_USBOPT_DELETEFILE	= 0x82,
+	SAFELOGTYPE_USBOPT_RENAMEFILE	= 0x83,
+	SAFELOGTYPE_SELFRUN	= 4096,
+	SAFELOGTYPE_OPERATION	= 8192
+    } 	ESafeLogType;
+
+interface ISqlite3Connect;
+
+
+[
+	object,
+	uuid(F89A033F-7DB5-48EE-AA9D-9BDF5B596A60),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+interface ILogService : IDispatch{
+	[id(1), helpstring("写系统操作日志")] HRESULT WriteSysLog([in] SHORT nUserType,[in] BSTR bstrLID,[in] BSTR bstrName,[in] DATE dtTime,[in] BSTR bstrLog,[out,retval] ULONG* pVal);
+	[id(2), helpstring("写应用预警日志")] HRESULT WriteAppLog([in] ESafeLogType eLogType,[in] SHORT nFlag,[in] DATE dtTime,[in] BSTR bstrFilePath,[in] BSTR bstrLog,[out,retval] ULONG* pVal);
+	[id(3), helpstring("写移动存储日志")] HRESULT WriteUsbLog([in] SHORT nFlag,[in] BSTR bstrUID,[in] DATE dtTime,[in] BSTR bstrLog,[out,retval] ULONG* pVal);
+
+	// [id(6), helpstring("获得只读数据库连接")] HRESULT GetReadConnect([out,retval] ISqlite3Connect** ppVal);
+	[id(7), helpstring("删除指定范围数据记录")] HRESULT Del([in] ESafeLogType eLogType,[in] LONG nBeforeDay);
+};
+[
+	object,
+	uuid(F528E9E2-4D32-4566-AEBC-8E7C6747476B),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+interface ISysEventLog : IDispatch{
+	[id(1), helpstring("获取系统日志"), helpcontext(1)] HRESULT GetEventList([in] LONG Index,[out] LONG* EventLog);
+	[id(2), helpstring("指定文件名，获取日志数量")] HRESULT GetEventLogSize([in] BSTR strFileName, [out] LONG* nLogNum);
+	[id(3), helpstring("清除日志链表")] HRESULT ClearEventLogList();
+};
+[
+	uuid(654E8D8A-DFC2-49C3-86CD-01FDD1F6E61B),
+	version(1.0),
+]
+library LogEngineLib
+{
+	importlib("stdole2.tlb");
+	[
+		uuid(A17E2017-C02C-468D-A32C-1081B7F010DD)		
+	]
+	coclass LogService
+	{
+		[default] interface ILogService;
+	};
+	[
+		uuid(DA4D81A6-0D6E-4DFF-B4F5-B9EEF3D3F420)		
+	]
+	coclass SysEventLog
+	{
+		[default] interface ISysEventLog;
+	};
+};
+

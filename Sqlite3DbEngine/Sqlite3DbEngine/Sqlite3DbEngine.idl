@@ -187,6 +187,19 @@ interface ISqlite3ConnectStatement : IDispatch{
 	[id(60), helpstring("方法Close")] HRESULT Close();
 };
 [
+	object,
+	uuid(D97E3215-6EA7-44FA-B1D0-1552B1EE0DAE),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+interface IConnectHelper : IDispatch{
+	[id(1), helpstring("方法InitDBEnv")] HRESULT InitDBEnv([in] BSTR bstrDbPath);
+	[id(5), helpstring("方法OpenDB")] HRESULT OpenDB([in] BSTR bstrDbPath,[in] VARIANT_BOOL bCreateFlag,[in] short sOverTimeSecond,[in] BSTR bstrPW,[out,retval] ISqlite3Connect** ppVal);
+	
+	[propget, id(10), helpstring("属性 LastErrorInfo")] HRESULT LastErrorInfo([out, retval] BSTR* pVal);
+};
+[
 	uuid(27E8485B-F781-4320-848D-BD0887CCE3FC),
 	version(1.0),
 ]
@@ -213,6 +226,13 @@ library Sqlite3DbEngineLib
 	coclass Sqlite3ConnectStatement
 	{
 		[default] interface ISqlite3ConnectStatement;
+	};
+	[
+		uuid(DEB1268A-AC67-4AEE-B86D-28DCE2F38BC3)		
+	]
+	coclass ConnectHelper
+	{
+		[default] interface IConnectHelper;
 	};
 };
 

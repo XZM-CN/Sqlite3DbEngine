@@ -1,0 +1,15 @@
+HKCR
+{
+	NoRemove CLSID
+	{
+		ForceRemove {DA4D81A6-0D6E-4DFF-B4F5-B9EEF3D3F420} = s 'SysEventLog Class'
+		{
+			ForceRemove Programmable
+			InprocServer32 = s '%MODULE%'
+			{
+			}
+			TypeLib = s '{654E8D8A-DFC2-49C3-86CD-01FDD1F6E61B}'
+			Version = s '1.0'
+		}
+	}
+}

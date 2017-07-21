@@ -1,0 +1,18 @@
+// DecryptEngine.idl : DecryptEngine 的 IDL 源
+//
+
+// 此文件将由 MIDL 工具处理以
+// 产生类型库(DecryptEngine.tlb)和封送处理代码。
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+[
+	uuid(94B672BE-67B5-4324-9E73-9B080D81B4C5),
+	version(1.0),
+]
+library DecryptEngineLib
+{
+	importlib("stdole2.tlb");
+};
+

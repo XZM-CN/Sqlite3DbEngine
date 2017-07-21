@@ -7,6 +7,27 @@
 
 
 
+CComPtr <ISqlite3Connect> CheckDataConnect(HWND hWnd)
+{
+	CComPtr <ISqlite3Connect> spiSqlite3Connect = NULL;
+	CString strModulePath = CBaseFuncLib::GetModulePath();
+
+	strModulePath = strModulePath + _T("SQlite3DbEngine.dll");
+
+	if(!strModulePath.IsEmpty())
+	{
+		CBaseFuncLib::CreateInstance( strModulePath.GetBuffer(),__uuidof(Sqlite3Connect),__uuidof(ISqlite3Connect),(VOID **)&spiSqlite3Connect);
+		ATLASSERT(spiSqlite3Connect);
+		return spiSqlite3Connect;
+	}
+
+
+	/// 返回数据库连接
+	return NULL;
+}
+
+
+
 CMainAppDlg::CMainAppDlg(void)
 	: m_wndOKBtn(0x01), m_wndExitBtn(0x02),m_wndAboutBtn(0x03)
 {
@@ -139,15 +160,75 @@ void CMainAppDlg::InitXzmTree()
 	m_TreeXzm.Expand(hItem, TVE_EXPAND);//展开上一级树
 	hRoot = hItem;
 
-	HTREEITEM hItem1 = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("01"));
+	HTREEITEM hItem1 = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("测试接口指针，以后可能废除"));
 	InsertXzmTree( m_TreeXzm, hItem1, TCItem, _T("GetComPtr通过绝对路径"));
 	InsertXzmTree( m_TreeXzm, hItem1, TCItem, _T("GetComPtr通过动态路径"));
 	InsertXzmTree( m_TreeXzm, hItem1, TCItem, _T("x3"));
-	HTREEITEM hItem2 = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("02"));
-	InsertXzmTree( m_TreeXzm, hItem2, TCItem, _T("x1"));
-	InsertXzmTree( m_TreeXzm, hItem2, TCItem, _T("x2"));
-	InsertXzmTree( m_TreeXzm, hItem2, TCItem, _T("x3"));
-	HTREEITEM hItem3 = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("03"));
+	HTREEITEM hItem2 = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("解密数据库文件（重置密码）"));
+	InsertXzmTree( m_TreeXzm, hItem2, TCItem, _T("取得接口指针"));
+	InsertXzmTree( m_TreeXzm, hItem2, TCItem, _T("打开带密码的数据库"));
+	InsertXzmTree( m_TreeXzm, hItem2, TCItem, _T("清空密码"));
+	InsertXzmTree( m_TreeXzm, hItem2, TCItem, _T("重置密码"));
+	InsertXzmTree( m_TreeXzm, hItem2, TCItem, _T("释放接口指针"));
+	HTREEITEM hItem3 = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("打开数据库如果不存在就退出"));
+	InsertXzmTree( m_TreeXzm, hItem3, TCItem, _T("取得接口指针"));
+	InsertXzmTree( m_TreeXzm, hItem3, TCItem, _T("打开带密码的数据库"));
+	InsertXzmTree( m_TreeXzm, hItem3, TCItem, _T("打开不带密码的数据库"));
+	InsertXzmTree( m_TreeXzm, hItem3, TCItem, _T("xxx"));
+	InsertXzmTree( m_TreeXzm, hItem3, TCItem, _T("xxx"));
+	InsertXzmTree( m_TreeXzm, hItem3, TCItem, _T("xxx"));
+	HTREEITEM hItem4 = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("创建数据库，如果数据库存在就擦除重建"));
+	InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("取得接口指针"));
+	InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("打开数据库"));
+	InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("加密数据库"));
+	InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("创建表01"));
+	InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("向表01插入数据"));
+	InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("创建表02"));
+	InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("向表02插入数据"));
+	InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("创建表02"));
+	InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("向表02插入数据"));
+	InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("创建表03"));
+	InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("向表03插入数据"));
+	InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("查询表01"));
+	InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("查询表02"));
+	InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("查询表03"));
+	InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("xxx"));
+	InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("xxx"));
+	InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("xxx"));
+	InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("xxx"));
+	InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("xxx"));
+
+	HTREEITEM hItemx = NULL;
+	/*HTREEITEM*/ hItemx = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("打开Json数据，如果文件不存在则退出"));
+	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("取得接口指针"));
+	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("打开Json文件，文件不存在则退出"));
+	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("读取Json链"));
+	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
+	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
+	/*HTREEITEM*/ hItemx = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("创建Json数据，如果文件不存在则创建"));
+	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("取得接口指针"));
+	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("打开Json文件，文件不存在则创建"));
+	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("创建Json链"));
+	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
+	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
+	/*HTREEITEM*/ hItemx = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("md5测试，使用独立包"));
+	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
+	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
+	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
+	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
+	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
+	/*HTREEITEM*/ hItemx = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("网络传输测试"));
+	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
+	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
+	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
+	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
+	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
+	/*HTREEITEM*/ hItemx = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("xxx"));
+	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
+	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
+	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
+	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
+	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
 
 
 	m_TreeXzm.Expand(hRoot, TVE_EXPAND);//展开上一级树
@@ -323,11 +404,23 @@ LRESULT CMainAppDlg::OnTreeXzmClickTree(NMHDR* phdr)
 				OutputDebugString(_T("01\n"));
 			}
 		}
-		else if(IsYourChild( _T("02"),m_TreeXzm,hItemHit))
+		else if(IsYourChild( _T("解密数据库文件（重置密码）"),m_TreeXzm,hItemHit))
 		{
-			if(0 == str.Compare( _T("x3")))
+			if(0 == str.Compare( _T("取得接口指针")))
 			{
-				OutputDebugString(_T("02\n"));
+				CComPtr <ISqlite3Connect> spiSqlite3Connect = CheckDataConnect(this->m_hWnd);
+			}
+			if(0 == str.Compare( _T("打开带密码的数据库")))
+			{
+			}
+			if(0 == str.Compare( _T("清空密码")))
+			{
+			}
+			if(0 == str.Compare( _T("重置密码")))
+			{
+			}
+			if(0 == str.Compare( _T("释放接口指针")))
+			{
 			}
 		}
 	}

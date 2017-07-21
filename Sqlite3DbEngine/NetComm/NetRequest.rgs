@@ -1,0 +1,16 @@
+HKCR
+{
+	NoRemove CLSID
+	{
+		ForceRemove {4D80FA81-448E-4844-9326-F839178BC461} = s 'NetRequest Class'
+		{
+			ForceRemove Programmable
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Both'
+			}
+			TypeLib = s '{1313E0BC-41D4-4B23-AF06-B41046BE0BE5}'
+			Version = s '1.0'
+		}
+	}
+}

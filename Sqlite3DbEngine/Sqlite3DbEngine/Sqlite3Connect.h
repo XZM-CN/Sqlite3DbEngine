@@ -103,7 +103,7 @@ protected:
 
 
 public:
-	/// ISqliteConnect
+	/// ISqlite3Connect
 	/**
 	 * @brief ÉèÖÃÊı¾İ¿âÃÜÂë
 	 *

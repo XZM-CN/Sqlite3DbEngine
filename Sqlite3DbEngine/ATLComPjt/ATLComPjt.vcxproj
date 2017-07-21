@@ -157,6 +157,9 @@
     <ClInclude Include="Demo_Neutral.h" />
     <ClInclude Include="Demo_Single.h" />
     <ClInclude Include="dllmain.h" />
+    <ClInclude Include="IDemo_Apartment_CP.H" />
+    <ClInclude Include="IDemo_Both_Support_CP.H" />
+    <ClInclude Include="IDemo_CP.H" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />

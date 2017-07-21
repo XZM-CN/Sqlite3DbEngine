@@ -523,7 +523,7 @@ STDMETHODIMP CSqlite3Connect::Close()
 #ifdef _DEBUG
 #ifdef APP_LOG_ENABLE
 		//CString strLogInfo(_T(""));
-		//strLogInfo.Format(_T("SqliteConnect::Close 成功关闭：%s"),m_strDbFile);
+		//strLogInfo.Format(_T("Sqlite3Connect::Close 成功关闭：%s"),m_strDbFile);
 		//WRITELOGTOFILE2(strLogInfo,_T(""),LOGTYPE_NORMAL);
 #endif
 #endif
@@ -709,7 +709,7 @@ STDMETHODIMP CSqlite3Connect::put_ParaValue(BSTR bstrKeyName,BSTR newVal)
 	{
 #ifdef APP_LOG_ENABLE
 		CString strLogInfo(_T(""));
-		strLogInfo.Format(_T("SqliteConnect::put_ParaValue 执行 %s 数据库%s失败，错误原因：%s"),\
+		strLogInfo.Format(_T("Sqlite3Connect::put_ParaValue 执行 %s 数据库%s失败，错误原因：%s"),\
 			strSqlCmd,m_strDbFile,m_strLastErrInfo);
 		WRITELOGTOFILE(strLogInfo);
 #endif

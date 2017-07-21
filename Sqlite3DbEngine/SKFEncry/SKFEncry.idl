@@ -1,0 +1,327 @@
+// SKFEncry.idl : SKFEncry 的 IDL 源
+//
+
+// 此文件将由 MIDL 工具处理以
+// 产生类型库(SKFEncry.tlb)和封送处理代码。
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+typedef enum ESKFAappFileSecureType
+{
+	SKFAPP_FILESECURETYPE_NEVER	= 0,
+	SKFAPP_FILESECURETYPE_ADM	= 0x1,
+	SKFAPP_FILESECURETYPE_USER	= 0x10,
+	SKFAPP_FILESECURETYPE_ANYONE	= 0xff
+} EAappFileSecureType;
+
+typedef enum EHXWMIType
+{
+	WMITYPE_NETMACADDR	= 0,
+	WMITYPE_HARDID	= 1,
+	WMITYPE_BOARDID	= 2,
+	WMITYPE_PROCID	= 3,
+	WMITYPE_BIOSID	= 4,
+	WMITYPE_USBID	= 5,
+	WMITYPE_LOGICDISK	= 6
+} EWMIType;
+
+
+interface ISafeCard;
+interface ICryptoStor;
+interface ISoftEncry;
+
+
+[
+	object,
+	uuid(AC0495FC-7C4B-4BB0-AC20-24AF6C6CDEAC),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+
+interface ISafeService : IDispatch{
+	[propget, id(1), helpstring("获得卡接口")] HRESULT SafeCard([out, retval] ISafeCard** ppVal);
+	[propget, id(2), helpstring("获得存储接口")] HRESULT CryptoStor([out, retval] ICryptoStor** ppVal);
+	[propget, id(3), helpstring("获得当前盘符")] HRESULT CurDiskName([out, retval] BSTR* pVal);
+	[propget, id(4), helpstring("获得软件加解密接口")] HRESULT SoftEncry([out, retval] ISoftEncry** ppVal);
+
+	[propput, id(5), helpstring("客户名称")] HRESULT CustomerName([in] BSTR newVal);
+	[propput, id(6), helpstring("客户ID")] HRESULT CustomerID([in] ULONG newVal);
+	[propput, id(7), helpstring("管理员缺省密码")] HRESULT DefaultPW([in] BSTR newVal);
+	[propput, id(8), helpstring("授权节点数")] HRESULT AuthNode([in] USHORT newVal);
+	[propput, id(9), helpstring("有效期")] HRESULT ValidDay([in] ULONG newVal);
+	[propput, id(10), helpstring("授权包")] HRESULT AuthPacket([in] ULONG newVal);
+	[propput, id(11), helpstring("数据库密码")] HRESULT DBPW([in] BSTR newVal);
+	[propget, id(12), helpstring("设备ID")] HRESULT CID([in] VARIANT_BOOL bInstallFirst,[in,out] BSTR* pbstrDiskName,[out, retval] BSTR* pVal);
+	[propput, id(13), helpstring("是否为安装盘")] HRESULT InstallDisk([in] VARIANT_BOOL newVal);
+	[propget, id(13), helpstring("是否为安装盘")] HRESULT InstallDisk([out, retval] VARIANT_BOOL* pVal);
+
+#ifdef TDHXKJ_VERSION_SAFETOOL
+	[id(20), helpstring("获得客户ID")] HRESULT GetCorpID([in] BSTR bstrCorpName,[in] SHORT nType,[out,retval] ULONG* pVal);
+	[id(21), helpstring("安装授权初始化")] HRESULT AuthInit([in] ULONG nCorpID);
+	[id(22), helpstring("判断是否初始化")] HRESULT CheckInit([in] BSTR bstrDisk,[out,retval] VARIANT_BOOL* pbInitFlag);
+	[id(23), helpstring("初始化")] HRESULT Init([in] BSTR bstrDisk,[in] VARIANT_BOOL bReInit);
+	[id(24), helpstring("创建授权")] HRESULT CreateAuth([in] BSTR bstrFilePath,[in] BYTE* pbKey,[in] VARIANT_BOOL bAddCount);
+#endif
+
+	[id(50), helpstring("获取文件SHA1哈希值")] HRESULT FileSha1([in] BSTR bstrFilePath,[out,retval] BSTR* pbstrSha1);
+	[id(51), helpstring("获取字符串SHA1哈希值")] HRESULT StringSha1([in] BSTR bstrString,[out,retval] BSTR* pbstrSha1);
+	[id(52), helpstring("获取文件MD5哈希值")] HRESULT FileMD5([in] BSTR bstrFilePath,[in,out] unsigned char* pbMD5);
+	[id(53), helpstring("获取字符串MD5哈希值")] HRESULT StringMD5([in] BSTR bstrString,[out,retval] BSTR* pbstrMD5);
+	[id(54), helpstring("获取文件MD5哈希值")] HRESULT FileMD5String([in] BSTR bstrFilePath,[out,retval] BSTR* pbstrMD5);
+	[id(55), helpstring("转换为16进制字符串")] HRESULT TransToString([in] BYTE* pbMD5,[in] SHORT nLen,[out,retval] BSTR* pVal);
+	[id(57), helpstring("获得安装盘符")] HRESULT GetInstallDisk([in] VARIANT_BOOL bCID,[out,retval] BSTR *pVal);
+
+	[id(67), helpstring("释放库")] HRESULT CloseSafeCard();
+	[id(68), helpstring("安装授权")] HRESULT Auth([in] BSTR bstrDeviceID);
+	[id(69), helpstring("获取剩余授权次数")] HRESULT GetLeftCount([out,retval] ULONG* pVal);
+	[id(60), helpstring("获取本机唯一序号")] HRESULT GetUniqueID([out,retval] BSTR* pVal);
+	[id(61), helpstring("设置安装盘符")] HRESULT SetDiskNum([in] BSTR bstrDiskNum,[in] VARIANT_BOOL bFlag);
+	
+};
+[
+	object,
+	uuid(4A047C80-FE61-44E6-B524-DD0F29E5F233),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+interface ISafeCard : IDispatch{
+	[id(1), helpstring("获得所有插入卡的盘符")] HRESULT EnumCard([out,retval] BSTR* pbstrDisks);
+	[id(2), helpstring("获得盘符的设备ID")] HRESULT GetCID([in] BSTR cDisk,[out,retval] BSTR* pbstrCID);
+	[propget,id(3), helpstring("获得操作的盘符")] HRESULT CurDisk([out,retval] BSTR *pDisk);
+	[propput,id(3), helpstring("设置操作的盘符")] HRESULT CurDisk([in] BSTR cDisk);
+	[id(4), helpstring("锁定设备便于进行独占操作")] HRESULT LockDev([in] VARIANT_BOOL bLockFlag);
+	[id(5), helpstring("等待设备插拔事件")] HRESULT WaitForDevEvent([out] SHORT *pnEvent,[out,retval] BSTR* pbstrName);
+	[id(6), helpstring("取消等待设备插拔事件")] HRESULT CancelWaitForDevEvent();
+	[id(7), helpstring("获得设备状态")] HRESULT GetStatus([out,retval] SHORT* psStatus);
+	[id(8), helpstring("获得设备详细信息")] HRESULT GetDeviceInfo([out,retval] IDispatch** ppDeviceInfo);
+	[id(9), helpstring("修改设备认证秘钥")] HRESULT ChangeDevAuth([in] unsigned char* szOldPW,[in] unsigned char* szNewPW);
+	[id(10), helpstring("设备认证")] HRESULT DevAuth([in] unsigned char* szKey);
+
+	[id(11), helpstring("创建应用")] HRESULT CreateApplication([in] BSTR bstrAppName,[in] BSTR bstrAdminPin,[in] SHORT nAdminPinRetryCount,[in] BSTR bstrUserPin,[in] SHORT nUserPinRetryCount,[in] EAappFileSecureType eCreateFileRight,[out,retval] ULONG* phApp);
+	[id(12), helpstring("枚举应用")] HRESULT EnumApplication([out,retval] BSTR* pbstrApps);
+	[id(13), helpstring("删除应用")] HRESULT DeleteApplication([in] BSTR bstrAppName);
+	[id(14), helpstring("打开应用")] HRESULT OpenApplication([in] BSTR bstrAppName,[out,retval] ULONG* phApp);
+	[id(15), helpstring("关闭应用")] HRESULT CloseApplication([in] ULONG hApp);
+
+	[id(16), helpstring("修改PIN码")] HRESULT ChangePIN([in] ULONG hApp,[in] VARIANT_BOOL bAdminFlag,[in] BSTR bstrOldPin,[in] BSTR bstrNewPin,[out,retval] SHORT* pnRetryCount);
+	[id(17), helpstring("获得PIN码信息")] HRESULT GetPINInfo([in] ULONG hApp,[in] VARIANT_BOOL bAdminFlag,[out] SHORT* pnMaxRetryCount,[out] SHORT* pnRemainRetryCount,[out,retval] VARIANT_BOOL* pbDefaultPin);
+	[id(18), helpstring("校验PIN码")] HRESULT VerifyPIN([in] ULONG hApp,[in] VARIANT_BOOL bAdminFlag,[in] BSTR bstrPin,[out,retval] SHORT* pnRetryCount);
+	[id(19), helpstring("解锁PIN码")] HRESULT UnblockPIN([in] ULONG hApp,[in] BSTR bstrAdminPin,[in] BSTR bstrUserPin,[out,retval] SHORT* pnRetryCount);
+	[id(20), helpstring("清除应用安全状态")] HRESULT ClearSecureState([in] ULONG hApp);
+
+	[id(21), helpstring("应用内创建文件")] HRESULT CreateAppFile([in] ULONG hApp,[in] BSTR bstrFileName,[in] ULONG nFileSize,[in] ULONG nReadRight,[in] ULONG nWriteRight);
+	[id(22), helpstring("应用内删除文件")] HRESULT DeleteAppFile([in] ULONG hApp,[in] BSTR bstrFileName);
+	[id(23), helpstring("应用内枚举文件")] HRESULT EnumAppFile([in] ULONG hApp,[out,retval] BSTR* bstrFiles);
+	[id(24), helpstring("应用内获取文件属性")] HRESULT GetAppFileInfo([in] ULONG hApp,[in] BSTR bstrFileName,[out,retval] IDispatch** pPara);
+	[id(25), helpstring("应用内读取文件")] HRESULT ReadAppFile([in] ULONG hApp,[in] BSTR bstrFileName,[in] ULONG nOffset,[in,out] SHORT* pnReadLen,[out,retval] BYTE* pbData);
+	[id(26), helpstring("应用内写文件")] HRESULT WriteAppFile([in] ULONG hApp,[in] BSTR bstrFileName,[in] ULONG nOffset,[in] BYTE* pbData,[in] ULONG nSize);
+
+	[id(30), helpstring("应用内创建容器")] HRESULT CreateContainer([in] ULONG hApp,[in] BSTR bstrContainerName,[out,retval] ULONG* phContainer);
+	[id(31), helpstring("应用内删除容器")] HRESULT DeleteContainer([in] ULONG hApp,[in] BSTR bstrContainerName);
+	[id(32), helpstring("应用内打开容器")] HRESULT OpenContainer([in] ULONG hApp,[in] BSTR bstrContainerName,[out,retval] ULONG* phContainer);
+	[id(33), helpstring("应用内关闭容器")] HRESULT CloseContainer([in] ULONG hContainer);
+	[id(34), helpstring("应用内枚举容器")] HRESULT EnumContainer([in] ULONG hApp,[out,retval] BSTR* pbstrNameList);
+	[id(35), helpstring("应用内获取容器类型")] HRESULT GetContainerType([in] ULONG hContainer,[out,retval] SHORT* psType);
+
+	[id(36), helpstring("应用内导入证书")] HRESULT ImportCertificate([in] ULONG hContainer,[in] VARIANT_BOOL bSign,[in] BYTE* pbCert,[in] SHORT nCertLen);
+	[id(37), helpstring("应用内导出证书")] HRESULT ExportCertificate([in] ULONG hContainer,[in] VARIANT_BOOL bSign,[in,out] SHORT* pnCertLen,[out,retval] BYTE* pbCert);
+
+	[id(40), helpstring("创建随机数")] HRESULT GenRandom([in] SHORT nRandomLen,[out,retval] BSTR* pbstrRandom);
+	[id(41), helpstring("生成外部RSA密钥对")] HRESULT GenExtRSAKey([in] ULONG nBitsLen,[out] ULONG* pRsaPrivateKey);
+	[id(42), helpstring("生成RSA签名密钥")] HRESULT GenRSAKeyPair([in] ULONG hContainer,[in] ULONG nBitsLen,[out] ULONG* pRsaPubKey);
+	[id(43), helpstring("导入RSA加密密钥对")] HRESULT ImportRSAKeyPair([in] ULONG hContainer,[in] ULONG nSymAlgId,[in] BYTE* pbWrappedKey,[in] ULONG nWrappedKeyLen,[in] BYTE* pbEncryptedData,[in] ULONG nEncryptedDataLen);
+	[id(44), helpstring("RSA签名")] HRESULT RSASignData([in] ULONG hContainer,[in] SHORT nDataLen,[in] BYTE* pbData,[in,out] SHORT* pnSignature,[out,retval] BYTE *pbSignature);
+	[id(45), helpstring("RSA验证签名")] HRESULT RSAVerify([in] ULONG* pRsaPubKey,[in] SHORT nDataLen,[in] BYTE* pbData,[in] SHORT nSignatureLen,[in] BYTE* pbSignature);
+	[id(46), helpstring("RSA生成并导出会话密钥")] HRESULT RSAExportSessionKey([in] ULONG hContainer,[in] ULONG nAlgId,[in] ULONG* pRsaPubKey,[in,out] SHORT* pnDataLen,[out] BYTE* pbData,[out,retval] ULONG *phSessionKey);
+	[id(47), helpstring("RSA外来公钥运算")] HRESULT ExtRSAPubKeyOperation([in] ULONG* pRsaPubKey,[in] SHORT nInputLen,[out] BYTE* pbInputData,[in,out] SHORT* pnOutput,[out,retval] BYTE *pbOutput);
+	[id(48), helpstring("RSA外来私钥运算")] HRESULT ExtRSAPriKeyOperation([in] ULONG* pRsaPubKey,[in] SHORT nInputLen,[out] BYTE* pbInputData,[in,out] SHORT* pnOutput,[out,retval] BYTE *pbOutput);
+
+	[id(60), helpstring("导出公钥")] HRESULT ExportPublicKey([in] ULONG hContainer,[in] VARIANT_BOOL bSignFlag,[in,out] SHORT* pnBlob,[out] ULONG *pbBlob);
+	[id(61), helpstring("导入会话秘钥")] HRESULT ImportSessionKey([in] ULONG hContainer,[in] ULONG nAlgId,[in] ULONG nWrapedLen,[in] BYTE* pbWrapedData,[out,retval] ULONG *phSessionKey);
+	[id(62), helpstring("明文导入会话密钥")] HRESULT SetSymmKey([in] ULONG nAlgId,[in] BYTE* pbKey,[out,retval] ULONG *phSessionKey);
+	[id(63), helpstring("加密初始化")] HRESULT EncryptInit([in] ULONG hKey);
+	[id(64), helpstring("单组数据加密")] HRESULT Encrypt([in] ULONG hKey,[in] ULONG nDataLen,[in] BYTE* pbData,[in,out] ULONG* pnEncryptedDataLen,[out,retval] BYTE* pbEncryptedData);
+	[id(65), helpstring("多组数据加密")] HRESULT EncryptUpdate([in] ULONG hKey,[in] ULONG nDataLen,[in] BYTE* pbData,[in,out] ULONG* pnEncryptedDataLen,[out,retval] BYTE* pbEncryptedData);
+	[id(66), helpstring("结束加密")] HRESULT EncryptFinal([in] ULONG hKey,[in,out] ULONG* pnEncryptedDataLen,[out,retval] BYTE* pbEncryptedData);
+	[id(67), helpstring("解密初始化")] HRESULT DecryptInit([in] ULONG hKey);
+	[id(68), helpstring("单组数据解密")] HRESULT Decrypt([in] ULONG hKey,[in] ULONG nEncryptedDataLen,[in] BYTE* pbEncryptedData,[in,out] ULONG* pnDataLen,[out,retval] BYTE* pbData);
+	[id(69), helpstring("多组数据解密")] HRESULT DecryptUpdate([in] ULONG hKey,[in] ULONG nEncryptedDataLen,[in] BYTE* pbEncryptedData,[in,out] ULONG* pnDataLen,[out,retval] BYTE* pbData);
+	[id(70), helpstring("结束解密")] HRESULT DecryptFinal([in] ULONG hKey,[in,out] ULONG* pnDecryptedLen,[out,retval] BYTE* pbDecryptedData);
+
+	[id(71), helpstring("密码杂凑初始化")] HRESULT DigestInit([in] ULONG ulAlgID,[in] ULONG* pPubKey,[in] SHORT  nIDLen,[in] unsigned char* pucID,[out,retval] ULONG* phHash);
+	[id(72), helpstring("单组密码杂凑")] HRESULT Digest([in] ULONG hHash,[in] SHORT ulDataLen,[in] BYTE* pbData,[in,out] SHORT* pnHashLen,[out,retval] BYTE* pbHashData);
+	[id(73), helpstring("多组密码杂凑")] HRESULT DigestUpdate([in] ULONG hHash,[in] SHORT ulDataLen,[in] BYTE* pbData);
+	[id(74), helpstring("结束密码杂凑")] HRESULT DigestFinal([in] ULONG hHash,[in,out] SHORT* pnHashLen,[out,retval] BYTE* pbHashData);
+	[id(75), helpstring("关闭密码对象句柄")] HRESULT CloseHandle([in] ULONG hHandle);
+
+	[propget, id(96), helpstring("支持库类型")] HRESULT SKFType([out, retval] SHORT* pVal);
+	[propget, id(97), helpstring("最近一次操作错误码")] HRESULT LastErrCode([out, retval] LONG* pVal);
+	[propget, id(98), helpstring("最近一次操作失败信息")] HRESULT LastErrInfo([out, retval] BSTR* pVal);
+	[id(99), helpstring("释放设备")] HRESULT CloseDev(void);
+};
+[
+	object,
+	uuid(84FB8D9B-252D-4971-BF84-5960B1288384),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+interface ICryptoStor : IDispatch{
+	[id(1), helpstring("获得所有插入卡的盘符")] HRESULT EnumDisk([out,retval] BSTR* pbstrDisks);
+	[id(2), helpstring("设置操作的盘符")] HRESULT PutCurDisk([in] BSTR cDisk,[out,retval] DWORD* dwCapcity);
+	[id(3), helpstring("读取所有文件")] HRESULT GetFileCount([out,retval] DWORD* dwFileCount);
+	[id(4), helpstring("获取指定序号文件信息")] HRESULT GetFileInfo([in] LONG dwFileIndex,[out] BSTR* pbstrFileName,[out] DWORD* dwBegin,[out,retval] DWORD* dwFileSize);
+	[id(5), helpstring("读文件")] HRESULT ReadOutFile([in] DWORD dwBegin,[in] DWORD dwFileLength,[in] BSTR bstrFileName,[in] BSTR bstrPathFile);
+	[id(6), helpstring("获取指定名称文件")] HRESULT ReadOnlyFile([in] BSTR bstrFileName,[in] BSTR bstrPathFile);
+	[id(7), helpstring("获得操作的盘符")] HRESULT GetCurDisk([out,retval] BSTR* pDisk);
+
+	[id(11), helpstring("写单个文件")] HRESULT WriteInFile([in] BSTR bstrPathFile,[in] BSTR bstrFileName,[in] VARIANT_BOOL bAddFlag);
+	[id(12), helpstring("添加写文件")] HRESULT AddWriteFile([in] BSTR bstrPathFile);
+	[id(13), helpstring("写所有文件")] HRESULT WriteAllFile([in] VARIANT_BOOL bBeginFirst);
+	[id(14), helpstring("获取当前磁盘操作状态")] HRESULT GetDiskStatus([out,retval] SHORT* psStatus);
+	[id(15), helpstring("删除指定文件")] HRESULT DelFile([in] BSTR bstrFileName);
+
+	[id(16), helpstring("清除所有文件")] HRESULT ClearAllFile(void);
+	[id(17), helpstring("磁盘清理")] HRESULT DiskClean(void);
+	[id(18), helpstring("关闭访问区")] HRESULT CloseDisk(void);
+
+	[propget, id(27), helpstring("最近一次操作错误码")] HRESULT LastErrCode([out, retval] LONG* pVal);
+	[propget, id(28), helpstring("最近一次操作失败信息")] HRESULT LastErrInfo([out, retval] BSTR* pVal);
+};
+[
+	object,
+	uuid(2CCC295C-FA9D-4C02-BC4D-AA24E49E0E98),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+interface IWMIDevice : IDispatch{
+	[id(1)] HRESULT Connect(void);
+	[id(2)] HRESULT Query([in] EWMIType eWMIType,[in] BSTR bstrKey,[out,retval] SHORT* pVal);
+	[id(3)] HRESULT GetValue([in] SHORT nIndex,[out,retval] BSTR* pVal);
+	[id(4)] HRESULT GetName([in] SHORT nIndex,[out,retval] BSTR* pVal);
+	[id(5)] HRESULT GetKeyValue([in] SHORT nIndex,[out,retval] BSTR* pVal);
+
+	[id(10)] HRESULT Close(void);
+};
+[
+	object,
+	uuid(9A5071D8-A072-464D-8158-E4229AA0C260),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+interface IUSBDevice : IDispatch{
+};
+[
+	object,
+	uuid(FE350B42-93B8-4C33-B533-4CE8AC283F18),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+interface ISoftEncry : IDispatch{
+	[id(1), helpstring("AES ECB加密")] HRESULT AesEcbEnc([in] BYTE *szIn,[in] ULONG nInLen,[in] BYTE *szKey,[out] ULONG* pnOutLen,[out,retval] BYTE** ppBuf);
+	[id(2), helpstring("AES ECB解密")] HRESULT AesEcbDes([in] BYTE *szIn,[in] ULONG nInLen,[in] BYTE *szKey,[out] ULONG* pnOutLen,[out,retval] BYTE** ppBuf);
+	[id(3), helpstring("AES CBC加密")] HRESULT AesCbcEnc([in] BYTE *szIn,[in] ULONG nInLen,[in] BYTE *szKey,[in] BYTE *szIV,[out] ULONG* pnOutLen,[out,retval] BYTE** ppBuf);
+	[id(4), helpstring("AES CBC解密")] HRESULT AesCbcDes([in] BYTE *szIn,[in] ULONG nInLen,[in] BYTE *szKey,[in] BYTE *szIV,[out] ULONG* pnOutLen,[out,retval] BYTE** ppBuf);
+	
+	[id(9), helpstring("释放内存")] HRESULT ReleaseBuf([in,out] BYTE* pBuf);
+};
+[
+	uuid(8BB5725A-FA53-4743-B873-BF747B364BC0),
+	version(1.0),
+]
+library SKFEncryLib
+{
+	importlib("stdole2.tlb");
+
+	/// 软件包模块
+	typedef enum EHXPacketType
+	{ 
+		HXPACKETTYPE_BASE			= 1,	/// 基础模块
+		HXPACKETTYPE_FILEWHITE		= 2,	/// 文件白名单
+		HXPACKETTYPE_USBMGR			= 4,	/// U盘管理
+		HXPACKETTYPE_LOGAUDIT		= 8,	/// 日志审计
+		HXPACKETTYPE_GINALOGIN		= 16,	/// 双因子登录
+		HXPACKETTYPE_ACCOUNTMGR		= 32,	/// 账号管理
+		HXPACKETTYPE_HOSTSAFE		= 64,	/// 主机加固
+		HXPACKETTYPE_SCAN			= 128,	/// 安全扫描
+
+		HXPACKETTYPE_SERVER			= 8192	/// 服务版
+	} EPacketType;
+
+	[
+		uuid(0C4E0846-C3E8-4B20-A949-6D7D7054D52F)
+	]
+	dispinterface _ISafeServiceEvents
+	{
+		properties:
+		methods:
+	};
+	[
+		uuid(E411DCC5-4A95-4899-8578-DE15D85D2E18)		
+	]
+	coclass SafeService
+	{
+		[default] interface ISafeService;
+		[default, source] dispinterface _ISafeServiceEvents;
+	};
+	[
+		uuid(2FC5E4A0-B3F1-4233-87C6-FB0A8DECEDE5)		
+	]
+	dispinterface _ISafeCardEvents
+	{
+		properties:
+		methods:
+	};
+	[
+		uuid(D47BAC83-6C6E-48A5-B576-E962A8446853)		
+	]
+	coclass SafeCard
+	{
+		[default] interface ISafeCard;
+		[default, source] dispinterface _ISafeCardEvents;
+	};
+	[
+		uuid(B8FD9D2C-929E-429D-BD2C-9FD3D0B36171)		
+	]
+	dispinterface _ICryptoStorEvents
+	{
+		properties:
+		methods:
+	};
+	[
+		uuid(A12E4FF8-99B5-40A5-922C-787BA6D5F3DC)		
+	]
+	coclass CryptoStor
+	{
+		[default] interface ICryptoStor;
+		[default, source] dispinterface _ICryptoStorEvents;
+	};
+	[
+		uuid(CAEC6A18-537E-4B9E-9F7C-42130E4B8034)		
+	]
+	coclass WMIDevice
+	{
+		[default] interface IWMIDevice;
+	};
+	[
+		uuid(C4FE3A0B-6B17-4703-8911-94241A404810)		
+	]
+	coclass USBDevice
+	{
+		[default] interface IUSBDevice;
+	};
+	[
+		uuid(1F3F9D6F-5A5A-4643-A319-220C6BC036F1)		
+	]
+	coclass SoftEncry
+	{
+		[default] interface ISoftEncry;
+	};
+};
+

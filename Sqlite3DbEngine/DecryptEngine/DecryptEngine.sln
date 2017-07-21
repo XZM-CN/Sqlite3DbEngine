@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DecryptEngine", "DecryptEngine.vcxproj", "{18B435AB-464B-40F2-AC3D-846064A5151D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{18B435AB-464B-40F2-AC3D-846064A5151D}.Debug|Win32.ActiveCfg = Debug|Win32
+		{18B435AB-464B-40F2-AC3D-846064A5151D}.Debug|Win32.Build.0 = Debug|Win32
+		{18B435AB-464B-40F2-AC3D-846064A5151D}.Release|Win32.ActiveCfg = Release|Win32
+		{18B435AB-464B-40F2-AC3D-846064A5151D}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

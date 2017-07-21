@@ -1,0 +1,16 @@
+HKCR
+{
+	NoRemove CLSID
+	{
+		ForceRemove {DEB1268A-AC67-4AEE-B86D-28DCE2F38BC3} = s 'ConnectHelper Class'
+		{
+			ForceRemove Programmable
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Both'
+			}
+			TypeLib = s '{27E8485B-F781-4320-848D-BD0887CCE3FC}'
+			Version = s '1.0'
+		}
+	}
+}

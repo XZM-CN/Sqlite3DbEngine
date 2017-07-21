@@ -1,0 +1,212 @@
+// DispatchModuleCenter.idl : DispatchModuleCenter 的 IDL 源
+//
+
+// 此文件将由 MIDL 工具处理以
+// 产生类型库(DispatchModuleCenter.tlb)和封送处理代码。
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+
+
+/// EHXAccountType,账号类型
+typedef enum EHXAccountType
+{
+	ACCOUNTTYPE_UNKNOWN = 0,	/// 无效类型
+	ACCOUNTTYPE_SA		= 1,	/// 超级管理员
+	ACCOUNTTYPE_ADMIN	= 2,	/// 管理员
+	ACCOUNTTYPE_AUDIT	= 4,	/// 审计员
+	ACCOUNTTYPE_USER	= 8		/// 用户
+} EAccountType;
+
+/// EHXRunMode,运行模式
+typedef enum EHXRunMode
+{
+	RUNMODE_PERSONAL	= 1,	/// 单机版
+	RUNMODE_NET			= 2,	/// 服务版
+
+	RUNMODE_SERVICE		= 256	/// 服务请求
+} ERunMode;
+
+/// EHXAuthType,账号授权类型
+typedef enum EHXUseAuthType
+{
+	USEAUTHTYPE_UNKNOWN			= 0,	/// 无效类型
+	USEAUTHTYPE_UNLOAD			= 1,	/// 卸载保护 超级管理员权限
+	USEAUTHTYPE_SELFSAFE		= 2,	/// 自身安全防护开关，保护自己的配置和进程
+	USEAUTHTYPE_SAFEGUARD		= 4,	/// 安全防护开关，服务启用还是停用
+	USEAUTHTYPE_CONTROLMODE		= 8,	/// 控制模式开关，拦截还是观察模式
+	USEAUTHTYPE_DATABACKUP		= 16,	/// 数据备份还原
+
+	USEAUTHTYPE_ACCOUNTMGR		= 32,	/// 账号管理，包括创建修改账号名称及权限，一般属于超级管理员权限
+	USEAUTHTYPE_FILEWHITEMGR	= 64,	/// 文件白名单管理
+	USEAUTHTYPE_USBMGR			= 128,	/// 普通USB管理，配置白名单U盘和非白名单U盘使用策略
+	USEAUTHTYPE_LOGMGR			= 256,	/// 日志审计
+	USEAUTHTYPE_SAFEDISKMGR		= 512,	/// 安全盘管理
+
+	USEAUTHTYPE_OSLOGIN			= 4096,	/// 登录系统权限
+	USEAUTHTYPE_AUTHMGR			= 8192	/// 授权管理
+} EUseAuthType;
+
+[
+	object,
+	uuid(EC773FBA-BBDB-4275-81F3-3079D1131E4E),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+interface IAccountMgr : IDispatch{
+	// 添加的属性、枚举
+	// 如果不写这东西，EHXAccountType、EHXRunMode、EHXUseAuthType三个枚举都导不出去
+	// http://blog.csdn.net/mrxyz098/article/details/48577191
+	[propget, id(1), helpstring("运行模式")] HRESULT RunMode([out, retval] ERunMode* pVal);
+	[propput, id(1), helpstring("运行模式")] HRESULT RunMode([in] ERunMode newVal);
+	[propget, id(2), helpstring("账号类型")] HRESULT AccountType([out, retval] EAccountType* pVal);
+	[propget, id(3), helpstring("当前登录账号")] HRESULT CurLID([out, retval] BSTR* pVal);
+	[propget, id(4), helpstring("权限")] HRESULT Right([out, retval] ULONG* pVal);
+	[propget, id(5), helpstring("账号数量")] HRESULT Count([out, retval] SHORT* pVal);
+	[propget, id(6), helpstring("显示名称")] HRESULT ShowName(BSTR bstrLID, [out, retval] BSTR* pVal);
+	[propget, id(7), helpstring("判断是否可以登录")] HRESULT CanLogin(BSTR bstrLID, [out, retval] VARIANT_BOOL* pVal);
+	[propget, id(8), helpstring("判断是否只读权限")] HRESULT ReadOnly([out, retval] VARIANT_BOOL* pVal);
+	[propget, id(9), helpstring("授权有效性")] HRESULT AuthValid([out, retval] VARIANT_BOOL* pVal);
+
+	// 添加的方法
+	[id(10), helpstring("初始化账号密码")] HRESULT Init([in] ULONG nAccount,[in] BSTR bstrPW,[in] VARIANT_BOOL bCheckFile);
+	[id(11), helpstring("设置当前登录账号")] HRESULT SetCurrent([in] EAccountType eType, [in] BSTR bstrID,[in] BSTR bstrPWHash,[in] EUseAuthType eAuthType,[in] BSTR bstrCurName,[out, retval] SHORT* pVal);
+	[id(12), helpstring("添加账号")] HRESULT Add([in] EAccountType eType, [in] BSTR bstrID, [in] BSTR bstrName, [in] BSTR bstrPWHash, [in] ULONG nRight);
+	[id(13), helpstring("删除账号")] HRESULT Del([in] BSTR bstrID);
+	[id(14), helpstring("修改密码")] HRESULT ChangePW([in] EAccountType eType,[in] BSTR bstrID, [in] BSTR bstrNewPWHash,[in] BSTR bstrAccountName);
+	[id(15), helpstring("修改权限")] HRESULT ChangeRight([in] BSTR bstrID, [in] ULONG nRight);
+	[id(16), helpstring("修改名字")] HRESULT ChangeName([in] BSTR bstrName);
+
+	[id(21)] HRESULT Login([out,retval] IDispatch** ppInfo);
+	[id(22)] HRESULT ServiceToken(void);
+	[id(23), helpstring("获得数据库接口")] HRESULT GetDataBase([in] BSTR bstrToken,[out,retval] IDispatch** ppVal);
+	[id(25)] HRESULT ClearStatus(void);
+	[id(26)] HRESULT UnLock([in] BSTR bstrID);
+	[id(30), helpstring("保存配置")] HRESULT SaveConfig([in] EUseAuthType nAuthType,[in] BSTR bstrNodeName,[in] BSTR bstrNodeValue);
+	[id(31), helpstring("添加白名单U盘")] HRESULT AddUsbWhite([in] BSTR bstrUsbID,[in] BSTR bstrDiskName,[in] BSTR bstrMakerName,[in] ULONG nSize,[in] SHORT nType);
+	[id(32), helpstring("删除白名单U盘")] HRESULT DelUsbWhite([in] BSTR bstrUsbID,[in] SHORT nType);
+	[id(33), helpstring("刷新授权")] HRESULT RefreshAuth([out, retval] VARIANT_BOOL* pVal);
+	[id(34), helpstring("保存数据到卡上")] HRESULT SaveToCard([in] BSTR ucDiskName);
+
+	[id(40), helpstring("添加禁用服务")] HRESULT AddStopService([in] BSTR bstrServiceName,[in] SHORT nStart,[in] BSTR bstrImagePath);
+	[id(41), helpstring("删除禁用服务")] HRESULT DelStopService([in] BSTR bstrServiceName,[in] BSTR bstrImagePath);
+
+	[id(45), helpstring("获取功能码")] HRESULT GetAuthCode([out,retval] ULONG *pVal);
+	[id(46), helpstring("")] HRESULT CreateAuth([in] BSTR bstrDeviceID,[in] BSTR bstrFilePath);
+	[id(47), helpstring("")] HRESULT ImportAuth([in] BSTR bstrFilePath,[in] BYTE* pbKey,[out,retval] IDispatch **ppAuthInfo);
+	[id(48), helpstring("")] HRESULT RemoveAuth([in] BSTR bstrDeviceID);
+	[id(49), helpstring("")] HRESULT GetAuthInfo([in] BSTR bstrFilePath,[in] BSTR bstrDiskName,[in] BYTE* pbKey,[out,retval] IDispatch **ppAuthInfo);
+
+	[propget, id(51), helpstring("属性 LastErrorInfo")] HRESULT LastErrorInfo([out, retval] BSTR* pVal);
+
+	[id(52), helpstring("查询账号是否存在")] HRESULT CheckAccountExist([in] BSTR strAccountName);
+	[id(53), helpstring("获取真实账号信息")] HRESULT GetRealAccountInfo([in] BSTR LID,[out] BSTR* strAccountTypeName, [out] BSTR* strRealPasswd,[out,retval] ULONG* strRight);
+	[id(54), helpstring("添加账号")] HRESULT SaveAccountInfo([in] BSTR strAccountName,[in] BSTR strPassword,[in] BSTR LID,[in] BSTR strAccountTypeName,[in] BSTR strRealPasswd,[in] ULONG strRight);
+	[id(55), helpstring("删除账号")] HRESULT DelelteAccountInfo([in] BSTR strAccountName,[in] BSTR LID);
+	[id(56), helpstring("判断账号与密码是否合法")] HRESULT CheckIsPassswdRight([in] BSTR LID,[in] BSTR strAccountName,[in] BSTR bstrMD5,[out,retval] BSTR* strRealPasswd);
+	[id(57), helpstring("获取用户名")] HRESULT get_CurName([out,retval] BSTR* pVal);
+};
+[
+	object,
+	uuid(CA8F3B6D-934F-4A2B-8C3C-83103924B4D5),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+interface IServiceControl : IDispatch{
+	[id(1), helpstring("设置服务名称")] HRESULT PutServiceName([in] VARIANT_BOOL bDriver, [in] BSTR newVal);
+	[id(2), helpstring("获得服务名称")] HRESULT GetServiceName([out] VARIANT_BOOL* pbDriver, [out, retval] BSTR* pVal);
+	[propput, id(3), helpstring("属性 SafeBoot")] HRESULT SafeBoot([in] VARIANT_BOOL newVal);
+
+	[id(5)] HRESULT PutAccountMgr([in] IDispatch* piAccountMgr);
+	[id(6), helpstring("添加到系统")] HRESULT Add(void);
+	[id(7), helpstring("从系统删除")] HRESULT Del(void);
+	[id(8), helpstring("启动服务")] HRESULT Start(void);
+	[id(9), helpstring("停止服务")] HRESULT Stop(void);
+	[id(10), helpstring("获得服务状态")] HRESULT GetServiceStatus([out,retval] SHORT* pnStatus);
+	[id(11), helpstring("判断服务是否存在")] HRESULT IsExist(VARIANT_BOOL* pbFlag);
+	[propget, id(12), helpstring("属性 LastErrorInfo")] HRESULT LastErrorInfo([out, retval] BSTR* pVal);
+	[propget, id(13), helpstring("属性 LastErrorCode")] HRESULT LastErrorCode([out, retval] ULONG* pVal);
+
+	[id(15)] HRESULT OpenDriver([in] BSTR bstrDriverName,[in] VARIANT_BOOL bOverlapped);
+	[id(16)] HRESULT SendControlToDevice([in] ULONG unCmd, [in] BYTE* pData, USHORT uDataLen);
+	[id(17)] HRESULT SendUsbCmdToDriver([in] USHORT usCmd);
+	[id(18)] HRESULT CloseDriver(void);
+
+	[id(30)] HRESULT StartDriverMonitor(void);
+	[id(31)] HRESULT StopDriverMonitor(void);
+};
+[
+	uuid(A5D5D9D2-7824-4239-B775-B05022B89CF6),
+	version(1.0),
+]
+
+library DispatchModuleCenterLib
+{
+	importlib("stdole2.tlb");
+
+	/// EHXConfigType,配置类型
+	typedef enum EHXConfigType
+	{
+		CONFIGTYPE_UNKNOWN			= 0,	/// 无效类型
+		CONFIGTYPE_FILEWHITE		= 1,	/// 白名单数据
+		CONFIGTYPE_EXTFLAG			= 2,	/// 拦截运行格式
+		CONFIGTYPE_RUNCONTROL		= 4,	/// 非白名单拦截控制
+		CONFIGTYPE_INSTALLORUPDATE	= 8,	/// 安装或升级程序模式
+		CONFIGTYPE_PROTECTEXE		= 16,	/// 受保护进程
+		CONFIGTYPE_DIRDATA			= 32,	/// 受保护目录数据
+		CONFIGTYPE_REGDATA			= 64,	/// 受保护注册表数据
+		CONFIGTYPE_WHITEUSB			= 128,	/// USB白名单
+		CONFIGTYPE_USBCONTROL		= 256,	/// USB读写控制
+		CONFIGTYPE_SAFEGUARD		= 512,	/// 安全防护开启或关闭
+		CONFIGTYPE_GINALOGIN		= 1024,	/// 系统双因子登录验证
+
+		CONFIGTYPE_SCANINGFILE		= 4096,	/// 扫描文件中
+		CONFIGTYPE_SELFPROTECT		= 8192	/// 自身保护
+
+	} EConfigType;
+
+	/// EHXFileType,文件类型
+	typedef enum EHXFileType
+	{
+		FILETYPE_UNKNOWN		= 0,	/// 无效类型
+		FILETYPE_EXE			= 1,	/// 可执行EXE程序
+		FILETYPE_BAT			= 2,	/// 批处理程序
+		FILETYPE_JS				= 4,	/// JAVA脚本
+		FILETYPE_JAR			= 8,	/// JAVA程序包
+		FILETYPE_COM			= 16,	/// 命令程序
+		FILETYPE_MSI			= 32,	/// 安装包文件
+		FILETYPE_DLLOCX			= 64,	/// 动态库
+		FILETYPE_CABINF			= 128,	/// 驱动和组件包
+		FILETYPE_SYS			= 256,	/// 驱动模块
+
+		FILETYPE_OTHER			= 8192	/// 其他格式
+	} EFileType;
+
+	[
+		uuid(0CD272BF-4093-4E2C-A371-893A692F9BF3)		
+	]
+	coclass AccountMgr
+	{
+		[default] interface IAccountMgr;
+	};
+	[
+		uuid(38043D37-5799-41A0-88D3-943032A0B7A7)		
+	]
+	dispinterface _IServiceControlEvents
+	{
+		properties:
+		methods:
+	};
+	[
+		uuid(6AE9B1D1-E869-476C-928E-C17AFFE490F9)		
+	]
+	coclass ServiceControl
+	{
+		[default] interface IServiceControl;
+		[default, source] dispinterface _IServiceControlEvents;
+	};
+};
+

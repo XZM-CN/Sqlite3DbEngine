@@ -52,6 +52,9 @@
     <ClCompile Include="md5.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="ConnectHelper.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -99,6 +102,12 @@
     <ClInclude Include="..\Common\DBItemDef.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="ConnectHelper.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\HXVersionDef.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Sqlite3DbEngine.rc">
@@ -120,6 +129,9 @@
       <Filter>资源文件</Filter>
     </None>
     <None Include="Sqlite3ConnectStatement.rgs">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="ConnectHelper.rgs">
       <Filter>资源文件</Filter>
     </None>
   </ItemGroup>

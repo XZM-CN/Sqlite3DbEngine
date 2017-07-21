@@ -58,7 +58,7 @@ public:
 	 * @brief 设置包装对象
 	 *
 	 *
-	 * @param *pSqlStatement 
+	 * @param *pSqlite3Statement 
 	 * @return 
 	 */
 	HRESULT SetObj(CJsonParser *pJsonParser)

@@ -53,6 +53,10 @@ public:
 
 
 
+	STDMETHOD(dddddd)(BSTR ddd);
+	STDMETHOD(asdasd)(BSTR* asdsa, BYTE asdasdaaa);
+	STDMETHOD(asdasdaaa)(BSTR* asd, CY* asdaaa);
+	STDMETHOD(sdasdad)(void);
 };
 
 OBJECT_ENTRY_AUTO(__uuidof(Demo), CDemo)

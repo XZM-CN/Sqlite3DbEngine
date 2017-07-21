@@ -99,6 +99,15 @@
     <ClInclude Include="Demo_Both_Support.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="IDemo_CP.H">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="IDemo_Apartment_CP.H">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="IDemo_Both_Support_CP.H">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="ATLComPjt.rc">

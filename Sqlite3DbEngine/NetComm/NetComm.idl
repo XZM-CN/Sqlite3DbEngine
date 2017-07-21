@@ -1,0 +1,83 @@
+// NetComm.idl : NetComm 的 IDL 源
+//
+
+// 此文件将由 MIDL 工具处理以
+// 产生类型库(NetComm.tlb)和封送处理代码。
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+[
+	object,
+	uuid(A04418ED-7FEF-422E-9C12-22C9E4627A7F),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+interface INetRequest : IDispatch{
+	[propget, id(1)] HRESULT MsgWnd([out, retval] LONGLONG* pVal);
+	[propput, id(1)] HRESULT MsgWnd([in] LONGLONG newVal);
+	[propget, id(2)] HRESULT SyncConnect([out, retval] VARIANT_BOOL* pVal);
+	[propput, id(2)] HRESULT SyncConnect([in] VARIANT_BOOL newVal);
+	[propput, id(3)] HRESULT NoCookie([in] VARIANT_BOOL newVal);
+	[propput, id(4)] HRESULT Port([in] LONG newVal);
+	[propget, id(5)] HRESULT Method([out, retval] BSTR* pVal);
+	[propput, id(5)] HRESULT Method([in] BSTR newVal);
+	[propget, id(6)] HRESULT PostFile([out, retval] BSTR* pVal);
+	[propput, id(6)] HRESULT PostFile([in] BSTR newVal);
+	[propget, id(7)] HRESULT DownFile([out, retval] BSTR* pVal);
+	[propput, id(7)] HRESULT DownFile([in] BSTR newVal);
+	[propget, id(8)] HRESULT ServiceID([out, retval] SHORT* pVal);
+	[propput, id(8)] HRESULT ServiceID([in] SHORT newVal);
+	[propget, id(9)] HRESULT UseIE([out, retval] VARIANT_BOOL* pVal);
+	[propput, id(9)] HRESULT UseIE([in] VARIANT_BOOL newVal);
+	[propget, id(10)] HRESULT PrxoyServer([out, retval] BSTR* pVal);
+	[propput, id(10)] HRESULT PrxoyServer([in] BSTR newVal);
+	[propget, id(11)] HRESULT UserAgent([out, retval] BSTR* pVal);
+	[propput, id(11)] HRESULT UserAgent([in] BSTR newVal);
+	[propget, id(12)] HRESULT Referer([out, retval] BSTR* pVal);
+	[propput, id(12)] HRESULT Referer([in] BSTR newVal);
+	[propget, id(13)] HRESULT Cookie([out, retval] BSTR* pVal);
+	[propput, id(13)] HRESULT Cookie([in] BSTR newVal);
+	[propget, id(14)] HRESULT Location([out, retval] BSTR* pVal);
+	[propget, id(15)] HRESULT RequestUrl([out, retval] BSTR* pVal);
+	[propget, id(16)] HRESULT Origin([out, retval] BSTR* pVal);
+	[propput, id(16)] HRESULT Origin([in] BSTR newVal);
+	[propget, id(17)] HRESULT ServerFileName([out, retval] BSTR* pVal);
+
+	[propget, id(21)] HRESULT Busy([out, retval] VARIANT_BOOL* pVal);
+	[propget, id(22)] HRESULT HttpStatus([out, retval] LONG* pVal);
+
+	[propget, id(28)] HRESULT ErrCode([out, retval] LONG* pVal);
+	[propget, id(29)] HRESULT LastErrInfo([out, retval] BSTR* pVal);
+
+	[id(51)] HRESULT SendHeader([in] SHORT sType, [in] VARIANT_BOOL bZipFlag, [in] BSTR bstrAuth);
+	[id(52)] HRESULT Request([in] BSTR bstrUrl);
+	[id(53)] HRESULT DownloadFile([in] BSTR bstrUrl,[in] VARIANT_BOOL bHaveName);
+	[id(54)] HRESULT Stop([in] VARIANT_BOOL bReleaseConnect);
+};
+[
+	uuid(1313E0BC-41D4-4B23-AF06-B41046BE0BE5),
+	version(1.0),
+]
+library NetCommLib
+{
+	importlib("stdole2.tlb");
+	[
+		uuid(44F06F40-D4D5-4C19-AAA6-A7DA50A9F8D8)		
+	]
+	dispinterface _INetRequestEvents
+	{
+		properties:
+		methods:
+	};
+	[
+		uuid(4D80FA81-448E-4844-9326-F839178BC461)		
+	]
+	coclass NetRequest
+	{
+		[default] interface INetRequest;
+		[default, source] dispinterface _INetRequestEvents;
+	};
+};
+

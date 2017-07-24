@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 7.00.0555 */
-/* at Tue Jul 18 15:35:09 2017
+/* at Mon Jul 24 14:40:19 2017
  */
 /* Compiler settings for ATLComPjt.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 7.00.0555 
@@ -331,6 +331,17 @@ EXTERN_C const IID IID_IDemo;
     IDemo : public IDispatch
     {
     public:
+        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE dddddd( 
+            /* [in] */ BSTR ddd) = 0;
+        
+        virtual /* [source][restricted][local][hidden][helpstring][id] */ HRESULT STDMETHODCALLTYPE asdasd( 
+            BSTR *asdsa,
+            /* [in] */ BYTE asdasdaaa) = 0;
+        
+        virtual /* [local][helpstring][id] */ HRESULT STDMETHODCALLTYPE asdasdaaa( 
+            /* [in] */ BSTR *asd,
+            /* [retval][out] */ CY *asdaaa) = 0;
+        
     };
     
 #else 	/* C style interface */
@@ -380,6 +391,20 @@ EXTERN_C const IID IID_IDemo;
             /* [out] */ EXCEPINFO *pExcepInfo,
             /* [out] */ UINT *puArgErr);
         
+        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *dddddd )( 
+            IDemo * This,
+            /* [in] */ BSTR ddd);
+        
+        /* [source][restricted][local][hidden][helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *asdasd )( 
+            IDemo * This,
+            BSTR *asdsa,
+            /* [in] */ BYTE asdasdaaa);
+        
+        /* [local][helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *asdasdaaa )( 
+            IDemo * This,
+            /* [in] */ BSTR *asd,
+            /* [retval][out] */ CY *asdaaa);
+        
         END_INTERFACE
     } IDemoVtbl;
 
@@ -416,11 +441,31 @@ EXTERN_C const IID IID_IDemo;
     ( (This)->lpVtbl -> Invoke(This,dispIdMember,riid,lcid,wFlags,pDispParams,pVarResult,pExcepInfo,puArgErr) ) 
 
 
+#define IDemo_dddddd(This,ddd)	\
+    ( (This)->lpVtbl -> dddddd(This,ddd) ) 
+
+#define IDemo_asdasd(This,asdsa,asdasdaaa)	\
+    ( (This)->lpVtbl -> asdasd(This,asdsa,asdasdaaa) ) 
+
+#define IDemo_asdasdaaa(This,asd,asdaaa)	\
+    ( (This)->lpVtbl -> asdasdaaa(This,asd,asdaaa) ) 
+
 #endif /* COBJMACROS */
 
 
 #endif 	/* C style interface */
 
+
+
+/* [call_as][id] */ HRESULT STDMETHODCALLTYPE IDemo_sdasdad_Proxy( 
+    IDemo * This);
+
+
+void __RPC_STUB IDemo_sdasdad_Stub(
+    IRpcStubBuffer *This,
+    IRpcChannelBuffer *_pRpcChannelBuffer,
+    PRPC_MESSAGE _pRpcMessage,
+    DWORD *_pdwStubPhase);
 
 
 
@@ -1276,6 +1321,22 @@ Demo_Both_Support;
 #endif /* __ATLComPjtLib_LIBRARY_DEFINED__ */
 
 /* Additional Prototypes for ALL interfaces */
+
+unsigned long             __RPC_USER  BSTR_UserSize(     unsigned long *, unsigned long            , BSTR * ); 
+unsigned char * __RPC_USER  BSTR_UserMarshal(  unsigned long *, unsigned char *, BSTR * ); 
+unsigned char * __RPC_USER  BSTR_UserUnmarshal(unsigned long *, unsigned char *, BSTR * ); 
+void                      __RPC_USER  BSTR_UserFree(     unsigned long *, BSTR * ); 
+
+/* [local][helpstring][id] */ HRESULT STDMETHODCALLTYPE IDemo_asdasdaaa_Proxy( 
+    IDemo * This,
+    /* [in] */ BSTR *asd,
+    /* [retval][out] */ CY *asdaaa);
+
+
+/* [call_as][id] */ HRESULT STDMETHODCALLTYPE IDemo_asdasdaaa_Stub( 
+    IDemo * This);
+
+
 
 /* end of Additional Prototypes */
 

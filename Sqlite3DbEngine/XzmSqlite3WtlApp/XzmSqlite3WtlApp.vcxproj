@@ -121,6 +121,7 @@
     <ClCompile Include="AboutDlg.cpp" />
     <ClCompile Include="BuffyTreeCtrl.cpp" />
     <ClCompile Include="ButtonImpl.cpp" />
+    <ClCompile Include="LoginDlg.cpp" />
     <ClCompile Include="MainAppDlg.cpp" />
     <ClCompile Include="TreeCtrlDlg.cpp" />
     <ClCompile Include="MyCheckListCtrl.cpp" />
@@ -146,6 +147,7 @@
     <ClInclude Include="AboutDlg.h" />
     <ClInclude Include="BuffyTreeCtrl.h" />
     <ClInclude Include="ButtonImpl.h" />
+    <ClInclude Include="LoginDlg.h" />
     <ClInclude Include="MainAppDlg.h" />
     <ClInclude Include="TreeCtrlDlg.h" />
     <ClInclude Include="MyCheckListCtrl.h" />

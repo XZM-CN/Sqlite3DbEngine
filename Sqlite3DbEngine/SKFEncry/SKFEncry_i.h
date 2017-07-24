@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 7.00.0555 */
-/* at Fri Jul 21 14:25:32 2017
+/* at Mon Jul 24 09:16:07 2017
  */
 /* Compiler settings for SKFEncry.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 7.00.0555 

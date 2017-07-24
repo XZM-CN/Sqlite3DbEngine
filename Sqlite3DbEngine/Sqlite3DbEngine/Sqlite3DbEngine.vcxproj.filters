@@ -17,6 +17,9 @@
       <UniqueIdentifier>{872a2668-987f-40a7-89dc-9cab817ffe10}</UniqueIdentifier>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
+    <Filter Include="DbSql">
+      <UniqueIdentifier>{98ccec18-d4ac-4ff6-ac62-478dab3957cd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -133,6 +136,24 @@
     </None>
     <None Include="ConnectHelper.rgs">
       <Filter>资源文件</Filter>
+    </None>
+    <None Include="..\doc\HXLog.sql">
+      <Filter>DbSql</Filter>
+    </None>
+    <None Include="..\doc\HXLog - T_Warn.sql">
+      <Filter>DbSql</Filter>
+    </None>
+    <None Include="..\doc\HXLog - T_Sys.sql">
+      <Filter>DbSql</Filter>
+    </None>
+    <None Include="..\doc\HXLog - T_Para.sql">
+      <Filter>DbSql</Filter>
+    </None>
+    <None Include="..\doc\HXLog - T_Event.sql">
+      <Filter>DbSql</Filter>
+    </None>
+    <None Include="..\doc\HXLog - T_Temp临时语句.sql">
+      <Filter>DbSql</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

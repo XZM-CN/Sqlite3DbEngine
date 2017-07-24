@@ -33,9 +33,6 @@
     <ClCompile Include="TreeViewCtrlExImpl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="XzmTreeViewCtrl.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="TreeCtrlDlg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -66,6 +63,12 @@
     <ClCompile Include="..\Common\SqliteHelper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="LoginDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="XzmTreeViewCtrl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -84,9 +87,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TreeViewCtrlExImpl.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="XzmTreeViewCtrl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TreeCtrlDlg.h">
@@ -126,6 +126,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\Common\SqliteHelper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LoginDlg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="XzmTreeViewCtrl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

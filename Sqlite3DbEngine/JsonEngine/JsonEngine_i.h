@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 7.00.0555 */
-/* at Mon Jul 24 09:14:11 2017
+/* at Tue Jul 25 17:43:53 2017
  */
 /* Compiler settings for JsonEngine.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 7.00.0555 
@@ -270,6 +270,9 @@ EXTERN_C const IID IID_IJsonService;
         
         virtual /* [id] */ HRESULT STDMETHODCALLTYPE Clear( void) = 0;
         
+        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE TestCreateJsonFile( 
+            /* [in] */ BSTR bstrFilePath) = 0;
+        
     };
     
 #else 	/* C style interface */
@@ -456,6 +459,10 @@ EXTERN_C const IID IID_IJsonService;
         /* [id] */ HRESULT ( STDMETHODCALLTYPE *Clear )( 
             IJsonService * This);
         
+        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *TestCreateJsonFile )( 
+            IJsonService * This,
+            /* [in] */ BSTR bstrFilePath);
+        
         END_INTERFACE
     } IJsonServiceVtbl;
 
@@ -581,6 +588,9 @@ EXTERN_C const IID IID_IJsonService;
 
 #define IJsonService_Clear(This)	\
     ( (This)->lpVtbl -> Clear(This) ) 
+
+#define IJsonService_TestCreateJsonFile(This,bstrFilePath)	\
+    ( (This)->lpVtbl -> TestCreateJsonFile(This,bstrFilePath) ) 
 
 #endif /* COBJMACROS */
 

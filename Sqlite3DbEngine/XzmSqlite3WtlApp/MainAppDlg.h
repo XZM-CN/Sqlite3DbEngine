@@ -104,4 +104,6 @@ protected:
 
 public:
 	CComPtr <ISqlite3Connect> m_spiSqlite3Connect;
+	CComPtr <IParaService>    m_spiParaService;
+	CComPtr <IJsonService>    m_spiJsonService;
 };

@@ -7,3 +7,11 @@ UPDATE "T_Sys" SET SyslogFlag = 0;
 ALTER TABLE T_Warn ADD COLUMN SyslogFlag INTEGER;
 -- 更新表"T_Warn"中SyslogFlag字段的值为0
 UPDATE "T_Warn" SET SyslogFlag = 0;
+
+
+
+-- 更新表T_Sys、T_Event、T_Warn的SyslogFlag值为0
+UPDATE "T_Sys"   SET SyslogFlag = 0;
+UPDATE "T_Event" SET SyslogFlag = 0;
+UPDATE "T_Warn"  SET SyslogFlag = 0;
+UPDATE "T_Para"  SET SyslogFlag = 0;

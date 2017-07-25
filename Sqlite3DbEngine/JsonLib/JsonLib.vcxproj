@@ -80,6 +80,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\Common\json\assertions.h" />
+    <ClInclude Include="..\Common\json\autolink.h" />
+    <ClInclude Include="..\Common\json\config.h" />
+    <ClInclude Include="..\Common\json\features.h" />
+    <ClInclude Include="..\Common\json\forwards.h" />
+    <ClInclude Include="..\Common\json\json.h" />
+    <ClInclude Include="..\Common\json\reader.h" />
+    <ClInclude Include="..\Common\json\value.h" />
+    <ClInclude Include="..\Common\json\version.h" />
+    <ClInclude Include="..\Common\json\writer.h" />
     <ClInclude Include="json_tool.h" />
   </ItemGroup>
   <ItemGroup>

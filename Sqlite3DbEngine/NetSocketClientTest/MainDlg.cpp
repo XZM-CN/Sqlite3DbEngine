@@ -116,6 +116,24 @@ LRESULT CMainDlg::OnTreeXzmClickTree(NMHDR* phdr)
 			{
 			}
 		}
+		else if(IsYourChild( _T("Simulation HxSafeGuard"),m_TreeXzm,hItemHit))
+		{
+			if(0 == str.Compare( _T("上传SysLog日志")))
+			{
+			}
+			else if(0 == str.Compare( _T("")))
+			{
+			}
+		}
+		else if(IsYourChild( _T("xxxxxx"),m_TreeXzm,hItemHit))
+		{
+			if(0 == str.Compare( _T("xxxxxx")))
+			{
+			}
+			else if(0 == str.Compare( _T("xxxxxx")))
+			{
+			}
+		}
 	}
 
 	return 0;
@@ -141,10 +159,16 @@ void CMainDlg::InitXzmTree()
 	InsertXzmTree( m_TreeXzm, hItem1, TCItem, _T("初始化"));
 	InsertXzmTree( m_TreeXzm, hItem1, TCItem, _T("执行"));
 	InsertXzmTree( m_TreeXzm, hItem1, TCItem, _T("释放"));
-	HTREEITEM hItem2 = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("xxxxxxxxx"));
-	InsertXzmTree( m_TreeXzm, hItem2, TCItem, _T("xxx"));
-	InsertXzmTree( m_TreeXzm, hItem2, TCItem, _T("xxx"));
-	InsertXzmTree( m_TreeXzm, hItem2, TCItem, _T("xxx"));
+
+	HTREEITEM hItemX = NULL;
+	/*HTREEITEM*/ hItemX = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("Simulation HxSafeGuard"));//模拟HxSafeGuard
+	InsertXzmTree( m_TreeXzm, hItemX, TCItem, _T("上传SysLog日志"));
+	InsertXzmTree( m_TreeXzm, hItemX, TCItem, _T("xxx"));
+	InsertXzmTree( m_TreeXzm, hItemX, TCItem, _T("xxx"));
+	/*HTREEITEM*/ hItemX = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("客户端注册到平台"));
+	InsertXzmTree( m_TreeXzm, hItemX, TCItem, _T("xxx"));
+	InsertXzmTree( m_TreeXzm, hItemX, TCItem, _T("xxx"));
+	InsertXzmTree( m_TreeXzm, hItemX, TCItem, _T("xxx"));
 
 
 	m_TreeXzm.Expand(hRoot, TVE_EXPAND);//展开上一级树

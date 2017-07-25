@@ -109,6 +109,7 @@ public:
 		return m_strErrInfo;
 	}
 
+	BOOL CreateJsonDemoToFile(const CString& strJsonFile);
 protected:
 
 	/// 是否内存
@@ -203,7 +204,7 @@ protected:
 	Json::Value m_TempValue;
 
 	///  是否需要自己管理内存释放
-	bool		m_bDeleteSelf;
+	bool m_bDeleteSelf;
 
 	/// 编码类型
 	ECodingType	m_eCodingType;

@@ -25,7 +25,7 @@ protected:
 	EHXAccountType m_eAccountType;
 	/// 数据库连接
 	CComPtr <ISqlite3Connect> m_spiSqlite3Connect;
-	ISqlite3Connect
+
 	/// 初始化可登录账号列表
 	void InitAccountList();
 

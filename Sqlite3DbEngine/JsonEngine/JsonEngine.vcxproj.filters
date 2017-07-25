@@ -72,12 +72,6 @@
     <ClInclude Include="ParaService.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\Common\BaseFuncLib.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Common\HXRegKey.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="JsonEngine.rc">

@@ -662,3 +662,31 @@ STDMETHODIMP CJsonService::GetString(IParaService** pVal)
 	KeyList.clear();
 	return spiParaService->QueryInterface(IID_IParaService,(LPVOID *)pVal);
 }
+
+
+STDMETHODIMP CJsonService::TestCreateJsonFile(BSTR bstrFilePath)
+{
+	if(NULL == bstrFilePath)
+	{
+		ATLASSERT(0);
+		return E_POINTER;
+	}
+
+	m_strFilePath = bstrFilePath;
+	if(m_strFilePath.IsEmpty() || CBaseFuncLib::IsPathExist(m_strFilePath))
+	{
+		::SetFileAttributes(bstrFilePath,FILE_ATTRIBUTE_NORMAL);
+		::DeleteFile(bstrFilePath);
+	}
+	if(NULL == m_pJsonParser)
+		m_pJsonParser = new CJsonParser();
+	ATLASSERT(m_pJsonParser);
+	if(NULL == m_pJsonParser)
+	{
+		ATLASSERT(0);
+		return E_OUTOFMEMORY;
+	}
+
+	m_pJsonParser->CreateJsonDemoToFile(bstrFilePath);
+	return S_OK;
+}

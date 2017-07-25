@@ -105,6 +105,7 @@ interface IJsonService : IDispatch{
 
 	[id(51)] HRESULT Save(void);
 	[id(52)] HRESULT Clear(void);
+	[id(53), helpstring("测试Json接口，本函数创建一个Json数据格式的文件存储到本地文件中")] HRESULT TestCreateJsonFile([in] BSTR bstrFilePath);
 };
 [
 	object,

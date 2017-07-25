@@ -146,8 +146,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Common\BaseFuncLib.h" />
-    <ClInclude Include="..\Common\HXRegKey.h" />
     <ClInclude Include="dllmain.h" />
     <ClInclude Include="JsonEngine_i.h" />
     <ClInclude Include="JsonParser.h" />

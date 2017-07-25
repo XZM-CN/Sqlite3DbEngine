@@ -5,9 +5,9 @@
 // common
 #include "BaseFuncLib.h"
 
+extern HANDLE			g_hInstance;
 
-
-CComPtr <ISqlite3Connect> CheckDataConnect(HWND hWnd)
+CComPtr <ISqlite3Connect> CheckDataConnectEx(HWND hWnd)
 {
 	CComPtr <ISqlite3Connect> spiSqlite3Connect = NULL;
 	CString strModulePath = CBaseFuncLib::GetModulePath();
@@ -32,6 +32,8 @@ CMainAppDlg::CMainAppDlg(void)
 	: m_wndOKBtn(0x01), m_wndExitBtn(0x02),m_wndAboutBtn(0x03)
 {
 	m_spiSqlite3Connect = NULL;
+	m_spiParaService    = NULL;
+	m_spiJsonService    = NULL;
 }
 
 
@@ -181,17 +183,19 @@ void CMainAppDlg::InitXzmTree()
 	InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("取得接口指针"));
 	InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("打开数据库"));
 	InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("加密数据库"));
-	InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("创建表01"));
-	InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("向表01插入数据"));
-	InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("创建表02"));
-	InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("向表02插入数据"));
-	InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("创建表02"));
-	InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("向表02插入数据"));
-	InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("创建表03"));
-	InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("向表03插入数据"));
-	InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("查询表01"));
-	InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("查询表02"));
-	InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("查询表03"));
+	InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("解密数据库"));
+	InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("创建表T_Sys"));
+	InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("向表T_Sys插入数据"));
+	InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("创建表T_Event"));
+	InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("向表T_Event插入数据"));
+	InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("创建表T_Warn"));
+	InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("向表T_Warn插入数据"));
+	InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("创建表T_Para"));
+	InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("向表T_Para插入数据"));
+	InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("查询表T_Sys"));
+	InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("查询表T_Event"));
+	InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("查询表T_Warn"));
+	InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("查询表T_Para"));
 	InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("xxx"));
 	InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("xxx"));
 	InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("xxx"));
@@ -208,7 +212,7 @@ void CMainAppDlg::InitXzmTree()
 	/*HTREEITEM*/ hItemx = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("创建Json数据，如果文件不存在则创建"));
 	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("取得接口指针"));
 	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("打开Json文件，文件不存在则创建"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("创建Json链"));
+	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("创建Json文件"));
 	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
 	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
 	/*HTREEITEM*/ hItemx = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("md5测试，使用独立包"));
@@ -408,18 +412,209 @@ LRESULT CMainAppDlg::OnTreeXzmClickTree(NMHDR* phdr)
 		{
 			if(0 == str.Compare( _T("取得接口指针")))
 			{
-				CComPtr <ISqlite3Connect> spiSqlite3Connect = CheckDataConnect(this->m_hWnd);
+				CComPtr <ISqlite3Connect> spiSqlite3Connect = CheckDataConnectEx(this->m_hWnd);
 			}
-			if(0 == str.Compare( _T("打开带密码的数据库")))
+			else if(0 == str.Compare( _T("打开带密码的数据库")))
 			{
 			}
-			if(0 == str.Compare( _T("清空密码")))
+			else if(0 == str.Compare( _T("清空密码")))
 			{
 			}
-			if(0 == str.Compare( _T("重置密码")))
+			else if(0 == str.Compare( _T("重置密码")))
 			{
 			}
-			if(0 == str.Compare( _T("释放接口指针")))
+			else if(0 == str.Compare( _T("释放接口指针")))
+			{
+			}
+		}
+		else if(IsYourChild( _T("创建数据库，如果数据库存在就擦除重建"),m_TreeXzm,hItemHit))
+		{
+			if(0 == str.Compare( _T("取得接口指针")))
+			{
+				CComPtr <ISqlite3Connect> spiSqlite3Connect = CheckDataConnectEx(this->m_hWnd);
+				if(m_spiSqlite3Connect == NULL)
+					m_spiSqlite3Connect = spiSqlite3Connect;
+				else
+					::MessageBox( 0, _T(""), _T(""), MB_OK);
+			}
+			else if(0 == str.Compare( _T("打开数据库")))
+			{
+				CString strPath = _T("");
+				strPath = CBaseFuncLib::GetModulePath(g_hInstance);
+				strPath = strPath + _T("HXLog.hdb");
+
+				if ( !DoDataExchange(true) ) // == 更新控件关联的变量UpdateData
+					return 0;
+
+				if(m_spiSqlite3Connect == NULL) {
+					::MessageBox( 0, _T("m_spiSqlite3Connect未初始化"), _T(""), MB_OK);
+					return 0;
+				}
+				m_spiSqlite3Connect->Open(CComBSTR(strPath),_T(""),TRUE);
+			}
+			else if(0 == str.Compare( _T("加密数据库")))
+			{
+			}
+			else if(0 == str.Compare( _T("解密数据库")))
+			{
+			}
+			else if(0 == str.Compare( _T("创建表T_Sys")))
+			{
+			}
+			else if(0 == str.Compare( _T("向表T_Sys插入数据")))
+			{
+			}
+			else if(0 == str.Compare( _T("创建表T_Event")))
+			{
+			}
+			else if(0 == str.Compare( _T("向表T_Event插入数据")))
+			{
+			}
+			else if(0 == str.Compare( _T("创建表T_Warn")))
+			{
+			}
+			else if(0 == str.Compare( _T("向表T_Warn插入数据")))
+			{
+			}
+			else if(0 == str.Compare( _T("创建表T_Para")))
+			{
+			}
+			else if(0 == str.Compare( _T("向表T_Para插入数据")))
+			{
+			}
+			else if(0 == str.Compare( _T("查询表T_Sys")))
+			{
+			}
+			else if(0 == str.Compare( _T("查询表T_Event")))
+			{
+			}
+			else if(0 == str.Compare( _T("查询表T_Warn")))
+			{
+			}
+			else if(0 == str.Compare( _T("查询表T_Para")))
+			{
+			}
+			else if(0 == str.Compare( _T("更新表的T_Sys字段")))
+			{
+			}
+			else if(0 == str.Compare( _T("更新表的T_Event字段")))
+			{
+			}
+			else if(0 == str.Compare( _T("更新表的T_Warn字段")))
+			{
+			}
+			else if(0 == str.Compare( _T("更新表的T_Para字段")))
+			{
+			}
+			else if(0 == str.Compare( _T("xxxx")))
+			{
+			}
+			else if(0 == str.Compare( _T("xxxx")))
+			{
+			}
+			else if(0 == str.Compare( _T("xxxx")))
+			{
+			}
+			else if(0 == str.Compare( _T("xxxx")))
+			{
+			}
+			else if(0 == str.Compare( _T("xxxx")))
+			{
+			}
+			else if(0 == str.Compare( _T("xxxx")))
+			{
+			}
+			else if(0 == str.Compare( _T("xxxx")))
+			{
+			}
+			else if(0 == str.Compare( _T("xxxx")))
+			{
+			}
+		}
+		else if(IsYourChild( _T("创建Json数据，如果文件不存在则创建"),m_TreeXzm,hItemHit))
+		{
+			if(0 == str.Compare( _T("取得接口指针")))
+			{
+				CComPtr <IParaService> spInterface = NULL;
+				CString strModulePath = CBaseFuncLib::GetModulePath();
+				strModulePath = strModulePath + _T("JsonEngine.dll");
+				if(!strModulePath.IsEmpty())
+				{
+					HINSTANCE hInst = NULL;
+					hInst = CBaseFuncLib::CreateInstance( strModulePath.GetBuffer(),__uuidof(ParaService),__uuidof(IParaService),(VOID **)&spInterface);
+					if(hInst == NULL)
+						return 0;
+					ATLASSERT(spInterface);
+				}
+				if(m_spiParaService == NULL)
+					m_spiParaService = spInterface;
+				else
+					::MessageBox( 0, _T(""), _T(""), MB_OK);
+
+				CComPtr <IJsonService> spIJsonService = NULL;
+				strModulePath.Empty();
+				strModulePath = CBaseFuncLib::GetModulePath();
+				strModulePath = strModulePath + _T("JsonEngine.dll");
+				if(!strModulePath.IsEmpty())
+				{
+					HINSTANCE hInst = NULL;
+					hInst = CBaseFuncLib::CreateInstance( strModulePath.GetBuffer(),__uuidof(JsonService),__uuidof(IJsonService),(VOID **)&spIJsonService);
+					if(hInst == NULL)
+						return 0;
+					ATLASSERT(spIJsonService);
+				}
+				if(m_spiJsonService == NULL)
+					m_spiJsonService = spIJsonService;
+				else
+					::MessageBox( 0, _T(""), _T(""), MB_OK);
+			}
+			else if(0 == str.Compare( _T("打开Json文件，文件不存在则创建")))
+			{
+				if(m_spiParaService == NULL || m_spiJsonService == NULL) {
+					::MessageBox( 0, _T("m_spiParaService | m_spiJsonService为NULL"), _T("XzmSqlite3WtlApp"), MB_OK);
+					return 0;
+				}
+				CString strModulePath = CBaseFuncLib::GetModulePath();
+				int iFind = -1;
+				iFind = strModulePath.ReverseFind(_T('\\'));
+				strModulePath = strModulePath.Left(iFind);
+				iFind = strModulePath.ReverseFind(_T('\\'));
+				strModulePath = strModulePath.Left(iFind);
+				iFind = strModulePath.ReverseFind(_T('\\'));
+				strModulePath = strModulePath.Left(iFind+1);
+				strModulePath = strModulePath + _T("Config\\JsonTest.json");
+
+				VARIANT_BOOL bRet = FALSE;
+				m_spiJsonService->ParseFile(CComBSTR(strModulePath),&bRet);
+			}
+			else if(0 == str.Compare( _T("创建Json文件")))
+			{
+				if(m_spiParaService == NULL || m_spiJsonService == NULL) {
+					::MessageBox( 0, _T("m_spiParaService | m_spiJsonService为NULL"), _T("XzmSqlite3WtlApp"), MB_OK);
+					return 0;
+				}
+				CString strModulePath = CBaseFuncLib::GetModulePath();
+				int iFind = -1;
+				iFind = strModulePath.ReverseFind(_T('\\'));
+				strModulePath = strModulePath.Left(iFind);
+				iFind = strModulePath.ReverseFind(_T('\\'));
+				strModulePath = strModulePath.Left(iFind);
+				iFind = strModulePath.ReverseFind(_T('\\'));
+				strModulePath = strModulePath.Left(iFind+1);
+				strModulePath = strModulePath + _T("Config\\JsonCreateTest.json");
+
+				m_spiJsonService->TestCreateJsonFile(CComBSTR(strModulePath));
+			}
+			else if(0 == str.Compare( _T("xxx")))
+			{
+			}
+			else if(0 == str.Compare( _T("xxx")))
+			{
+			}
+			else if(0 == str.Compare( _T("xxx")))
+			{
+			}
+			else if(0 == str.Compare( _T("xxx")))
 			{
 			}
 		}

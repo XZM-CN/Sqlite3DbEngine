@@ -1263,6 +1263,38 @@ CJsonParser* CJsonParser::GetReadReader(Json::Value* pRoot)
 	return pReader;
 }
 
+BOOL CJsonParser::CreateJsonDemoToFile(const CString& strJsonFile)
+{
+	m_eCodingType = CODINGTYPE_US2;
+	//根节点
+	Json::Value root;
+	m_pRoot = &root;
+	//根节点属性
+	root["name"] = Json::Value("Tsybius");
+	root["age"] = Json::Value(23);
+	root["sex_is_male"] = Json::Value(true);
+
+	//子节点
+	Json::Value partner;
+
+	//子节点属性
+	partner["partner_name"] = Json::Value("Galatea");
+	partner["partner_age"] = Json::Value(21);
+	partner["partner_sex_is_male"] = Json::Value(false);
+
+	//子节点挂到根节点上
+	root["partner"] = Json::Value(partner);
+
+	//数组形式
+	root["achievement"].append("ach1");
+	root["achievement"].append("ach2");
+	root["achievement"].append("ach3");
+
+	SaveToFile(strJsonFile);
+
+	return 0;
+}
+
 Json::Value* CJsonParser::GetChildNodeByIndex( const int nIndex )
 {
 	if( !m_pRoot->isValidIndex(nIndex))

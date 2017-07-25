@@ -128,6 +128,23 @@ public:
 
 	STDMETHOD(Save)(void);
 	STDMETHOD(Clear)(void);
-};
+
+	/**
+	 * @brief             TestCreateJsonFile
+	 *
+	 * @Function          创建一个Json文件
+	 *
+	 * @param[  _In_   ]  bstrFilePath 文件的绝对路径
+	 *
+	 * @param[  _Out_  ]  
+	 *
+	 * @param[_Out_opt_]  
+	 *
+	 * @return            
+	 *
+	 * @Date xzm_@_2017/06/30  13:40:11
+	*/
+	STDMETHOD(TestCreateJsonFile)(BSTR bstrFilePath);
+	};
 
 OBJECT_ENTRY_AUTO(__uuidof(JsonService), CJsonService)

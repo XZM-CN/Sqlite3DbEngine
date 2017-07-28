@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "JsonParser.h"
 
+#include <iostream>
 using namespace std;
 
 #ifndef WIN64
@@ -373,7 +374,7 @@ ULONG CJsonParser::GetArraySize()
 	return ulSize;
 }
 
-bool CJsonParser::SetChild(const char* pName,const char* pValue)
+bool CJsonParser::SetObjAsChild(const char* pName,const char* pValue)
 {
 	if(NULL == pName)
 	{
@@ -399,6 +400,8 @@ bool CJsonParser::SetChild(const char* pName,const char* pValue)
 		pRoot = NULL;
 		return false;
 	}
+	cout << pRoot->toStyledString().c_str() << endl << endl;
+	cout << m_pRoot->toStyledString().c_str() << endl << endl;
 
 	/// 判断是否重复
 	if(Json::nullValue == m_pRoot->type() || Json::objectValue == m_pRoot->type())
@@ -408,7 +411,11 @@ bool CJsonParser::SetChild(const char* pName,const char* pValue)
 			m_pRoot->removeMember(pName);
 		}
 
-		m_pRoot->append(*pRoot);
+		cout << m_pRoot->toStyledString().c_str() << endl << endl;
+		//m_pRoot->append(*pRoot);
+		(*m_pRoot)[pName] = *pRoot;
+
+		cout << m_pRoot->toStyledString().c_str() << endl << endl;
 		return true;
 	}
 
@@ -488,7 +495,15 @@ Json::Value* CJsonParser::GetChildNode(const char* pName)
 	return pChild;
 }
 
-bool CJsonParser::SetChild(const CString& strName,const CString& strValue)
+Json::Value* CJsonParser::GetRootNode(const char* pName)
+{
+	if(m_pRoot != NULL)
+		return m_pRoot;
+	else
+		return NULL;
+}
+
+bool CJsonParser::SetObjAsChild(const CString& strName,const CString& strValue)
 {
 	bool bRet = false;
 	if(strName.IsEmpty())
@@ -497,13 +512,14 @@ bool CJsonParser::SetChild(const CString& strName,const CString& strValue)
 		return bRet;
 	}
 	CString strChild(_T(""));
-	strChild.Format(_T("{ \"%s\" : %s }"),strName,strValue);
+	//strChild.Format(_T("{ \"%s\" : %s }"),strName,strValue);
+	strChild.Format(_T("%s"),strValue);
 	char *szName = NULL,*szValue = NULL;
 	CBaseFuncLib::US2ToUtf8(strName,&szName);
-	CBaseFuncLib::US2ToUtf8(strChild,&szValue);
+	CBaseFuncLib::Us2ToChar(strValue/*strChild*/,&szValue);
 	if(NULL != szName && NULL != szValue)
 	{
-		bRet = SetChild(szName,szValue);
+		bRet = SetObjAsChild((const char *)szName,szValue);
 	}
 	if(NULL != szName)
 	{
@@ -1290,9 +1306,298 @@ BOOL CJsonParser::CreateJsonDemoToFile(const CString& strJsonFile)
 	root["achievement"].append("ach2");
 	root["achievement"].append("ach3");
 
+	// 输出上面创建的Json格式内容
+	Json::FastWriter fw;
+	std::string str = fw.write(root);
+	cout << fw.write(root) << endl << endl;
+
+	std::cout << "换一种方式输出" << endl << endl;
+
+	Json::StyledWriter writer;
+	std::string output = writer.write((root));
+	cout << writer.write(root) << endl << endl;
+
+
 	SaveToFile(strJsonFile);
 
 	return 0;
+}
+
+BOOL CJsonParser::CreateJsonDemoToString(BSTR* strResult)
+{
+	return 0;
+}
+
+BOOL CJsonParser::ParseJsonFromFile(const CString& strJsonFile)
+{
+	return 0;
+}
+
+BOOL CJsonParser::ParseJsonFromString(const CString& strJsonFile)
+{
+	return 0;
+}
+
+// 反序列化Json对象
+// --------------------------------------------------------------------------------------
+// http://www.cnblogs.com/ytjjyy/archive/2012/04/17/2453348.html
+// 比如一个Json对象的字符串序列如下,其中”array”:[...]表示Json对象中的数组：
+// {“key1″:”value1″,”array”:[{"key2":"value2"},{"key2":"value3"},{"key2":"value4"}]},
+// 那怎么分别取到key1和key2的值呢
+void CJsonParser::JsonDesignFormatTest00()
+{
+	/*
+	{
+		"array" : [
+			{
+				"key2" : "value2"
+			},
+			{
+				"key2" : "value3"
+			},
+			{
+				"key2" : "value4"
+			}
+		],
+		"key1" : "value1"
+	}
+	*/
+	std::string strValue = "{\"key1\":\"value1\",\"array\":[{\"key2\":\"value2\"},{\"key2\":\"value3\"},{\"key2\":\"value4\"}]}";
+
+	Json::Reader reader;
+	Json::Value value;
+
+	if (reader.parse(strValue, value))
+	{
+		std::string out = value["key1"].asString();
+		std::cout << out << std::endl;
+		const Json::Value arrayObj = value["array"];
+		for (unsigned int i=0; i<arrayObj.size(); i++)
+		{
+			out = arrayObj[i]["key2"].asString();
+			std::cout << out;
+			if (i != (arrayObj.size() - 1 ))
+				std::cout << std::endl;
+		}
+	}
+
+	std::cout << std::endl << std::endl << std::endl;
+	Json::StyledWriter writer;
+	std::string output = writer.write((value));
+	cout << writer.write(value) << endl << endl;
+}
+
+// 序列化Json对象
+// --------------------------------------------------------------------------------------
+// http://www.cnblogs.com/ytjjyy/archive/2012/04/17/2453348.html
+// 先构建一个Json对象,此Json对象中含有数组,然后把Json对象序列化成字符串,代码如下：
+void CJsonParser::JsonDesignFormatTest01()
+{
+	/*
+	{
+		"array" : [
+			{
+				"key" : 0
+			},
+			{
+				"key" : 1
+			},
+			{
+				"key" : 2
+			},
+			{
+				"key" : 3
+			},
+			{
+				"key" : 4
+			},
+			{
+				"key" : 5
+			}
+		],
+		"key1" : "value1",
+		"key2" : "value2"
+	}
+	*/
+	Json::Value root;
+	Json::Value arrayObj;
+	Json::Value item;
+	for (int i=0; i<=5; i++)
+	{
+		item["key"] = i;
+		arrayObj.append(item);
+	}
+	const char *p = "\"sdfsdfsdfsdf\"";
+	root[p] = "dfsdf";
+	cout << root.toStyledString().c_str() << endl << endl;
+	root["key1"] = "value1";
+	root["key2"] = "value2";
+	root["array"] = arrayObj;
+	root.toStyledString();
+	std::string out = root.toStyledString();
+	std::cout << out << std::endl;
+
+	// 删除key节点,key是array节点数组里的一个元素,删除key节点是不成功的
+	root.removeMember("key");
+	printf("%s \n",root.toStyledString().c_str());
+
+	// 删除array节点,成功
+	root.removeMember("array");
+	printf("%s \n",root.toStyledString().c_str());
+}
+
+// 序列化Json对象
+// --------------------------------------------------------------------------------------
+// http://www.cnblogs.com/ytjjyy/archive/2012/04/17/2453348.html
+// 添加子节点Json
+void CJsonParser::JsonDesignFormatTest02()
+{
+	/*
+	{
+		"ChildNode" : {
+			"ChildNodekey1" : "ChildNodevalue1",
+			"ChildNodekey2" : "ChildNodevalue2",
+			"ChildNodekey3" : "ChildNodevalue3"
+		},
+		"key1" : "value1",
+		"key2" : "value2",
+		"key3" : "value3"
+	}
+	*/
+	Json::Value root;
+	Json::Value ChildNode;
+	Json::Value item;
+
+	root["key1"] = "value1";
+	root["key2"] = "value2";
+	root["key3"] = "value3";
+	root["ChildNode"] = "ChildNode";
+
+	cout << root.toStyledString().c_str() << endl << endl;
+
+
+	ChildNode["ChildNodekey1"] = "ChildNodevalue1";
+	ChildNode["ChildNodekey2"] = "ChildNodevalue2";
+	ChildNode["ChildNodekey3"] = "ChildNodevalue3";
+	root["ChildNode"] = ChildNode;
+
+	cout << root.toStyledString().c_str() << endl << endl;
+}
+
+// 序列化Json对象
+// --------------------------------------------------------------------------------------
+// http://www.cnblogs.com/SkySoot/archive/2012/04/17/2453010.html
+// 创建复杂Json格式
+void CJsonParser::JsonDesignFormatTest03()
+{
+	/*
+	{
+		"programmers": [
+			{
+				"firstName": "Brett", 
+				"lastName": "McLaughlin", 
+				"email": "aaaa"
+			}, 
+			{
+				"firstName": "Jason", 
+				"lastName": "Hunter", 
+				"email": "bbbb"
+			}
+		], 
+		"authors": [
+			{
+				"firstName": "Isaac", 
+				"lastName": "Asimov", 
+				"genre": "science fiction"
+			}, 
+			{
+				"firstName": "Tad", 
+				"lastName": "Williams", 
+				"genre": "fantasy"
+			}
+		], 
+		"musicians": [
+			{
+				"firstName": "Eric", 
+				"lastName": "Clapton", 
+				"instrument": "guitar"
+			}, 
+			{
+				"firstName": "Sergei", 
+				"lastName": "Rachmaninoff", 
+				"instrument": "piano"
+			}
+		]
+	}
+	*/
+	Json::Value root;
+	Json::Value programmers,programmersChild;
+	Json::Value authors,authorsChild;
+	Json::Value musicians,musiciansChild;
+
+	programmersChild["firstName"] = "Brett";
+	programmersChild["lastName"] = "McLaughlin";
+	programmersChild["email"] = "aaaa";
+	programmers.append(programmersChild);
+
+	programmersChild["firstName"] = "Jason";
+	programmersChild["lastName"] = "Hunter";
+	programmersChild["email"] = "bbbb";
+	programmers.append(programmersChild);
+
+	authorsChild["firstName"] = "Isaac";
+	authorsChild["lastName"] = "Asimov";
+	authorsChild["genre"] = "science fiction";
+	authors.append(authorsChild);
+
+	authorsChild["firstName"] = "Tad";
+	authorsChild["lastName"] = "Williams";
+	authorsChild["genre"] = "fantasy";
+	authors.append(authorsChild);
+
+	musiciansChild["firstName"] = "Eric";
+	musiciansChild["lastName"] = "Clapton";
+	musiciansChild["instrument"] = "guitar";
+	musicians.append(musiciansChild);
+
+	authorsChild["firstName"] = "Sergei";
+	authorsChild["lastName"] = "Rachmaninoff";
+	authorsChild["instrument"] = "piano";
+	musicians.append(musiciansChild);
+
+	root["programmers"] = programmers;
+	root["authors"] = authors;
+	root["musicians"] = musicians;
+
+	cout << root.toStyledString().c_str() << endl << endl;
+}
+
+// 反序列化Json对象
+// --------------------------------------------------------------------------------------
+// 获取某个节点的指针
+void CJsonParser::JsonDesignFormatTest04()
+{
+
+}
+
+void CJsonParser::JsonDesignFormatTest05()
+{
+
+}
+
+void CJsonParser::JsonDesignFormatTest06()
+{
+
+}
+
+void CJsonParser::JsonDesignFormatTest07()
+{
+
+}
+
+void CJsonParser::JsonDesignFormatTest08()
+{
+
 }
 
 Json::Value* CJsonParser::GetChildNodeByIndex( const int nIndex )

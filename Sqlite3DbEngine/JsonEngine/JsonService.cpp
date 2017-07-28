@@ -3,7 +3,6 @@
 #include "stdafx.h"
 #include "JsonService.h"
 
-
 extern HANDLE	g_hInstance;
 
 
@@ -346,7 +345,7 @@ STDMETHODIMP CJsonService::GetArrayValue(SHORT sIndex,BSTR* pKey,VARIANT* pVal)
 		return E_FAIL;
 	if(VT_SAFEARRAY == varVal.vt)
 	{
-		/// 数组类型，特殊处理
+		/// 数组类型,特殊处理
 		CJsonParser* pJsonParser = (CJsonParser* )varVal.parray;
 		CComObject< CJsonService > *pJsonService=NULL;
 #ifdef NEED_FINAL_CONSTRUCT
@@ -408,7 +407,7 @@ STDMETHODIMP CJsonService::PutChild(BSTR bstrKeyName, IJsonService* pVal)
 	HRESULT hRet = pVal->get_ObjectString(&bstrVal);
 	if(FAILED(hRet))
 		return hRet;
-	bool bSetFlag = m_pJsonParser->SetChild(strKeyName,bstrVal.m_str);
+		bool bSetFlag = m_pJsonParser->SetObjAsChild(strKeyName,bstrVal.m_str);
 	bstrVal.Empty();
 	if(!bSetFlag)
 		return E_FAIL;
@@ -480,6 +479,8 @@ STDMETHODIMP CJsonService::Clear(void)
 	ClearParser();
 	return S_OK;
 }
+
+
 
 STDMETHODIMP CJsonService::get_ObjectString(BSTR* pVal)
 {
@@ -664,7 +665,7 @@ STDMETHODIMP CJsonService::GetString(IParaService** pVal)
 }
 
 
-STDMETHODIMP CJsonService::TestCreateJsonFile(BSTR bstrFilePath)
+STDMETHODIMP CJsonService::TestCreateJsonToFile(BSTR bstrFilePath)
 {
 	if(NULL == bstrFilePath)
 	{
@@ -688,5 +689,172 @@ STDMETHODIMP CJsonService::TestCreateJsonFile(BSTR bstrFilePath)
 	}
 
 	m_pJsonParser->CreateJsonDemoToFile(bstrFilePath);
+	return S_OK;
+}
+
+
+STDMETHODIMP CJsonService::TestParseJsonFromFile(BSTR bstrFilePath)
+{
+	if(NULL == bstrFilePath)
+	{
+		ATLASSERT(0);
+		return E_POINTER;
+	}
+
+	m_strFilePath = bstrFilePath;
+
+	if(m_strFilePath.IsEmpty() || !CBaseFuncLib::IsPathExist(m_strFilePath))
+	{
+		ATLASSERT(0);
+		return E_INVALIDARG;
+	}
+	if(NULL == m_pJsonParser)
+		m_pJsonParser = new CJsonParser();
+	ATLASSERT(m_pJsonParser);
+	if(NULL == m_pJsonParser)
+	{
+		ATLASSERT(0);
+		return E_OUTOFMEMORY;
+	}
+
+	m_pJsonParser->ParseJsonFromFile(bstrFilePath);
+	return S_OK;
+}
+
+
+STDMETHODIMP CJsonService::TestParseJsonFromString(BSTR bstrFilePath)
+{
+	if(NULL == bstrFilePath)
+	{
+		ATLASSERT(0);
+		return E_POINTER;
+	}
+
+	m_strFilePath = bstrFilePath;
+
+	if(m_strFilePath.IsEmpty())
+	{
+		ATLASSERT(0);
+		return E_INVALIDARG;
+	}
+	if(NULL == m_pJsonParser)
+		m_pJsonParser = new CJsonParser();
+	ATLASSERT(m_pJsonParser);
+	if(NULL == m_pJsonParser)
+	{
+		ATLASSERT(0);
+		return E_OUTOFMEMORY;
+	}
+
+	m_pJsonParser->ParseJsonFromString(bstrFilePath);
+	return S_OK;
+}
+
+
+STDMETHODIMP CJsonService::TestCreateJsonToString(BSTR* strResult)
+{
+	// TODO: 在此添加实现代码
+
+	return S_OK;
+}
+
+STDMETHODIMP CJsonService::TestAllJsonDesignFormat(JsonTest eJt)
+{
+	switch (eJt)
+	{
+	case e_Test00:
+		m_pJsonParser->JsonDesignFormatTest00();
+		break;
+	case e_Test01:
+		m_pJsonParser->JsonDesignFormatTest01();
+		break;
+	case e_Test02:
+		m_pJsonParser->JsonDesignFormatTest02();
+		break;
+	case e_Test03:
+		m_pJsonParser->JsonDesignFormatTest03();
+		break;
+	case e_Test04:
+		m_pJsonParser->JsonDesignFormatTest04();
+		break;
+	case e_Test05:
+		m_pJsonParser->JsonDesignFormatTest05();
+		break;
+	case e_Test06:
+		m_pJsonParser->JsonDesignFormatTest06();
+		break;
+	case e_Test07:
+		m_pJsonParser->JsonDesignFormatTest07();
+		break;
+	case e_Test08:
+		m_pJsonParser->JsonDesignFormatTest08();
+		break;
+	case e_Test09:
+		{
+			break;
+		}
+	case e_Test10:
+		{
+			break;
+		}
+	case e_Test11:
+		{
+			break;
+		}
+	case e_Test12:
+		{
+			break;
+		}
+	case e_Test13:
+		{
+			break;
+		}
+	case e_Test14:
+		{
+			break;
+		}
+	case e_Test15:
+		{
+			break;
+		}
+	case e_Test16:
+		{
+			break;
+		}
+	case e_Test17:
+		{
+			break;
+		}
+	case e_Test18:
+		{
+			break;
+		}
+	case e_Test19:
+		{
+			break;
+		}
+	case e_Test20:
+		{
+			break;
+		}
+	default:
+		break;
+	}
+	return S_OK;
+}
+
+
+STDMETHODIMP CJsonService::AddObjAsChildNode(BSTR bstrKeyName, IJsonService* pVal)
+{
+	HRESULT bSetFlag = PutChild(bstrKeyName,pVal);
+	if(!bSetFlag)
+		return E_FAIL;
+
+	return S_OK;
+}
+
+
+STDMETHODIMP CJsonService::AddArrayAsChildNode(BSTR bstrKeyName, IJsonService* pVal)
+{
 	return S_OK;
 }

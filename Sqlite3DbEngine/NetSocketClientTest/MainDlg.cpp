@@ -134,6 +134,24 @@ LRESULT CMainDlg::OnTreeXzmClickTree(NMHDR* phdr)
 			{
 			}
 		}
+		else if(IsYourChild( _T("客户端向平台申请注册"),m_TreeXzm,hItemHit))
+		{
+			if(0 == str.Compare( _T("发送注册请求")))
+			{
+			}
+			else if(0 == str.Compare( _T("")))
+			{
+			}
+		}
+		else if(IsYourChild( _T("xxxxxx"),m_TreeXzm,hItemHit))
+		{
+			if(0 == str.Compare( _T("xxxxxx")))
+			{
+			}
+			else if(0 == str.Compare( _T("xxxxxx")))
+			{
+			}
+		}
 	}
 
 	return 0;
@@ -165,7 +183,7 @@ void CMainDlg::InitXzmTree()
 	InsertXzmTree( m_TreeXzm, hItemX, TCItem, _T("上传SysLog日志"));
 	InsertXzmTree( m_TreeXzm, hItemX, TCItem, _T("xxx"));
 	InsertXzmTree( m_TreeXzm, hItemX, TCItem, _T("xxx"));
-	/*HTREEITEM*/ hItemX = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("客户端注册到平台"));
+	/*HTREEITEM*/ hItemX = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("客户端向平台申请注册"));
 	InsertXzmTree( m_TreeXzm, hItemX, TCItem, _T("xxx"));
 	InsertXzmTree( m_TreeXzm, hItemX, TCItem, _T("xxx"));
 	InsertXzmTree( m_TreeXzm, hItemX, TCItem, _T("xxx"));

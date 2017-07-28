@@ -21,7 +21,7 @@ UINT CUploadLogMgt::SendSyslogThread(LPVOID pParam)
 		return 0;
 
 	//创建上传日志对象
-	CXzmSysLog XzmSysLog;
+	CSysLog XzmSysLog;
 	//创建通信机制
 	XzmSysLog.CreateUDPCommunication();
 

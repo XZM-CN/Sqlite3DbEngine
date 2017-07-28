@@ -58,7 +58,7 @@ CComPtr <ISqlite3Connect> GetLogConnect(BOOL bReadFlag)
 	return spiSqlite3Connect;
 }
 
-CXzmSysLog::CXzmSysLog()
+CSysLog::CSysLog()
 {
 	m_pNetSock = NULL;
 	m_sock = INVALID_SOCKET;
@@ -68,7 +68,7 @@ CXzmSysLog::CXzmSysLog()
 
 }
 
-CXzmSysLog::~CXzmSysLog()
+CSysLog::~CSysLog()
 {
 	if (m_pNetSock != NULL && m_sock != INVALID_SOCKET)
 	{
@@ -77,7 +77,7 @@ CXzmSysLog::~CXzmSysLog()
 }
 
 //创建与XzmSysLog的通信
-BOOL CXzmSysLog::CreateUDPCommunication()
+BOOL CSysLog::CreateUDPCommunication()
 {
 	BOOL bRet = TRUE;
 	//读取初始化配置文件
@@ -101,7 +101,7 @@ BOOL CXzmSysLog::CreateUDPCommunication()
 }
 
 //从数据库中获取日志信息
-BOOL CXzmSysLog::GetLogDataFromDB()
+BOOL CSysLog::GetLogDataFromDB()
 {
 	BOOL bRet = TRUE;
 	HRESULT hRet = 0;
@@ -698,7 +698,7 @@ BOOL CXzmSysLog::GetLogDataFromDB()
 
 
 //转换XzmSysLog 的PRI段
-BOOL CXzmSysLog::ConvertPRIToXzmSysLog(enumFACILITY nFacility, enumSEVERITY nSeverity, CString& strPRI)
+BOOL CSysLog::ConvertPRIToXzmSysLog(enumFACILITY nFacility, enumSEVERITY nSeverity, CString& strPRI)
 {
 	BOOL bRet = TRUE;
 	int nFRI = 0;
@@ -720,8 +720,8 @@ BOOL CXzmSysLog::ConvertPRIToXzmSysLog(enumFACILITY nFacility, enumSEVERITY nSev
 	case enumSecurityOrAuthorizationMessages_1:
 		nFRI = enumSecurityOrAuthorizationMessages_1;
 		break;
-	case enumMessagesGeneratedInternallyByXzmSysLogd:
-		nFRI = enumMessagesGeneratedInternallyByXzmSysLogd;
+	case enumMessagesGeneratedInternallyBySysLogd:
+		nFRI = enumMessagesGeneratedInternallyBySysLogd;
 		break;
 	case enumLinePrinterSubsystem:
 		nFRI = enumLinePrinterSubsystem;
@@ -827,7 +827,7 @@ BOOL CXzmSysLog::ConvertPRIToXzmSysLog(enumFACILITY nFacility, enumSEVERITY nSev
 
 
 //解析日志并转换为syslog格式
-BOOL CXzmSysLog::ParseAndConvertLogDateToXzmSysLog(DOUBLE fTime, CString& strDate, BOOL bYear)
+BOOL CSysLog::ParseAndConvertLogDateToXzmSysLog(DOUBLE fTime, CString& strDate, BOOL bYear)
 {
 	BOOL bRet = TRUE;
 	CString strTemp;
@@ -863,7 +863,7 @@ BOOL CXzmSysLog::ParseAndConvertLogDateToXzmSysLog(DOUBLE fTime, CString& strDat
 }
 
 //获取月份字符串
-BOOL CXzmSysLog::GetMonthString(int nMonth,CString& strMonth)
+BOOL CSysLog::GetMonthString(int nMonth,CString& strMonth)
 {
 	BOOL bRet = TRUE;
 	if (nMonth <= 0)
@@ -919,7 +919,7 @@ BOOL CXzmSysLog::GetMonthString(int nMonth,CString& strMonth)
 
 
 //解析配置文件，获取XzmSysLog服务器IP
-BOOL CXzmSysLog::ParseXzmSysLogConfigFile(BYTE* pchXzmSysLog)
+BOOL CSysLog::ParseXzmSysLogConfigFile(BYTE* pchXzmSysLog)
 {
 	BOOL bRet = FALSE;
 
@@ -1113,7 +1113,7 @@ BOOL CXzmSysLog::ParseXzmSysLogConfigFile(BYTE* pchXzmSysLog)
 }
 
 //处理XzmSysLog文件
-BOOL CXzmSysLog::HandleXzmSysLogFile()
+BOOL CSysLog::HandleXzmSysLogFile()
 {
 	BOOL bRet = FALSE;
 	BYTE* ppData = NULL;

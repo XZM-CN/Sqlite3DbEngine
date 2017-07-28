@@ -96,7 +96,6 @@ public:
 	SOCKET Start( char* pchIP = "127.0.0.1", short nPort = 0);		//根据构造对象的参数确定创建客户端或服务端、UDP或TCP、阻塞或非阻塞
 	BOOL Stop(SOCKET sock);						//关闭相应的Socket
 
-			
 
 	BOOL SendData(SOCKET sock,char* strSendData ,int Length);
 	BOOL RecvData(SOCKET sock,char* strRecvData,int& nRecvLen);

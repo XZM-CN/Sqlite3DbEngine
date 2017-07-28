@@ -62,6 +62,41 @@ typedef enum EHXSafeLogType
 	SAFELOGTYPE_OPERATION			= 8192,	/// 用户操作日志
 } ESafeLogType;
 
+
+typedef enum tagJsonTest{
+	e_Test00,
+	e_Test01,
+	e_Test02,
+	e_Test03,
+	e_Test04,
+	e_Test05,
+	e_Test06,
+	e_Test07,
+	e_Test08,
+	e_Test09,
+	e_Test10,
+	e_Test11,
+	e_Test12,
+	e_Test13,
+	e_Test14,
+	e_Test15,
+	e_Test16,
+	e_Test17,
+	e_Test18,
+	e_Test19,
+	e_Test20,
+	e_Test21,
+	e_Test22,
+	e_Test23,
+	e_Test24,
+	e_Test25,
+	e_Test26,
+	e_Test27,
+	e_Test28,
+	e_Test29
+}JsonTest;
+
+
 interface IParaService;
 
 [
@@ -100,12 +135,18 @@ interface IJsonService : IDispatch{
 	[id(41)] HRESULT GetChildByName([in] BSTR bstrKeyName, [out,retval] IJsonService** pVal);
 	[id(42)] HRESULT GetChildByIndex([in] LONG nIndex, [out,retval] IJsonService** pVal);
 	[id(43)] HRESULT CreateChild([in] BSTR bstrKeyName, [out,retval] IJsonService** pVal);
-	[id(44)] HRESULT PutChild([in] BSTR bstrKeyName, [in] IJsonService* pVal);
+	[id(44), helpstring("添加子节点，逻辑有错误")] HRESULT PutChild([in] BSTR bstrKeyName, [in] IJsonService* pVal);
 	[id(45)] HRESULT GetString([out,retval] IParaService** pVal);
 
 	[id(51)] HRESULT Save(void);
 	[id(52)] HRESULT Clear(void);
-	[id(53), helpstring("测试Json接口，本函数创建一个Json数据格式的文件存储到本地文件中")] HRESULT TestCreateJsonFile([in] BSTR bstrFilePath);
+	[id(53), helpstring("测试Json接口，本函数创建一个Json数据格式的文件存储到本地文件中")] HRESULT TestCreateJsonToFile([in] BSTR bstrFilePath);
+	[id(54), helpstring("读取json文件并解析")] HRESULT TestParseJsonFromFile([in] BSTR bstrFilePath);
+	[id(55), helpstring("解析Json从字符串中")] HRESULT TestParseJsonFromString([in] BSTR bstrFilePath);
+	[id(56), helpstring("创建一个Json到字符串")] HRESULT TestCreateJsonToString([out,retval] BSTR* strResult);
+	[id(57), helpstring("测试关于Json的所有涉及方式")] HRESULT TestAllJsonDesignFormat([in] JsonTest eJt);
+	[id(58), helpstring("添加子节点，节点以对象形式添加")] HRESULT AddObjAsChildNode([in] BSTR bstrKeyName, [in] IJsonService* pVal);
+	[id(59), helpstring("添加子节点，节点以数组形式添加")] HRESULT AddArrayAsChildNode([in] BSTR bstrKeyName, [in] IJsonService* pVal);
 };
 [
 	object,

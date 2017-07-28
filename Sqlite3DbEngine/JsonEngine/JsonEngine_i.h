@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 7.00.0555 */
-/* at Tue Jul 25 17:43:53 2017
+/* at Fri Jul 28 14:51:35 2017
  */
 /* Compiler settings for JsonEngine.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 7.00.0555 
@@ -142,6 +142,40 @@ enum EHXSafeLogType
 	SAFELOGTYPE_OPERATION	= 8192
     } 	ESafeLogType;
 
+typedef 
+enum tagJsonTest
+    {	e_Test00	= 0,
+	e_Test01	= ( e_Test00 + 1 ) ,
+	e_Test02	= ( e_Test01 + 1 ) ,
+	e_Test03	= ( e_Test02 + 1 ) ,
+	e_Test04	= ( e_Test03 + 1 ) ,
+	e_Test05	= ( e_Test04 + 1 ) ,
+	e_Test06	= ( e_Test05 + 1 ) ,
+	e_Test07	= ( e_Test06 + 1 ) ,
+	e_Test08	= ( e_Test07 + 1 ) ,
+	e_Test09	= ( e_Test08 + 1 ) ,
+	e_Test10	= ( e_Test09 + 1 ) ,
+	e_Test11	= ( e_Test10 + 1 ) ,
+	e_Test12	= ( e_Test11 + 1 ) ,
+	e_Test13	= ( e_Test12 + 1 ) ,
+	e_Test14	= ( e_Test13 + 1 ) ,
+	e_Test15	= ( e_Test14 + 1 ) ,
+	e_Test16	= ( e_Test15 + 1 ) ,
+	e_Test17	= ( e_Test16 + 1 ) ,
+	e_Test18	= ( e_Test17 + 1 ) ,
+	e_Test19	= ( e_Test18 + 1 ) ,
+	e_Test20	= ( e_Test19 + 1 ) ,
+	e_Test21	= ( e_Test20 + 1 ) ,
+	e_Test22	= ( e_Test21 + 1 ) ,
+	e_Test23	= ( e_Test22 + 1 ) ,
+	e_Test24	= ( e_Test23 + 1 ) ,
+	e_Test25	= ( e_Test24 + 1 ) ,
+	e_Test26	= ( e_Test25 + 1 ) ,
+	e_Test27	= ( e_Test26 + 1 ) ,
+	e_Test28	= ( e_Test27 + 1 ) ,
+	e_Test29	= ( e_Test28 + 1 ) 
+    } 	JsonTest;
+
 
 
 
@@ -259,7 +293,7 @@ EXTERN_C const IID IID_IJsonService;
             /* [in] */ BSTR bstrKeyName,
             /* [retval][out] */ IJsonService **pVal) = 0;
         
-        virtual /* [id] */ HRESULT STDMETHODCALLTYPE PutChild( 
+        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE PutChild( 
             /* [in] */ BSTR bstrKeyName,
             /* [in] */ IJsonService *pVal) = 0;
         
@@ -270,8 +304,28 @@ EXTERN_C const IID IID_IJsonService;
         
         virtual /* [id] */ HRESULT STDMETHODCALLTYPE Clear( void) = 0;
         
-        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE TestCreateJsonFile( 
+        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE TestCreateJsonToFile( 
             /* [in] */ BSTR bstrFilePath) = 0;
+        
+        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE TestParseJsonFromFile( 
+            /* [in] */ BSTR bstrFilePath) = 0;
+        
+        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE TestParseJsonFromString( 
+            /* [in] */ BSTR bstrFilePath) = 0;
+        
+        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE TestCreateJsonToString( 
+            /* [retval][out] */ BSTR *strResult) = 0;
+        
+        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE TestAllJsonDesignFormat( 
+            /* [in] */ JsonTest eJt) = 0;
+        
+        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE AddObjAsChildNode( 
+            /* [in] */ BSTR bstrKeyName,
+            /* [in] */ IJsonService *pVal) = 0;
+        
+        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE AddArrayAsChildNode( 
+            /* [in] */ BSTR bstrKeyName,
+            /* [in] */ IJsonService *pVal) = 0;
         
     };
     
@@ -444,7 +498,7 @@ EXTERN_C const IID IID_IJsonService;
             /* [in] */ BSTR bstrKeyName,
             /* [retval][out] */ IJsonService **pVal);
         
-        /* [id] */ HRESULT ( STDMETHODCALLTYPE *PutChild )( 
+        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *PutChild )( 
             IJsonService * This,
             /* [in] */ BSTR bstrKeyName,
             /* [in] */ IJsonService *pVal);
@@ -459,9 +513,35 @@ EXTERN_C const IID IID_IJsonService;
         /* [id] */ HRESULT ( STDMETHODCALLTYPE *Clear )( 
             IJsonService * This);
         
-        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *TestCreateJsonFile )( 
+        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *TestCreateJsonToFile )( 
             IJsonService * This,
             /* [in] */ BSTR bstrFilePath);
+        
+        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *TestParseJsonFromFile )( 
+            IJsonService * This,
+            /* [in] */ BSTR bstrFilePath);
+        
+        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *TestParseJsonFromString )( 
+            IJsonService * This,
+            /* [in] */ BSTR bstrFilePath);
+        
+        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *TestCreateJsonToString )( 
+            IJsonService * This,
+            /* [retval][out] */ BSTR *strResult);
+        
+        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *TestAllJsonDesignFormat )( 
+            IJsonService * This,
+            /* [in] */ JsonTest eJt);
+        
+        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *AddObjAsChildNode )( 
+            IJsonService * This,
+            /* [in] */ BSTR bstrKeyName,
+            /* [in] */ IJsonService *pVal);
+        
+        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *AddArrayAsChildNode )( 
+            IJsonService * This,
+            /* [in] */ BSTR bstrKeyName,
+            /* [in] */ IJsonService *pVal);
         
         END_INTERFACE
     } IJsonServiceVtbl;
@@ -589,8 +669,26 @@ EXTERN_C const IID IID_IJsonService;
 #define IJsonService_Clear(This)	\
     ( (This)->lpVtbl -> Clear(This) ) 
 
-#define IJsonService_TestCreateJsonFile(This,bstrFilePath)	\
-    ( (This)->lpVtbl -> TestCreateJsonFile(This,bstrFilePath) ) 
+#define IJsonService_TestCreateJsonToFile(This,bstrFilePath)	\
+    ( (This)->lpVtbl -> TestCreateJsonToFile(This,bstrFilePath) ) 
+
+#define IJsonService_TestParseJsonFromFile(This,bstrFilePath)	\
+    ( (This)->lpVtbl -> TestParseJsonFromFile(This,bstrFilePath) ) 
+
+#define IJsonService_TestParseJsonFromString(This,bstrFilePath)	\
+    ( (This)->lpVtbl -> TestParseJsonFromString(This,bstrFilePath) ) 
+
+#define IJsonService_TestCreateJsonToString(This,strResult)	\
+    ( (This)->lpVtbl -> TestCreateJsonToString(This,strResult) ) 
+
+#define IJsonService_TestAllJsonDesignFormat(This,eJt)	\
+    ( (This)->lpVtbl -> TestAllJsonDesignFormat(This,eJt) ) 
+
+#define IJsonService_AddObjAsChildNode(This,bstrKeyName,pVal)	\
+    ( (This)->lpVtbl -> AddObjAsChildNode(This,bstrKeyName,pVal) ) 
+
+#define IJsonService_AddArrayAsChildNode(This,bstrKeyName,pVal)	\
+    ( (This)->lpVtbl -> AddArrayAsChildNode(This,bstrKeyName,pVal) ) 
 
 #endif /* COBJMACROS */
 

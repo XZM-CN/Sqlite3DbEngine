@@ -121,6 +121,7 @@ typedef enum EHXLogType
 
 #define TDHXKJ_SAFEDRIVER			_T("HXSafeGuard.sys")
 #define TDHXKJ_SQLITEENGINEDLL		_T("HXEng.dll")
+#define TDHXKJ_JSONENGINE			_T("JsonEngine.dll")
 #define	TDHXKJ_BASEENGINEDLL		_T("DispatchModuleCenter.dll")
 #define	TDHXKJ_GINADLL				_T("HXSafeGina.dll")
 #define	TDHXKJ_LOGINDLL				_T("HXSafeProvider.dll")
@@ -167,11 +168,12 @@ typedef enum EHXLogType
 #define JSON_STRING_CMD_ID			_T("CMDID")
 #define JSON_STRING_CONTENT			_T("CONTENT")
 #define JSON_STRING_REGISTAR		_T("REGISTAR")
+#define JSON_STRING_CLIENTTYPE		_T("CLIENTTYPE")
 
 #define JSON_STRING_AUTHCODE		_T("AUTHCODE")
 #define JSON_STRING_UNREGISTAR		_T("UNREGISTAR")
 #define JSON_STRING_HEART_BEAT		_T("HEARTBEAT")
-#define JSON_STRING_GETSYS_RESOURCE			_T("GETSYSRESOURCE")
+#define JSON_STRING_GETSYS_RESOURCE	_T("GETSYSRESOURCE")
 #define JSON_STRING_GETSYS_TYPE		_T("GETSYSTYPE")
 
 #define JSON_STRING_SCAN_DISK		_T("SCANDISK")
@@ -333,3 +335,5 @@ typedef enum __OPENSQLITE3FILEFLAG {
 	e_wb_ = 0x0C, // 以读/写方式打开或建立一个二进制文件，允许读和写。
 	e_wt_ = 0x0D, // 以读/写方式打开或建立一个文本文件，允许读写。
 } OPENSQLITE3FILEFLAG;
+
+

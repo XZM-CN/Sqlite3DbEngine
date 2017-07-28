@@ -503,6 +503,15 @@ public:
 	static ATL::CString GetModulePath(HANDLE hModule = NULL);
 
 	/**
+	 * @brief 根据模块句柄获得模块所在路径
+	 *
+	 *
+	 * @param hModule 模块句柄
+	 * @return 
+	 */
+	static ATL::CString GetAppConfigPath(HANDLE hModule = NULL);
+
+	/**
 	 * @brief 获得模块名称
 	 *
 	 *
@@ -700,3 +709,4 @@ protected:
 #define WRITETOFILE2(W,X,Y,Z) CBaseFuncLib::WriteToFile2(W,X,Y,Z, __FILE__, __LINE__)
 
 #define	 CREATE_MYTHREAD(func, lpParam, dwID)	( ::CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)func, (LPVOID)lpParam, 0, (dwID) ? &dwID:0) )
+

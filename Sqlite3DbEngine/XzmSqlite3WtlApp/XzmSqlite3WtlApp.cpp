@@ -43,6 +43,30 @@ public:
 	}
 };
 
+void ConsoleEcho(BOOL bEcho)
+{
+	if(!bEcho)
+		return;
+
+	// 带窗口的应用程序，创建一个临时的控制台，以供cout输出
+	AllocConsole();
+
+	HANDLE hin = ::GetStdHandle(STD_INPUT_HANDLE);
+	HANDLE hout = ::GetStdHandle(STD_OUTPUT_HANDLE);
+
+	int hcin = _open_osfhandle((intptr_t)hin,_O_TEXT);
+	FILE* fpin = _fdopen(hcin,"r");
+	*stdin = *fpin; 
+
+	int hcout = _open_osfhandle((intptr_t)hout,_O_TEXT);
+	FILE* fpout = _fdopen(hcout,"wt");
+	*stdout = *fpout;
+
+	std::ios_base::sync_with_stdio();
+
+	std::cout << "XzmSqlite3WtlApp Application Conlose" << endl << endl;
+}
+
 int WINAPI _tWinMain(HINSTANCE hInstance, HINSTANCE /*hPrevInstance*/, LPTSTR lpstrCmdLine, int nCmdShow)
 {
 	HRESULT hRes = ::CoInitialize(NULL);
@@ -57,6 +81,9 @@ int WINAPI _tWinMain(HINSTANCE hInstance, HINSTANCE /*hPrevInstance*/, LPTSTR lp
 	ATLASSERT(SUCCEEDED(hRes));
 
 	g_hInstance = hInstance;
+
+	// 控制台回显
+	ConsoleEcho(TRUE);
 
 	// 初始化一些数据
 	InitEnvironment();

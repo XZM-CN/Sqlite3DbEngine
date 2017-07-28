@@ -17,15 +17,15 @@
 
 #include "NetSocket.h"
 
-#define SYSLOG_OPERATION_ENABLE			//向服务器发送用户操作的XzmSysLog格式日志	
-#define SYSLOG_WARNNING_ENABLE			//向服务器发送预警信息的XzmSysLog格式日志	
-#define SYSLOG_EVENT_ENABLE				//向服务器发送Windows日志的XzmSysLog格式日志	
+#define SYSLOG_OPERATION_ENABLE			//向服务器发送用户操作的SysLog格式日志	
+#define SYSLOG_WARNNING_ENABLE			//向服务器发送预警信息的SysLog格式日志	
+#define SYSLOG_EVENT_ENABLE				//向服务器发送Windows日志的SysLog格式日志	
 
 
 #define UDPSYSLOGPORT	514
 
-#define SYSLOGCONFIGFILENAME	L"XzmSysLogConfig.ini"
-#define SYSLOGSECTION			L"[XzmSysLog Section]"
+#define SYSLOGCONFIGFILENAME	L"SysLogConfig.ini"
+#define SYSLOGSECTION			L"[SysLog Section]"
 #define SERVERMAJORIP			L"ServerMajorIP"
 #define SERVERMINORIP			L"ServerMinorIP"
 #define SERVERPORT				L"ServerPort"
@@ -54,7 +54,7 @@ typedef enum _tagFacility
 	enumMailSystem,
 	enumSystemDaemons,
 	enumSecurityOrAuthorizationMessages_1,
-	enumMessagesGeneratedInternallyByXzmSysLogd,
+	enumMessagesGeneratedInternallyBySysLogd,
 	enumLinePrinterSubsystem,
 	enumNetworkNewsSubsystem,
 	enumUUCPSubsystem,
@@ -113,11 +113,11 @@ typedef enum _tagMonth
 
 
 
-class CXzmSysLog
+class CSysLog
 {
 public:
-	CXzmSysLog();
-	~CXzmSysLog();
+	CSysLog();
+	~CSysLog();
 
 	BOOL CreateUDPCommunication();	//创建与XzmSysLog的通信
 

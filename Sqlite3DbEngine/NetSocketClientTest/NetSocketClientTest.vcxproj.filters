@@ -30,12 +30,6 @@
     <ClCompile Include="XzmTreeViewCtrl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="XzmSyslog.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="NetSocket.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\Common\BaseFuncLib.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -49,6 +43,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="UploadLogMgt.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\NetSocket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\XzmSyslog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -71,12 +71,6 @@
     <ClInclude Include="XzmTreeViewCtrl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="XzmSyslog.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="NetSocket.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\Common\BaseFuncLib.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -90,6 +84,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="UploadLogMgt.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\NetSocket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\XzmSyslog.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -51,6 +51,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NetSocketClientTest", "NetS
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NetSocketServerTest", "NetSocketServerTest\NetSocketServerTest.vcxproj", "{E4D647CF-5113-4EE0-BFAB-BC64D986843F}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HXTest", "HXTest\HXTest.vcxproj", "{21B48A4E-706E-4518-969C-7856667E0F24}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -177,6 +179,12 @@ Global
 		{E4D647CF-5113-4EE0-BFAB-BC64D986843F}.Release|Win32.ActiveCfg = Release|Win32
 		{E4D647CF-5113-4EE0-BFAB-BC64D986843F}.Release|Win32.Build.0 = Release|Win32
 		{E4D647CF-5113-4EE0-BFAB-BC64D986843F}.Release|x64.ActiveCfg = Release|Win32
+		{21B48A4E-706E-4518-969C-7856667E0F24}.Debug|Win32.ActiveCfg = Debug|Win32
+		{21B48A4E-706E-4518-969C-7856667E0F24}.Debug|Win32.Build.0 = Debug|Win32
+		{21B48A4E-706E-4518-969C-7856667E0F24}.Debug|x64.ActiveCfg = Debug|Win32
+		{21B48A4E-706E-4518-969C-7856667E0F24}.Release|Win32.ActiveCfg = Release|Win32
+		{21B48A4E-706E-4518-969C-7856667E0F24}.Release|Win32.Build.0 = Release|Win32
+		{21B48A4E-706E-4518-969C-7856667E0F24}.Release|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

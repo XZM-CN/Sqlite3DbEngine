@@ -106,7 +106,7 @@ int CComTestDockablePane::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		_T("密码不可以为空|")
 		_T("路径是绝对地址|")
 		_T("数据库名称|")
-		_T("数据库名称必须是全路径，密码不为空|")
+		_T("数据库名称必须是全路径,密码不为空|")
 		);
 
 	// 加载图像:
@@ -120,7 +120,7 @@ int CComTestDockablePane::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	m_wndToolBar.SetOwner(this);
 
-	// 所有命令将通过此控件路由，而不是通过主框架路由:
+	// 所有命令将通过此控件路由,而不是通过主框架路由:
 	m_wndToolBar.SetRouteCommandsViaFrame(FALSE);
 
 	CMenu menuSort;
@@ -138,7 +138,7 @@ int CComTestDockablePane::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		pButton->SetMessageWnd(this);
 	}
 
-	// 填入一些静态树视图数据(此处只需填入虚拟代码，而不是复杂的数据)
+	// 填入一些静态树视图数据(此处只需填入虚拟代码,而不是复杂的数据)
 	FillComTestBar();
 
 	return 0;

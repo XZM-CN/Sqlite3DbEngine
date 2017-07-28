@@ -24,10 +24,16 @@
     <ClCompile Include="MainDlg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="XzmTreeViewCtrl.cpp">
+    <ClCompile Include="XzmSocket.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="XzmSocket.cpp">
+    <ClCompile Include="..\Common\BaseFuncLib.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\HXRegKey.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\XzmTreeViewCtrl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -44,10 +50,19 @@
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="XzmTreeViewCtrl.h">
+    <ClInclude Include="XzmSocket.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="XzmSocket.h">
+    <ClInclude Include="..\Common\BaseFuncLib.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\HXBaseDef.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\HXRegKey.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\XzmTreeViewCtrl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

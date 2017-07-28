@@ -123,6 +123,19 @@ public:
 	STDMETHOD(GetChildByName)(BSTR bstrKeyName, IJsonService** pVal);
 	STDMETHOD(GetChildByIndex)(LONG nIndex, IJsonService** pVal);
 	STDMETHOD(CreateChild)(BSTR bstrKeyName, IJsonService** pVal);
+	/**
+	 * @brief             PutChild
+	 *
+	 * @Function          添加子节点，有错误
+	 *
+	 * @param[  _In_   ]  bstrKeyName key的名称
+	 *
+	 * @param[  _In_   ]  pVal 接口指针
+	 *
+	 * @return            
+	 *
+	 * @Date xzm_@_2017/06/30  13:40:11
+	*/
 	STDMETHOD(PutChild)(BSTR bstrKeyName, IJsonService* pVal);
 	STDMETHOD(GetString)(IParaService** pVal);
 
@@ -130,21 +143,85 @@ public:
 	STDMETHOD(Clear)(void);
 
 	/**
-	 * @brief             TestCreateJsonFile
+	 * @brief             TestCreateJsonToFile
 	 *
-	 * @Function          创建一个Json文件
+	 * @Function          创建一个Json到文件
 	 *
 	 * @param[  _In_   ]  bstrFilePath 文件的绝对路径
-	 *
-	 * @param[  _Out_  ]  
-	 *
-	 * @param[_Out_opt_]  
 	 *
 	 * @return            
 	 *
 	 * @Date xzm_@_2017/06/30  13:40:11
 	*/
-	STDMETHOD(TestCreateJsonFile)(BSTR bstrFilePath);
-	};
+	STDMETHOD(TestCreateJsonToFile)(BSTR bstrFilePath);
+
+	/**
+	 * @brief             TestCreateJsonToString
+	 *
+	 * @Function          创建一个Json到字符串
+	 *
+	 * @param[  _Out_  ]  strResult 字符串将创建的Json赋值给strResult
+	 *
+	 * @return            
+	 *
+	 * @Date xzm_@_2017/06/30  13:40:11
+	*/
+	STDMETHOD(TestCreateJsonToString)(BSTR* strResult);
+
+	/**
+	 * @brief             TestParseJsonFromFile
+	 *
+	 * @Function          解析Json从文件中
+	 *
+	 * @param[  _In_   ]  bstrFilePath 文件的绝对路径
+	 *
+	 * @return            
+	 *
+	 * @Date xzm_@_2017/06/30  13:40:11
+	*/
+	STDMETHOD(TestParseJsonFromFile)(BSTR bstrFilePath);
+
+	/**
+	 * @brief             TestParseJsonFromString
+	 *
+	 * @Function          解析Json从字符串中
+	 *
+	 * @param[  _In_   ]  bstrFilePath是一个Json格式的字符串
+	 *
+	 * @return            
+	 *
+	 * @Date xzm_@_2017/06/30  13:40:11
+	*/
+	STDMETHOD(TestParseJsonFromString)(BSTR bstrFilePath);
+	STDMETHOD(TestAllJsonDesignFormat)(JsonTest eJt);
+	/**
+	 * @brief             AddObjAsChildNode
+	 *
+	 * @Function          添加子节点，节点以对象形式添加
+	 *
+	 * @param[  _In_   ]  bstrKeyName key的名称
+	 *
+	 * @param[  _In_   ]  pVal 接口指针
+	 *
+	 * @return            
+	 *
+	 * @Date xzm_@_2017/06/30  13:40:11
+	*/
+	STDMETHOD(AddObjAsChildNode)(BSTR bstrKeyName, IJsonService* pVal);
+	/**
+	 * @brief             AddArrayAsChildNode
+	 *
+	 * @Function          添加子节点，节点以数组形式添加
+	 *
+	 * @param[  _In_   ]  bstrKeyName key的名称
+	 *
+	 * @param[  _In_   ]  pVal 接口指针
+	 *
+	 * @return            
+	 *
+	 * @Date xzm_@_2017/06/30  13:40:11
+	*/
+	STDMETHOD(AddArrayAsChildNode)(BSTR bstrKeyName, IJsonService* pVal);
+};
 
 OBJECT_ENTRY_AUTO(__uuidof(JsonService), CJsonService)

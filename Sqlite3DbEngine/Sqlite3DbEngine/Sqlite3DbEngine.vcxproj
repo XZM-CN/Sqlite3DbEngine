@@ -172,12 +172,17 @@
     <ResourceCompile Include="Sqlite3DbEngine.rc" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\doc\AllTables.sql" />
+    <None Include="..\doc\ddd.json" />
     <None Include="..\doc\HXLog - T_Event.sql" />
     <None Include="..\doc\HXLog - T_Para.sql" />
     <None Include="..\doc\HXLog - T_Sys.sql" />
     <None Include="..\doc\HXLog - T_Temp临时语句.sql" />
     <None Include="..\doc\HXLog - T_Warn.sql" />
     <None Include="..\doc\HXLog.sql" />
+    <None Include="..\doc\xzmLog.hdb" />
+    <None Include="..\doc\XzmMSSqlAll.sql" />
+    <None Include="..\doc\啸傲居士.sql" />
     <None Include="ConnectHelper.rgs" />
     <None Include="ReadMe.txt" />
     <None Include="Sqlite3Connect.rgs" />

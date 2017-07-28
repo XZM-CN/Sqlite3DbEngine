@@ -44,7 +44,10 @@ extern CAppModule _Module;
 #pragma comment(linker, "/manifestdependency:\"type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' processorArchitecture='*' publicKeyToken='6595b64144ccf1df' language='*'\"")
 #endif
 
+
 #include "OLEIDL.h"
+#pragma comment(lib, "comctl32.lib")
+#pragma comment(lib, "oledlg.lib")
 
 #include "HXBaseDef.h"
 //#include <vld.h>
@@ -57,6 +60,11 @@ extern CAppModule _Module;
 #include <atlddx.h>      // for DDX_CONTROL
 #include <atlcrack.h>    // for REFLECTED_NOTIFY_CODE_HANDLER_EX
 
+
+#include <fcntl.h > // for _O_TEXT _open_osfhandle
+#include <iostream>
+#include <io.h> // for _open_osfhandle
+using namespace std;
 
 #ifndef WIN64
 #ifdef _DEBUG

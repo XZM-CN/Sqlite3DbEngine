@@ -17,7 +17,7 @@
       <UniqueIdentifier>{872a2668-987f-40a7-89dc-9cab817ffe10}</UniqueIdentifier>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
-    <Filter Include="DbSql">
+    <Filter Include="doc">
       <UniqueIdentifier>{98ccec18-d4ac-4ff6-ac62-478dab3957cd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -138,22 +138,37 @@
       <Filter>资源文件</Filter>
     </None>
     <None Include="..\doc\HXLog.sql">
-      <Filter>DbSql</Filter>
+      <Filter>doc</Filter>
     </None>
     <None Include="..\doc\HXLog - T_Warn.sql">
-      <Filter>DbSql</Filter>
+      <Filter>doc</Filter>
     </None>
     <None Include="..\doc\HXLog - T_Sys.sql">
-      <Filter>DbSql</Filter>
+      <Filter>doc</Filter>
     </None>
     <None Include="..\doc\HXLog - T_Para.sql">
-      <Filter>DbSql</Filter>
+      <Filter>doc</Filter>
     </None>
     <None Include="..\doc\HXLog - T_Event.sql">
-      <Filter>DbSql</Filter>
+      <Filter>doc</Filter>
     </None>
     <None Include="..\doc\HXLog - T_Temp临时语句.sql">
-      <Filter>DbSql</Filter>
+      <Filter>doc</Filter>
+    </None>
+    <None Include="..\doc\AllTables.sql">
+      <Filter>doc</Filter>
+    </None>
+    <None Include="..\doc\啸傲居士.sql">
+      <Filter>doc</Filter>
+    </None>
+    <None Include="..\doc\ddd.json">
+      <Filter>doc</Filter>
+    </None>
+    <None Include="..\doc\xzmLog.hdb">
+      <Filter>doc</Filter>
+    </None>
+    <None Include="..\doc\XzmMSSqlAll.sql">
+      <Filter>doc</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

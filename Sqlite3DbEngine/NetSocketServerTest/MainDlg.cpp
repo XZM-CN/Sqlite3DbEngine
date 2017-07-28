@@ -21,7 +21,7 @@ LRESULT CMainDlg::OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam
 
 	UIAddChildWindowContainer(m_hWnd);
 
-	// Hook up controls & variables没有这一行，变量与控件关联失败
+	// Hook up controls & variables没有这一行,变量与控件关联失败
 	if(!DoDataExchange(false))
 		return FALSE;
 
@@ -96,10 +96,11 @@ LRESULT CMainDlg::OnTreeXzmClickTree(NMHDR* phdr)
 				if (m_pXzmSocket == NULL)
 				{
 					m_pXzmSocket = new CXzmSocket;
+					m_pXzmSocket->GetConfInfo();
 				}
 				
 			}
-			else if(0 == str.Compare( _T("执行")))
+			else if(0 == str.Compare( _T("执行DoServerTest")))
 			{
 				DWORD dwThreadId;
 				HANDLE hThread;
@@ -139,7 +140,7 @@ void CMainDlg::InitXzmTree()
 
 	HTREEITEM hItem1 = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("Socket"));
 	InsertXzmTree( m_TreeXzm, hItem1, TCItem, _T("初始化"));
-	InsertXzmTree( m_TreeXzm, hItem1, TCItem, _T("执行"));
+	InsertXzmTree( m_TreeXzm, hItem1, TCItem, _T("执行DoServerTest"));
 	InsertXzmTree( m_TreeXzm, hItem1, TCItem, _T("释放"));
 	HTREEITEM hItem2 = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("xxxxxxxxx"));
 	InsertXzmTree( m_TreeXzm, hItem2, TCItem, _T("xxx"));
@@ -152,40 +153,6 @@ void CMainDlg::InitXzmTree()
 }
 void CMainDlg::InitDlgTreeSurplus(HTREEITEM hItem,TV_INSERTSTRUCT& TCItem)
 {
-	HTREEITEM hItemDemo = NULL;
-	for(int i=0;i<20;i++){
-		hItemDemo = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("完全二叉树的深度"));
-		InsertXzmTree( m_TreeXzm, hItemDemo, TCItem, _T("左（右）子树"));
-		InsertXzmTree( m_TreeXzm, hItemDemo, TCItem, _T("左（右）子树"));
-		hItemDemo = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("完全二叉树的深度"));
-		hItemDemo = InsertXzmTree( m_TreeXzm, hItemDemo, TCItem, _T("左（右）子树"));
-		hItemDemo = InsertXzmTree( m_TreeXzm, hItemDemo, TCItem, _T("左（右）子树"));
-
-		hItemDemo = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("完全二叉树的深度"));
-		hItemDemo = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("完全二叉树的深度"));
-		hItemDemo = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("完全二叉树的深度"));
-		hItemDemo = InsertXzmTree( m_TreeXzm, hItemDemo, TCItem, _T("把多余的枝叶剪去"));
-		hItemDemo = InsertXzmTree( m_TreeXzm, hItemDemo, TCItem, _T("左（右）子树"));
-		hItemDemo = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("完全二叉树的深度"));
-		hItemDemo = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("事实证明我们的担心是多余的"));
-		hItemDemo = InsertXzmTree( m_TreeXzm, hItemDemo, TCItem, _T("左（右）子树"));
-		hItemDemo = InsertXzmTree( m_TreeXzm, hItemDemo, TCItem, _T("祖先结点: 从根到该结点的所经分支上的所有结点子孙结点：以某结点为根的子树中任一结点都称为该结点的子孙"));
-		hItemDemo = InsertXzmTree( m_TreeXzm, hItemDemo, TCItem, _T("左（右）子树"));
-		hItemDemo = InsertXzmTree( m_TreeXzm, hItemDemo, TCItem, _T("事实证明我们的担心是多余的"));
-		hItemDemo = InsertXzmTree( m_TreeXzm, hItemDemo, TCItem, _T("左（右）子树"));
-		hItemDemo = InsertXzmTree( m_TreeXzm, hItemDemo, TCItem, _T("左（右）子树"));
-		hItemDemo = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("完全二叉树的深度"));
-		hItemDemo = InsertXzmTree( m_TreeXzm, hItemDemo, TCItem, _T("左（右）子树"));
-		hItemDemo = InsertXzmTree( m_TreeXzm, hItemDemo, TCItem, _T("这个字是多余的，可以去"));
-		hItemDemo = InsertXzmTree( m_TreeXzm, hItemDemo, TCItem, _T("左（右）子树"));
-		hItemDemo = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("完全二叉树的深度"));
-		hItemDemo = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("h(N)为卡特兰数的第N项。h(n)=C(2*n，n)/(n+1)"));
-		hItemDemo = InsertXzmTree( m_TreeXzm, hItemDemo, TCItem, _T("左（右）子树"));
-		hItemDemo = InsertXzmTree( m_TreeXzm, hItemDemo, TCItem, _T("把多余的枝叶剪去"));
-		hItemDemo = InsertXzmTree( m_TreeXzm, hItemDemo, TCItem, _T("这个字是多余的，可以去"));
-		hItemDemo = InsertXzmTree( m_TreeXzm, hItemDemo, TCItem, _T("左（右）子树"));
-		hItemDemo = InsertXzmTree( m_TreeXzm, hItemDemo, TCItem, _T("左（右）子树"));
-	}
 }
 
 HTREEITEM CMainDlg::InsertXzmTree(CTreeViewCtrl& Tree,HTREEITEM hItem,TV_INSERTSTRUCT TCItem,TCHAR* pc_name)

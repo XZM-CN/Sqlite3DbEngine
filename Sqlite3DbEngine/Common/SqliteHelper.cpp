@@ -5,7 +5,7 @@
 /// È«¾Ö¾ä±ú
 extern HANDLE g_hInstance;
 
-ATL::CString CDbHelper::m_strModelName = TDHXKJ_SQLITEENGINEDLL;
+ATL::CString CDbHelper::m_strModelName = TDHXKJ_JSONENGINE;
 
 void CDbHelper::FreeDB(void)
 {

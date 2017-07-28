@@ -8,6 +8,10 @@
 #include "XzmTreeViewCtrl.h"
 #include "ButtonImpl.h"
 
+#include <atlcomtime.h>
+
+class CNetworkInteraction ;
+
 class CMainAppDlg :
 	// 
 	public CDialogImpl<CMainAppDlg>,
@@ -90,6 +94,8 @@ public:
 	HTREEITEM InsertXzmTree(CTreeViewCtrl& Tree,HTREEITEM hItem,TV_INSERTSTRUCT TCItem,TCHAR* pc_name);
 	BOOL IsYourChild(ATL::CString strParentName, CTreeViewCtrl& Tree,HTREEITEM &hSelItem );
 
+
+	static UINT SendSyslogThread(LPVOID pParam);
 protected:
 	CXzmTreeViewCtrl    m_TreeXzm;
 	CXzmTreeViewCtrl    m_TreeDlgs;
@@ -106,4 +112,21 @@ public:
 	CComPtr <ISqlite3Connect> m_spiSqlite3Connect;
 	CComPtr <IParaService>    m_spiParaService;
 	CComPtr <IJsonService>    m_spiJsonService;
+	/// 是否开启上传Syslog
+	BOOL m_bStartSyslog;
+	//创建上传Syslog日志线程
+	volatile	HANDLE	m_hSyslogThread;
+	/// 日志类型
+	int	m_nLogType;
+	/// 记录最近一个日志ID
+	ULONG	m_nLastLogID;
+	/// 最近操作时间
+	COleDateTime	m_OptTime;
+	/// 描述集合
+	CSTRING_MAP		m_mapDesc;
+	//上传线程退出标志
+	BOOL m_bSysLogFlag;
+	static UINT DoClientTest(LPVOID pParam);
+
+	CNetworkInteraction *m_pNetworkInteraction;
 };

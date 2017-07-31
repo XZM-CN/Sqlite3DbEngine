@@ -21,6 +21,7 @@
 *.manifest
 bin/*/*/*.rc
 bin/*/*/*.res
+bin/*/*/*.rgs
 *.pch
 *.user
 *_[Ii].[Cc]
@@ -33,3 +34,4 @@ bin/*/*/*.res
 *.dll
 *.lib
 *.exe
+*.cache

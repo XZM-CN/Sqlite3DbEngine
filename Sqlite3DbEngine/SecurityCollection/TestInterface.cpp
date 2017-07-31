@@ -514,7 +514,7 @@ STDMETHODIMP CTestInterface::Test(SecurityCollectionTest eJt)
 			::OpenProcessToken(GetCurrentProcess(),
 				// TOKEN_ADJUST_DEFAULT   | // 需要更改访问令牌的默认所有者，主组或DACL。
 				// TOKEN_ADJUST_GROUPS    | // 需要调整访问令牌中组的属性。
-				TOKEN_ADJUST_PRIVILEGES   | // 必须启用或禁用访问令牌中的权限。
+				TOKEN_ADJUST_PRIVILEGES   | // 启用或禁用访问令牌中的权限。
 				// TOKEN_ADJUST_SESSIONID | // 需要调整访问令牌的会话ID。需要SE_TCB_NAME权限。
 				// TOKEN_ASSIGN_PRIMARY   | // 将主令牌附加到进程必需。还需要SE_ASSIGNPRIMARYTOKEN_NAME特权才能完成此任务。
 				// TOKEN_DUPLICATE        | // 需要复制访问令牌。

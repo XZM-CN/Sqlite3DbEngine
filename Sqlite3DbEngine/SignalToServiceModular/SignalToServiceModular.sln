@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SignalToServiceModular", "SignalToServiceModular.vcxproj", "{0EA2E0DF-4EE3-4EEF-BFF0-F992A3FD6DBA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0EA2E0DF-4EE3-4EEF-BFF0-F992A3FD6DBA}.Debug|Win32.ActiveCfg = Debug|Win32
+		{0EA2E0DF-4EE3-4EEF-BFF0-F992A3FD6DBA}.Debug|Win32.Build.0 = Debug|Win32
+		{0EA2E0DF-4EE3-4EEF-BFF0-F992A3FD6DBA}.Release|Win32.ActiveCfg = Release|Win32
+		{0EA2E0DF-4EE3-4EEF-BFF0-F992A3FD6DBA}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

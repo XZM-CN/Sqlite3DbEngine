@@ -60,6 +60,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "解决方案项目", "解�
 		Sqlite3DbEngine.vsd = Sqlite3DbEngine.vsd
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SignalToDriveceModular", "SignalToDriveceModular\SignalToDriveceModular.vcxproj", "{08B3D9B9-43C7-4974-B838-8B6D125661CC}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SignalToServiceModular", "SignalToServiceModular\SignalToServiceModular.vcxproj", "{0EA2E0DF-4EE3-4EEF-BFF0-F992A3FD6DBA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -198,6 +202,18 @@ Global
 		{12CE34D5-7587-42AC-B7A6-F041BB464DA5}.Release|Win32.ActiveCfg = Release|Win32
 		{12CE34D5-7587-42AC-B7A6-F041BB464DA5}.Release|Win32.Build.0 = Release|Win32
 		{12CE34D5-7587-42AC-B7A6-F041BB464DA5}.Release|x64.ActiveCfg = Release|Win32
+		{08B3D9B9-43C7-4974-B838-8B6D125661CC}.Debug|Win32.ActiveCfg = Debug|Win32
+		{08B3D9B9-43C7-4974-B838-8B6D125661CC}.Debug|Win32.Build.0 = Debug|Win32
+		{08B3D9B9-43C7-4974-B838-8B6D125661CC}.Debug|x64.ActiveCfg = Debug|Win32
+		{08B3D9B9-43C7-4974-B838-8B6D125661CC}.Release|Win32.ActiveCfg = Release|Win32
+		{08B3D9B9-43C7-4974-B838-8B6D125661CC}.Release|Win32.Build.0 = Release|Win32
+		{08B3D9B9-43C7-4974-B838-8B6D125661CC}.Release|x64.ActiveCfg = Release|Win32
+		{0EA2E0DF-4EE3-4EEF-BFF0-F992A3FD6DBA}.Debug|Win32.ActiveCfg = Debug|Win32
+		{0EA2E0DF-4EE3-4EEF-BFF0-F992A3FD6DBA}.Debug|Win32.Build.0 = Debug|Win32
+		{0EA2E0DF-4EE3-4EEF-BFF0-F992A3FD6DBA}.Debug|x64.ActiveCfg = Debug|Win32
+		{0EA2E0DF-4EE3-4EEF-BFF0-F992A3FD6DBA}.Release|Win32.ActiveCfg = Release|Win32
+		{0EA2E0DF-4EE3-4EEF-BFF0-F992A3FD6DBA}.Release|Win32.Build.0 = Release|Win32
+		{0EA2E0DF-4EE3-4EEF-BFF0-F992A3FD6DBA}.Release|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

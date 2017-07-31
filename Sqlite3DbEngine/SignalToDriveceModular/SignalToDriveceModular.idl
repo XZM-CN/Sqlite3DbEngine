@@ -1,0 +1,18 @@
+// SignalToDriveceModular.idl : SignalToDriveceModular 的 IDL 源
+//
+
+// 此文件将由 MIDL 工具处理以
+// 产生类型库(SignalToDriveceModular.tlb)和封送处理代码。
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+[
+	uuid(8D5A8B7B-FDD5-4B60-8F0C-D976D276D22C),
+	version(1.0),
+]
+library SignalToDriveceModularLib
+{
+	importlib("stdole2.tlb");
+};
+

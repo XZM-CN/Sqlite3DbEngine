@@ -1,0 +1,18 @@
+// SignalToServiceModular.idl : SignalToServiceModular 的 IDL 源
+//
+
+// 此文件将由 MIDL 工具处理以
+// 产生类型库(SignalToServiceModular.tlb)和封送处理代码。
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+[
+	uuid(04DAC04A-C9CE-4A3C-81D8-FCD547D917B8),
+	version(1.0),
+]
+library SignalToServiceModularLib
+{
+	importlib("stdole2.tlb");
+};
+

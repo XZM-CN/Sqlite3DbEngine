@@ -20,16 +20,13 @@ lib/
 #
 # 排除一些特殊文件 
 #
-# _p.c
-# _i.h
-# _i.c
 # dlldata.c
 #
 ###############################################################################
-Sqlite3DbEngine_p.c
-Sqlite3DbEngine_i.h
-Sqlite3DbEngine_i.c
-
+*_p.c
+*_i.h
+*_i.c
+JsonEngine_i.h
 
 #
 # include .nuget configs

@@ -3,6 +3,12 @@
 *.7z
 *.zip
 Sqlite3DbEngine/XzmSqlite3WtlApp/RCa09088
-*.zip
 Sqlite3DbEngine/Sqlite3DbEngine.zip
 Sqlite3DbEngine/JsonEngine/ClassDiagram1.cd
+Sqlite3DbEngine/SKFEncry/SKFEncry_i.h
+Sqlite3DbEngine/JsonEngine/JsonEngine_i.h
+Sqlite3DbEngine/JsonEngine/JsonEngine_i.h
+Sqlite3DbEngine/JsonEngine/JsonEngine_i.h
+Sqlite3DbEngine/LogEngine/LogEngine_i.h
+Sqlite3DbEngine/NetComm/NetComm_i.h
+Sqlite3DbEngine/NetComm/NetComm_i.h

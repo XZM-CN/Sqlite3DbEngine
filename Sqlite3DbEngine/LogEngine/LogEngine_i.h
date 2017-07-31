@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 7.00.0555 */
-/* at Fri Jul 28 10:13:29 2017
+/* at Mon Jul 31 13:43:43 2017
  */
 /* Compiler settings for LogEngine.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 7.00.0555 

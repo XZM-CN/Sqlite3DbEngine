@@ -1,0 +1,18 @@
+// SecurityCollection.idl : SecurityCollection 的 IDL 源
+//
+
+// 此文件将由 MIDL 工具处理以
+// 产生类型库(SecurityCollection.tlb)和封送处理代码。
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+[
+	uuid(9A0B7DDA-C59B-4365-B97F-B8C26FD70D9E),
+	version(1.0),
+]
+library SecurityCollectionLib
+{
+	importlib("stdole2.tlb");
+};
+

@@ -53,6 +53,13 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NetSocketServerTest", "NetS
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HXTest", "HXTest\HXTest.vcxproj", "{21B48A4E-706E-4518-969C-7856667E0F24}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SecurityCollection", "SecurityCollection\SecurityCollection.vcxproj", "{12CE34D5-7587-42AC-B7A6-F041BB464DA5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "解决方案项目", "解决方案项目", "{33F1A4B6-B699-4582-84C6-1B6C81AF6720}"
+	ProjectSection(SolutionItems) = preProject
+		Sqlite3DbEngine.vsd = Sqlite3DbEngine.vsd
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -185,6 +192,12 @@ Global
 		{21B48A4E-706E-4518-969C-7856667E0F24}.Release|Win32.ActiveCfg = Release|Win32
 		{21B48A4E-706E-4518-969C-7856667E0F24}.Release|Win32.Build.0 = Release|Win32
 		{21B48A4E-706E-4518-969C-7856667E0F24}.Release|x64.ActiveCfg = Release|Win32
+		{12CE34D5-7587-42AC-B7A6-F041BB464DA5}.Debug|Win32.ActiveCfg = Debug|Win32
+		{12CE34D5-7587-42AC-B7A6-F041BB464DA5}.Debug|Win32.Build.0 = Debug|Win32
+		{12CE34D5-7587-42AC-B7A6-F041BB464DA5}.Debug|x64.ActiveCfg = Debug|Win32
+		{12CE34D5-7587-42AC-B7A6-F041BB464DA5}.Release|Win32.ActiveCfg = Release|Win32
+		{12CE34D5-7587-42AC-B7A6-F041BB464DA5}.Release|Win32.Build.0 = Release|Win32
+		{12CE34D5-7587-42AC-B7A6-F041BB464DA5}.Release|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

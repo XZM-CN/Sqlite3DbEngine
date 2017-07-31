@@ -112,6 +112,7 @@ public:
 	CComPtr <ISqlite3Connect> m_spiSqlite3Connect;
 	CComPtr <IParaService>    m_spiParaService;
 	CComPtr <IJsonService>    m_spiJsonService;
+	CComPtr <ITestInterface>    m_spiTestInterface;
 	/// 是否开启上传Syslog
 	BOOL m_bStartSyslog;
 	//创建上传Syslog日志线程

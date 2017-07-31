@@ -40,6 +40,7 @@ CMainAppDlg::CMainAppDlg(void)
 	m_spiParaService    = NULL;
 	m_spiJsonService    = NULL;
 	m_pNetworkInteraction = NULL;
+	m_spiTestInterface = NULL;
 }
 
 
@@ -291,6 +292,14 @@ void CMainAppDlg::InitXzmTree()
 	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
 	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
 	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx")); m_TreeXzm.Expand(hItemx, TVE_COLLAPSE);
+
+	/*HTREEITEM*/ hItemx = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("SecurityCollection"));
+	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("SC00"));
+	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("SC01"));
+	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("SC02"));
+	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("SC03"));
+	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("SC04"));
+	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("SC05")); m_TreeXzm.Expand(hItemx, TVE_COLLAPSE);
 
 	/*HTREEITEM*/ hItemx = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("xxx"));
 	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
@@ -953,18 +962,39 @@ LRESULT CMainAppDlg::OnTreeXzmClickTree(NMHDR* phdr)
 			{
 			}
 		}
-		else if(IsYourChild( _T("xxx"),m_TreeXzm,hItemHit))
+		else if(IsYourChild( _T("SecurityCollection"),m_TreeXzm,hItemHit))
 		{
-			if(0 == str.Compare( _T("xxx")))
+			if(m_spiTestInterface == NULL)
+			{
+				CComPtr <ITestInterface> spInterface = NULL;
+				CString strModulePath = CBaseFuncLib::GetModulePath();
+				strModulePath = strModulePath + _T("SecurityCollection.dll");
+				if(!strModulePath.IsEmpty())
+				{
+					HINSTANCE hInst = NULL;
+					hInst = CBaseFuncLib::CreateInstance( strModulePath.GetBuffer(),__uuidof(TestInterface),__uuidof(ITestInterface),(VOID **)&spInterface);
+					if(hInst == NULL)
+						return 0;
+					ATLASSERT(spInterface);
+				}
+				if(m_spiJsonService == NULL)
+					m_spiTestInterface = spInterface;
+				else
+					::MessageBox( 0, _T(""), _T(""), MB_OK);
+			}
+
+			if(0 == str.Compare( _T("SC00")))
+			{
+				m_spiTestInterface->Test(e_SC00);
+			}
+			else if(0 == str.Compare( _T("SC01")))
+			{
+				m_spiTestInterface->Test(e_SC01);
+			}
+			else if(0 == str.Compare( _T("SC02")))
 			{
 			}
-			else if(0 == str.Compare( _T("xxx")))
-			{
-			}
-			else if(0 == str.Compare( _T("xxx")))
-			{
-			}
-			else if(0 == str.Compare( _T("xxx")))
+			else if(0 == str.Compare( _T("SC03")))
 			{
 			}
 		}

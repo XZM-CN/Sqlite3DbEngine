@@ -16,17 +16,7 @@
 #bin/
 intermediate/
 lib/
-
-#
-# 排除一些特殊文件 
-#
-# dlldata.c
-#
-###############################################################################
-*_p.c
-*_i.h
-*_i.c
-JsonEngine_i.h
+.vsd
 
 #
 # include .nuget configs
@@ -120,6 +110,7 @@ local.properties
 **/[Dd]ebug/
 **/[Rr]elease/
 *_i.c
+*_i.h
 *_p.c
 *.ilk
 *.meta
@@ -290,7 +281,6 @@ dist
 build
 eggs
 parts
-bin
 var
 sdist
 develop-eggs
@@ -332,3 +322,15 @@ pip-log.txt
 ###############################################################################
 .DS_Store
 *.md
+
+
+#
+# xzm'ignore file
+#  
+#  
+###############################################################################
+*.zip
+*.rar
+*.7z
+Sqlite3DbEngine/XzmSqlite3WtlApp/RCa09088
+Sqlite3DbEngine/JsonEngine/ClassDiagram1.cd

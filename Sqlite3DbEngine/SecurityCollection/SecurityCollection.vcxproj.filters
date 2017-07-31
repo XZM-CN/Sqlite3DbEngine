@@ -34,6 +34,36 @@
     <ClCompile Include="SecurityCollection_i.c">
       <Filter>生成的文件</Filter>
     </ClCompile>
+    <ClCompile Include="Base.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="GroupsInfo.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="IntegrityLevel.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="LogonSid.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="PrivilegeInfo.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="SidInfo.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="StatisticsInfo.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="TokenInfo.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="UserInfo.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="TestInterface.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -54,6 +84,45 @@
     <ClInclude Include="SecurityCollection_i.h">
       <Filter>生成的文件</Filter>
     </ClInclude>
+    <ClInclude Include="Base.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="GetTokenInfo.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="GroupsInfo.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="IntegrityLevel.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="LogonSid.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="PrivilegeInfo.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="SidInfo.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="StatisticsInfo.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="TokenInfo.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="UserInfo.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="WellKnownSid.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="TestInterface.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="XHandle.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SecurityCollection.rc">
@@ -67,6 +136,9 @@
     </None>
     <None Include="SecurityCollection.def">
       <Filter>源文件</Filter>
+    </None>
+    <None Include="TestInterface.rgs">
+      <Filter>资源文件</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

@@ -1,0 +1,16 @@
+HKCR
+{
+	NoRemove CLSID
+	{
+		ForceRemove {E4B3931F-51B0-43BB-88BC-17AC7CF7B6CA} = s 'TestInterface Class'
+		{
+			ForceRemove Programmable
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Both'
+			}
+			TypeLib = s '{9A0B7DDA-C59B-4365-B97F-B8C26FD70D9E}'
+			Version = s '1.0'
+		}
+	}
+}

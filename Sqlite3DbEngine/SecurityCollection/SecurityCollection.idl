@@ -7,6 +7,49 @@
 import "oaidl.idl";
 import "ocidl.idl";
 
+typedef enum tagSecurityCollectionTest{
+	e_SC00,
+	e_SC01,
+	e_SC02,
+	e_SC03,
+	e_SC04,
+	e_SC05,
+	e_SC06,
+	e_SC07,
+	e_SC08,
+	e_SC09,
+	e_SC10,
+	e_SC11,
+	e_SC12,
+	e_SC13,
+	e_SC14,
+	e_SC15,
+	e_SC16,
+	e_SC17,
+	e_SC18,
+	e_SC19,
+	e_SC20,
+	e_SC21,
+	e_SC22,
+	e_SC23,
+	e_SC24,
+	e_SC25,
+	e_SC26,
+	e_SC27,
+	e_SC28,
+	e_SC29
+}SecurityCollectionTest;
+
+[
+	object,
+	uuid(9C798001-99B2-472C-93BB-E2AC2A145BCD),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+interface ITestInterface : IDispatch{
+	[id(1), helpstring("Test£¬²âÊÔ½Ó¿Ú")] HRESULT Test([in] SecurityCollectionTest eJt);
+};
 [
 	uuid(9A0B7DDA-C59B-4365-B97F-B8C26FD70D9E),
 	version(1.0),
@@ -14,5 +57,12 @@ import "ocidl.idl";
 library SecurityCollectionLib
 {
 	importlib("stdole2.tlb");
+	[
+		uuid(E4B3931F-51B0-43BB-88BC-17AC7CF7B6CA)		
+	]
+	coclass TestInterface
+	{
+		[default] interface ITestInterface;
+	};
 };
 

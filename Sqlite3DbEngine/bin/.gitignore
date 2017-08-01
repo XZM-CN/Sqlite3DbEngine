@@ -9,3 +9,27 @@
 !.gitattributes
 
 
+*.ilk
+*.obj
+*.log
+*.tlb
+*.tlog
+*.tlh
+*.exp
+*.pdb
+*.idb
+*.lastbuildstate
+*.manifest
+*.pch
+*.user
+*_[Ii].[Cc]
+*_[Ii].[Hh]
+*_[Pp].[Cc]
+*_[Pp].[Hh]
+*.aps
+*.sdf
+*.opensdf
+*.dll
+*.lib
+*.exe
+*.cache

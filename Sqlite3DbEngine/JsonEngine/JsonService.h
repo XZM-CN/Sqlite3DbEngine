@@ -96,22 +96,38 @@ public:
 	/// IJsonService
 	STDMETHOD(get_CodingType)(ECodingType* pVal);
 	STDMETHOD(put_CodingType)(ECodingType newVal);
+
+	// 读取、设置文件路径
 	STDMETHOD(get_FilePath)(BSTR* pVal);
 	STDMETHOD(put_FilePath)(BSTR newVal);
+
 	STDMETHOD(get_ArraySize)(ULONG* pVal);
 	STDMETHOD(get_IsExist)(BSTR bstrKeyName, VARIANT_BOOL* pVal);
 
+	// 解析字符串|文件到Json
 	STDMETHOD(ParseString)(BSTR bstrContent, VARIANT_BOOL* pVal);
 	STDMETHOD(ParseFile)(BSTR bstrFilePath, VARIANT_BOOL* pVal);
+
+	// 获取节点的类型(类型在JsonLib内部定义)
 	STDMETHOD(get_Type)(EJsonType* pVal);
+
+	// 获取整个Json字符串
 	STDMETHOD(get_Value)(VARIANT* pVal);
+
+	// 向根节点追加字段值key-value
 	STDMETHOD(put_IntValue)(BSTR bstrKeyName, LONGLONG newVal);
 	STDMETHOD(put_StringValue)(BSTR bstrKeyName, BSTR newVal);
 	STDMETHOD(put_ChildValue)(BSTR bstrKeyName, VARIANT newVal);
+
+	// 获取整个Json到BSTR* pVal
 	STDMETHOD(get_ObjectString)(BSTR* pVal);
+
 	STDMETHOD(get_ErrInfo)(BSTR* pVal);
 
+	// 获取key的value类型
 	STDMETHOD(GetValueType)(BSTR bstrKeyName, EJsonType* pVal);
+
+	// 获取字段的value
 	STDMETHOD(GetStringValue)(BSTR bstrKeyName, BSTR* pVal);
 	STDMETHOD(GetBoolValue)(BSTR bstrKeyName, VARIANT_BOOL* pVal);
 	STDMETHOD(GetIntValue)(BSTR bstrKeyName, LONGLONG* pVal);
@@ -123,6 +139,7 @@ public:
 	STDMETHOD(GetChildByName)(BSTR bstrKeyName, IJsonService** pVal);
 	STDMETHOD(GetChildByIndex)(LONG nIndex, IJsonService** pVal);
 	STDMETHOD(CreateChild)(BSTR bstrKeyName, IJsonService** pVal);
+
 	/**
 	 * @brief             PutChild
 	 *
@@ -156,19 +173,6 @@ public:
 	STDMETHOD(TestCreateJsonToFile)(BSTR bstrFilePath);
 
 	/**
-	 * @brief             TestCreateJsonToString
-	 *
-	 * @Function          创建一个Json到字符串
-	 *
-	 * @param[  _Out_  ]  strResult 字符串将创建的Json赋值给strResult
-	 *
-	 * @return            
-	 *
-	 * @Date xzm_@_2017/06/30  13:40:11
-	*/
-	STDMETHOD(TestCreateJsonToString)(BSTR* strResult);
-
-	/**
 	 * @brief             TestParseJsonFromFile
 	 *
 	 * @Function          解析Json从文件中
@@ -182,18 +186,18 @@ public:
 	STDMETHOD(TestParseJsonFromFile)(BSTR bstrFilePath);
 
 	/**
-	 * @brief             TestParseJsonFromString
+	 * @brief             TestAllJsonDesignFormat
 	 *
-	 * @Function          解析Json从字符串中
+	 * @Function          测试所有关于Json的功能和设计技巧（序列化和反序列化）
 	 *
-	 * @param[  _In_   ]  bstrFilePath是一个Json格式的字符串
+	 * @param[  _In_   ]  eJt 测试类型
 	 *
 	 * @return            
 	 *
 	 * @Date xzm_@_2017/06/30  13:40:11
 	*/
-	STDMETHOD(TestParseJsonFromString)(BSTR bstrFilePath);
 	STDMETHOD(TestAllJsonDesignFormat)(JsonTest eJt);
+
 	/**
 	 * @brief             AddObjAsChildNode
 	 *
@@ -208,6 +212,7 @@ public:
 	 * @Date xzm_@_2017/06/30  13:40:11
 	*/
 	STDMETHOD(AddObjAsChildNode)(BSTR bstrKeyName, IJsonService* pVal);
+
 	/**
 	 * @brief             AddArrayAsChildNode
 	 *
@@ -222,6 +227,15 @@ public:
 	 * @Date xzm_@_2017/06/30  13:40:11
 	*/
 	STDMETHOD(AddArrayAsChildNode)(BSTR bstrKeyName, IJsonService* pVal);
+
+	/**
+	 * @brief             OutputStyledJson
+	 *
+	 * @Function          格式化输出Json数据
+	 *
+	 * @Date xzm_@_2017/06/30  13:40:11
+	*/
+	STDMETHOD(OutputStyledJson)(void);
 };
 
 OBJECT_ENTRY_AUTO(__uuidof(JsonService), CJsonService)

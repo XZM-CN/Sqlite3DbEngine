@@ -8,4 +8,39 @@
 !.gitignore
 !.gitattributes
 
+# 
+# 生成文件
+# 
+###############################################################################
+*.ilk
+*.obj
+*.log
+*.tlb
+*.tlog
+*.tlh
+*.exp
+*.pdb
+*.idb
+*.pch
+*.lastbuildstate
+*.manifest
+bin/*/*/*.rc
+bin/*/*/*.res
+*_[Ii].[Cc]
+*_[Ii].[Hh]
+*_[Pp].[Cc]
+*_[Pp].[Hh]
+*.opensdf
+*.dll
+*.lib
+*.exe
+*.unsuccessfulbuild
+*.cache
 
+# 
+# VS工程文件
+# 
+###############################################################################
+*.aps
+*.sdf
+*.user

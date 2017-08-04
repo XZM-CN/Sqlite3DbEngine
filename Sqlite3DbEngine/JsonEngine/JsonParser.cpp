@@ -374,6 +374,11 @@ ULONG CJsonParser::GetArraySize()
 	return ulSize;
 }
 
+void CJsonParser::OutputStyledJson(void)
+{
+	cout << m_pRoot->toStyledString().c_str() << endl << endl;
+}
+
 bool CJsonParser::SetObjAsChild(const char* pName,const char* pValue)
 {
 	if(NULL == pName)
@@ -400,7 +405,9 @@ bool CJsonParser::SetObjAsChild(const char* pName,const char* pValue)
 		pRoot = NULL;
 		return false;
 	}
+	cout << "子节点Json"<< endl ;
 	cout << pRoot->toStyledString().c_str() << endl << endl;
+	cout << "父节点Json" << endl ;
 	cout << m_pRoot->toStyledString().c_str() << endl << endl;
 
 	/// 判断是否重复
@@ -409,13 +416,33 @@ bool CJsonParser::SetObjAsChild(const char* pName,const char* pValue)
 		if(m_pRoot->isMember(pName))
 		{
 			m_pRoot->removeMember(pName);
+			cout << "父Json中出现了相同的节点，删除之" << endl ;
 		}
 
-		cout << m_pRoot->toStyledString().c_str() << endl << endl;
-		//m_pRoot->append(*pRoot);
 		(*m_pRoot)[pName] = *pRoot;
 
+		cout << "追加节点以后Json, " << __FILE__<< ","<< __LINE__<< ","<< __TIME__<< endl ;
 		cout << m_pRoot->toStyledString().c_str() << endl << endl;
+
+		Json::StyledWriter writer;
+		std::string output = writer.write((*m_pRoot));
+		if(CODINGTYPE_US2 == m_eCodingType)
+		{
+			WCHAR *szContent = NULL;
+			int nLen = CBaseFuncLib::Utf8ToUS2(output.c_str(),&szContent);
+			if(NULL != szContent)
+			{
+				BOOL bSaveFlag = CBaseFuncLib::WriteToFile(_T("G:\\ProgramKing\\Sqlite3DbEngine\\Sqlite3DbEngine\\bin\\Debug\\Log.txt"),(BYTE *)szContent,2*(nLen-1));
+				delete []szContent;
+				szContent = NULL;
+			}
+			output.empty();
+		}
+		else{
+		}
+
+
+		
 		return true;
 	}
 
@@ -588,6 +615,19 @@ Json::ValueType CJsonParser::GetType()
 		ATLASSERT(0);
 		return jType;
 	}
+	
+	/*
+	enum ValueType {
+		nullValue = 0, ///< 'null' value
+		intValue,      ///< signed integer value
+		uintValue,     ///< unsigned integer value
+		realValue,     ///< double value
+		stringValue,   ///< UTF-8 string value
+		booleanValue,  ///< bool value
+		arrayValue,    ///< array value (ordered list)
+		objectValue    ///< object value (collection of name/value pairs).
+	};
+	*/
 	return m_pRoot->type();
 }
 
@@ -1279,6 +1319,7 @@ CJsonParser* CJsonParser::GetReadReader(Json::Value* pRoot)
 	return pReader;
 }
 
+// 创建Json文件写入到本地文件".....Config/JsonCreateTest.json"
 BOOL CJsonParser::CreateJsonDemoToFile(const CString& strJsonFile)
 {
 	m_eCodingType = CODINGTYPE_US2;
@@ -1342,27 +1383,27 @@ BOOL CJsonParser::ParseJsonFromString(const CString& strJsonFile)
 // --------------------------------------------------------------------------------------
 // http://www.cnblogs.com/ytjjyy/archive/2012/04/17/2453348.html
 // 比如一个Json对象的字符串序列如下,其中”array”:[...]表示Json对象中的数组：
-// {“key1″:”value1″,”array”:[{"key2":"value2"},{"key2":"value3"},{"key2":"value4"}]},
-// 那怎么分别取到key1和key2的值呢
+// {“key1″:”value1″,”array”:[{"xxx":"value2"},{"xxx":"value3"},{"xxx":"value4"}]},
+// 那怎么分别取到key1和xxx的值呢
 void CJsonParser::JsonDesignFormatTest00()
 {
 	/*
 	{
 		"array" : [
 			{
-				"key2" : "value2"
+				"xxx" : "value2"
 			},
 			{
-				"key2" : "value3"
+				"xxx" : "value3"
 			},
 			{
-				"key2" : "value4"
+				"xxx" : "value4"
 			}
 		],
 		"key1" : "value1"
 	}
 	*/
-	std::string strValue = "{\"key1\":\"value1\",\"array\":[{\"key2\":\"value2\"},{\"key2\":\"value3\"},{\"key2\":\"value4\"}]}";
+	std::string strValue = "{\"key1\":\"value1\",\"array\":[{\"xxx\":\"value2\"},{\"xxx\":\"value3\"},{\"xxx\":\"value4\"}]}";
 
 	Json::Reader reader;
 	Json::Value value;
@@ -1374,7 +1415,7 @@ void CJsonParser::JsonDesignFormatTest00()
 		const Json::Value arrayObj = value["array"];
 		for (unsigned int i=0; i<arrayObj.size(); i++)
 		{
-			out = arrayObj[i]["key2"].asString();
+			out = arrayObj[i]["xxx"].asString();
 			std::cout << out;
 			if (i != (arrayObj.size() - 1 ))
 				std::cout << std::endl;
@@ -1390,7 +1431,8 @@ void CJsonParser::JsonDesignFormatTest00()
 // 序列化Json对象
 // --------------------------------------------------------------------------------------
 // http://www.cnblogs.com/ytjjyy/archive/2012/04/17/2453348.html
-// 先构建一个Json对象,此Json对象中含有数组,然后把Json对象序列化成字符串,代码如下：
+// 构建下面格式的Json文件，并格式化输出到控制台
+// 重点是拼接数组
 void CJsonParser::JsonDesignFormatTest01()
 {
 	/*
@@ -1427,7 +1469,7 @@ void CJsonParser::JsonDesignFormatTest01()
 		item["key"] = i;
 		arrayObj.append(item);
 	}
-	const char *p = "\"sdfsdfsdfsdf\"";
+	const char *p = "sdfsdfsdfsdf";
 	root[p] = "dfsdf";
 	cout << root.toStyledString().c_str() << endl << endl;
 	root["key1"] = "value1";
@@ -1449,7 +1491,7 @@ void CJsonParser::JsonDesignFormatTest01()
 // 序列化Json对象
 // --------------------------------------------------------------------------------------
 // http://www.cnblogs.com/ytjjyy/archive/2012/04/17/2453348.html
-// 添加子节点Json
+// 添加子节点的方法--就是字符串赋值
 void CJsonParser::JsonDesignFormatTest02()
 {
 	/*

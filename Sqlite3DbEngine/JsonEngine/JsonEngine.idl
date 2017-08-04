@@ -142,11 +142,10 @@ interface IJsonService : IDispatch{
 	[id(52)] HRESULT Clear(void);
 	[id(53), helpstring("测试Json接口，本函数创建一个Json数据格式的文件存储到本地文件中")] HRESULT TestCreateJsonToFile([in] BSTR bstrFilePath);
 	[id(54), helpstring("读取json文件并解析")] HRESULT TestParseJsonFromFile([in] BSTR bstrFilePath);
-	[id(55), helpstring("解析Json从字符串中")] HRESULT TestParseJsonFromString([in] BSTR bstrFilePath);
-	[id(56), helpstring("创建一个Json到字符串")] HRESULT TestCreateJsonToString([out,retval] BSTR* strResult);
 	[id(57), helpstring("测试关于Json的所有涉及方式")] HRESULT TestAllJsonDesignFormat([in] JsonTest eJt);
 	[id(58), helpstring("添加子节点，节点以对象形式添加")] HRESULT AddObjAsChildNode([in] BSTR bstrKeyName, [in] IJsonService* pVal);
 	[id(59), helpstring("添加子节点，节点以数组形式添加")] HRESULT AddArrayAsChildNode([in] BSTR bstrKeyName, [in] IJsonService* pVal);
+	[id(60)] HRESULT OutputStyledJson(void);
 };
 [
 	object,

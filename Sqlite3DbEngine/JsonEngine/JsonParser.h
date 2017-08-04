@@ -278,6 +278,7 @@ public:
 	Json::Value*  GetObjPtr(){
 		return GetRootNode();
 	}
+	void OutputStyledJson(void);
 
 	/**
 	 * @brief             SetObjAsChild

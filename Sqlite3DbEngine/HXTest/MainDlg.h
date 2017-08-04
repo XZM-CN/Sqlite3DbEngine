@@ -5,6 +5,9 @@
 #pragma once
 #include "resource.h"
 #include "XzmTreeViewCtrl.h"
+#include "DevListBoxImpl.h"
+
+class CStaticClass;
 
 class CMainDlg :
 	public CDialogImpl<CMainDlg>,
@@ -39,11 +42,23 @@ public:
 		COMMAND_ID_HANDLER(IDOK, OnOK)
 		COMMAND_ID_HANDLER(IDCANCEL, OnCancel)
 		NOTIFY_HANDLER_EX(IDC_TESTTREE, NM_CLICK, OnTreeXzmClickTree)
+		COMMAND_HANDLER(IDC_NODE01, BN_CLICKED, OnBnClickedAppLog)
+		COMMAND_HANDLER(IDC_NODE30, BN_CLICKED, OnBnClickedAppLog)
+		COMMAND_HANDLER(IDC_NODE50, BN_CLICKED, OnBnClickedAppLog)
+		COMMAND_HANDLER(IDC_NODE100, BN_CLICKED, OnBnClickedAppLog)
+		COMMAND_HANDLER(IDC_NODE150, BN_CLICKED, OnBnClickedAppLog)
+		COMMAND_HANDLER(IDC_BTN_START, BN_CLICKED, OnBtnStart)
+		COMMAND_HANDLER(IDC_BTN_PAUSE, BN_CLICKED, OnBtnPause)
+		COMMAND_HANDLER(IDC_BTN_STOP, BN_CLICKED, OnBtnStop)
+		REFLECT_NOTIFICATIONS()
 	END_MSG_MAP()
 
 public:
 	BEGIN_DDX_MAP(CMainDlg)
 		DDX_CONTROL(IDC_TESTTREE, m_TreeXzm)
+		DDX_TEXT(IDC_NODECOUNT, m_strNodeCount)
+		DDX_CONTROL_HANDLE(IDC_NODECOUNT, m_NodeCountCtrl)
+		DDX_CONTROL_HANDLE(IDC_LOGLIST, m_ListCtrl)
 	END_DDX_MAP()
 
 public:
@@ -57,8 +72,13 @@ public:
 	LRESULT OnAppAbout(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/);
 	LRESULT OnOK(WORD /*wNotifyCode*/, WORD wID, HWND /*hWndCtl*/, BOOL& /*bHandled*/);
 	LRESULT OnCancel(WORD /*wNotifyCode*/, WORD wID, HWND /*hWndCtl*/, BOOL& /*bHandled*/);
+	LRESULT OnBnClickedAppLog(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled);
+	LRESULT OnBtnStart(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled);
+	LRESULT OnBtnPause(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled);
+	LRESULT OnBtnStop(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled);
 	void CloseDialog(int nVal);
-
+	void EnableRadio(BOOL b);
+	static UINT CreateSocketThread(LPVOID pParam);
 public:
 	LRESULT OnTreeXzmClickTree(NMHDR* phdr);
 	void InitXzmTree();
@@ -66,6 +86,11 @@ public:
 	HTREEITEM InsertXzmTree(CTreeViewCtrl& Tree,HTREEITEM hItem,TV_INSERTSTRUCT TCItem,TCHAR* pc_name);
 	BOOL IsYourChild(ATL::CString strParentName, CTreeViewCtrl& Tree,HTREEITEM &hSelItem );
 public:
-
+	/// É¨Ãè×´Ì¬
+	CString m_strNodeCount;
+	CStatic             m_NodeCountCtrl;
+	CListViewCtrl           m_ListCtrl;
 	CXzmTreeViewCtrl    m_TreeXzm;
+	CDevListBoxImpl m_ListBox;
+	CStaticClass    *m_pStaticClass;
 };

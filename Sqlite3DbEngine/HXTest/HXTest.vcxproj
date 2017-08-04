@@ -115,8 +115,11 @@
     <ClCompile Include="..\Common\BaseFuncLib.cpp" />
     <ClCompile Include="..\Common\ComHelper.cpp" />
     <ClCompile Include="..\Common\HXRegKey.cpp" />
+    <ClCompile Include="..\Common\NetSocket.cpp" />
+    <ClCompile Include="..\Common\NetworkInteraction.cpp" />
     <ClCompile Include="..\Common\SqliteHelper.cpp" />
     <ClCompile Include="..\Common\XzmTreeViewCtrl.cpp" />
+    <ClCompile Include="DevListBoxImpl.cpp" />
     <ClCompile Include="HXTest.cpp" />
     <ClCompile Include="MainDlg.cpp" />
     <ClCompile Include="StaticClass.cpp" />
@@ -126,7 +129,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Common\NetSocket.h" />
+    <ClInclude Include="..\Common\NetworkInteraction.h" />
     <ClInclude Include="AboutDlg.h" />
+    <ClInclude Include="DevListBoxImpl.h" />
     <ClInclude Include="MainDlg.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="StaticClass.h" />

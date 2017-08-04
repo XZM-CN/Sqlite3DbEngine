@@ -664,7 +664,7 @@ STDMETHODIMP CJsonService::GetString(IParaService** pVal)
 	return spiParaService->QueryInterface(IID_IParaService,(LPVOID *)pVal);
 }
 
-
+// 创建Json文件,如果文件存在则删除重建
 STDMETHODIMP CJsonService::TestCreateJsonToFile(BSTR bstrFilePath)
 {
 	if(NULL == bstrFilePath)
@@ -677,7 +677,7 @@ STDMETHODIMP CJsonService::TestCreateJsonToFile(BSTR bstrFilePath)
 	if(m_strFilePath.IsEmpty() || CBaseFuncLib::IsPathExist(m_strFilePath))
 	{
 		::SetFileAttributes(bstrFilePath,FILE_ATTRIBUTE_NORMAL);
-		::DeleteFile(bstrFilePath);
+		::DeleteFile(bstrFilePath);// 如果文件存在则删除重建
 	}
 	if(NULL == m_pJsonParser)
 		m_pJsonParser = new CJsonParser();
@@ -718,43 +718,6 @@ STDMETHODIMP CJsonService::TestParseJsonFromFile(BSTR bstrFilePath)
 	}
 
 	m_pJsonParser->ParseJsonFromFile(bstrFilePath);
-	return S_OK;
-}
-
-
-STDMETHODIMP CJsonService::TestParseJsonFromString(BSTR bstrFilePath)
-{
-	if(NULL == bstrFilePath)
-	{
-		ATLASSERT(0);
-		return E_POINTER;
-	}
-
-	m_strFilePath = bstrFilePath;
-
-	if(m_strFilePath.IsEmpty())
-	{
-		ATLASSERT(0);
-		return E_INVALIDARG;
-	}
-	if(NULL == m_pJsonParser)
-		m_pJsonParser = new CJsonParser();
-	ATLASSERT(m_pJsonParser);
-	if(NULL == m_pJsonParser)
-	{
-		ATLASSERT(0);
-		return E_OUTOFMEMORY;
-	}
-
-	m_pJsonParser->ParseJsonFromString(bstrFilePath);
-	return S_OK;
-}
-
-
-STDMETHODIMP CJsonService::TestCreateJsonToString(BSTR* strResult)
-{
-	// TODO: 在此添加实现代码
-
 	return S_OK;
 }
 
@@ -856,5 +819,11 @@ STDMETHODIMP CJsonService::AddObjAsChildNode(BSTR bstrKeyName, IJsonService* pVa
 
 STDMETHODIMP CJsonService::AddArrayAsChildNode(BSTR bstrKeyName, IJsonService* pVal)
 {
+	return S_OK;
+}
+
+STDMETHODIMP CJsonService::OutputStyledJson(void)
+{
+	m_pJsonParser->OutputStyledJson();
 	return S_OK;
 }

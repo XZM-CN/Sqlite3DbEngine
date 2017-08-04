@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "MainDlg.h"
 #include "AboutDlg.h"
+#include "BaseFuncLib.h"
+
 
 #include "StaticClass.h"
 
@@ -23,14 +25,88 @@ LRESULT CMainDlg::OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam
 
 	UIAddChildWindowContainer(m_hWnd);
 
+	if(TRUE) {
+		m_NodeCountCtrl.Attach(GetDlgItem(IDC_NODECOUNT).m_hWnd);
+	}
+	else {
+		this->GetDlgItem(IDC_NODECOUNT).ShowWindow(FALSE);
+	}
+
+	if(FALSE) { // Listctrl 的例子，这里边用的比较繁琐，实际工作用下边的那个
+		m_ListCtrl.Attach(GetDlgItem(IDC_LOGLIST).m_hWnd);
+		m_ListCtrl.AddColumn(_T("aaa"),0,-1);
+		m_ListCtrl.AddColumn(_T("bbb"),1,-1);
+		m_ListCtrl.InsertColumn(2,_T("bbb"),LVCFMT_LEFT,100);
+		m_ListCtrl.InsertItem(0,_T("这里"));
+		m_ListCtrl.SetItemText(0,1,_T("晴天"));
+		m_ListCtrl.InsertItem(0,_T("那里"));
+		m_ListCtrl.SetItemText(0,1,_T("阴天"));
+	}
+	else {
+		// this->GetDlgItem(IDC_LOGLIST).ShowWindow(FALSE);
+	}
+
+	if(TRUE) {
+		m_ListCtrl.Attach(GetDlgItem(IDC_LOGLIST).m_hWnd);
+		m_ListCtrl.InsertColumn(0,_T("num"),LVCFMT_CENTER,50);
+		m_ListCtrl.InsertColumn(1,_T("日志信息"),LVCFMT_LEFT,700);
+		for(int i=0;i<0;i++) {
+			CString str;
+			str.Format(_T("%d"),i);
+			m_ListCtrl.InsertItem(i,str);
+			m_ListCtrl.SetItemText(i,1,_T("*App*08-03 14:05:12 TID:13460 FileName:g:_programking_sqlite3dbengine_sqlite3dbengine_hxtest_maindlg.cpp LineNum:172 Log:tttttttt"));
+		}
+	}
+	else {
+		this->GetDlgItem(IDC_LOGLIST).ShowWindow(FALSE);
+	}
+
+
+	if(FALSE) {// ListBox 的例子
+		m_ListBox.SubclassWindow(GetDlgItem(IDC_LOGLISTBOX));
+		m_ListBox.AddString(_T("*App*08-03 14:05:12 TID:13460 FileName:g:_programking_sqlite3dbengine_sqlite3dbengine_hxtest_maindlg.cpp LineNum:172 Log:tttttttt"));
+		m_ListBox.AddString(_T("1;dddddddd"));
+		m_ListBox.AddString(_T("1;dddddddd"));
+		m_ListBox.AddString(_T("1;dddddddd"));
+		m_ListBox.AddString(_T("1dddddddd"));
+		m_ListBox.AddString(_T("1dddddddd"));
+		m_ListBox.AddString(_T("1dddddddd"));
+	}
+	else {
+		this->GetDlgItem(IDC_LOGLISTBOX).ShowWindow(FALSE);
+	}
+
 	// Hook up controls & variables没有这一行，变量与控件关联失败
 	if(!DoDataExchange(false))
 		return FALSE;
 
+	if(FALSE){
+		this->GetDlgItem(IDC_TESTTREE).ShowWindow(TRUE);
+		InitXzmTree();
+		m_pStaticClass = new CStaticClass();
+	}
+	else {
+		WSADATA Data;
+		int status;
+
+		//初始化windows Socket Dll
+		status = WSAStartup(MAKEWORD(1,1),&Data);
+		if (0!=status)
+		{
+			OutputDebugString(_T("初始化失败\n"));
+		} 
+		this->GetDlgItem(IDC_TESTTREE).ShowWindow(FALSE);
+	}
+
+
 
 	this->GetDlgItem(ID_APP_ABOUT).EnableWindow(FALSE);// 按钮使能
 	this->GetDlgItem(ID_APP_ABOUT).ShowWindow(FALSE);// 按钮隐藏
-	InitXzmTree();
+	this->GetDlgItem(IDOK).ShowWindow(FALSE);// 按钮隐藏
+
+	this->GetDlgItem(IDC_BTN_PAUSE).EnableWindow(FALSE);// 按钮使能
+	this->GetDlgItem(IDC_BTN_STOP).EnableWindow(FALSE);// 按钮使能
+
 
 	return TRUE;
 }
@@ -63,6 +139,188 @@ LRESULT CMainDlg::OnOK(WORD /*wNotifyCode*/, WORD wID, HWND /*hWndCtl*/, BOOL& /
 LRESULT CMainDlg::OnCancel(WORD /*wNotifyCode*/, WORD wID, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
 {
 	CloseDialog(wID);
+	return 0;
+}
+
+void CMainDlg::EnableRadio(BOOL b){
+	this->GetDlgItem(IDC_NODE01).EnableWindow(b);
+	this->GetDlgItem(IDC_NODE30).EnableWindow(b);
+	this->GetDlgItem(IDC_NODE50).EnableWindow(b);
+	this->GetDlgItem(IDC_NODE100).EnableWindow(b);
+	this->GetDlgItem(IDC_NODE150).EnableWindow(b);
+}
+
+UINT CMainDlg::CreateSocketThread(LPVOID pParam)
+{
+	PThreadParam pThreadParam = (PThreadParam)pParam;
+
+	HANDLE *hThread;
+	//HANDLE hThread2[30];
+	//hThread = hThread2;
+	switch (pThreadParam->TP_RadioID)
+	{
+	case IDC_NODE01:
+		hThread = (HANDLE *)malloc( sizeof(unsigned long) * 1 ); // 以字节为单位分配
+		pThreadParam->TP_ThreadCount = 1;
+		break;
+	case IDC_NODE30:
+		hThread = (HANDLE *)malloc( sizeof(unsigned long) * 30 ); // 以字节为单位分配
+		pThreadParam->TP_ThreadCount = 30;
+		break;
+	case IDC_NODE50:
+		hThread = (HANDLE *)malloc( sizeof(unsigned long) * 50 ); // 以字节为单位分配
+		pThreadParam->TP_ThreadCount = 50;
+		break;
+	case IDC_NODE100:
+		hThread = (HANDLE *)malloc( sizeof(unsigned long) * 100 ); // 以字节为单位分配
+		pThreadParam->TP_ThreadCount = 100;
+		break;
+	case IDC_NODE150:
+		hThread = (HANDLE *)malloc( sizeof(unsigned long) * 150 ); // 以字节为单位分配
+		pThreadParam->TP_ThreadCount = 150;
+		break;
+	}
+	DWORD dwThreadId;
+
+
+	int listCount = pThreadParam->TP_pCMainDlg->m_ListCtrl.GetItemCount();
+
+	pThreadParam->TP_pCMainDlg->m_ListCtrl.InsertItem(listCount,_T("0"));
+	pThreadParam->TP_pCMainDlg->m_ListCtrl.SetItemText(listCount++,1,_T("********************************************************************"));
+
+
+	for (int i=0;i<pThreadParam->TP_ThreadCount;i++,listCount++)
+	{
+		PCStaticClass pCStaticClass = new CStaticClass();
+		hThread[i]=::CreateThread(
+			NULL,//default security attributes
+			0,//use default stack size
+			(LPTHREAD_START_ROUTINE)CStaticClass::ApplyRegister,//thread function
+			pCStaticClass,//argument to thread function
+			0,//use default creation flags
+			&dwThreadId);//returns the thread identifier
+		CString str1,str2;
+		str1.Format(_T("%d"),listCount);
+		pThreadParam->TP_pCMainDlg->m_ListCtrl.InsertItem(listCount,str1);
+		str2.Format(_T("模拟客户端%d号启动"),i);
+		pThreadParam->TP_pCMainDlg->m_ListCtrl.SetItemText(listCount,1,str2);
+	}
+
+	// 等待所有ApplyRegister线程结束，向主框架窗口发送消息，所有线程已经结束，按钮可以恢复了
+	return 0;
+}
+
+LRESULT CMainDlg::OnBnClickedAppLog(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled)
+{
+	switch (wID)
+	{
+	case IDC_NODE01:
+		m_NodeCountCtrl.SetWindowText(_T("1"));
+		EnableRadio(FALSE);
+		break;
+	case IDC_NODE30:
+		m_NodeCountCtrl.SetWindowText(_T("30"));
+		EnableRadio(FALSE);
+		break;
+	case IDC_NODE50:
+		m_NodeCountCtrl.SetWindowText(_T("50"));
+		EnableRadio(FALSE);
+		break;
+	case IDC_NODE100:
+		m_NodeCountCtrl.SetWindowText(_T("100"));
+		EnableRadio(FALSE);
+		break;
+	case IDC_NODE150:
+		m_NodeCountCtrl.SetWindowText(_T("150"));
+		EnableRadio(FALSE);
+		break;
+	default:
+		break;
+	}
+
+	return 0;
+}
+
+LRESULT CMainDlg::OnBtnStart(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled)
+{
+	DWORD dwThreadId;
+	HANDLE hThread;
+	if(!DoDataExchange(true))
+		return FALSE;
+
+	CString strLogInfo(_T("tttttttt"));
+	WRITEXZMLOGTOFILE(strLogInfo);
+
+	UINT  IDC_SEL = 0;
+	if (0 == m_strNodeCount.Compare( _T("1")))
+	{
+		IDC_SEL = IDC_NODE01;
+	}
+	else if (0 == m_strNodeCount.Compare( _T("30")))
+	{
+		IDC_SEL = IDC_NODE30;
+	}
+	else if (0 == m_strNodeCount.Compare( _T("50")))
+	{
+		IDC_SEL = IDC_NODE50;
+	}
+	else if (0 == m_strNodeCount.Compare( _T("100")))
+	{
+		IDC_SEL = IDC_NODE100;
+	}
+	else if (0 == m_strNodeCount.Compare( _T("150")))
+	{
+		IDC_SEL = IDC_NODE150;
+	}
+	else
+	{
+		this->GetDlgItem(IDC_BTN_START).EnableWindow(TRUE);
+		this->GetDlgItem(IDC_BTN_PAUSE).EnableWindow(FALSE);
+		this->GetDlgItem(IDC_BTN_STOP).EnableWindow(FALSE);
+		return 0;
+	}
+
+
+	//return 0; // 测试按钮显隐时打开
+
+
+	PThreadParam pThreadParam = new ThreadParam();
+	pThreadParam->TP_pCMainDlg = this;
+	pThreadParam->TP_RadioID = IDC_SEL;
+
+	hThread=::CreateThread(
+		NULL,//default security attributes
+		0,//use default stack size
+		(LPTHREAD_START_ROUTINE)CMainDlg::CreateSocketThread,//thread function
+		pThreadParam,//argument to thread function
+		0,//use default creation flags
+		&dwThreadId);//returns the thread identifier
+
+
+	this->GetDlgItem(IDC_BTN_START).EnableWindow(FALSE);
+	this->GetDlgItem(IDC_BTN_PAUSE).EnableWindow(TRUE);
+	this->GetDlgItem(IDC_BTN_STOP).EnableWindow(TRUE);
+	return 0;
+}
+
+LRESULT CMainDlg::OnBtnPause(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled)
+{
+	// return 0; // 测试按钮显隐时打开
+
+	this->GetDlgItem(IDC_BTN_START).EnableWindow(TRUE);
+	this->GetDlgItem(IDC_BTN_PAUSE).EnableWindow(FALSE);
+	this->GetDlgItem(IDC_BTN_STOP).EnableWindow(TRUE);
+	return 0;
+}
+
+LRESULT CMainDlg::OnBtnStop(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled)
+{
+	// return 0; // 测试按钮显隐时打开
+
+	this->GetDlgItem(IDC_BTN_START).EnableWindow(TRUE);
+	this->GetDlgItem(IDC_BTN_PAUSE).EnableWindow(FALSE);
+	this->GetDlgItem(IDC_BTN_STOP).EnableWindow(FALSE);
+	EnableRadio(TRUE);
 	return 0;
 }
 
@@ -134,33 +392,59 @@ void CMainDlg::InitXzmTree()
 
 	HTREEITEM hItemx = NULL;
 
-	/*HTREEITEM*/ hItemx = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("主机防护"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("初始化windows Socket"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("注册"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("审计注册"));
-	/*HTREEITEM*/ hItemx = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("网络审计"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
-	/*HTREEITEM*/ hItemx = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("防火墙"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
+	/*HTREEITEM*/ hItemx = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("测试注册线程"));
+	if(hItemx != NULL) {
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("初始化windows Socket"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("注册"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("测试长连接")); m_TreeXzm.Expand(hItemx, TVE_COLLAPSE);
+	}
+
+	/*HTREEITEM*/ hItemx = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("封包"));
+	if(hItemx != NULL) {
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("打包数据头信息"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("打包注册到平台的数据包"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("打包注册成功信息"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("打包卸载返回状态"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("打包系统资源信息"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("打包系统版本信息"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("打包接收扫描磁盘命令的状态信息"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("打包删除单个进程白名单执行状态信息"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("打包添加单个进程白名单命令"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("打包上传白名单返回状态命令"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("打包安装程序命令"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("打包上传U盘信息返回状态命令"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("打包添加安全U盘命令"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("打包开启自身防护命令"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("打包设置拦截功能命令"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("打包设置安全等级命令"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("打包U盘控制设置命令"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("打包双因子登录设置命令"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("打包授权文件命令"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("打包更新授权命令"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("打包移除授权命令"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("打包开启进程白名单防护命令"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("打包获取当前配置信息命令"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("打包上传用户信息返回状态命令")); m_TreeXzm.Expand(hItemx, TVE_EXPAND);
+	}
+
+	/*HTREEITEM*/ hItemx = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("拆包解析"));
+	if(hItemx != NULL) {
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx")); m_TreeXzm.Expand(hItemx, TVE_COLLAPSE);
+	}
+
 	/*HTREEITEM*/ hItemx = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("xxxxxxxxx"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
+	if(hItemx != NULL) {
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx")); m_TreeXzm.Expand(hItemx, TVE_COLLAPSE);
+	}
 
 
 	m_TreeXzm.Expand(hRoot, TVE_EXPAND);//展开上一级树
 
 }
-
-typedef struct tagThreadParam 
-{
-	int  RegCount;
-}ThreadParam ,*PThreadParam ;
-
 
 LRESULT CMainDlg::OnTreeXzmClickTree(NMHDR* phdr)
 {
@@ -182,7 +466,7 @@ LRESULT CMainDlg::OnTreeXzmClickTree(NMHDR* phdr)
 		//if(bstr == NULL) return 0;
 		ATL::CString str(bstr);
 
-		if(IsYourChild( _T("主机防护"),m_TreeXzm,hItemHit))
+		if(IsYourChild( _T("测试注册线程"),m_TreeXzm,hItemHit))
 		{
 
 			if(0 == str.Compare( _T("初始化windows Socket")))
@@ -202,29 +486,81 @@ LRESULT CMainDlg::OnTreeXzmClickTree(NMHDR* phdr)
 				DWORD dwThreadId;
 				HANDLE hThread;
 
+				PCStaticClass pCStaticClass = new CStaticClass();
 				hThread=CreateThread(
 					NULL,//default security attributes
 					0,//use default stack size
 					(LPTHREAD_START_ROUTINE)CStaticClass::ApplyRegister,//thread function
-					NULL,//argument to thread function
+					pCStaticClass,//argument to thread function
 					0,//use default creation flags
 					&dwThreadId);//returns the thread identifier
 			}
-			else if(0 == str.Compare( _T("审计注册")))
+			else if(0 == str.Compare( _T("测试长连接")))
 			{
 				DWORD dwThreadId;
 				HANDLE hThread;
-
 				hThread=CreateThread(
 					NULL,//default security attributes
 					0,//use default stack size
-					(LPTHREAD_START_ROUTINE)CStaticClass::AuditRegister,//thread function
-					NULL,//argument to thread function
+					(LPTHREAD_START_ROUTINE)CStaticClass::HeartBeatEx,//thread function
+					0,//argument to thread function
 					0,//use default creation flags
 					&dwThreadId);//returns the thread identifier
 			}
 			else if(0 == str.Compare( _T("xxxx")))
 			{
+			}
+		}
+		else if(IsYourChild( _T("封包"),m_TreeXzm,hItemHit))
+		{
+
+			if(0 == str.Compare( _T("打包数据头信息"))) {
+			}
+			else if(0 == str.Compare( _T("打包注册到平台的数据包"))) {
+			}
+			else if(0 == str.Compare( _T("打包注册成功信息"))) {
+			}
+			else if(0 == str.Compare( _T("打包卸载返回状态"))) {
+			}
+			else if(0 == str.Compare( _T("打包系统资源信息"))) {
+			}
+			else if(0 == str.Compare( _T("打包系统版本信息"))) {
+			}
+			else if(0 == str.Compare( _T("打包接收扫描磁盘命令的状态信息"))) {
+			}
+			else if(0 == str.Compare( _T("打包删除单个进程白名单执行状态信息"))) {
+			}
+			else if(0 == str.Compare( _T("打包添加单个进程白名单命令"))) {
+			}
+			else if(0 == str.Compare( _T("打包上传白名单返回状态命令"))) {
+			}
+			else if(0 == str.Compare( _T("打包安装程序命令"))) {
+			}
+			else if(0 == str.Compare( _T("打包上传U盘信息返回状态命令"))) {
+			}
+			else if(0 == str.Compare( _T("打包添加安全U盘命令"))) {
+			}
+			else if(0 == str.Compare( _T("打包开启自身防护命令"))) {
+			}
+			else if(0 == str.Compare( _T("打包设置拦截功能命令"))) {
+			}
+			else if(0 == str.Compare( _T("打包设置安全等级命令"))) {
+			}
+			else if(0 == str.Compare( _T("打包U盘控制设置命令"))) {
+			}
+			else if(0 == str.Compare( _T("打包双因子登录设置命令"))) {
+			}
+			else if(0 == str.Compare( _T("打包授权文件命令"))) {
+			}
+			else if(0 == str.Compare( _T("打包更新授权命令"))) {
+			}
+			else if(0 == str.Compare( _T("打包移除授权命令"))) {
+			}
+			else if(0 == str.Compare( _T("打包开启进程白名单防护命令"))) {
+			}
+			else if(0 == str.Compare( _T("打包获取当前配置信息命令"))) {
+			}
+			else if(0 == str.Compare( _T("打包上传用户信息返回状态命令"))) {
 			}
 		}
 	}

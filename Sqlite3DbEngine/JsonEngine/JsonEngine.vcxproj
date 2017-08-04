@@ -159,7 +159,7 @@
     <ResourceCompile Include="JsonEngine.rc" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
+    <None Include="Config.js" />
     <None Include="JsonEngine.def" />
     <None Include="JsonEngine.rgs" />
     <None Include="JsonService.rgs" />

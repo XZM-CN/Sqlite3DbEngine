@@ -373,6 +373,7 @@ public:
 	 */
 	static BOOL WriteLogToFile(const ATL::CString& strLogInfo, const char* strFileName, const DWORD dwLineNumber, const ATL::CString &strModuleName = _T(""),\
 		ELogType eLogType = LOGTYPE_INVALID);
+	static BOOL WriteXzmLogToFile(const ATL::CString& strLogInfo, const char* strFileName, const DWORD dwLineNumber);
 
 	/**
 	 * @brief 将颜色值转换为字符串
@@ -699,6 +700,8 @@ protected:
 };
 
 #define WRITELOGTOFILE(X) CBaseFuncLib::WriteLogToFile(X, __FILE__, __LINE__)
+
+#define WRITEXZMLOGTOFILE(X) CBaseFuncLib::WriteXzmLogToFile(X, __FILE__, __LINE__)
 
 #define WRITELOGTOFILE2(X,Y,Z) CBaseFuncLib::WriteLogToFile(X, __FILE__, __LINE__, Y,Z)
 

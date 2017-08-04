@@ -4,6 +4,10 @@
 #include "BaseFuncLib.h"
 CStaticClass::CStaticClass(void)
 {
+	m_spiJsonService = NULL;
+
+	if(m_spiJsonService == NULL)
+		GetInterfacePtr(m_spiJsonService);
 }
 
 
@@ -11,46 +15,32 @@ CStaticClass::~CStaticClass(void)
 {
 }
 
+char* CStaticClass::rand_str(char *str,const int len)
+{
+	srand((unsigned int)time(NULL));
+	int i;
+	for(i=0;i<len;++i)
+	{
+		switch((rand()%3))
+		{
+		case 1:
+			str[i]='A'+rand()%26;
+			break;
+		case 2:
+			str[i]='a'+rand()%26;
+			break;
+		default:
+			str[i]='0'+rand()%10;
+			break;
+		}
+	}
+	str[++i]='\0';
+	return str;
+}
+
 UINT CStaticClass::ApplyRegister(LPVOID pParam)
 {
-	CString strSendData;
-	if(TRUE){
-		DWORD dwCrc32 = 0;
-		CComBSTR bstrVal;
-
-		CComPtr <IJsonService> spiJsonService = NULL;
-		CComPtr <IJsonService> spiJsonService2 = NULL;
-		if(NULL == spiJsonService)
-			spiJsonService = CDbHelper::GetJsonService();
-		if(NULL != spiJsonService)
-		{
-			/// 写入配置
-			spiJsonService->put_StringValue(CComBSTR(JSON_STRING_CLIENT_ID),CComBSTR("E7C37BD7256059233D9566243203C12D"));
-			spiJsonService->put_IntValue(CComBSTR(JSON_STRING_CRC32),123456);
-			spiJsonService->put_IntValue(CComBSTR(JSON_STRING_CMD_ID),1);
-			spiJsonService->CreateChild(CComBSTR(JSON_STRING_CONTENT),&spiJsonService2);
-			//spiJsonService2->put_IntValue(CComBSTR(JSON_STRING_HEART_BEAT),1);
-			spiJsonService2->put_IntValue(CComBSTR(JSON_STRING_REGISTAR),1);
-			spiJsonService2->put_StringValue(CComBSTR(JSON_STRING_AUTHCODE),CComBSTR("HX1001-98254-30A9D-277AB"));
-			spiJsonService->AddObjAsChildNode(CComBSTR(JSON_STRING_CONTENT),spiJsonService2);
-			spiJsonService->get_ObjectString(&bstrVal);
-
-			CString strTemp1 = bstrVal.m_str;
-			bstrVal.Empty();
-			spiJsonService2->get_ObjectString(&bstrVal);
-			CString strTemp2 = bstrVal.m_str;
-			bstrVal.Empty();
-
-			//spiJsonService->PutChild(CComBSTR(JSON_STRING_CONTENT),spiJsonService2);
-			spiJsonService->get_ObjectString(&bstrVal);
-
-			CString m_strHeartBeat = bstrVal.m_str;
-			strSendData = m_strHeartBeat;
-		}
-
-	}
-	//return 0;
-
+	PCStaticClass pThis = (PCStaticClass)pParam;
 	// 创建套节字
 	SOCKET xxx = ::socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 
@@ -69,7 +59,7 @@ UINT CStaticClass::ApplyRegister(LPVOID pParam)
 
 	// 注意,这里要填写服务器程序(TCPServer程序)所在机器的IP地址
 	// 如果你的计算机没有联网,直接使用127.0.0.1即可
-	servAddr.sin_addr.S_un.S_addr = inet_addr("192.168.0.8");
+	servAddr.sin_addr.S_un.S_addr = inet_addr("192.168.0.44");
 
 	if(::connect(xxx, (sockaddr*)&servAddr, sizeof(servAddr)) == SOCKET_ERROR)
 	{
@@ -78,23 +68,233 @@ UINT CStaticClass::ApplyRegister(LPVOID pParam)
 		return 0;
 	}
 
-	char *pText = NULL;
-	strSendData = strSendData + _T("\t");
-	int nSendLen = CBaseFuncLib::Us2ToChar(strSendData, &pText);
-	::send(xxx, pText, strlen(pText), 0);
-
-// 	if(::sendto(xxx, pText, 10,0,(sockaddr*)&servAddr,sizeof(pText)) == SOCKET_ERROR)
-// 	{
-// 		BOOL bRet = FALSE;
-// 	}
-
 	// 接收数据
-	char buff[256];
-	int nRecv = ::recv(xxx, buff, 256, 0);
-	if(nRecv > 0)
+	char JsonBuff[256];
+	int nRecv = -1;
+	memset(JsonBuff,0,256);
+	int senfRet = SOCKET_ERROR;
+	CString strClientID;
+	char *szValue = NULL;
+	CTime ct = CTime::GetCurrentTime();
+	//strClientID.Format(_T("TDHX%d%d%d%d%d%d%s"),ct.GetYear(),ct.GetMonth(),ct.GetDay(),ct.GetHour(),ct.GetMinute(),ct.GetSecond(),name);
+	strClientID.Format(_T("%d%d%d%d%d%d"),ct.GetYear(),ct.GetMonth(),ct.GetDay(),ct.GetHour(),ct.GetMinute(),ct.GetSecond());
+	CBaseFuncLib::Us2ToChar(strClientID/*strChild*/,&szValue);
+	while (1)
 	{
-		buff[nRecv] = '\0';
-		printf(" 接收到数据：%s", buff);
+		if (strlen(JsonBuff) == 0)
+		{
+			CString strSendData;
+			if(TRUE){
+				DWORD dwCrc32 = 0;
+				CComBSTR bstrVal;
+
+				CComPtr <IJsonService> spiJsonService = NULL;
+				CComPtr <IJsonService> spiJsonService2 = NULL;
+				if(NULL == spiJsonService)
+					spiJsonService = CDbHelper::GetJsonService();
+				if(NULL != spiJsonService)
+				{
+					/// 写入配置
+					//spiJsonService->put_StringValue(CComBSTR(JSON_STRING_CLIENT_ID),CComBSTR("E7C37BD7256059233D9566243203C12D"));
+					spiJsonService->put_StringValue(CComBSTR(JSON_STRING_CLIENT_ID),CComBSTR(strClientID.GetBuffer(0)));
+					spiJsonService->put_IntValue(CComBSTR(JSON_STRING_CRC32),123456);
+					spiJsonService->put_IntValue(CComBSTR(JSON_STRING_CMD_ID),1);
+					spiJsonService->CreateChild(CComBSTR(JSON_STRING_CONTENT),&spiJsonService2);
+					//spiJsonService2->put_IntValue(CComBSTR(JSON_STRING_HEART_BEAT),1);
+					spiJsonService2->put_IntValue(CComBSTR(JSON_STRING_CLIENTTYPE),1);
+					spiJsonService2->put_StringValue(CComBSTR(JSON_STRING_AUTHCODE),CComBSTR("HX1001-98254-30A9D-277AB"));
+					spiJsonService->AddObjAsChildNode(CComBSTR(JSON_STRING_CONTENT),spiJsonService2);
+					spiJsonService->get_ObjectString(&bstrVal);
+					CString m_strHeartBeat = bstrVal.m_str;
+					strSendData = m_strHeartBeat;
+				}
+			}
+
+			char *pText = NULL;
+			strSendData = strSendData + _T("\t");
+			int nSendLen = CBaseFuncLib::Us2ToChar(strSendData, &pText);
+			senfRet = SOCKET_ERROR;
+			senfRet = ::send(xxx, pText, strlen(pText), 0);
+			if(senfRet == SOCKET_ERROR)
+			{
+				printf("发送数据失败%s%s", __FILE__, __LINE__);
+			}
+			senfRet = SOCKET_ERROR;
+			// 	if(::sendto(xxx, pText, 10,0,(sockaddr*)&servAddr,sizeof(pText)) == SOCKET_ERROR)
+			// 	{
+			// 		BOOL bRet = FALSE;
+			// 	}
+
+			// 开始发心跳
+			DWORD dwThreadId;
+			HANDLE hThread;
+			hThread=CreateThread( NULL, 0, (LPTHREAD_START_ROUTINE)CStaticClass::HeartBeat, (LPVOID)xxx, 0, &dwThreadId);
+			
+// 			while (1)
+// 			{
+// 			}
+			nRecv = -1;
+			nRecv = ::recv(xxx, JsonBuff, 256, 0);
+			if(nRecv > 0)
+			{
+				JsonBuff[nRecv] = '\0';
+				OutputAReceiveMsg(JsonBuff);
+			}
+		}
+		else // 解析字符串
+		{
+			if(strlen(JsonBuff) > 0)
+			{
+				JsonBuff[nRecv] = '\0';
+				OutputAReceiveMsg(JsonBuff);
+
+				LONGLONG cmdID = -1000;
+				Get_CmdContext(JsonBuff,CComBSTR(JSON_STRING_CMD_ID),cmdID);
+
+				switch(cmdID){
+				case 1:
+					{
+						char pText[256] = "想要什么";
+						senfRet = ::send(xxx, pText, strlen(pText), 0);
+						cout<<endl<<"出现了命令 1"<<endl;
+						if(senfRet == SOCKET_ERROR)
+						{
+							printf("发送数据失败%s%s", __FILE__, __LINE__);
+						}
+						nRecv = -1;
+						nRecv = ::recv(xxx, JsonBuff, 256, 0);
+						if(nRecv > 0)
+						{
+							continue;
+						}
+						break;
+					}
+				case 2:
+					{
+						char pText[256] = "想要什么\t";
+						senfRet = ::send(xxx, pText, strlen(pText), 0);
+						cout<<endl<<"出现了命令 2"<<endl;
+						if(senfRet == SOCKET_ERROR)
+						{
+							printf("发送数据失败%s%s", __FILE__, __LINE__);
+						}
+						nRecv = -1;
+						nRecv = ::recv(xxx, JsonBuff, 256, 0);
+						if(nRecv > 0)
+						{
+							continue;
+						}
+						break;
+					}
+				case 3:
+					{
+						char pText[256] = "想要什么\t";
+						senfRet = ::send(xxx, pText, strlen(pText), 0);
+						cout<<endl<<"出现了命令 3"<<endl;
+						if(senfRet == SOCKET_ERROR)
+						{
+							printf("发送数据失败%s%s", __FILE__, __LINE__);
+						}
+						nRecv = -1;
+						nRecv = ::recv(xxx, JsonBuff, 256, 0);
+						if(nRecv > 0)
+						{
+							continue;
+						}
+						break;
+					}
+				case 4:
+					{
+						char pText[256] = "想要什么\t";
+						senfRet = ::send(xxx, pText, strlen(pText), 0);
+						cout<<endl<<"出现了命令 4"<<endl;
+						if(senfRet == SOCKET_ERROR)
+						{
+							printf("发送数据失败%s%s", __FILE__, __LINE__);
+						}
+						nRecv = -1;
+						nRecv = ::recv(xxx, JsonBuff, 256, 0);
+						if(nRecv > 0)
+						{
+							continue;
+						}
+						break;
+					}
+				case 5:
+					{
+						char pText[256] = "想要什么\t";
+						senfRet = ::send(xxx, pText, strlen(pText), 0);
+						cout<<endl<<"出现了命令 5"<<endl;
+						if(senfRet == SOCKET_ERROR)
+						{
+							printf("发送数据失败%s%s", __FILE__, __LINE__);
+						}
+						nRecv = -1;
+						nRecv = ::recv(xxx, JsonBuff, 256, 0);
+						if(nRecv > 0)
+						{
+							continue;
+						}
+						break;
+					}
+				case 6:
+					{
+						char pText[256] = "想要什么\t";
+						senfRet = ::send(xxx, pText, strlen(pText), 0);
+						cout<<endl<<"出现了命令 6"<<endl;
+						if(senfRet == SOCKET_ERROR)
+						{
+							printf("发送数据失败%s%s", __FILE__, __LINE__);
+						}
+						nRecv = -1;
+						nRecv = ::recv(xxx, JsonBuff, 256, 0);
+						if(nRecv > 0)
+						{
+							continue;
+						}
+						break;
+					}
+				case 7:
+					{
+						char *pText = NULL;
+						CString strContext ;
+						CComPtr <IJsonService> spiJsonService2=SJD_Content7();
+						SJD_register(strContext,strClientID,7,spiJsonService2);
+						strContext = strContext + _T("\t");
+						int nSendLen = CBaseFuncLib::Us2ToChar(strContext, &pText);
+						senfRet = SOCKET_ERROR;
+						senfRet = ::send(xxx, pText, strlen(pText), 0);
+						if(senfRet == SOCKET_ERROR)
+						{
+							printf("发送数据失败%s%s", __FILE__, __LINE__);
+							break;
+						}
+
+						// 接收数据
+						senfRet = SOCKET_ERROR;
+						memset(JsonBuff,0,256);
+						nRecv = -1;
+						nRecv = ::recv(xxx, JsonBuff, 256, 0);
+						if(nRecv > 0)
+						{
+							continue;
+						}
+
+					}
+					break;
+				default:
+					{
+
+					}
+					break;
+				}
+
+			}
+			else 
+			{
+				break;
+			}
+		}
 	}
 
 	// 关闭套节字
@@ -102,47 +302,30 @@ UINT CStaticClass::ApplyRegister(LPVOID pParam)
 	return 0;
 }
 
-UINT CStaticClass::AuditRegister(LPVOID pParam)
+static int count = 0;
+UINT CStaticClass::HeartBeat(LPVOID pParam)
 {
-	CString strSendData;
-	if(TRUE){
-		DWORD dwCrc32 = 0;
-		CComBSTR bstrVal;
+	SOCKET xxx = (SOCKET)pParam;
 
-		CComPtr <IJsonService> spiJsonService = NULL;
-		CComPtr <IJsonService> spiJsonService2 = NULL;
-		if(NULL == spiJsonService)
-			spiJsonService = CDbHelper::GetJsonService();
-		if(NULL != spiJsonService)
-		{
-			/// 写入配置
-			spiJsonService->put_StringValue(CComBSTR(JSON_STRING_CLIENT_ID),CComBSTR("E7C37BD7256059233D9566243203C12D"));
-			spiJsonService->put_IntValue(CComBSTR(JSON_STRING_CRC32),123456);
-			spiJsonService->put_IntValue(CComBSTR(JSON_STRING_CMD_ID),1);
-			spiJsonService->CreateChild(CComBSTR(JSON_STRING_CONTENT),&spiJsonService2);
-			//spiJsonService2->put_IntValue(CComBSTR(JSON_STRING_HEART_BEAT),1);
-			spiJsonService2->put_IntValue(CComBSTR(JSON_STRING_CLIENTTYPE),2);
-			spiJsonService2->put_StringValue(CComBSTR(JSON_STRING_AUTHCODE),CComBSTR("HX1001-98254-30A9D-277AB"));
-			spiJsonService->AddObjAsChildNode(CComBSTR(JSON_STRING_CONTENT),spiJsonService2);
-			spiJsonService->get_ObjectString(&bstrVal);
-
-			CString strTemp1 = bstrVal.m_str;
-			bstrVal.Empty();
-			spiJsonService2->get_ObjectString(&bstrVal);
-			CString strTemp2 = bstrVal.m_str;
-			bstrVal.Empty();
-
-			//spiJsonService->PutChild(CComBSTR(JSON_STRING_CONTENT),spiJsonService2);
-			spiJsonService->get_ObjectString(&bstrVal);
-
-			CString m_strHeartBeat = bstrVal.m_str;
-			strSendData = m_strHeartBeat;
+	char pText[256];
+	memset(pText,0,256);
+	sprintf(pText,"_HeartBeat%d\t",count);
+	int senfRet;
+	while(1){
+		senfRet = SOCKET_ERROR;
+		senfRet = ::send(xxx, pText, strlen(pText), 0);
+		if(senfRet != SOCKET_ERROR){
+			cout<<endl;
+			cout<<"发送心跳成功!"<<count++<<endl;
+			cout<<endl;
 		}
-
+		Sleep(1000);
 	}
-	//return 0;
+	return 0;
+}
 
-	// 创建套节字
+UINT CStaticClass::HeartBeatEx(LPVOID pParam)
+{
 	SOCKET xxx = ::socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 
 	if(xxx == INVALID_SOCKET)
@@ -160,7 +343,7 @@ UINT CStaticClass::AuditRegister(LPVOID pParam)
 
 	// 注意,这里要填写服务器程序(TCPServer程序)所在机器的IP地址
 	// 如果你的计算机没有联网,直接使用127.0.0.1即可
-	servAddr.sin_addr.S_un.S_addr = inet_addr("192.168.0.8");
+	servAddr.sin_addr.S_un.S_addr = inet_addr("192.168.0.44");
 
 	if(::connect(xxx, (sockaddr*)&servAddr, sizeof(servAddr)) == SOCKET_ERROR)
 	{
@@ -169,21 +352,131 @@ UINT CStaticClass::AuditRegister(LPVOID pParam)
 		return 0;
 	}
 
-	char *pText = NULL;
-	strSendData = strSendData + _T("\t");
-	int nSendLen = CBaseFuncLib::Us2ToChar(strSendData, &pText);
-	::send(xxx, pText, strlen(pText), 0);
+	char pText[256];
+	memset(pText,0,256);
+	sprintf(pText,"_HeartBeat%d\t",count);
+	int senfRet;
+	while(1){
+		senfRet = SOCKET_ERROR;
+		senfRet = ::send(xxx, pText, strlen(pText), 0);
+		if(senfRet != SOCKET_ERROR){
+			cout<<endl;
+			cout<<"发送心跳成功!"<<count++<<endl;
+			cout<<endl;
+		}
+		Sleep(1000);
+	}
+	return 0;
 
-	// 接收数据
-	char buff[256];
-	int nRecv = ::recv(xxx, buff, 256, 0);
-	if(nRecv > 0)
+}
+
+BOOL CStaticClass::GetInterfacePtr(CComPtr <IJsonService>& spiJsonService)
+{
+	if(NULL == spiJsonService)
+		spiJsonService = CDbHelper::GetJsonService();
+	if(NULL != spiJsonService)
 	{
-		buff[nRecv] = '\0';
-		printf(" 接收到数据：%s", buff);
+		return TRUE;
+	}
+	else
+	{
+		return FALSE;
+	}
+}
+
+void CStaticClass::SJD_register(CString& strJson,CString& strClientID,int CmdID,CComPtr <IJsonService>& spiJsonService2)
+{
+	CComPtr <IJsonService> spiJsonService = NULL;
+	BOOL bRet = GetInterfacePtr(spiJsonService);
+	if (bRet)
+	{
+		CComBSTR bstrVal;
+		spiJsonService->put_StringValue(CComBSTR(JSON_STRING_CLIENT_ID),CComBSTR(strClientID.GetBuffer(0)));
+		spiJsonService->put_IntValue(CComBSTR(JSON_STRING_CRC32),123456);
+		spiJsonService->put_IntValue(CComBSTR(JSON_STRING_CMD_ID),CmdID);
+		spiJsonService->AddObjAsChildNode(CComBSTR(JSON_STRING_CONTENT),spiJsonService2);
+
+		spiJsonService->OutputStyledJson();
+		
+		// 做CRC校验(目前未做)
+
+		spiJsonService->get_ObjectString(&bstrVal);
+		strJson = bstrVal.m_str;
+		bstrVal.Empty();
+	}
+}
+
+CComPtr <IJsonService> CStaticClass::SJD_Content7()
+{
+	CComPtr <IJsonService> spiJsonService = NULL;
+	BOOL bRet = GetInterfacePtr(spiJsonService);
+	if (bRet)
+	{
+		spiJsonService->put_IntValue(CComBSTR(JSON_STRING_GETSYS_TYPE),1);
+		spiJsonService->put_StringValue(CComBSTR(JSON_STRING_COMPUTRENAME),CComBSTR("xzm-PC"));
+		spiJsonService->put_StringValue(CComBSTR(JSON_STRING_CURRENTUSER),CComBSTR("123"));
+		spiJsonService->put_StringValue(CComBSTR(JSON_STRING_SYSVERSION),CComBSTR("win10"));
+		spiJsonService->put_IntValue(CComBSTR(JSON_STRING_SYSBIT),64);
+		spiJsonService->put_StringValue(CComBSTR(JSON_STRING_HOSTIP),CComBSTR("192.168.0.56"));
+
+		//spiJsonService->OutputStyledJson();
+
+		return spiJsonService;
 	}
 
-	// 关闭套节字
-	::closesocket(xxx);
-	return 0;
+	return NULL;
+}
+
+void CStaticClass::Get_CmdContext(const char* bstrContent,BSTR bstrKeyName,CString& strJson)
+{
+	CComPtr <IJsonService> spiJsonService = NULL;
+	BOOL bRet = GetInterfacePtr(spiJsonService);
+	if (bRet)
+	{
+		VARIANT_BOOL bParseRet = FALSE;
+		wchar_t *szBuf = NULL;
+		CBaseFuncLib::CharToUS2(bstrContent,&szBuf);
+		spiJsonService->ParseString(szBuf,&bParseRet);
+		cout<<"获取CString的Value"<<endl<<endl;
+		spiJsonService->OutputStyledJson();
+		cout<<endl<<endl;
+		CComBSTR bstrVal;
+		spiJsonService->GetStringValue(bstrKeyName,&bstrVal);
+		strJson = bstrVal.m_str;
+	}
+}
+
+void CStaticClass::Get_CmdContext(const char* bstrContent,BSTR bstrKeyName,LONGLONG& intJson)
+{
+	CComPtr <IJsonService> spiJsonService = NULL;
+	BOOL bRet = GetInterfacePtr(spiJsonService);
+	if (bRet)
+	{
+		VARIANT_BOOL bParseRet = FALSE;
+		wchar_t *szBuf = NULL;
+		CBaseFuncLib::CharToUS2(bstrContent,&szBuf);
+		spiJsonService->ParseString(szBuf,&bParseRet);
+		cout<<"获取int的Value"<<endl<<endl;
+		spiJsonService->OutputStyledJson();
+		cout<<endl<<endl;
+		LONGLONG bstrVal;
+		spiJsonService->GetIntValue(bstrKeyName,&bstrVal);
+		intJson = bstrVal;
+	}
+}
+
+void CStaticClass::OutputAReceiveMsg(const char *JsonBuff)
+{
+	CComPtr <IJsonService> spiJsonService = NULL;
+	GetInterfacePtr(spiJsonService);
+
+	VARIANT_BOOL bParseRet = FALSE;
+	wchar_t *szBuf = NULL;
+	CBaseFuncLib::CharToUS2(JsonBuff,&szBuf);
+	spiJsonService->ParseString(szBuf,&bParseRet);
+
+	cout<<endl<<endl;
+	cout<<"接收到的数据是"<<endl;
+	spiJsonService->OutputStyledJson();
+	cout<<endl<<endl;
 }

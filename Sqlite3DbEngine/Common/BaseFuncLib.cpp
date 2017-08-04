@@ -825,6 +825,39 @@ BOOL CBaseFuncLib::WriteLogToFile(const ATL::CString& strLogInfo, const char* st
 	return bWriteFlag;
 }
 
+BOOL CBaseFuncLib::WriteXzmLogToFile(const ATL::CString& strLogInfo, const char* strFileName, const DWORD dwLineNumber)
+{
+	CString App = _T("App");
+	ATL::CString FileName(strFileName);
+	ATL::CString strLog(_T(""));
+	DWORD dwThreadID = ::GetCurrentThreadId();
+	COleDateTime curTime = COleDateTime::GetCurrentTime();
+	strLog.Format(_T("*%s*%02d-%02d %02d:%02d:%02d TID:%ld FileName:%s LineNum:%d Log:%s\r\n"),App,\
+		curTime.GetMonth(),curTime.GetDay(),curTime.GetHour(),curTime.GetMinute(),\
+		curTime.GetSecond(),dwThreadID,FileName,dwLineNumber, strLogInfo);
+	App.Empty();
+
+	char *szLog = NULL;
+	int nLen = CBaseFuncLib::Us2ToChar(strLog,&szLog);
+	strLog.Empty();
+	if(NULL == szLog)
+	{
+		return FALSE;
+	}
+
+	int nPos;
+	CString strTempPath;
+	::GetModuleFileName(NULL,strTempPath.GetBufferSetLength (MAX_PATH+1),MAX_PATH);
+	strTempPath.ReleaseBuffer ();
+	nPos=strTempPath.ReverseFind ('\\');
+	strTempPath=strTempPath.Left (nPos);
+	strTempPath = strTempPath + _T("\\Log.txt");
+
+	BOOL bWriteFlag = CBaseFuncLib::WriteToFile(strTempPath,(BYTE *)szLog,nLen-1,TRUE);
+
+	return bWriteFlag;
+}
+
 BOOL CBaseFuncLib::WriteToFile(const ATL::CString& strDataFile,BYTE *pData,DWORD nlen,BOOL bEndFlag)
 {
 	HANDLE hFileOpen = NULL;

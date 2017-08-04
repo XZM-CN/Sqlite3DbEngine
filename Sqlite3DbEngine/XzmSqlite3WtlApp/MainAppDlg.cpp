@@ -175,138 +175,173 @@ void CMainAppDlg::InitXzmTree()
 
 
 	HTREEITEM hItem1 = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("测试接口指针,以后可能废除"));
-	InsertXzmTree( m_TreeXzm, hItem1, TCItem, _T("GetComPtr通过绝对路径"));
-	InsertXzmTree( m_TreeXzm, hItem1, TCItem, _T("GetComPtr通过动态路径"));
-	InsertXzmTree( m_TreeXzm, hItem1, TCItem, _T("x3")); m_TreeXzm.Expand(hItem1, TVE_COLLAPSE);
+	if (hItem1 != NULL)
+	{
+		InsertXzmTree( m_TreeXzm, hItem1, TCItem, _T("GetComPtr通过绝对路径"));
+		InsertXzmTree( m_TreeXzm, hItem1, TCItem, _T("GetComPtr通过动态路径"));
+		InsertXzmTree( m_TreeXzm, hItem1, TCItem, _T("x3")); m_TreeXzm.Expand(hItem1, TVE_COLLAPSE);
+	}
 
 	HTREEITEM hItem2 = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("解密数据库文件(重置密码)"));
-	InsertXzmTree( m_TreeXzm, hItem2, TCItem, _T("取得接口指针"));
-	InsertXzmTree( m_TreeXzm, hItem2, TCItem, _T("打开带密码的数据库"));
-	InsertXzmTree( m_TreeXzm, hItem2, TCItem, _T("清空密码"));
-	InsertXzmTree( m_TreeXzm, hItem2, TCItem, _T("重置密码"));
-	InsertXzmTree( m_TreeXzm, hItem2, TCItem, _T("释放接口指针")); m_TreeXzm.Expand(hItem2, TVE_COLLAPSE);
+	if (hItem2 != NULL)
+	{
+		InsertXzmTree( m_TreeXzm, hItem2, TCItem, _T("取得接口指针"));
+		InsertXzmTree( m_TreeXzm, hItem2, TCItem, _T("打开带密码的数据库"));
+		InsertXzmTree( m_TreeXzm, hItem2, TCItem, _T("清空密码"));
+		InsertXzmTree( m_TreeXzm, hItem2, TCItem, _T("重置密码"));
+		InsertXzmTree( m_TreeXzm, hItem2, TCItem, _T("释放接口指针")); m_TreeXzm.Expand(hItem2, TVE_COLLAPSE);
+	}
 
 	HTREEITEM hItem3 = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("打开数据库如果不存在就退出"));
-	InsertXzmTree( m_TreeXzm, hItem3, TCItem, _T("取得接口指针"));
-	InsertXzmTree( m_TreeXzm, hItem3, TCItem, _T("打开带密码的数据库"));
-	InsertXzmTree( m_TreeXzm, hItem3, TCItem, _T("打开不带密码的数据库"));
-	InsertXzmTree( m_TreeXzm, hItem3, TCItem, _T("xxx"));
-	InsertXzmTree( m_TreeXzm, hItem3, TCItem, _T("xxx"));
-	InsertXzmTree( m_TreeXzm, hItem3, TCItem, _T("xxx")); m_TreeXzm.Expand(hItem3, TVE_COLLAPSE);
+	if (hItem3 != NULL)
+	{
+		InsertXzmTree( m_TreeXzm, hItem3, TCItem, _T("取得接口指针"));
+		InsertXzmTree( m_TreeXzm, hItem3, TCItem, _T("打开带密码的数据库"));
+		InsertXzmTree( m_TreeXzm, hItem3, TCItem, _T("打开不带密码的数据库"));
+		InsertXzmTree( m_TreeXzm, hItem3, TCItem, _T("xxx"));
+		InsertXzmTree( m_TreeXzm, hItem3, TCItem, _T("xxx"));
+		InsertXzmTree( m_TreeXzm, hItem3, TCItem, _T("xxx")); m_TreeXzm.Expand(hItem3, TVE_COLLAPSE);
+	}
 
 	HTREEITEM hItem4 = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("创建数据库,如果数据库存在就擦除重建"));
-	InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("取得接口指针"));
-	InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("打开数据库"));
-	InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("加密数据库"));
-	InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("解密数据库"));
-	InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("创建表T_Sys"));
-	InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("向表T_Sys插入数据"));
-	InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("创建表T_Event"));
-	InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("向表T_Event插入数据"));
-	InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("创建表T_Warn"));
-	InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("向表T_Warn插入数据"));
-	InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("创建表T_Para"));
-	InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("向表T_Para插入数据"));
-	InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("查询表T_Sys"));
-	InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("查询表T_Event"));
-	InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("查询表T_Warn"));
-	InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("查询表T_Para"));
-	InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("xxx"));
-	InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("xxx"));
-	InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("xxx"));
-	InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("xxx"));
-	InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("xxx")); m_TreeXzm.Expand(hItem4, TVE_COLLAPSE);
-
-	/*HTREEITEM*/ hItemx = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("打开Json数据,如果文件不存在则退出"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("取得接口指针"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("打开Json文件,文件不存在则退出"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("创建Json文件,如果文件存在则删除重建"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx")); m_TreeXzm.Expand(hItemx, TVE_COLLAPSE);
+	if (hItem4 != NULL)
+	{
+		InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("取得接口指针"));
+		InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("打开数据库"));
+		InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("加密数据库"));
+		InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("解密数据库"));
+		InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("创建表T_Sys"));
+		InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("向表T_Sys插入数据"));
+		InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("创建表T_Event"));
+		InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("向表T_Event插入数据"));
+		InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("创建表T_Warn"));
+		InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("向表T_Warn插入数据"));
+		InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("创建表T_Para"));
+		InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("向表T_Para插入数据"));
+		InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("查询表T_Sys"));
+		InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("查询表T_Event"));
+		InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("查询表T_Warn"));
+		InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("查询表T_Para"));
+		InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("xxx"));
+		InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("xxx"));
+		InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("xxx"));
+		InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("xxx"));
+		InsertXzmTree( m_TreeXzm, hItem4, TCItem, _T("xxx")); m_TreeXzm.Expand(hItem4, TVE_COLLAPSE);
+	}
 
 	/*HTREEITEM*/ hItemx = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("Json Operator"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("取得接口指针"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_Test00"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_Test01"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_Test02"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_Test03"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_Test04"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_Test05"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_Test06"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_Test07"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_Test08"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_Test09"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_Test10"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_Test11"));
-// 	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_Test12"));
-// 	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_Test13"));
-// 	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_Test14"));
-// 	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_Test15"));
-// 	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_Test16"));
-// 	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_Test17"));
-// 	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_Test18"));
-// 	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_Test19"));
-// 	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_Test20"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("TestJsonService01"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("TestJsonService02"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("TestJsonService03"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("TestJsonService04"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("TestJsonService05"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("TestJsonService06"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("TestJsonService07"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("TestJsonService08"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("TestJsonService09"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("TestJsonService10"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("打开Json文件,文件不存在则创建"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("创建Json文件,如果文件存在则删除重建"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("创建Json文件,赋给字符串"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx")); m_TreeXzm.Expand(hItemx, TVE_COLLAPSE);
-
-	/*HTREEITEM*/ hItemx = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("打印Log测试"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("WRITELOGTOFILE"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("WRITELOGTOFILE2"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("WRITELASTLOGTOFILE"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("WRITELASTLOGTOFILE2"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("WRITETOFILE2"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("CREATE_MYTHREAD"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx")); m_TreeXzm.Expand(hItemx, TVE_EXPAND);
-
-	/*HTREEITEM*/ hItemx = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("md5测试,使用独立包"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx")); m_TreeXzm.Expand(hItemx, TVE_COLLAPSE);
-
-	/*HTREEITEM*/ hItemx = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("网络传输测试-模拟客户端"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("创建通信接口"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("注册到平台"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx")); m_TreeXzm.Expand(hItemx, TVE_COLLAPSE);
-
-	/*HTREEITEM*/ hItemx = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("网络传输测试-自定义"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("初始化windows Socket"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("初始化连接"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx")); m_TreeXzm.Expand(hItemx, TVE_COLLAPSE);
-
-	/*HTREEITEM*/ hItemx = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("SecurityCollection"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("SC00"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("SC01"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("SC02"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("SC03"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("SC04"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("SC05")); m_TreeXzm.Expand(hItemx, TVE_COLLAPSE);
+	if (hItemx != NULL)
+	{
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("取得接口指针"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_Test00"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_Test01"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_Test02"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_Test03"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_Test04"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_Test05"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_Test06"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_Test07"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_Test08"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_Test09"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_Test10"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_Test11"));
+		// 	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_Test12"));
+		// 	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_Test13"));
+		// 	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_Test14"));
+		// 	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_Test15"));
+		// 	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_Test16"));
+		// 	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_Test17"));
+		// 	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_Test18"));
+		// 	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_Test19"));
+		// 	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_Test20"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("TestJsonService01"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("TestJsonService02"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("TestJsonService03"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("TestJsonService04"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("TestJsonService05"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("TestJsonService06"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("TestJsonService07"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("TestJsonService08"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("TestJsonService09"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("TestJsonService10"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("打开Json文件,文件不存在则创建"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("创建Json文件,如果文件存在则删除重建"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx")); m_TreeXzm.Expand(hItemx, TVE_COLLAPSE);
+	}
 
 	/*HTREEITEM*/ hItemx = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("xxx"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
-	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx")); m_TreeXzm.Expand(hItemx, TVE_COLLAPSE);
+	if (hItemx != NULL)
+	{
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx")); m_TreeXzm.Expand(hItemx, TVE_COLLAPSE);
+	}
+
+	/*HTREEITEM*/ hItemx = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("打印Log测试"));
+	if (hItemx != NULL)
+	{
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("WRITELOGTOFILE"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("WRITELOGTOFILE2"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("WRITELASTLOGTOFILE"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("WRITELASTLOGTOFILE2"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("WRITETOFILE2"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("CREATE_MYTHREAD"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx")); m_TreeXzm.Expand(hItemx, TVE_EXPAND);
+	}
+
+	/*HTREEITEM*/ hItemx = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("md5测试,使用独立包"));
+	if (hItemx != NULL)
+	{
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx")); m_TreeXzm.Expand(hItemx, TVE_COLLAPSE);
+	}
+
+	/*HTREEITEM*/ hItemx = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("网络传输测试-模拟客户端"));
+	if (hItemx != NULL)
+	{
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("创建通信接口"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("注册到平台"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx")); m_TreeXzm.Expand(hItemx, TVE_COLLAPSE);
+	}
+
+	/*HTREEITEM*/ hItemx = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("网络传输测试-自定义"));
+	if (hItemx != NULL)
+	{
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("初始化windows Socket"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("初始化连接"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx")); m_TreeXzm.Expand(hItemx, TVE_COLLAPSE);
+	}
+
+	/*HTREEITEM*/ hItemx = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("SecurityCollection"));
+	if (hItemx != NULL)
+	{
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("SC00"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("SC01"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("SC02"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("SC03"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("SC04"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("SC05")); m_TreeXzm.Expand(hItemx, TVE_COLLAPSE);
+	}
+
+	/*HTREEITEM*/ hItemx = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("xxx"));
+	if (hItemx != NULL)
+	{
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx")); m_TreeXzm.Expand(hItemx, TVE_COLLAPSE);
+	}
 
 
 	m_TreeXzm.Expand(hRoot, TVE_EXPAND);//展开上一级树
@@ -802,25 +837,6 @@ LRESULT CMainAppDlg::OnTreeXzmClickTree(NMHDR* phdr)
 				strModulePath = strModulePath + _T("Config\\JsonCreateTest.json");
 
 				m_spiJsonService->TestCreateJsonToFile(CComBSTR(strModulePath));
-			}
-			else if(0 == str.Compare( _T("创建Json文件,赋给字符串")))
-			{
-				if(m_spiParaService == NULL || m_spiJsonService == NULL) {
-					::MessageBox( 0, _T("m_spiParaService | m_spiJsonService为NULL"), _T("XzmSqlite3WtlApp"), MB_OK);
-					return 0;
-				}
-
-				CString strRet;
-				m_spiJsonService->TestCreateJsonToString(&CComBSTR(strRet));
-			}
-			else if(0 == str.Compare( _T("xxx")))
-			{
-			}
-			else if(0 == str.Compare( _T("xxx")))
-			{
-			}
-			else if(0 == str.Compare( _T("xxx")))
-			{
 			}
 		}
 		else if(IsYourChild( _T("打印Log测试"),m_TreeXzm,hItemHit))

@@ -56,7 +56,7 @@ void ConsoleEcho(BOOL bEcho)
 
 	std::ios_base::sync_with_stdio();
 
-	std::cout << "XzmSqlite3WtlApp Application Conlose" << endl << endl;
+	std::cout << "Test Console Echo" << endl << endl;
 }
 
 int WINAPI _tWinMain(HINSTANCE hInstance, HINSTANCE /*hPrevInstance*/, LPTSTR lpstrCmdLine, int nCmdShow)

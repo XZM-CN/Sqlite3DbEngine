@@ -13,6 +13,65 @@
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
+// 中文(简体，中国) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
+#pragma code_page(936)
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_MAINDLG DIALOGEX 0, 0, 532, 344
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_MINIMIZEBOX | WS_CAPTION | WS_SYSMENU
+CAPTION "测试客户端"
+FONT 8, "MS Shell Dlg", 0, 0, 0x0
+BEGIN
+    CONTROL         "",IDC_TESTTREE,"SysTreeView32",TVS_HASBUTTONS | TVS_HASLINES | TVS_LINESATROOT | WS_BORDER | WS_HSCROLL | WS_TABSTOP,233,14,184,145
+    DEFPUSHBUTTON   "OK",IDOK,475,7,50,14
+    PUSHBUTTON      "退出程序",IDCANCEL,475,24,50,14
+    PUSHBUTTON      "&About",ID_APP_ABOUT,475,52,50,14
+    PUSHBUTTON      "开 始",IDC_BTN_START,162,24,31,14
+    PUSHBUTTON      "暂 停",IDC_BTN_PAUSE,162,46,31,14
+    PUSHBUTTON      "终 止",IDC_BTN_STOP,162,68,31,14
+    GROUPBOX        "",IDC_STATIC,23,20,130,129
+    LTEXT           "30",IDC_NODECOUNT,114,30,32,10,WS_DISABLED
+    LTEXT           "模拟客户端节点个数：",IDC_STATIC,29,31,81,8
+    CONTROL         "1节点",IDC_NODE01,"Button",BS_AUTORADIOBUTTON | WS_GROUP,44,44,36,10
+    CONTROL         "30节点",IDC_NODE30,"Button",BS_AUTORADIOBUTTON,44,65,40,10
+    CONTROL         "50节点",IDC_NODE50,"Button",BS_AUTORADIOBUTTON,44,86,40,10
+    CONTROL         "100节点",IDC_NODE100,"Button",BS_AUTORADIOBUTTON,44,107,44,10
+    CONTROL         "150节点",IDC_NODE150,"Button",BS_AUTORADIOBUTTON,44,128,44,10
+    CONTROL         "",IDC_LOGLIST,"SysListView32",LVS_REPORT | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,7,162,518,175
+    LISTBOX         IDC_LOGLISTBOX,155,98,71,52,LBS_SORT | LBS_OWNERDRAWFIXED | LBS_HASSTRINGS | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_MAINDLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 525
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 337
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+#endif    // 中文(简体，中国) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
 // 英语(美国) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
@@ -69,17 +128,6 @@ BEGIN
     GROUPBOX        "",IDC_STATIC,7,7,115,88
 END
 
-IDD_MAINDLG DIALOGEX 0, 0, 402, 252
-STYLE DS_SETFONT | DS_FIXEDSYS | WS_MINIMIZEBOX | WS_CAPTION | WS_SYSMENU
-CAPTION "HXTest"
-FONT 8, "MS Shell Dlg", 0, 0, 0x0
-BEGIN
-    DEFPUSHBUTTON   "OK",IDOK,345,7,50,14
-    PUSHBUTTON      "Cancel",IDCANCEL,345,24,50,14
-    PUSHBUTTON      "&About",ID_APP_ABOUT,345,52,50,14
-    CONTROL         "",IDC_TESTTREE,"SysTreeView32",TVS_HASBUTTONS | TVS_HASLINES | TVS_LINESATROOT | WS_BORDER | WS_HSCROLL | WS_TABSTOP,7,7,235,238
-END
-
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -95,14 +143,6 @@ BEGIN
         RIGHTMARGIN, 180
         TOPMARGIN, 7
         BOTTOMMARGIN, 95
-    END
-
-    IDD_MAINDLG, DIALOG
-    BEGIN
-        LEFTMARGIN, 7
-        RIGHTMARGIN, 395
-        TOPMARGIN, 7
-        BOTTOMMARGIN, 245
     END
 END
 #endif    // APSTUDIO_INVOKED

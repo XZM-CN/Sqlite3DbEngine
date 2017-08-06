@@ -44,3 +44,4 @@ bin/*/*/*.res
 *.aps
 *.sdf
 *.user
+ipch

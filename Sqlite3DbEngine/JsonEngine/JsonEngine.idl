@@ -97,6 +97,12 @@ typedef enum tagJsonTest{
 }JsonTest;
 
 
+typedef enum tagJsonTraversal{
+	ePreorderTraversal = 1,
+	eInorderTraversal,
+	eOstorderTraversal
+}JsonTraversal;
+
 interface IParaService;
 
 [
@@ -146,6 +152,7 @@ interface IJsonService : IDispatch{
 	[id(58), helpstring("添加子节点，节点以对象形式添加")] HRESULT AddObjAsChildNode([in] BSTR bstrKeyName, [in] IJsonService* pVal);
 	[id(59), helpstring("添加子节点，节点以数组形式添加")] HRESULT AddArrayAsChildNode([in] BSTR bstrKeyName, [in] IJsonService* pVal);
 	[id(60)] HRESULT OutputStyledJson(void);
+	[id(61), helpstring("TraversalJson,遍历Json")] HRESULT TraversalJson([in] BSTR bstrFilePath);
 };
 [
 	object,

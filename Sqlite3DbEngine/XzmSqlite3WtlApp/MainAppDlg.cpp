@@ -254,28 +254,11 @@ void CMainAppDlg::InitXzmTree()
 		// 	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_Test18"));
 		// 	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_Test19"));
 		// 	InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_Test20"));
-		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("TestJsonService01"));
-		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("TestJsonService02"));
-		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("TestJsonService03"));
-		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("TestJsonService04"));
-		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("TestJsonService05"));
-		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("TestJsonService06"));
-		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("TestJsonService07"));
-		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("TestJsonService08"));
-		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("TestJsonService09"));
-		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("TestJsonService10"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("IJsonService组装Json数据"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("TraversalJson"));
+
 		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("打开Json文件,文件不存在则创建"));
 		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("创建Json文件,如果文件存在则删除重建"));
-		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx")); m_TreeXzm.Expand(hItemx, TVE_COLLAPSE);
-	}
-
-	/*HTREEITEM*/ hItemx = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("xxx"));
-	if (hItemx != NULL)
-	{
-		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
-		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
-		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
-		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
 		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx")); m_TreeXzm.Expand(hItemx, TVE_COLLAPSE);
 	}
 
@@ -705,44 +688,93 @@ LRESULT CMainAppDlg::OnTreeXzmClickTree(NMHDR* phdr)
 			}
 			else if(0 == str.Compare( _T("e_Test00")))
 			{
+				if(m_spiJsonService == NULL) {
+					::MessageBox( 0, _T("m_spiSqlite3Connect未初始化"), _T(""), MB_OK);
+					return 0;
+				}
 				m_spiJsonService->TestAllJsonDesignFormat(e_Test00);
 			}
 			else if(0 == str.Compare( _T("e_Test01")))
 			{
+				if(m_spiJsonService == NULL) {
+					::MessageBox( 0, _T("m_spiSqlite3Connect未初始化"), _T(""), MB_OK);
+					return 0;
+				}
+
 				m_spiJsonService->TestAllJsonDesignFormat(e_Test01);
 			}
 			else if(0 == str.Compare( _T("e_Test02")))
 			{
+				if(m_spiJsonService == NULL) {
+					::MessageBox( 0, _T("m_spiSqlite3Connect未初始化"), _T(""), MB_OK);
+					return 0;
+				}
+
 				m_spiJsonService->TestAllJsonDesignFormat(e_Test02);
 			}
 			else if(0 == str.Compare( _T("e_Test03")))
 			{
+				if(m_spiJsonService == NULL) {
+					::MessageBox( 0, _T("m_spiSqlite3Connect未初始化"), _T(""), MB_OK);
+					return 0;
+				}
+
 				m_spiJsonService->TestAllJsonDesignFormat(e_Test03);
 			}
 			else if(0 == str.Compare( _T("e_Test04")))
 			{
+				if(m_spiJsonService == NULL) {
+					::MessageBox( 0, _T("m_spiSqlite3Connect未初始化"), _T(""), MB_OK);
+					return 0;
+				}
+
 				m_spiJsonService->TestAllJsonDesignFormat(e_Test04);
 			}
 			else if(0 == str.Compare( _T("e_Test05")))
 			{
+				if(m_spiJsonService == NULL) {
+					::MessageBox( 0, _T("m_spiSqlite3Connect未初始化"), _T(""), MB_OK);
+					return 0;
+				}
+
 				m_spiJsonService->TestAllJsonDesignFormat(e_Test05);
 			}
 			else if(0 == str.Compare( _T("e_Test06")))
 			{
+				if(m_spiJsonService == NULL) {
+					::MessageBox( 0, _T("m_spiSqlite3Connect未初始化"), _T(""), MB_OK);
+					return 0;
+				}
+
 				m_spiJsonService->TestAllJsonDesignFormat(e_Test06);
 			}
 			else if(0 == str.Compare( _T("e_Test07")))
 			{
+				if(m_spiJsonService == NULL) {
+					::MessageBox( 0, _T("m_spiSqlite3Connect未初始化"), _T(""), MB_OK);
+					return 0;
+				}
+
 				m_spiJsonService->TestAllJsonDesignFormat(e_Test07);
 			}
 			else if(0 == str.Compare( _T("e_Test08")))
 			{
+				if(m_spiJsonService == NULL) {
+					::MessageBox( 0, _T("m_spiSqlite3Connect未初始化"), _T(""), MB_OK);
+					return 0;
+				}
+
 				m_spiJsonService->TestAllJsonDesignFormat(e_Test08);
 			}
-			else if(0 == str.Compare( _T("TestJsonService01")))
+			// IJsonService组装Json数据
+			else if(0 == str.Compare( _T("IJsonService组装Json数据")))
 			{
-				/// 写入配置
+				if(m_spiJsonService == NULL) {
+					::MessageBox( 0, _T("m_spiSqlite3Connect未初始化"), _T(""), MB_OK);
+					return 0;
+				}
 
+				/// 写入配置
 				CComBSTR bstrVal,bstrVal1,bstrVal2;
 				CComPtr <IJsonService> spiJsonService2 = NULL;
 
@@ -774,32 +806,17 @@ LRESULT CMainAppDlg::OnTreeXzmClickTree(NMHDR* phdr)
 
 				CString m_strHeartBeat = bstrVal.m_str;
 			}
-			else if(0 == str.Compare( _T("TestJsonService02")))
+			// 遍历整个Json
+			else if(0 == str.Compare( _T("TraversalJson")))
 			{
-			}
-			else if(0 == str.Compare( _T("TestJsonService03")))
-			{
-			}
-			else if(0 == str.Compare( _T("TestJsonService04")))
-			{
-			}
-			else if(0 == str.Compare( _T("TestJsonService05")))
-			{
-			}
-			else if(0 == str.Compare( _T("TestJsonService06")))
-			{
-			}
-			else if(0 == str.Compare( _T("TestJsonService07")))
-			{
-			}
-			else if(0 == str.Compare( _T("TestJsonService08")))
-			{
-			}
-			else if(0 == str.Compare( _T("TestJsonService09")))
-			{
-			}
-			else if(0 == str.Compare( _T("TestJsonService10")))
-			{
+				if(m_spiJsonService == NULL) {
+					::MessageBox( 0, _T("m_spiSqlite3Connect未初始化"), _T(""), MB_OK);
+					return 0;
+				}
+
+				CString strPath = CBaseFuncLib::GetAppConfigPath();
+				strPath = strPath + _T("Traversal.json");
+				m_spiJsonService->TraversalJson(CComBSTR(strPath));
 			}
 			else if(0 == str.Compare( _T("打开Json文件,文件不存在则创建")))
 			{
@@ -807,18 +824,11 @@ LRESULT CMainAppDlg::OnTreeXzmClickTree(NMHDR* phdr)
 					::MessageBox( 0, _T("m_spiParaService | m_spiJsonService为NULL"), _T("XzmSqlite3WtlApp"), MB_OK);
 					return 0;
 				}
-				CString strModulePath = CBaseFuncLib::GetModulePath();
-				int iFind = -1;
-				iFind = strModulePath.ReverseFind(_T('\\'));
-				strModulePath = strModulePath.Left(iFind);
-				iFind = strModulePath.ReverseFind(_T('\\'));
-				strModulePath = strModulePath.Left(iFind);
-				iFind = strModulePath.ReverseFind(_T('\\'));
-				strModulePath = strModulePath.Left(iFind+1);
-				strModulePath = strModulePath + _T("Config\\JsonTest.json");
+				CString strPath = CBaseFuncLib::GetAppConfigPath();
+				strPath = strPath + _T("JsonTest.json");
 
 				VARIANT_BOOL bRet = FALSE;
-				m_spiJsonService->ParseFile(CComBSTR(strModulePath),&bRet);
+				m_spiJsonService->ParseFile(CComBSTR(strPath),&bRet);
 			}
 			else if(0 == str.Compare( _T("创建Json文件,如果文件存在则删除重建")))
 			{

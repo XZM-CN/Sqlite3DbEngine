@@ -2,6 +2,7 @@
 #include "JsonParser.h"
 
 #include <iostream>
+#include <fstream> // ifstream ofstream 头文件
 using namespace std;
 
 #ifndef WIN64
@@ -340,6 +341,219 @@ bool CJsonParser::Parse(const char* pJsonContent)
 	m_pRoot = pRoot;
 	m_bDeleteSelf = true;
 	return true;
+}
+
+void CJsonParser::TraversalJsonPrint2Console(const char* pJsonContent)
+{
+	Json::Reader reader;
+	Json::Value  Root;
+
+	ifstream in(pJsonContent, ios::in|ios::binary);  
+
+	if( !reader.parse(in,Root,false) )
+	{
+		ATLTRACE(_T("JSON内容解析失败："));
+		// 1.可能是本身Json的格式不对
+		// 2.格式正确，可能是字符集编码问题，导致格式反倒不正确了
+		m_strErrInfo = reader.getFormattedErrorMessages().c_str();
+		m_strErrInfo.Replace(_T("\""),_T("“"));
+		ATLTRACE(m_strErrInfo);
+		ATLTRACE(_T("\r\n"));
+		return ;
+	}
+
+	print(Root);
+	cout<<"解析结束"<<endl;
+}
+
+void CJsonParser::TraversalJsonPrint2Console(const CString& strJsonFile)
+{
+	if(strJsonFile.IsEmpty() || !CBaseFuncLib::IsPathExist(strJsonFile))
+	{
+		ATLASSERT(0);
+		return ;
+	}
+	ULONGLONG dwFileSize = CBaseFuncLib::GetFileSize(strJsonFile);
+	ATLASSERT(dwFileSize);
+	if(!dwFileSize)
+		return ;
+	Release();
+	BYTE *pBuf = NULL;
+	int nLength = CBaseFuncLib::ReadAllData(strJsonFile,&pBuf);
+	if(NULL == pBuf)
+	{
+		ATLASSERT(0);
+		return ;
+	}
+	bool bParseFlag = false;
+	if(CODINGTYPE_US2 == m_eCodingType)
+	{
+		char *szContent = NULL;
+		CBaseFuncLib::US2ToUtf8(CString(pBuf),&szContent);
+		if(NULL != pBuf)
+		{	
+			delete []pBuf;
+			pBuf = NULL;
+		}
+		bParseFlag = Parse(szContent);
+		if(NULL != szContent)
+		{	
+			delete []szContent;
+			szContent = NULL;
+		}
+	}
+	else
+		bParseFlag = Parse((const char*)pBuf);
+}
+
+void CJsonParser::print(Json::Value v,unsigned int indent)
+{
+	unsigned int indentTemp = 0;
+	if (indentTemp<indent)
+	{
+		indentTemp = indent;
+	}
+
+	if(indentTemp == 0){
+		cout<<"{"<<endl;
+	}
+	Json::Value::Members mem = v.getMemberNames();
+	for (auto iter = mem.begin(); iter != mem.end(); iter++)
+	{
+		if (v[*iter].type() == Json::objectValue)
+		{
+			for (unsigned int j=0;j<indentTemp;j++)
+			{
+				cout<<"\t"<<endl;
+			}
+
+			cout<<*iter<<" :{ "<<endl;
+			print(v[*iter],indentTemp+1);
+
+			for (unsigned int j=0;j<indentTemp;j++)
+			{
+				cout<<"\t}"<<endl;
+			}
+		}
+		else if (v[*iter].type() == Json::arrayValue) // 数组类型
+		{
+			unsigned int temp = indentTemp +1;
+			for (unsigned int j=0;j<temp;j++)
+			{
+				cout<<"\t";
+			}
+
+			cout<<*iter<<" : "<<"["<<endl;
+			unsigned int cnt = v[*iter].size();
+			for (unsigned int i = 0; i < cnt; i++)
+			{
+				switch (v[*iter][i].type())
+				{
+				case Json::objectValue:
+					{
+						print(v[*iter][i],temp+1);
+					}
+					break;
+				case Json::arrayValue:
+					{
+						cout<<endl;
+						print(v[*iter][i],temp+1);
+					}
+					break;
+				case Json::stringValue:
+					{
+						for (unsigned int j=0;j<temp+1;j++)
+						{
+							cout<<"\t";
+						}
+						cout<<v[*iter][i].asString()<<","<<endl;
+					}
+					break;
+				case Json::realValue:
+					{
+						for (unsigned int j=0;j<temp+1;j++)
+						{
+							cout<<"\t";
+						}
+						cout<<v[*iter][i].asDouble()<<","<<endl;
+					}
+					break;
+				case Json::uintValue:
+					{
+						for (unsigned int j=0;j<temp+1;j++)
+						{
+							cout<<"\t";
+						}
+						cout<<v[*iter][i].asUInt()<<","<<endl;
+					}
+					break;
+				default :
+					{
+						for (unsigned int j=0;j<temp+1;j++)
+						{
+							cout<<"\t";
+						}
+						cout<<v[*iter][i].asInt()<<","<<endl;
+					}
+					break;
+				}
+
+				for (unsigned int j=0;j<temp;j++)
+				{
+					cout<<"\t]"<<endl;
+				}
+			}
+
+
+			for (unsigned int j=0;j<indentTemp;j++)
+			{
+				cout<<"\t"<<endl;
+			}
+			cout<<endl<<"]"<<endl;
+		}
+		else if (v[*iter].type() == Json::stringValue)
+		{
+			unsigned int temp = indentTemp +1;
+			for (unsigned int j=0;j<temp;j++)
+			{
+				cout<<"\t";
+			}
+			cout<<*iter<<" : "<<v[*iter].asString()<<endl;
+		}
+		else if (v[*iter].type() == Json::realValue)
+		{
+			unsigned int temp = indentTemp +1;
+			for (unsigned int j=0;j<temp;j++)
+			{
+				cout<<"\t";
+			}
+			cout<<*iter<<" : "<<v[*iter].asDouble()<<endl;
+		}
+		else if (v[*iter].type() == Json::uintValue)
+		{
+			unsigned int temp = indentTemp +1;
+			for (unsigned int j=0;j<temp;j++)
+			{
+				cout<<"\t";
+			}
+			cout<<*iter<<" : "<<v[*iter].asUInt()<<endl;
+		}
+		else
+		{
+			unsigned int temp = indentTemp +1;
+
+			for (unsigned int j=0;j<temp;j++)
+			{
+				cout<<"\t";
+			}
+			cout<<*iter<<" : "<<v[*iter].asInt()<<endl;
+		}
+	}
+
+	if(indentTemp == 0){
+		cout<<"}"<<endl;
+	}
+	return;
 }
 
 bool CJsonParser::IsMember(const CString& strKeyName)
@@ -1622,6 +1836,9 @@ void CJsonParser::JsonDesignFormatTest04()
 
 }
 
+// 反序列化Json对象
+// --------------------------------------------------------------------------------------
+// 遍历整个Json
 void CJsonParser::JsonDesignFormatTest05()
 {
 

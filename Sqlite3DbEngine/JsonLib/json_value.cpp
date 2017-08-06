@@ -484,7 +484,9 @@ namespace Json {
 		std::swap(limit_, other.limit_);
 	}
 
-	ValueType Value::type() const { return type_; }
+	ValueType Value::type() const {
+		return type_;
+	}
 
 	int Value::compare(const Value& other) const {
 		if (*this < other)

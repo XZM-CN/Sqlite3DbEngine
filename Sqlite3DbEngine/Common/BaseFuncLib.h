@@ -511,6 +511,8 @@ public:
 	 * @return 
 	 */
 	static ATL::CString GetAppConfigPath(HANDLE hModule = NULL);
+	static ATL::CString GetAppDocumentPath(HANDLE hModule = NULL);
+
 
 	/**
 	 * @brief 获得模块名称

@@ -111,6 +111,12 @@ public:
 	*/
 	bool Parse(const char* pJsonContent);
 
+	void TraversalJsonPrint2Console(const char* pJsonContent);
+	void print(Json::Value v,unsigned int indent = 0/*Ëõ½ø*/);
+
+	void TraversalJsonPrint2Console(const CString& strJsonFile);
+
+
 	/**
 	 * @brief             ParseFile
 	 *

@@ -101,6 +101,42 @@ STDMETHODIMP CJsonService::ParseFile(BSTR bstrFilePath, VARIANT_BOOL* pVal)
 	return S_OK;
 }
 
+STDMETHODIMP CJsonService::TraversalJson(BSTR bstrFilePath)
+{
+	// TODO: Add your implementation code here
+	if(NULL == bstrFilePath)
+	{
+		ATLASSERT(0);
+		return E_POINTER;
+	}
+
+	ClearParser();
+	m_strFilePath = bstrFilePath;
+	if(m_strFilePath.IsEmpty() || !CBaseFuncLib::IsPathExist(m_strFilePath))
+	{
+		ATLASSERT(0);
+		return E_INVALIDARG;
+	}
+	if(NULL == m_pJsonParser)
+		m_pJsonParser = new CJsonParser();
+	ATLASSERT(m_pJsonParser);
+	if(NULL == m_pJsonParser)
+	{
+		ATLASSERT(0);
+		return E_OUTOFMEMORY;
+	}
+	m_pJsonParser->PutCodingType(m_eCodingType);
+
+	CString strContent = bstrFilePath;
+	char *szBuf = NULL;
+	CBaseFuncLib::US2ToUtf8(strContent,&szBuf);
+
+
+	m_pJsonParser->TraversalJsonPrint2Console(szBuf);
+
+	return S_OK;
+}
+
 STDMETHODIMP CJsonService::ParseString(BSTR bstrContent, VARIANT_BOOL* pVal)
 {
 	// TODO: Add your implementation code here

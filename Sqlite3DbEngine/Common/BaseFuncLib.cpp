@@ -1312,6 +1312,22 @@ ATL::CString CBaseFuncLib::GetAppConfigPath(HANDLE hModule /*= NULL*/)
 	return strPath;
 }
 
+ATL::CString CBaseFuncLib::GetAppDocumentPath(HANDLE hModule /*= NULL*/)
+{
+	ATL::CString strPath = CBaseFuncLib::GetModulePath(hModule);
+
+	int iFind = -1;
+	iFind = strPath.ReverseFind(_T('\\'));
+	strPath = strPath.Left(iFind);
+	iFind = strPath.ReverseFind(_T('\\'));
+	strPath = strPath.Left(iFind);
+	iFind = strPath.ReverseFind(_T('\\'));
+	strPath = strPath.Left(iFind+1);
+
+	strPath = strPath + _T("doc\\");
+	return strPath;
+}
+
 ATL::CString CBaseFuncLib::GetModuleName(HMODULE hModule)
 {
 	TCHAR szPath[MAX_PATH];

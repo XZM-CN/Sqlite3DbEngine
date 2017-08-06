@@ -107,6 +107,7 @@ public:
 	// 解析字符串|文件到Json
 	STDMETHOD(ParseString)(BSTR bstrContent, VARIANT_BOOL* pVal);
 	STDMETHOD(ParseFile)(BSTR bstrFilePath, VARIANT_BOOL* pVal);
+	STDMETHOD(TraversalJson)(BSTR bstrFilePath);
 
 	// 获取节点的类型(类型在JsonLib内部定义)
 	STDMETHOD(get_Type)(EJsonType* pVal);
@@ -143,7 +144,7 @@ public:
 	/**
 	 * @brief             PutChild
 	 *
-	 * @Function          添加子节点，有错误
+	 * @Function          添加子节点
 	 *
 	 * @param[  _In_   ]  bstrKeyName key的名称
 	 *

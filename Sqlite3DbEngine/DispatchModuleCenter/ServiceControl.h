@@ -8,13 +8,83 @@
 #include "DispatchModuleCenter_i.h"
 #include "common.h"
 #include "univpr0lib.h"
-#include "_IServiceControlEvents_CP.h"
 #include "ComHelper.h"
 #include "CriticalSectionWrapper.h"
 
+
+using namespace ATL;
+
+template <class T>
+class CProxy_IServiceControlEvents : public IConnectionPointImpl<T, &__uuidof( _IServiceControlEvents ), CComDynamicUnkArray>
+{
+	// 警告: 此类可以由向导重新生成
+public:
+	HRESULT Fire_NewLoadModuleEvent(ULONG nProcID,ULONG nParentProcID,DATE dtTime,BSTR bstrModulePath)
+	{
+		HRESULT hr = S_OK;
+		T * pThis = static_cast<T *>(this);
+		int cConnections = m_vec.GetSize();
+
+		for (int iConnection = 0; iConnection < cConnections; iConnection++)
+		{
+			pThis->Lock();
+			CComPtr<IUnknown> punkConnection = m_vec.GetAt(iConnection);
+			pThis->Unlock();
+
+			IDispatch * pConnection = static_cast<IDispatch *>(punkConnection.p);
+
+			if (pConnection)
+			{
+				CComVariant avarParams[4];
+				avarParams[3] = nProcID;
+				avarParams[3].vt = VT_I2;
+				avarParams[2] = nParentProcID;
+				avarParams[2].vt = VT_I2;
+				avarParams[1] = dtTime;
+				avarParams[1].vt = VT_DATE;
+				avarParams[0] = bstrModulePath;
+				avarParams[0].vt = VT_BSTR;
+				CComVariant varResult;
+
+				DISPPARAMS params = { avarParams, NULL, 4, 0 };
+				hr = pConnection->Invoke(1, IID_NULL, LOCALE_USER_DEFAULT, DISPATCH_METHOD, &params, &varResult, NULL, NULL);
+			}
+		}
+		return hr;
+	}
+
+	HRESULT Fire_NewInstallFileEvent(ULONG nParentProcID,BSTR bstrModulePath)
+	{
+		HRESULT hr = S_OK;
+		T * pThis = static_cast<T *>(this);
+		int cConnections = m_vec.GetSize();
+
+		for (int iConnection = 0; iConnection < cConnections; iConnection++)
+		{
+			pThis->Lock();
+			CComPtr<IUnknown> punkConnection = m_vec.GetAt(iConnection);
+			pThis->Unlock();
+
+			IDispatch * pConnection = static_cast<IDispatch *>(punkConnection.p);
+
+			if (pConnection)
+			{
+				CComVariant avarParams[2];
+				avarParams[1] = nParentProcID;
+				avarParams[1].vt = VT_I2;
+				avarParams[0] = bstrModulePath;
+				avarParams[0].vt = VT_BSTR;
+				CComVariant varResult;
+
+				DISPPARAMS params = { avarParams, NULL, 2, 0 };
+				hr = pConnection->Invoke(2, IID_NULL, LOCALE_USER_DEFAULT, DISPATCH_METHOD, &params, &varResult, NULL, NULL);
+			}
+		}
+		return hr;
+	}
+};
+
 typedef std::list	<BYTE*>		MEMORY_LIST;
-
-
 
 #if defined(_WIN32_WCE) && !defined(_CE_DCOM) && !defined(_CE_ALLOW_SINGLE_THREADED_OBJECTS_IN_MTA)
 #error "Windows CE 平台(如不提供完全 DCOM 支持的 Windows Mobile 平台)上无法正确支持单线程 COM 对象。定义 _CE_ALLOW_SINGLE_THREADED_OBJECTS_IN_MTA 可强制 ATL 支持创建单线程 COM 对象实现并允许使用其单线程 COM 对象实现。rgs 文件中的线程模型已被设置为“Free”，原因是该模型是非 DCOM Windows CE 平台支持的唯一线程模型。"

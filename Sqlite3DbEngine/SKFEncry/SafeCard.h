@@ -6,7 +6,19 @@
 
 
 #include "SKFEncry_i.h"
-#include "_ISafeCardEvents_CP.h"
+
+
+
+using namespace ATL;
+
+template <class T>
+class CProxy_ISafeCardEvents : public IConnectionPointImpl<T, &__uuidof( _ISafeCardEvents ), CComDynamicUnkArray>
+{
+	// 警告: 此类可以由向导重新生成
+public:
+};
+
+
 
 #include "SKFChinaCore.h"
 

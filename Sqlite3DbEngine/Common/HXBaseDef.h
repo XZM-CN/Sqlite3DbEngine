@@ -122,6 +122,7 @@ typedef enum EHXLogType
 #define TDHXKJ_SAFEDRIVER			_T("HXSafeGuard.sys")
 #define TDHXKJ_SQLITEENGINEDLL		_T("HXEng.dll")
 #define TDHXKJ_JSONENGINE			_T("JsonEngine.dll")
+#define TDHXKJ_SQLITE3DBENGINE		_T("Sqlite3DbEngine.dll")
 #define	TDHXKJ_BASEENGINEDLL		_T("DispatchModuleCenter.dll")
 #define	TDHXKJ_GINADLL				_T("HXSafeGina.dll")
 #define	TDHXKJ_LOGINDLL				_T("HXSafeProvider.dll")

@@ -1,0 +1,86 @@
+// MsXmlEngine.idl : MsXmlEngine 的 IDL 源
+//
+
+// 此文件将由 MIDL 工具处理以
+// 产生类型库(MsXmlEngine.tlb)和封送处理代码。
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+typedef enum tagMsXmlTest{
+	e_MsXml00,
+	e_MsXml01,
+	e_MsXml02,
+	e_MsXml03,
+	e_MsXml04,
+	e_MsXml05,
+	e_MsXml06,
+	e_MsXml07,
+	e_MsXml08,
+	e_MsXml09,
+	e_MsXml10,
+	e_MsXml11,
+	e_MsXml12,
+	e_MsXml13,
+	e_MsXml14,
+	e_MsXml15,
+	e_MsXml16,
+	e_MsXml17,
+	e_MsXml18,
+	e_MsXml19,
+	e_MsXml20,
+	e_MsXml21,
+	e_MsXml22,
+	e_MsXml23,
+	e_MsXml24,
+	e_MsXml25,
+	e_MsXml26,
+	e_MsXml27,
+	e_MsXml28,
+	e_MsXml29
+}MsXmlTest;
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////
+[
+	object,
+	uuid(BFDF395A-D45C-4BA0-B0C2-5A405B517619),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+interface IHehe : IDispatch{
+};
+[
+	object,
+	uuid(CE7F910C-2156-4870-B7F8-26A2A9A029CE),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+interface IXMsXmlWrapper : IDispatch{
+	[id(1), helpstring("运行模式")] HRESULT TestAllMsxmlDesignFormat(MsXmlTest eMsXml);
+};
+[
+	uuid(2D5F92AA-297E-4339-96E2-E416DF108E1F),
+	version(1.0),
+]
+library MsXmlEngineLib
+{
+	importlib("stdole2.tlb");
+	[
+		uuid(62DD4052-4E37-4EA3-AC80-EFB66517AD1E)		
+	]
+	coclass Hehe
+	{
+		[default] interface IHehe;
+	};
+	[
+		uuid(8E0F7F9E-D574-4DCB-B648-33816D492695)		
+	]
+	coclass XMsXmlWrapper
+	{
+		[default] interface IXMsXmlWrapper;
+	};
+};
+

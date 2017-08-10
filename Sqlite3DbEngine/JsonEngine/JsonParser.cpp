@@ -646,7 +646,9 @@ bool CJsonParser::SetObjAsChild(const char* pName,const char* pValue)
 			int nLen = CBaseFuncLib::Utf8ToUS2(output.c_str(),&szContent);
 			if(NULL != szContent)
 			{
-				BOOL bSaveFlag = CBaseFuncLib::WriteToFile(_T("G:\\ProgramKing\\Sqlite3DbEngine\\Sqlite3DbEngine\\bin\\Debug\\Log.txt"),(BYTE *)szContent,2*(nLen-1));
+				CString str = CBaseFuncLib::GetModulePath();
+				str = str + _T("Log.txt");
+				BOOL bSaveFlag = CBaseFuncLib::WriteToFile(str,(BYTE *)szContent,2*(nLen-1));
 				delete []szContent;
 				szContent = NULL;
 			}

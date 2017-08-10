@@ -680,6 +680,9 @@ public:
 	static void InitTable();
 	static UINT Crc32(UINT crc, char *buff, int len);
 
+	static BOOL ClearFiles(CString strFile,CString strConfigFolderPath);
+	static BOOL ClearConfigFolderFiles(CString strFile);
+	static BOOL ClearDebugFolderFiles(CString strFile);
 protected:
 	/// ´°¿ÚÃû³Æ
 	static ATL::CString	m_strWndName;

@@ -36,6 +36,8 @@ bin/*/*/*.res
 *.exe
 *.unsuccessfulbuild
 *.cache
+*.tli
+*.inf
 
 # 
 # VS工程文件

@@ -173,7 +173,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\doc\AllTables.sql" />
-    <None Include="..\doc\ddd.json" />
     <None Include="..\doc\HXLog - T_Event.sql" />
     <None Include="..\doc\HXLog - T_Para.sql" />
     <None Include="..\doc\HXLog - T_Sys.sql" />

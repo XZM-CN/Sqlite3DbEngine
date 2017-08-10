@@ -1997,3 +1997,52 @@ UINT CBaseFuncLib::Crc32(UINT crc, char *buff, int len)
 	return ~uCrc;
 }
 
+BOOL CBaseFuncLib::ClearFiles(CString strFile,CString strConfigFolderPath)
+{
+	CString str = _T("");
+	str = strConfigFolderPath + strFile;
+
+	if(CBaseFuncLib::IsPathExist(str)) {
+		BOOL bFlag = FALSE;
+		bFlag = ::SetFileAttributes(str,FILE_ATTRIBUTE_NORMAL);
+		if (bFlag) {
+			//printf("设置文件%S属性成功%s%d",strFile, __FILE__, __LINE__);
+		}
+		else{
+			printf("设置文件%S属性失败%s%d",strFile, __FILE__, __LINE__);
+		}
+
+		bFlag = FALSE;
+		bFlag = ::DeleteFile(str);
+		if (bFlag) {
+			//printf("删除%S文件成功%s%d",strFile, __FILE__, __LINE__);
+			return TRUE;
+		}
+		else{
+			printf("删除文件%S失败%s%d",strFile, __FILE__, __LINE__);
+			return FALSE;
+		}
+	}else{
+		printf("文件%S根本就不存在%s：%d\n",strFile, __FILE__, __LINE__);
+		return FALSE;
+	}
+
+	return FALSE;
+}
+
+BOOL CBaseFuncLib::ClearConfigFolderFiles(CString strFile)
+{
+	CString strConfigFolderPath;
+	strConfigFolderPath = CBaseFuncLib::GetAppConfigPath();
+
+	return ClearFiles(strFile,strConfigFolderPath);
+}
+
+BOOL CBaseFuncLib::ClearDebugFolderFiles(CString strFile)
+{
+	CString strConfigFolderPath;
+	strConfigFolderPath = CBaseFuncLib::GetModulePath();
+
+	return ClearFiles(strFile,strConfigFolderPath);
+}
+

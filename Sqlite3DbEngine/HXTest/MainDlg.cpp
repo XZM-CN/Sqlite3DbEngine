@@ -80,21 +80,13 @@ LRESULT CMainDlg::OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam
 	if(!DoDataExchange(false))
 		return FALSE;
 
-	if(FALSE){
+	// 是否使用树，直接涉及到socket的库的初始化的问题
+	if(TRUE){
 		this->GetDlgItem(IDC_TESTTREE).ShowWindow(TRUE);
 		InitXzmTree();
 		m_pStaticClass = new CStaticClass();
 	}
 	else {
-		WSADATA Data;
-		int status;
-
-		//初始化windows Socket Dll
-		status = WSAStartup(MAKEWORD(1,1),&Data);
-		if (0!=status)
-		{
-			OutputDebugString(_T("初始化失败\n"));
-		} 
 		this->GetDlgItem(IDC_TESTTREE).ShowWindow(FALSE);
 	}
 
@@ -107,7 +99,21 @@ LRESULT CMainDlg::OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam
 	this->GetDlgItem(IDC_BTN_PAUSE).EnableWindow(FALSE);// 按钮使能
 	this->GetDlgItem(IDC_BTN_STOP).EnableWindow(FALSE);// 按钮使能
 
+// 	EnableRadio(FALSE);
+// 	this->GetDlgItem(IDC_NODE01).EnableWindow(TRUE);
 
+	if(1)
+	{
+		WSADATA Data;
+		int status;
+
+		//初始化windows Socket Dll
+		status = WSAStartup(MAKEWORD(1,1),&Data);
+		if (0!=status)
+		{
+			OutputDebugString(_T("初始化失败\n"));
+		} 
+	}
 	return TRUE;
 }
 
@@ -144,44 +150,19 @@ LRESULT CMainDlg::OnCancel(WORD /*wNotifyCode*/, WORD wID, HWND /*hWndCtl*/, BOO
 
 void CMainDlg::EnableRadio(BOOL b){
 	this->GetDlgItem(IDC_NODE01).EnableWindow(b);
-	this->GetDlgItem(IDC_NODE30).EnableWindow(b);
-	this->GetDlgItem(IDC_NODE50).EnableWindow(b);
-	this->GetDlgItem(IDC_NODE100).EnableWindow(b);
-	this->GetDlgItem(IDC_NODE150).EnableWindow(b);
+	this->GetDlgItem(IDC_NODE05).EnableWindow(b);
+	this->GetDlgItem(IDC_NODE10).EnableWindow(b);
+	this->GetDlgItem(IDC_NODE15).EnableWindow(b);
+	this->GetDlgItem(IDC_NODE20).EnableWindow(b);
 }
 
 UINT CMainDlg::CreateSocketThread(LPVOID pParam)
 {
 	PThreadParam pThreadParam = (PThreadParam)pParam;
 
-	HANDLE *hThread;
-	//HANDLE hThread2[30];
-	//hThread = hThread2;
-	switch (pThreadParam->TP_RadioID)
-	{
-	case IDC_NODE01:
-		hThread = (HANDLE *)malloc( sizeof(unsigned long) * 1 ); // 以字节为单位分配
-		pThreadParam->TP_ThreadCount = 1;
-		break;
-	case IDC_NODE30:
-		hThread = (HANDLE *)malloc( sizeof(unsigned long) * 30 ); // 以字节为单位分配
-		pThreadParam->TP_ThreadCount = 30;
-		break;
-	case IDC_NODE50:
-		hThread = (HANDLE *)malloc( sizeof(unsigned long) * 50 ); // 以字节为单位分配
-		pThreadParam->TP_ThreadCount = 50;
-		break;
-	case IDC_NODE100:
-		hThread = (HANDLE *)malloc( sizeof(unsigned long) * 100 ); // 以字节为单位分配
-		pThreadParam->TP_ThreadCount = 100;
-		break;
-	case IDC_NODE150:
-		hThread = (HANDLE *)malloc( sizeof(unsigned long) * 150 ); // 以字节为单位分配
-		pThreadParam->TP_ThreadCount = 150;
-		break;
-	}
-	DWORD dwThreadId;
-
+	// 在进入多线程环境之前，初始化临界区  
+	InitializeCriticalSection(&csHeartBeat);  
+	InitializeCriticalSection(&csUpLoad);  
 
 	int listCount = pThreadParam->TP_pCMainDlg->m_ListCtrl.GetItemCount();
 
@@ -189,7 +170,141 @@ UINT CMainDlg::CreateSocketThread(LPVOID pParam)
 	pThreadParam->TP_pCMainDlg->m_ListCtrl.SetItemText(listCount++,1,_T("********************************************************************"));
 
 
-	for (int i=0;i<pThreadParam->TP_ThreadCount;i++,listCount++)
+	
+
+	HANDLE *hThread;
+	//HANDLE hThread2[30];
+	//hThread = hThread2;
+	/*
+	switch (pThreadParam->TP_RadioID)
+	{
+	case IDC_NODE01:
+		hThread = (HANDLE *)malloc( sizeof(unsigned long) * 1 ); // 以字节为单位分配
+		pThreadParam->TP_ThreadCount = 1;
+		break;
+	case IDC_NODE05:
+		hThread = (HANDLE *)malloc( sizeof(unsigned long) * 30 ); // 以字节为单位分配
+		pThreadParam->TP_ThreadCount = 30;
+		break;
+	case IDC_NODE10:
+		hThread = (HANDLE *)malloc( sizeof(unsigned long) * 50 ); // 以字节为单位分配
+		pThreadParam->TP_ThreadCount = 50;
+		break;
+	case IDC_NODE15:
+		hThread = (HANDLE *)malloc( sizeof(unsigned long) * 100 ); // 以字节为单位分配
+		pThreadParam->TP_ThreadCount = 100;
+		break;
+	case IDC_NODE20:
+		hThread = (HANDLE *)malloc( sizeof(unsigned long) * 150 ); // 以字节为单位分配
+		pThreadParam->TP_ThreadCount = 150;
+		break;
+	}
+	*/
+	switch (pThreadParam->TP_RadioID)
+	{
+	case IDC_NODE01:
+		{
+			HANDLE hThread;
+			DWORD dwThreadId;
+			hThread=::CreateThread( NULL, 0, (LPTHREAD_START_ROUTINE)CStaticClass::ApplyRegister, NULL, 0, &dwThreadId);
+			for (int i=0;i<1;i++)
+			{
+				CString str1,str2;
+				str1.Format(_T("%d"),listCount);
+				pThreadParam->TP_pCMainDlg->m_ListCtrl.InsertItem(listCount,str1);
+				str2.Format(_T("模拟客户端%d号启动"),i);
+				pThreadParam->TP_pCMainDlg->m_ListCtrl.SetItemText(listCount,1,str2);
+			}
+		}
+		break;
+	case IDC_NODE05:
+		{
+			HANDLE hThread;
+			DWORD dwThreadId;
+			hThread=::CreateThread( NULL, 0, (LPTHREAD_START_ROUTINE)CStaticClass::ApplyRegister, NULL, 0, &dwThreadId);
+			hThread=::CreateThread( NULL, 0, (LPTHREAD_START_ROUTINE)CStaticClass::ApplyRegister2, NULL, 0, &dwThreadId);
+			hThread=::CreateThread( NULL, 0, (LPTHREAD_START_ROUTINE)CStaticClass::ApplyRegister3, NULL, 0, &dwThreadId);
+			hThread=::CreateThread( NULL, 0, (LPTHREAD_START_ROUTINE)CStaticClass::ApplyRegister4, NULL, 0, &dwThreadId);
+			hThread=::CreateThread( NULL, 0, (LPTHREAD_START_ROUTINE)CStaticClass::ApplyRegister5, NULL, 0, &dwThreadId);
+			for (int i=0;i<5;i++)
+			{
+				CString str1,str2;
+				str1.Format(_T("%d"),listCount);
+				pThreadParam->TP_pCMainDlg->m_ListCtrl.InsertItem(listCount,str1);
+				str2.Format(_T("模拟客户端%d号启动"),i);
+				pThreadParam->TP_pCMainDlg->m_ListCtrl.SetItemText(listCount,1,str2);
+			}
+		}
+		break;
+	case IDC_NODE10:
+		{
+			HANDLE hThread;
+			DWORD dwThreadId;
+			hThread=::CreateThread( NULL, 0, (LPTHREAD_START_ROUTINE)CStaticClass::ApplyRegister, NULL, 0, &dwThreadId);
+			hThread=::CreateThread( NULL, 0, (LPTHREAD_START_ROUTINE)CStaticClass::ApplyRegister2, NULL, 0, &dwThreadId);
+			hThread=::CreateThread( NULL, 0, (LPTHREAD_START_ROUTINE)CStaticClass::ApplyRegister3, NULL, 0, &dwThreadId);
+			hThread=::CreateThread( NULL, 0, (LPTHREAD_START_ROUTINE)CStaticClass::ApplyRegister4, NULL, 0, &dwThreadId);
+			hThread=::CreateThread( NULL, 0, (LPTHREAD_START_ROUTINE)CStaticClass::ApplyRegister5, NULL, 0, &dwThreadId);
+			hThread=::CreateThread( NULL, 0, (LPTHREAD_START_ROUTINE)CStaticClass::ApplyRegister6, NULL, 0, &dwThreadId);
+			hThread=::CreateThread( NULL, 0, (LPTHREAD_START_ROUTINE)CStaticClass::ApplyRegister7, NULL, 0, &dwThreadId);
+			hThread=::CreateThread( NULL, 0, (LPTHREAD_START_ROUTINE)CStaticClass::ApplyRegister8, NULL, 0, &dwThreadId);
+			hThread=::CreateThread( NULL, 0, (LPTHREAD_START_ROUTINE)CStaticClass::ApplyRegister9, NULL, 0, &dwThreadId);
+			hThread=::CreateThread( NULL, 0, (LPTHREAD_START_ROUTINE)CStaticClass::ApplyRegister10, NULL, 0, &dwThreadId);
+			for (int i=0;i<10;i++)
+			{
+				CString str1,str2;
+				str1.Format(_T("%d"),listCount);
+				pThreadParam->TP_pCMainDlg->m_ListCtrl.InsertItem(listCount,str1);
+				str2.Format(_T("模拟客户端%d号启动"),i);
+				pThreadParam->TP_pCMainDlg->m_ListCtrl.SetItemText(listCount,1,str2);
+			}
+		}
+		break;
+	case IDC_NODE15:
+		{
+			HANDLE hThread;
+			DWORD dwThreadId;
+			hThread=::CreateThread( NULL, 0, (LPTHREAD_START_ROUTINE)CStaticClass::ApplyRegister, NULL, 0, &dwThreadId);
+			hThread=::CreateThread( NULL, 0, (LPTHREAD_START_ROUTINE)CStaticClass::ApplyRegister2, NULL, 0, &dwThreadId);
+			hThread=::CreateThread( NULL, 0, (LPTHREAD_START_ROUTINE)CStaticClass::ApplyRegister3, NULL, 0, &dwThreadId);
+			hThread=::CreateThread( NULL, 0, (LPTHREAD_START_ROUTINE)CStaticClass::ApplyRegister4, NULL, 0, &dwThreadId);
+			hThread=::CreateThread( NULL, 0, (LPTHREAD_START_ROUTINE)CStaticClass::ApplyRegister5, NULL, 0, &dwThreadId);
+			hThread=::CreateThread( NULL, 0, (LPTHREAD_START_ROUTINE)CStaticClass::ApplyRegister6, NULL, 0, &dwThreadId);
+			hThread=::CreateThread( NULL, 0, (LPTHREAD_START_ROUTINE)CStaticClass::ApplyRegister7, NULL, 0, &dwThreadId);
+			hThread=::CreateThread( NULL, 0, (LPTHREAD_START_ROUTINE)CStaticClass::ApplyRegister8, NULL, 0, &dwThreadId);
+			hThread=::CreateThread( NULL, 0, (LPTHREAD_START_ROUTINE)CStaticClass::ApplyRegister9, NULL, 0, &dwThreadId);
+			hThread=::CreateThread( NULL, 0, (LPTHREAD_START_ROUTINE)CStaticClass::ApplyRegister10, NULL, 0, &dwThreadId);
+			hThread=::CreateThread( NULL, 0, (LPTHREAD_START_ROUTINE)CStaticClass::ApplyRegister11, NULL, 0, &dwThreadId);
+			hThread=::CreateThread( NULL, 0, (LPTHREAD_START_ROUTINE)CStaticClass::ApplyRegister12, NULL, 0, &dwThreadId);
+			hThread=::CreateThread( NULL, 0, (LPTHREAD_START_ROUTINE)CStaticClass::ApplyRegister13, NULL, 0, &dwThreadId);
+			hThread=::CreateThread( NULL, 0, (LPTHREAD_START_ROUTINE)CStaticClass::ApplyRegister14, NULL, 0, &dwThreadId);
+			hThread=::CreateThread( NULL, 0, (LPTHREAD_START_ROUTINE)CStaticClass::ApplyRegister15, NULL, 0, &dwThreadId);
+			for (int i=0;i<15;i++)
+			{
+				CString str1,str2;
+				str1.Format(_T("%d"),listCount);
+				pThreadParam->TP_pCMainDlg->m_ListCtrl.InsertItem(listCount,str1);
+				str2.Format(_T("模拟客户端%d号启动"),i);
+				pThreadParam->TP_pCMainDlg->m_ListCtrl.SetItemText(listCount,1,str2);
+			}
+		}
+		break;
+	case IDC_NODE20:
+		{
+			HANDLE hThread;
+			DWORD dwThreadId;
+			hThread=::CreateThread( NULL, 0, (LPTHREAD_START_ROUTINE)CStaticClass::ApplyRegister, NULL, 0, &dwThreadId);
+		}
+		break;
+	}
+	DWORD dwThreadId;
+
+
+	
+
+
+	
+	for (int i=10000;i<pThreadParam->TP_ThreadCount;i++,listCount++)
 	{
 		PCStaticClass pCStaticClass = new CStaticClass();
 		hThread[i]=::CreateThread(
@@ -199,6 +314,19 @@ UINT CMainDlg::CreateSocketThread(LPVOID pParam)
 			pCStaticClass,//argument to thread function
 			0,//use default creation flags
 			&dwThreadId);//returns the thread identifier
+
+		Sleep(2000);
+
+		hThread[i]=::CreateThread(
+			NULL,//default security attributes
+			0,//use default stack size
+			(LPTHREAD_START_ROUTINE)CStaticClass::ApplyRegister2,//thread function
+			NULL,//argument to thread function
+			0,//use default creation flags
+			&dwThreadId);//returns the thread identifier
+
+
+
 		CString str1,str2;
 		str1.Format(_T("%d"),listCount);
 		pThreadParam->TP_pCMainDlg->m_ListCtrl.InsertItem(listCount,str1);
@@ -218,19 +346,19 @@ LRESULT CMainDlg::OnBnClickedAppLog(WORD wNotifyCode, WORD wID, HWND hWndCtl, BO
 		m_NodeCountCtrl.SetWindowText(_T("1"));
 		EnableRadio(FALSE);
 		break;
-	case IDC_NODE30:
+	case IDC_NODE05:
 		m_NodeCountCtrl.SetWindowText(_T("30"));
 		EnableRadio(FALSE);
 		break;
-	case IDC_NODE50:
+	case IDC_NODE10:
 		m_NodeCountCtrl.SetWindowText(_T("50"));
 		EnableRadio(FALSE);
 		break;
-	case IDC_NODE100:
+	case IDC_NODE15:
 		m_NodeCountCtrl.SetWindowText(_T("100"));
 		EnableRadio(FALSE);
 		break;
-	case IDC_NODE150:
+	case IDC_NODE20:
 		m_NodeCountCtrl.SetWindowText(_T("150"));
 		EnableRadio(FALSE);
 		break;
@@ -258,19 +386,19 @@ LRESULT CMainDlg::OnBtnStart(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHa
 	}
 	else if (0 == m_strNodeCount.Compare( _T("30")))
 	{
-		IDC_SEL = IDC_NODE30;
+		IDC_SEL = IDC_NODE05;
 	}
 	else if (0 == m_strNodeCount.Compare( _T("50")))
 	{
-		IDC_SEL = IDC_NODE50;
+		IDC_SEL = IDC_NODE10;
 	}
 	else if (0 == m_strNodeCount.Compare( _T("100")))
 	{
-		IDC_SEL = IDC_NODE100;
+		IDC_SEL = IDC_NODE15;
 	}
 	else if (0 == m_strNodeCount.Compare( _T("150")))
 	{
-		IDC_SEL = IDC_NODE150;
+		IDC_SEL = IDC_NODE20;
 	}
 	else
 	{
@@ -396,7 +524,7 @@ void CMainDlg::InitXzmTree()
 	if(hItemx != NULL) {
 		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("初始化windows Socket"));
 		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("注册"));
-		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("测试长连接")); m_TreeXzm.Expand(hItemx, TVE_COLLAPSE);
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("发送SysLog")); m_TreeXzm.Expand(hItemx, TVE_COLLAPSE);
 	}
 
 	/*HTREEITEM*/ hItemx = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("封包"));
@@ -471,15 +599,6 @@ LRESULT CMainDlg::OnTreeXzmClickTree(NMHDR* phdr)
 
 			if(0 == str.Compare( _T("初始化windows Socket")))
 			{
-				WSADATA Data;
-				int status;
-
-				//初始化windows Socket Dll
-				status = WSAStartup(MAKEWORD(1,1),&Data);
-				if (0!=status)
-				{
-					OutputDebugString(_T("初始化失败\n"));
-				} 
 			}
 			else if(0 == str.Compare( _T("注册")))
 			{
@@ -495,14 +614,14 @@ LRESULT CMainDlg::OnTreeXzmClickTree(NMHDR* phdr)
 					0,//use default creation flags
 					&dwThreadId);//returns the thread identifier
 			}
-			else if(0 == str.Compare( _T("测试长连接")))
+			else if(0 == str.Compare( _T("发送SysLog")))
 			{
 				DWORD dwThreadId;
 				HANDLE hThread;
 				hThread=CreateThread(
 					NULL,//default security attributes
 					0,//use default stack size
-					(LPTHREAD_START_ROUTINE)CStaticClass::HeartBeatEx,//thread function
+					(LPTHREAD_START_ROUTINE)CStaticClass::UpLoadSysLog,//thread function
 					0,//argument to thread function
 					0,//use default creation flags
 					&dwThreadId);//returns the thread identifier

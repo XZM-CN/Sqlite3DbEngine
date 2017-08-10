@@ -29,6 +29,8 @@ typedef enum _tagCommandType
 	enumUserName = 401
 }COMMANDTYPE;
 
+extern CRITICAL_SECTION csHeartBeat;
+extern CRITICAL_SECTION csUpLoad;
 
 class CStaticClass
 {
@@ -40,12 +42,35 @@ public:
 
 	static char* CStaticClass::rand_str(char *str,const int len);
 
+
+	static UINT UpLoadSysLog(LPVOID pParam);
+
 	// 注册
 	static UINT ApplyRegister(LPVOID pParam);
+	// 注册
+	static UINT ApplyRegister2(LPVOID pParam);
+	static UINT ApplyRegister3(LPVOID pParam);
+	static UINT ApplyRegister4(LPVOID pParam);
+	static UINT ApplyRegister5(LPVOID pParam);
+	static UINT ApplyRegister6(LPVOID pParam);
+	static UINT ApplyRegister7(LPVOID pParam);
+	static UINT ApplyRegister8(LPVOID pParam);
+	static UINT ApplyRegister9(LPVOID pParam);
+	static UINT ApplyRegister10(LPVOID pParam);
+	static UINT ApplyRegister11(LPVOID pParam);
+	static UINT ApplyRegister12(LPVOID pParam);
+	static UINT ApplyRegister13(LPVOID pParam);
+	static UINT ApplyRegister14(LPVOID pParam);
+	static UINT ApplyRegister15(LPVOID pParam);
+	static UINT ApplyRegister16(LPVOID pParam);
+	static UINT ApplyRegister17(LPVOID pParam);
+	static UINT ApplyRegister18(LPVOID pParam);
+	static UINT ApplyRegister19(LPVOID pParam);
+	static UINT ApplyRegister20(LPVOID pParam);
 	
 	// 心跳
 	static UINT HeartBeat(LPVOID pParam);
-	static UINT HeartBeatEx(LPVOID pParam);
+
 	// 获取接口
 	static BOOL GetInterfacePtr(CComPtr <IJsonService>& spiJsonService);
 

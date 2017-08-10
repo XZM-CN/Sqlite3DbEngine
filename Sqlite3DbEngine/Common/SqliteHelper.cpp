@@ -5,7 +5,7 @@
 /// 全局句柄
 extern HANDLE g_hInstance;
 
-ATL::CString CDbHelper::m_strModelName = TDHXKJ_JSONENGINE;
+ATL::CString CDbHelper::m_strModelName = TDHXKJ_SQLITE3DBENGINE;
 
 void CDbHelper::FreeDB(void)
 {
@@ -52,11 +52,11 @@ CComPtr <ISqlite3Connect> CDbHelper::GetSqlite3Connect()
 	return spiSqlite3Connect;
 }
 
-CComPtr <IConnectHelper> CDbHelper::GetDBHelper()
+CComPtr <IConnectHelper> CDbHelper::GetDBHelper(ATL::CString strModelName /*= TDHXKJ_SQLITE3DBENGINE*/)
 {
 	/// 底层SQLITE数据库访问辅助接口
 	CComPtr <IConnectHelper> spiConnectHelper = NULL;
-	HINSTANCE hHandle = GetComHandle(m_strModelName);
+	HINSTANCE hHandle = GetComHandle(strModelName);
 	if(NULL != hHandle)
 	{
 		CBaseFuncLib::CreateInterface( hHandle,__uuidof(ConnectHelper),__uuidof(IConnectHelper),(VOID **)&spiConnectHelper);
@@ -64,16 +64,16 @@ CComPtr <IConnectHelper> CDbHelper::GetDBHelper()
 		return spiConnectHelper;
 	}
 	ATL::CString strDllPath(_T(""));
-	strDllPath.Format(_T("%s%s"),CBaseFuncLib::GetModulePath(g_hInstance),m_strModelName);
+	strDllPath.Format(_T("%s%s"),CBaseFuncLib::GetModulePath(g_hInstance),strModelName);
 	if(!CBaseFuncLib::IsPathExist(strDllPath))
 	{
 		strDllPath.Empty();
-		strDllPath.Format(_T("%s%s"),GetComTempPath(),m_strModelName);
+		strDllPath.Format(_T("%s%s"),GetComTempPath(),strModelName);
 	}
 	if(!CBaseFuncLib::IsPathExist(strDllPath))
 	{
 		strDllPath.Empty();
-		strDllPath.Format(_T("%s%s"),GetAppInsPath(),m_strModelName);
+		strDllPath.Format(_T("%s%s"),GetAppInsPath(),strModelName);
 	}
 	if(GetSourceProtected())
 	{
@@ -85,7 +85,7 @@ CComPtr <IConnectHelper> CDbHelper::GetDBHelper()
 	hHandle = CBaseFuncLib::CreateInstance( strDllPath,__uuidof(ConnectHelper),__uuidof(IConnectHelper),(VOID **)&spiConnectHelper);
 	if(NULL != hHandle)
 	{
-		m_mapInstance[m_strModelName] = hHandle;
+		m_mapInstance[strModelName] = hHandle;
 	}
 	strDllPath.Empty();
 	ATLASSERT(spiConnectHelper);
@@ -359,10 +359,10 @@ HRESULT CDbHelper::OperateDB(const ATL::CString &strDBPath,CSTRING_VECTOR &Strin
 	return hRet;
 }
 
-CComPtr <IJsonService> CDbHelper::GetJsonService()
+CComPtr <IJsonService> CDbHelper::GetJsonService(ATL::CString strModelName /*= TDHXKJ_JSONENGINE*/)
 {
 	CComPtr <IJsonService> spiJsonService = NULL;
-	HINSTANCE hHandle = GetComHandle(m_strModelName);
+	HINSTANCE hHandle = GetComHandle(strModelName);
 	if(NULL != hHandle)
 	{
 		CBaseFuncLib::CreateInterface( hHandle,__uuidof(JsonService),__uuidof(IJsonService),(VOID **)&spiJsonService);
@@ -370,16 +370,16 @@ CComPtr <IJsonService> CDbHelper::GetJsonService()
 		return spiJsonService;
 	}
 	ATL::CString strDllPath(_T(""));
-	strDllPath.Format(_T("%s%s"),CBaseFuncLib::GetModulePath(g_hInstance),m_strModelName);
+	strDllPath.Format(_T("%s%s"),CBaseFuncLib::GetModulePath(g_hInstance),strModelName);
 	if(!CBaseFuncLib::IsPathExist(strDllPath))
 	{
 		strDllPath.Empty();
-		strDllPath.Format(_T("%s%s"),GetComTempPath(),m_strModelName);
+		strDllPath.Format(_T("%s%s"),GetComTempPath(),strModelName);
 	}
 	if(!CBaseFuncLib::IsPathExist(strDllPath))
 	{
 		strDllPath.Empty();
-		strDllPath.Format(_T("%s%s"),GetAppInsPath(),m_strModelName);
+		strDllPath.Format(_T("%s%s"),GetAppInsPath(),strModelName);
 	}
 	if(GetSourceProtected())
 	{
@@ -391,7 +391,7 @@ CComPtr <IJsonService> CDbHelper::GetJsonService()
 	hHandle = CBaseFuncLib::CreateInstance( strDllPath,__uuidof(JsonService),__uuidof(IJsonService),(VOID **)&spiJsonService);
 	if(NULL != hHandle)
 	{
-		m_mapInstance[m_strModelName] = hHandle;
+		m_mapInstance[strModelName] = hHandle;
 	}
 	strDllPath.Empty();
 	ATLASSERT(spiJsonService);

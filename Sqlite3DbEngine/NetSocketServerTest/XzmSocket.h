@@ -24,8 +24,8 @@ public:
 	CXzmSocket(void);
 	~CXzmSocket(void);
 
-	static UINT DoServerTest(LPVOID pParam);
-	static UINT DoClientTest(LPVOID pParam);
+	static UINT DoServerTCPTest(LPVOID pParam);
+	static UINT DoServerUDPTest(LPVOID pParam);
 
 	// 获取配置信息
 	/**

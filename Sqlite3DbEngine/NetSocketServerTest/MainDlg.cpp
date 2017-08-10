@@ -98,9 +98,12 @@ LRESULT CMainDlg::OnTreeXzmClickTree(NMHDR* phdr)
 					m_pXzmSocket = new CXzmSocket;
 					m_pXzmSocket->GetConfInfo();
 				}
+				else{
+
+				}
 				
 			}
-			else if(0 == str.Compare( _T("执行DoServerTest")))
+			else if(0 == str.Compare( _T("执行DoServerTCPTest")))
 			{
 				DWORD dwThreadId;
 				HANDLE hThread;
@@ -108,7 +111,20 @@ LRESULT CMainDlg::OnTreeXzmClickTree(NMHDR* phdr)
 				hThread=CreateThread(
 					NULL,//default security attributes
 					0,//use default stack size
-					(LPTHREAD_START_ROUTINE)CXzmSocket::DoServerTest,//thread function
+					(LPTHREAD_START_ROUTINE)CXzmSocket::DoServerTCPTest,//thread function
+					&m_pXzmSocket,//argument to thread function
+					0,//use default creation flags
+					&dwThreadId);//returns the thread identifier
+			}
+			else if(0 == str.Compare( _T("执行DoServerUDPTest")))
+			{
+				DWORD dwThreadId;
+				HANDLE hThread;
+
+				hThread=CreateThread(
+					NULL,//default security attributes
+					0,//use default stack size
+					(LPTHREAD_START_ROUTINE)CXzmSocket::DoServerUDPTest,//thread function
 					&m_pXzmSocket,//argument to thread function
 					0,//use default creation flags
 					&dwThreadId);//returns the thread identifier
@@ -140,7 +156,8 @@ void CMainDlg::InitXzmTree()
 
 	HTREEITEM hItem1 = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("Socket"));
 	InsertXzmTree( m_TreeXzm, hItem1, TCItem, _T("初始化"));
-	InsertXzmTree( m_TreeXzm, hItem1, TCItem, _T("执行DoServerTest"));
+	InsertXzmTree( m_TreeXzm, hItem1, TCItem, _T("执行DoServerTCPTest"));
+	InsertXzmTree( m_TreeXzm, hItem1, TCItem, _T("执行DoServerUDPTest"));
 	InsertXzmTree( m_TreeXzm, hItem1, TCItem, _T("释放"));
 	HTREEITEM hItem2 = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("xxxxxxxxx"));
 	InsertXzmTree( m_TreeXzm, hItem2, TCItem, _T("xxx"));

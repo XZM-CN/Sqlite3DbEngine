@@ -94,7 +94,6 @@ public:
 	HTREEITEM InsertXzmTree(CTreeViewCtrl& Tree,HTREEITEM hItem,TV_INSERTSTRUCT TCItem,TCHAR* pc_name);
 	BOOL IsYourChild(ATL::CString strParentName, CTreeViewCtrl& Tree,HTREEITEM &hSelItem );
 
-
 	static UINT SendSyslogThread(LPVOID pParam);
 protected:
 	CXzmTreeViewCtrl    m_TreeXzm;
@@ -113,6 +112,7 @@ public:
 	CComPtr <IParaService>    m_spiParaService;
 	CComPtr <IJsonService>    m_spiJsonService;
 	CComPtr <ITestInterface>    m_spiTestInterface;
+	CComPtr <IXMsXmlWrapper>    m_spiXMsXmlWrapper;
 	/// 是否开启上传Syslog
 	BOOL m_bStartSyslog;
 	//创建上传Syslog日志线程

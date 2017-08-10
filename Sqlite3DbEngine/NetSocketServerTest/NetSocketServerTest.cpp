@@ -35,6 +35,32 @@ int Run(LPTSTR /*lpstrCmdLine*/ = NULL, int nCmdShow = SW_SHOWDEFAULT)
 	return nRet;
 }
 
+
+
+void ConsoleEcho(BOOL bEcho)
+{
+	if(!bEcho)
+		return;
+
+	// 带窗口的应用程序，创建一个临时的控制台，以供cout输出
+	AllocConsole();
+
+	HANDLE hin = ::GetStdHandle(STD_INPUT_HANDLE);
+	HANDLE hout = ::GetStdHandle(STD_OUTPUT_HANDLE);
+
+	int hcin = _open_osfhandle((intptr_t)hin,_O_TEXT);
+	FILE* fpin = _fdopen(hcin,"r");
+	*stdin = *fpin; 
+
+	int hcout = _open_osfhandle((intptr_t)hout,_O_TEXT);
+	FILE* fpout = _fdopen(hcout,"wt");
+	*stdout = *fpout;
+
+	std::ios_base::sync_with_stdio();
+
+	std::cout << "Test Console Echo" << endl << endl;
+}
+
 int WINAPI _tWinMain(HINSTANCE hInstance, HINSTANCE /*hPrevInstance*/, LPTSTR lpstrCmdLine, int nCmdShow)
 {
 	HRESULT hRes = ::CoInitialize(NULL);
@@ -42,6 +68,8 @@ int WINAPI _tWinMain(HINSTANCE hInstance, HINSTANCE /*hPrevInstance*/, LPTSTR lp
 // make the EXE free threaded. This means that calls come in on a random RPC thread.
 //	HRESULT hRes = ::CoInitializeEx(NULL, COINIT_MULTITHREADED);
 	ATLASSERT(SUCCEEDED(hRes));
+
+	ConsoleEcho(TRUE);
 
 	// this resolves ATL window thunking problem when Microsoft Layer for Unicode (MSLU) is used
 	::DefWindowProc(NULL, 0, 0, 0L);

@@ -121,7 +121,7 @@
     <ClCompile Include="..\Common\NetSocket.cpp" />
     <ClCompile Include="..\Common\SKFHelper.cpp" />
     <ClCompile Include="..\Common\SqliteHelper.cpp" />
-    <ClCompile Include="..\Common\XzmSyslog.cpp" />
+    <ClCompile Include="..\Common\SysLog.cpp" />
     <ClCompile Include="AboutDlg.cpp" />
     <ClCompile Include="BuffyTreeCtrl.cpp" />
     <ClCompile Include="ButtonImpl.cpp" />
@@ -150,7 +150,7 @@
     <ClInclude Include="..\Common\NetSocket.h" />
     <ClInclude Include="..\Common\SKFHelper.h" />
     <ClInclude Include="..\Common\SqliteHelper.h" />
-    <ClInclude Include="..\Common\XzmSyslog.h" />
+    <ClInclude Include="..\Common\SysLog.h" />
     <ClInclude Include="AboutDlg.h" />
     <ClInclude Include="BuffyTreeCtrl.h" />
     <ClInclude Include="ButtonImpl.h" />

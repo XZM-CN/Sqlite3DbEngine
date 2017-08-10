@@ -118,6 +118,8 @@
     <ClCompile Include="..\Common\NetSocket.cpp" />
     <ClCompile Include="..\Common\NetworkInteraction.cpp" />
     <ClCompile Include="..\Common\SqliteHelper.cpp" />
+    <ClCompile Include="..\Common\SysLog.cpp" />
+    <ClCompile Include="..\Common\XCriticalSection.cpp" />
     <ClCompile Include="..\Common\XzmTreeViewCtrl.cpp" />
     <ClCompile Include="DevListBoxImpl.cpp" />
     <ClCompile Include="HXTest.cpp" />
@@ -131,6 +133,8 @@
   <ItemGroup>
     <ClInclude Include="..\Common\NetSocket.h" />
     <ClInclude Include="..\Common\NetworkInteraction.h" />
+    <ClInclude Include="..\Common\SysLog.h" />
+    <ClInclude Include="..\Common\XCriticalSection.h" />
     <ClInclude Include="AboutDlg.h" />
     <ClInclude Include="DevListBoxImpl.h" />
     <ClInclude Include="MainDlg.h" />

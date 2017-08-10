@@ -17,13 +17,6 @@ public:
 	 */
 	static void FreeDB();
 
-	/**
-	 * @brief  获得数据库接口
-	 *
-	 *
-	 * @return 数据库接口
-	 */
-	static CComPtr <ISqlite3Connect> GetSqlite3Connect();
 
 	/**
 	 * @brief  获得数据库帮助接口
@@ -31,7 +24,7 @@ public:
 	 *
 	 * @return 数据库帮助接口
 	 */
-	static CComPtr <IConnectHelper> GetDBHelper();
+	static CComPtr <IConnectHelper> GetDBHelper(ATL::CString m_strModelName = TDHXKJ_SQLITE3DBENGINE);
 
 	/**
 	 * @brief              获得整形数值
@@ -115,43 +108,17 @@ public:
 	 */
 	static HRESULT OperateDB(const ATL::CString &strDBPath,CSTRING_VECTOR &StringList,const ATL::CString& strPW = _T(""),BOOL bCompressDB = FALSE);
 
-	/**
-	 * @brief  获得JSON服务接口
-	 *
-	 *
-	 * @return 
-	 */
-	static CComPtr <IJsonService> GetJsonService();
 
-	/**
-	 * @brief  获得参数服务接口
-	 *
-	 *
-	 * @return 
-	 */
+	// 获取数据库接口
+	static CComPtr <ISqlite3Connect> GetSqlite3Connect();
+	// 获取Json接口
+	static CComPtr <IJsonService> GetJsonService(ATL::CString m_strModelName = TDHXKJ_JSONENGINE);
+	// 获得参数服务接口
 	static CComPtr <IParaService> GetParaService();
-
-	/**
-	 * @brief  获得日志服务接口
-	 *
-	 *
-	 * @return 
-	 */
+	// 获得日志服务接口
 	static CComPtr <ILogService> GetLogService();
-
-	/**
-	 * @brief  写系统操作日志
-	 *
-	 *
-	 * @return 
-	 */
+	// 写系统操作日志
 	static ULONG WriteSysLog(short nUserType,const CString& strLID,const CString& strName,const CString& strLog);
-
-	/**
-	 * @brief  写预警日志
-	 *
-	 *
-	 * @return 
-	 */
+	// 写预警日志
 	static ULONG WriteWarnLog(EHXSafeLogType eLogType,DATE dtTime,short nFlag,const CString& strID,const CString& strLog);
 };

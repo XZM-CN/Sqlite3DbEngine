@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ServiceModular", "ServiceModular.vcxproj", "{A67719C3-29D6-451D-9549-E8FAF74162FB}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ServiceModularPS", "ServiceModularPS.vcxproj", "{C08E5EA1-878C-4513-8931-E0FAEA5A730A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A67719C3-29D6-451D-9549-E8FAF74162FB} = {A67719C3-29D6-451D-9549-E8FAF74162FB}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A67719C3-29D6-451D-9549-E8FAF74162FB}.Debug|Win32.ActiveCfg = Debug|Win32
+		{A67719C3-29D6-451D-9549-E8FAF74162FB}.Debug|Win32.Build.0 = Debug|Win32
+		{A67719C3-29D6-451D-9549-E8FAF74162FB}.Release|Win32.ActiveCfg = Release|Win32
+		{A67719C3-29D6-451D-9549-E8FAF74162FB}.Release|Win32.Build.0 = Release|Win32
+		{C08E5EA1-878C-4513-8931-E0FAEA5A730A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{C08E5EA1-878C-4513-8931-E0FAEA5A730A}.Release|Win32.ActiveCfg = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

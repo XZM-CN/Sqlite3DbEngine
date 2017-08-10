@@ -1,0 +1,18 @@
+// ServiceModular.idl : ServiceModular 的 IDL 源
+//
+
+// 此文件将由 MIDL 工具处理以
+// 产生类型库(ServiceModular.tlb)和封送处理代码。
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+[
+	uuid(C9125A39-6BA9-4642-978E-08B4E4425F83),
+	version(1.0),
+]
+library ServiceModularLib
+{
+	importlib("stdole2.tlb");
+};
+

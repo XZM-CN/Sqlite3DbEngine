@@ -72,10 +72,10 @@
     <ClCompile Include="..\Common\NetSocket.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Common\XzmSyslog.cpp">
+    <ClCompile Include="..\Common\NetworkInteraction.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Common\NetworkInteraction.cpp">
+    <ClCompile Include="..\Common\SysLog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -146,10 +146,10 @@
     <ClInclude Include="..\Common\NetSocket.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Common\XzmSyslog.h">
+    <ClInclude Include="..\Common\NetworkInteraction.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Common\NetworkInteraction.h">
+    <ClInclude Include="..\Common\SysLog.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

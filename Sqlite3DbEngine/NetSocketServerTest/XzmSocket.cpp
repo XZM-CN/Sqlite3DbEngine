@@ -13,6 +13,7 @@ CXzmSocket::CXzmSocket(void)
 		OutputDebugString(_T("初始化失败\n"));
 	} 
 
+	cout<<"初始化windows Socket库成功"<<endl;
 
 	memset(m_ServerMajorIP,0,64);
 	memset(m_ServerMinorIP,0,64);
@@ -25,8 +26,10 @@ CXzmSocket::~CXzmSocket(void)
 {
 }
 
-UINT CXzmSocket::DoServerTest(LPVOID pParam)
+UINT CXzmSocket::DoServerTCPTest(LPVOID pParam)
 {
+	cout<<"进入DoServerTest线程"<<endl;
+
 	SOCKADDR_IN serverSockAddr;
 	SOCKADDR_IN clientSockAddr;
 	SOCKET serversocket;  //其实就是一个unsig int类型,用来记录已经建立或者尚未建立的套接字号  
@@ -45,12 +48,14 @@ UINT CXzmSocket::DoServerTest(LPVOID pParam)
 	// serverSockAddr.sin_addr.s_addr = htonl(INADDR_ANY);  //初始化ip地址0,0,0,0 任何ip都可以连接
 	serverSockAddr.sin_addr.s_addr = inet_addr("127.0.0.1");
 
+	cout<<"ip：port"<<"127.0.0.1：0"<<endl;
 
 	//创建套接字  
 	serversocket = socket(AF_INET,SOCK_STREAM/*套接字类型*/,IPPROTO_TCP/*套接字使用的特定协议*/);
 	if (INVALID_SOCKET == serversocket)  
 	{
 		OutputDebugString(_T("创建socket失败\n"));
+		cout<<"创建socket失败"<<endl;
 	}
 
 	//绑定socket到特定地址(结构体地址)  
@@ -58,6 +63,7 @@ UINT CXzmSocket::DoServerTest(LPVOID pParam)
 	if (SOCKET_ERROR==status)  
 	{
 		OutputDebugString(_T("绑定地址失败\n"));
+		cout<<"绑定地址失败"<<endl;
 	}
 
 
@@ -67,6 +73,7 @@ UINT CXzmSocket::DoServerTest(LPVOID pParam)
 	if (SOCKET_ERROR == status)  
 	{
 		OutputDebugString(_T("监听失败\n"));
+		cout<<"监听失败"<<endl;
 	}  
 
 
@@ -80,14 +87,21 @@ UINT CXzmSocket::DoServerTest(LPVOID pParam)
 		if ((0==numrcv)||(numrcv==SOCKET_ERROR))
 		{
 			OutputDebugString(_T("链接受到限制\n"));
+			cout<<""<<endl;
 
 			status = closesocket(clientsocket);
 			if (SOCKET_ERROR==status)
+			{
 				OutputDebugString(_T("断开链接失败\n"));
+				cout<<"断开链接失败"<<endl;
+			}
 
 			status = WSACleanup();
 			if (SOCKET_ERROR==status)
+			{
 				OutputDebugString(_T("清理链接失败\n"));
+				cout<<"清理链接失败"<<endl;
+			}
 
 			return(1);  
 
@@ -97,7 +111,7 @@ UINT CXzmSocket::DoServerTest(LPVOID pParam)
 		CString str;
 		str.Format(_T("接受到客户端发过来的消息内容是：%S\n"),buffer);
 		OutputDebugString(str);
-
+		cout<<str.GetString()<<endl;
 
 
 		int numsnt;
@@ -128,14 +142,56 @@ UINT CXzmSocket::DoServerTest(LPVOID pParam)
 	return 0;
 }
 
-UINT CXzmSocket::DoClientTest(LPVOID pParam)
+
+UINT CXzmSocket::DoServerUDPTest(LPVOID pParam)
 {
+
+	SOCKET serSocket = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP); 
+	if(serSocket == INVALID_SOCKET)
+	{
+		printf("socket error !");
+		return 0;
+	}
+
+	sockaddr_in serAddr;
+	serAddr.sin_family = AF_INET;
+	serAddr.sin_port = htons(514);
+	serAddr.sin_addr.S_un.S_addr = inet_addr("127.0.0.1")/*INADDR_ANY*/;
+	if(bind(serSocket, (sockaddr *)&serAddr, sizeof(serAddr)) == SOCKET_ERROR)
+	{
+		printf("bind error !");
+		closesocket(serSocket);
+		return 0;
+	}
+
+	sockaddr_in remoteAddr;
+	int nAddrLen = sizeof(remoteAddr); 
+	while (true)
+	{
+		char recvData[255];  
+		int ret = recvfrom(serSocket, recvData, 255, 0, (sockaddr *)&remoteAddr, &nAddrLen);
+		if (ret > 0)
+		{
+			recvData[ret] = 0x00;
+			printf("接受到一个连接：%s \r\n", inet_ntoa(remoteAddr.sin_addr));
+			printf(recvData);
+		}
+	}
+
+		//char * sendData = "一个来自服务端的UDP数据包\n";
+		//sendto(serSocket, sendData, strlen(sendData), 0, (sockaddr *)&remoteAddr, nAddrLen);    
+
+
+	closesocket(serSocket); 
+	WSACleanup();
+
+
 	return 0;
 }
 
 BOOL CXzmSocket::GetConfInfo()
 {
-
+	cout<<"读取配置文件信息"<<endl;
 	BOOL bRet = FALSE;
 	BYTE* ppData = NULL;
 

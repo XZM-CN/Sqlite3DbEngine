@@ -161,9 +161,6 @@
     <None Include="..\doc\啸傲居士.sql">
       <Filter>doc</Filter>
     </None>
-    <None Include="..\doc\ddd.json">
-      <Filter>doc</Filter>
-    </None>
     <None Include="..\doc\xzmLog.hdb">
       <Filter>doc</Filter>
     </None>

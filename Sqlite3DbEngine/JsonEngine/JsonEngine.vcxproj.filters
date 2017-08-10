@@ -17,7 +17,7 @@
       <UniqueIdentifier>{6d23d7f8-181d-4885-b68c-e0c857ce57a3}</UniqueIdentifier>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
-    <Filter Include="doc">
+    <Filter Include="files">
       <UniqueIdentifier>{34ee669a-f6ac-4687-8091-86d303b40d39}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -95,8 +95,11 @@
     <None Include="ParaService.rgs">
       <Filter>资源文件</Filter>
     </None>
-    <None Include="Config.js">
-      <Filter>doc</Filter>
+    <None Include="..\Config\Config.json">
+      <Filter>files</Filter>
+    </None>
+    <None Include="ConnectHelper.rgs">
+      <Filter>资源文件</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

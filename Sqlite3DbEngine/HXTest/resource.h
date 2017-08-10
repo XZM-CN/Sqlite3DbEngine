@@ -7,10 +7,10 @@
 #define IDD_MAINDLG                     129
 #define IDC_TREE1                       1000
 #define IDC_TESTTREE                    1000
-#define IDC_NODE30                      1001
-#define IDC_NODE50                      1002
-#define IDC_NODE100                     1003
-#define IDC_NODE150                     1004
+#define IDC_NODE05                      1001
+#define IDC_NODE10                      1002
+#define IDC_NODE15                     1003
+#define IDC_NODE20                     1004
 #define IDC_NODECOUNT                   1005
 #define IDC_BTN_START                   1006
 #define IDC_BTN_PAUSE                   1007

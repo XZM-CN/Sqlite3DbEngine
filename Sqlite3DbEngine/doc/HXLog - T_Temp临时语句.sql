@@ -14,4 +14,3 @@ UPDATE "T_Warn" SET SyslogFlag = 0;
 UPDATE "T_Sys"   SET SyslogFlag = 0;
 UPDATE "T_Event" SET SyslogFlag = 0;
 UPDATE "T_Warn"  SET SyslogFlag = 0;
-UPDATE "T_Para"  SET SyslogFlag = 0;

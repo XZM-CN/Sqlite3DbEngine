@@ -1,0 +1,18 @@
+// MySqlDbEngine.idl : MySqlDbEngine 的 IDL 源
+//
+
+// 此文件将由 MIDL 工具处理以
+// 产生类型库(MySqlDbEngine.tlb)和封送处理代码。
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+[
+	uuid(E3FA83C2-2DEA-4AC7-97FA-F3347876F4C0),
+	version(1.0),
+]
+library MySqlDbEngineLib
+{
+	importlib("stdole2.tlb");
+};
+

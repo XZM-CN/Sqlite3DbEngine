@@ -38,7 +38,7 @@ bin/*/*/*.res
 *.cache
 *.tli
 *.inf
-
+*.chw
 # 
 # VS工程文件
 # 

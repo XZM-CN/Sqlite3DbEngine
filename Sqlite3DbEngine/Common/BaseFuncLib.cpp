@@ -212,6 +212,15 @@ int CBaseFuncLib::Us2ToChar(const ATL::CString& strSrc, char** pDst,int nCodePag
 	return iLength1;
 }
 
+int CBaseFuncLib::CharToUsCString(const char* strSrc, ATL::CString pDst,int nCodePage /*= CP_ACP*/)
+{
+	WCHAR* strW=NULL;
+	CharToUS2(strSrc,&strW);
+	ATL::CString str(strW);
+	pDst = str;
+	return 0;
+}
+
 int CBaseFuncLib::CharToUS2(const char* szSrc, WCHAR** pDst,int nCodePage)
 {
 	WCHAR* strW=NULL;

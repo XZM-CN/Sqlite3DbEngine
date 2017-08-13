@@ -42,6 +42,7 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin\$(Configuration)\$(ProjectName)\</IntDir>
+    <IncludePath>../common;$(IncludePath);C:\BCGSoft\BCGControlBarPro\BCGCBPro</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IgnoreImportLibrary>true</IgnoreImportLibrary>
@@ -55,6 +56,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>MySql\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Midl>
       <MkTypLibCompatible>false</MkTypLibCompatible>
@@ -78,7 +80,8 @@
       <SubSystem>Windows</SubSystem>
       <ModuleDefinitionFile>.\MySqlDbEngine.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <RegisterOutput>true</RegisterOutput>
+      <RegisterOutput>false</RegisterOutput>
+      <AdditionalLibraryDirectories>MySql\Lib</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -116,6 +119,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\Common\BaseFuncLib.cpp" />
+    <ClCompile Include="..\Common\HXRegKey.cpp" />
+    <ClCompile Include="MySQLLogic.cpp" />
     <ClCompile Include="dllmain.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -124,6 +130,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="FormatTransformation.cpp" />
     <ClCompile Include="MySqlDbEngine.cpp" />
     <ClCompile Include="MySqlDbEngine_i.c">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
@@ -133,6 +140,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="MySqlWrapper.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -147,8 +155,11 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="MySQLLogic.h" />
     <ClInclude Include="dllmain.h" />
+    <ClInclude Include="FormatTransformation.h" />
     <ClInclude Include="MySqlDbEngine_i.h" />
+    <ClInclude Include="MySqlWrapper.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
@@ -158,10 +169,13 @@
     <ResourceCompile Include="MySqlDbEngine.rc" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ChatDB_MySQL.sql" />
+    <None Include="MySQLLogic.rgs" />
+    <None Include="FormatTransformation.rgs" />
     <None Include="MySqlDbEngine.def" />
     <None Include="MySqlDbEngine.rgs" />
     <None Include="ReadMe.txt" />
+    <None Include="资料\ChatDB_MySQL.sql" />
+    <None Include="资料\xzmdb.sql" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="MySqlDbEngine.idl" />

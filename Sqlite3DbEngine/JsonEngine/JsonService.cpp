@@ -761,78 +761,78 @@ STDMETHODIMP CJsonService::TestAllJsonDesignFormat(JsonTest eJt)
 {
 	switch (eJt)
 	{
-	case e_Test00:
+	case e_Json00:
 		m_pJsonParser->JsonDesignFormatTest00();
 		break;
-	case e_Test01:
+	case e_Json01:
 		m_pJsonParser->JsonDesignFormatTest01();
 		break;
-	case e_Test02:
+	case e_Json02:
 		m_pJsonParser->JsonDesignFormatTest02();
 		break;
-	case e_Test03:
+	case e_Json03:
 		m_pJsonParser->JsonDesignFormatTest03();
 		break;
-	case e_Test04:
+	case e_Json04:
 		m_pJsonParser->JsonDesignFormatTest04();
 		break;
-	case e_Test05:
+	case e_Json05:
 		m_pJsonParser->JsonDesignFormatTest05();
 		break;
-	case e_Test06:
+	case e_Json06:
 		m_pJsonParser->JsonDesignFormatTest06();
 		break;
-	case e_Test07:
+	case e_Json07:
 		m_pJsonParser->JsonDesignFormatTest07();
 		break;
-	case e_Test08:
+	case e_Json08:
 		m_pJsonParser->JsonDesignFormatTest08();
 		break;
-	case e_Test09:
+	case e_Json09:
 		{
 			break;
 		}
-	case e_Test10:
+	case e_Json10:
 		{
 			break;
 		}
-	case e_Test11:
+	case e_Json11:
 		{
 			break;
 		}
-	case e_Test12:
+	case e_Json12:
 		{
 			break;
 		}
-	case e_Test13:
+	case e_Json13:
 		{
 			break;
 		}
-	case e_Test14:
+	case e_Json14:
 		{
 			break;
 		}
-	case e_Test15:
+	case e_Json15:
 		{
 			break;
 		}
-	case e_Test16:
+	case e_Json16:
 		{
 			break;
 		}
-	case e_Test17:
+	case e_Json17:
 		{
 			break;
 		}
-	case e_Test18:
+	case e_Json18:
 		{
 			break;
 		}
-	case e_Test19:
+	case e_Json19:
 		{
 			break;
 		}
-	case e_Test20:
+	case e_Json20:
 		{
 			break;
 		}

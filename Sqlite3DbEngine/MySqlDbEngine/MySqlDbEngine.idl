@@ -7,6 +7,62 @@
 import "oaidl.idl";
 import "ocidl.idl";
 
+
+typedef enum tagMySQLTest{
+	e_MySQL00,
+	e_MySQL01,
+	e_MySQL02,
+	e_MySQL03,
+	e_MySQL04,
+	e_MySQL05,
+	e_MySQL06,
+	e_MySQL07,
+	e_MySQL08,
+	e_MySQL09,
+	e_MySQL10,
+	e_MySQL11,
+	e_MySQL12,
+	e_MySQL13,
+	e_MySQL14,
+	e_MySQL15,
+	e_MySQL16,
+	e_MySQL17,
+	e_MySQL18,
+	e_MySQL19,
+	e_MySQL20,
+	e_MySQL21,
+	e_MySQL22,
+	e_MySQL23,
+	e_MySQL24,
+	e_MySQL25,
+	e_MySQL26,
+	e_MySQL27,
+	e_MySQL28,
+	e_MySQL29
+}MySQLTest;
+
+
+[
+	object,
+	uuid(37994A34-AD44-46DB-8990-0FDF27C2F9EE),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+interface IMySQLLogic : IDispatch{
+	[id(1), helpstring("OpenDB,打开数据库")] HRESULT OpenDB(BSTR host, BSTR user, BSTR password, BSTR dbname, ULONG port);
+	[id(2), helpstring("TestAllDesignFormat,测试所有mysql")] HRESULT TestAllDesignFormat([in] MySQLTest e);
+};
+[
+	object,
+	uuid(D83DD034-A8E9-4148-8F29-518ED8DA4894),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+interface IFormatTransformation : IDispatch{
+	[id(1), helpstring("BSTR2charPtr01,BSTR转换char*")] HRESULT BSTR2charPtr01(BSTR bstr);
+};
 [
 	uuid(E3FA83C2-2DEA-4AC7-97FA-F3347876F4C0),
 	version(1.0),
@@ -14,5 +70,19 @@ import "ocidl.idl";
 library MySqlDbEngineLib
 {
 	importlib("stdole2.tlb");
+	[
+		uuid(1A34F07A-84F5-42E0-92C7-717D9845AE0C)		
+	]
+	coclass MySQLLogic
+	{
+		[default] interface IMySQLLogic;
+	};
+	[
+		uuid(2160B497-0BA5-4005-8E29-F7517CD70754)		
+	]
+	coclass FormatTransformation
+	{
+		[default] interface IFormatTransformation;
+	};
 };
 

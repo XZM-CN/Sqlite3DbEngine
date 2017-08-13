@@ -1,0 +1,10 @@
+1. 进入/etc/mysql/my.cnf，找到bind-address = 127.0.0.1，将其注释掉，然后执行/etc/init.d/mysql restart重启.
+
+(默认的mysql设置只listen localhost/127.0.0.1上的东西，必须注释掉)
+
+2. 增加远程用户的授权
+
+grant all privileges on *.* to '用户名'@'ip地址' identified by '密码';
+flush privileges;
+
+ip地址项如果为'%'，则表示任意

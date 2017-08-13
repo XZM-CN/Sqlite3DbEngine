@@ -167,6 +167,15 @@ public:
 	 * @param pDst 
 	 */
 	static int Us2ToChar(const ATL::CString& strSrc, char** pDst,int nCodePage = CP_ACP);
+	
+	/**
+	 * @brief 将给定的Char转换为UNICODE字符串编码
+	 *
+	 *
+	 * @param strSrc 
+	 * @param pDst 
+	 */
+	static int CharToUsCString(const char* strSrc, ATL::CString pDst,int nCodePage = CP_ACP);
 
 	/**
 	 * @brief 将给定的GBK字符串转换为UNICODE编码

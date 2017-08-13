@@ -113,6 +113,7 @@ public:
 	CComPtr <IJsonService>    m_spiJsonService;
 	CComPtr <ITestInterface>    m_spiTestInterface;
 	CComPtr <IXMsXmlWrapper>    m_spiXMsXmlWrapper;
+	CComPtr <IMySQLLogic>    m_spiMySQLLogic;
 	/// 是否开启上传Syslog
 	BOOL m_bStartSyslog;
 	//创建上传Syslog日志线程

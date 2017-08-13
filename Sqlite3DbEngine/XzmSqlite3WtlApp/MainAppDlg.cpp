@@ -36,12 +36,13 @@ CComPtr <ISqlite3Connect> CheckDataConnectEx(HWND hWnd)
 CMainAppDlg::CMainAppDlg(void)
 	: m_wndOKBtn(0x01), m_wndExitBtn(0x02),m_wndAboutBtn(0x03)
 {
-	m_spiSqlite3Connect = NULL;
-	m_spiParaService    = NULL;
-	m_spiJsonService    = NULL;
+	m_spiSqlite3Connect   = NULL;
+	m_spiParaService      = NULL;
+	m_spiJsonService      = NULL;
 	m_pNetworkInteraction = NULL;
-	m_spiTestInterface = NULL;
-	m_spiXMsXmlWrapper = NULL;
+	m_spiTestInterface    = NULL;
+	m_spiXMsXmlWrapper    = NULL;
+	m_spiMySQLLogic       = NULL;
 }
 
 
@@ -193,7 +194,7 @@ void CMainAppDlg::InitXzmTree()
 		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("清理垃圾文件")); m_TreeXzm.Expand(hItemx, TVE_COLLAPSE);
 	}
 
-	/*HTREEITEM*/ hItemx = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("打开数据库如果不存在就退出"));
+	/*HTREEITEM*/ hItemx = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("Sqlite3打开数据库如果不存在就退出"));
 	if (hItemx != NULL)
 	{
 		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("取得接口指针"));
@@ -203,7 +204,7 @@ void CMainAppDlg::InitXzmTree()
 		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("清理垃圾文件")); m_TreeXzm.Expand(hItemx, TVE_COLLAPSE);
 	}
 
-	/*HTREEITEM*/ hItemx = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("创建数据库,如果数据库存在就擦除重建"));
+	/*HTREEITEM*/ hItemx = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("Sqlite3创建数据库,如果数据库存在就擦除重建"));
 	if (hItemx != NULL)
 	{
 		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("取得接口指针"));
@@ -226,22 +227,43 @@ void CMainAppDlg::InitXzmTree()
 		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("清理垃圾文件")); m_TreeXzm.Expand(hItemx, TVE_COLLAPSE);
 	}
 
+	/*HTREEITEM*/ hItemx = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("MySQL-xzmdb"));
+	if (hItemx != NULL)
+	{
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("打开数据库"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_MySQL00"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_MySQL01"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_MySQL02"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_MySQL03"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_MySQL04"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_MySQL05"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_MySQL06"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_MySQL07"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_MySQL08"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_MySQL09"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_MySQL10"));
+
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("测试接口")); m_TreeXzm.Expand(hItemx, TVE_COLLAPSE);
+	}
+
+
+
 	/*HTREEITEM*/ hItemx = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("Json Operator"));
 	if (hItemx != NULL)
 	{
 		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("取得接口指针"));
-		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_Test00"));
-		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_Test01"));
-		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_Test02"));
-		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_Test03"));
-		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_Test04"));
-		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_Test05"));
-		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_Test06"));
-		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_Test07"));
-		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_Test08"));
-		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_Test09"));
-		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_Test10"));
-		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_Test11"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_Json00"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_Json01"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_Json02"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_Json03"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_Json04"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_Json05"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_Json06"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_Json07"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_Json08"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_Json09"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_Json10"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_Json11"));
 
 		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("IJsonService组装Json数据"));
 		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("TraversalJson"));
@@ -557,7 +579,7 @@ LRESULT CMainAppDlg::OnTreeXzmClickTree(NMHDR* phdr)
 			{
 			}
 		}
-		else if(IsYourChild( _T("创建数据库,如果数据库存在就擦除重建"),m_TreeXzm,hItemHit))
+		else if(IsYourChild( _T("Sqlite3创建数据库,如果数据库存在就擦除重建"),m_TreeXzm,hItemHit))
 		{
 			if(0 == str.Compare( _T("取得接口指针")))
 			{
@@ -661,6 +683,65 @@ LRESULT CMainAppDlg::OnTreeXzmClickTree(NMHDR* phdr)
 			{
 			}
 		}
+		else if(IsYourChild( _T("MySQL-xzmdb"),m_TreeXzm,hItemHit)){
+			if(m_spiMySQLLogic == NULL)
+			{
+				CComPtr <IMySQLLogic> spiMySQLLogic = NULL;
+				CString strModulePath = CBaseFuncLib::GetModulePath();
+				strModulePath = strModulePath + _T("MySqlDbEngine.dll");
+				if(!strModulePath.IsEmpty())
+				{
+					HINSTANCE hInst = NULL;
+					hInst = CBaseFuncLib::CreateInstance( strModulePath.GetBuffer(),__uuidof(MySQLLogic),__uuidof(IMySQLLogic),(VOID **)&spiMySQLLogic);
+					if(hInst == NULL)
+						return 0;
+					ATLASSERT(spiMySQLLogic);
+				}
+				if(m_spiMySQLLogic == NULL)
+					m_spiMySQLLogic = spiMySQLLogic;
+				else
+					::MessageBox( 0, _T(""), _T(""), MB_OK);
+			}
+
+			if(0 == str.Compare( _T("打开数据库"))){
+				m_spiMySQLLogic->OpenDB(_T("localhost"), _T("root"), _T("qwer123124&S"), _T("xzmdb"), 3306);
+			}
+			else if(0 == str.Compare( _T("e_MySQL00"))){
+				m_spiMySQLLogic->TestAllDesignFormat(e_MySQL00);
+			}
+			else if(0 == str.Compare( _T("e_MySQL01"))){
+				m_spiMySQLLogic->TestAllDesignFormat(e_MySQL01);
+			}
+			else if(0 == str.Compare( _T("e_MySQL02"))){
+				m_spiMySQLLogic->TestAllDesignFormat(e_MySQL02);
+			}
+			else if(0 == str.Compare( _T("e_MySQL03"))){
+				m_spiMySQLLogic->TestAllDesignFormat(e_MySQL03);
+			}
+			else if(0 == str.Compare( _T("e_MySQL04"))){
+				m_spiMySQLLogic->TestAllDesignFormat(e_MySQL04);
+			}
+			else if(0 == str.Compare( _T("e_MySQL05"))){
+				m_spiMySQLLogic->TestAllDesignFormat(e_MySQL05);
+			}
+			else if(0 == str.Compare( _T("e_MySQL06"))){
+				m_spiMySQLLogic->TestAllDesignFormat(e_MySQL06);
+			}
+			else if(0 == str.Compare( _T("e_MySQL07"))){
+				m_spiMySQLLogic->TestAllDesignFormat(e_MySQL07);
+			}
+			else if(0 == str.Compare( _T("e_MySQL08"))){
+				m_spiMySQLLogic->TestAllDesignFormat(e_MySQL08);
+			}
+			else if(0 == str.Compare( _T("e_MySQL09"))){
+				m_spiMySQLLogic->TestAllDesignFormat(e_MySQL09);
+			}
+			else if(0 == str.Compare( _T("e_MySQL10"))){
+				m_spiMySQLLogic->TestAllDesignFormat(e_MySQL10);
+			}
+			else if(0 == str.Compare( _T("测试接口"))){
+			}
+		}
 		else if(IsYourChild( _T("Json Operator"),m_TreeXzm,hItemHit))
 		{
 			if(0 == str.Compare( _T("取得接口指针")))
@@ -698,85 +779,85 @@ LRESULT CMainAppDlg::OnTreeXzmClickTree(NMHDR* phdr)
 				else
 					::MessageBox( 0, _T(""), _T(""), MB_OK);
 			}
-			else if(0 == str.Compare( _T("e_Test00")))
+			else if(0 == str.Compare( _T("e_Json00")))
 			{
 				if(m_spiJsonService == NULL) {
 					::MessageBox( 0, _T("m_spiSqlite3Connect未初始化"), _T(""), MB_OK);
 					return 0;
 				}
-				m_spiJsonService->TestAllJsonDesignFormat(e_Test00);
+				m_spiJsonService->TestAllJsonDesignFormat(e_Json00);
 			}
-			else if(0 == str.Compare( _T("e_Test01")))
+			else if(0 == str.Compare( _T("e_Json01")))
 			{
 				if(m_spiJsonService == NULL) {
 					::MessageBox( 0, _T("m_spiSqlite3Connect未初始化"), _T(""), MB_OK);
 					return 0;
 				}
 
-				m_spiJsonService->TestAllJsonDesignFormat(e_Test01);
+				m_spiJsonService->TestAllJsonDesignFormat(e_Json01);
 			}
-			else if(0 == str.Compare( _T("e_Test02")))
+			else if(0 == str.Compare( _T("e_Json02")))
 			{
 				if(m_spiJsonService == NULL) {
 					::MessageBox( 0, _T("m_spiSqlite3Connect未初始化"), _T(""), MB_OK);
 					return 0;
 				}
 
-				m_spiJsonService->TestAllJsonDesignFormat(e_Test02);
+				m_spiJsonService->TestAllJsonDesignFormat(e_Json02);
 			}
-			else if(0 == str.Compare( _T("e_Test03")))
+			else if(0 == str.Compare( _T("e_Json03")))
 			{
 				if(m_spiJsonService == NULL) {
 					::MessageBox( 0, _T("m_spiSqlite3Connect未初始化"), _T(""), MB_OK);
 					return 0;
 				}
 
-				m_spiJsonService->TestAllJsonDesignFormat(e_Test03);
+				m_spiJsonService->TestAllJsonDesignFormat(e_Json03);
 			}
-			else if(0 == str.Compare( _T("e_Test04")))
+			else if(0 == str.Compare( _T("e_Json04")))
 			{
 				if(m_spiJsonService == NULL) {
 					::MessageBox( 0, _T("m_spiSqlite3Connect未初始化"), _T(""), MB_OK);
 					return 0;
 				}
 
-				m_spiJsonService->TestAllJsonDesignFormat(e_Test04);
+				m_spiJsonService->TestAllJsonDesignFormat(e_Json04);
 			}
-			else if(0 == str.Compare( _T("e_Test05")))
+			else if(0 == str.Compare( _T("e_Json05")))
 			{
 				if(m_spiJsonService == NULL) {
 					::MessageBox( 0, _T("m_spiSqlite3Connect未初始化"), _T(""), MB_OK);
 					return 0;
 				}
 
-				m_spiJsonService->TestAllJsonDesignFormat(e_Test05);
+				m_spiJsonService->TestAllJsonDesignFormat(e_Json05);
 			}
-			else if(0 == str.Compare( _T("e_Test06")))
+			else if(0 == str.Compare( _T("e_Json06")))
 			{
 				if(m_spiJsonService == NULL) {
 					::MessageBox( 0, _T("m_spiSqlite3Connect未初始化"), _T(""), MB_OK);
 					return 0;
 				}
 
-				m_spiJsonService->TestAllJsonDesignFormat(e_Test06);
+				m_spiJsonService->TestAllJsonDesignFormat(e_Json06);
 			}
-			else if(0 == str.Compare( _T("e_Test07")))
+			else if(0 == str.Compare( _T("e_Json07")))
 			{
 				if(m_spiJsonService == NULL) {
 					::MessageBox( 0, _T("m_spiSqlite3Connect未初始化"), _T(""), MB_OK);
 					return 0;
 				}
 
-				m_spiJsonService->TestAllJsonDesignFormat(e_Test07);
+				m_spiJsonService->TestAllJsonDesignFormat(e_Json07);
 			}
-			else if(0 == str.Compare( _T("e_Test08")))
+			else if(0 == str.Compare( _T("e_Json08")))
 			{
 				if(m_spiJsonService == NULL) {
 					::MessageBox( 0, _T("m_spiSqlite3Connect未初始化"), _T(""), MB_OK);
 					return 0;
 				}
 
-				m_spiJsonService->TestAllJsonDesignFormat(e_Test08);
+				m_spiJsonService->TestAllJsonDesignFormat(e_Json08);
 			}
 			// IJsonService组装Json数据
 			else if(0 == str.Compare( _T("IJsonService组装Json数据")))

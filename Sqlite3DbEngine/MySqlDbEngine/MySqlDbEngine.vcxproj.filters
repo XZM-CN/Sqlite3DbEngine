@@ -37,6 +37,21 @@
     <ClCompile Include="MySqlDbEngine_i.c">
       <Filter>生成的文件</Filter>
     </ClCompile>
+    <ClCompile Include="MySqlWrapper.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\BaseFuncLib.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\HXRegKey.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="FormatTransformation.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="MySQLLogic.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -57,6 +72,15 @@
     <ClInclude Include="MySqlDbEngine_i.h">
       <Filter>生成的文件</Filter>
     </ClInclude>
+    <ClInclude Include="MySqlWrapper.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="FormatTransformation.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="MySQLLogic.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MySqlDbEngine.rc">
@@ -71,7 +95,16 @@
     <None Include="MySqlDbEngine.def">
       <Filter>源文件</Filter>
     </None>
-    <None Include="ChatDB_MySQL.sql">
+    <None Include="FormatTransformation.rgs">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="MySQLLogic.rgs">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="资料\ChatDB_MySQL.sql">
+      <Filter>File</Filter>
+    </None>
+    <None Include="资料\xzmdb.sql">
       <Filter>File</Filter>
     </None>
   </ItemGroup>

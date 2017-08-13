@@ -1,0 +1,16 @@
+HKCR
+{
+	NoRemove CLSID
+	{
+		ForceRemove {1A34F07A-84F5-42E0-92C7-717D9845AE0C} = s 'MySQLLogic Class'
+		{
+			ForceRemove Programmable
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+			TypeLib = s '{E3FA83C2-2DEA-4AC7-97FA-F3347876F4C0}'
+			Version = s '1.0'
+		}
+	}
+}

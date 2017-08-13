@@ -750,7 +750,7 @@ STDMETHODIMP CSqlite3Connect::get_TableCount(VARIANT_BOOL bTemFlag,LONG* pVal)
 	return S_OK;
 }
 
-//#define SQLITE_TEST_DB  //用于测试数据库表内容
+//#define SQLITe_Json_DB  //用于测试数据库表内容
 
 STDMETHODIMP CSqlite3Connect::TableIsExist(BSTR bstrTableName,VARIANT_BOOL bTemFlag, VARIANT_BOOL* pVal)
 {
@@ -769,7 +769,7 @@ STDMETHODIMP CSqlite3Connect::TableIsExist(BSTR bstrTableName,VARIANT_BOOL bTemF
 		return E_POINTER;
 	}
 	CString strSqlString(_T(""));
-#ifndef SQLITE_TEST_DB
+#ifndef SQLITe_Json_DB
 	if(VARIANT_FALSE == bTemFlag)
 		strSqlString.Format(_T("select name from SQLITE_MASTER"));
 	else
@@ -784,7 +784,7 @@ STDMETHODIMP CSqlite3Connect::TableIsExist(BSTR bstrTableName,VARIANT_BOOL bTemF
 	CSqlite3Statement *pSqlite3Statement = m_pSqliteWraper->Statement(CComBSTR(strSqlString));
 	if(!pSqlite3Statement)
 		return E_FAIL;
-#ifdef SQLITE_TEST_DB
+#ifdef SQLITe_Json_DB
 	int iCount = pSqlite3Statement->Fields();
 	for(int index = 0;index<iCount;index++)
 	{
@@ -797,7 +797,7 @@ STDMETHODIMP CSqlite3Connect::TableIsExist(BSTR bstrTableName,VARIANT_BOOL bTemF
 #endif
 	while(pSqlite3Statement->NextRow())
 	{
-#ifndef SQLITE_TEST_DB
+#ifndef SQLITe_Json_DB
 		CString strValue(pSqlite3Statement->ValueString(0));
 		if(0 == strValue.CompareNoCase(bstrTableName))
 		{

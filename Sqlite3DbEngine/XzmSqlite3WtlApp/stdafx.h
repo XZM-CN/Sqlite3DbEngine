@@ -76,6 +76,7 @@ using namespace std;
 #import "..\\bin\\Debug\\DispatchModuleCenter.dll" no_namespace, raw_interfaces_only, raw_native_types, named_guids
 #import "..\\bin\\Debug\\SecurityCollection.dll" no_namespace, raw_interfaces_only, raw_native_types, named_guids
 #import "..\\bin\\Debug\\MsXmlEngine.dll" no_namespace, raw_interfaces_only, raw_native_types, named_guids
+#import "..\\bin\\Debug\\MySqlDbEngine.dll" no_namespace, raw_interfaces_only, raw_native_types, named_guids
 #else
 #import "..\\bin\\Release\\Sqlite3DbEngine.dll" no_namespace, raw_interfaces_only, raw_native_types, named_guids
 #endif

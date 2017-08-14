@@ -39,6 +39,13 @@ bin/*/*/*.res
 *.tli
 *.inf
 *.chw
+
+!MySqlDbEngine/MySql/lib/mysqlclient.lib
+!MySqlDbEngine/MySql/lib/libmysql.dll
+!MySqlDbEngine/MySql/lib/mysqlpp_excommon.lib
+!MySqlDbEngine/MySql/lib/mysqlpp.lib
+!MySqlDbEngine/MySql/lib/mysqlpp.dll
+!MySqlDbEngine/MySql/lib/libmysql.lib
 # 
 # VS工程文件
 # 

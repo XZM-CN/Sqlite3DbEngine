@@ -43,6 +43,7 @@
     <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin\$(Configuration)\$(ProjectName)\</IntDir>
     <IncludePath>../common;$(IncludePath);C:\BCGSoft\BCGControlBarPro\BCGCBPro</IncludePath>
+    <LibraryPath>MySql/lib;$(LibraryPath);C:\Program Files (x86)\BCGSoft\BCGControlBarPro\bin</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IgnoreImportLibrary>true</IgnoreImportLibrary>

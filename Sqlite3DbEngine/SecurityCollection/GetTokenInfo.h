@@ -10,7 +10,7 @@
 // ><出处     ><  
 // ><         ><  1.  http://www.cppblog.com/weiym/archive/2013/08/25/202751.html?opt=admin
 // ><         ><  2.  TDHX_工程笔记.docx
-// ><         ><  3.  
+// ><         ><  3.  第06章 - 访问控制 https://wenku.baidu.com/view/a2733342336c1eb91a375d04.html
 // ><         ><  4.  
 // ><目的     ><  
 // ><         ><  1.  浅析Windows安全相关的一些概念

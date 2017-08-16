@@ -52,6 +52,8 @@ public:
 		MESSAGE_HANDLER(WM_DESTROY, OnDestroy)
 		COMMAND_ID_HANDLER(ID_APP_ABOUT, OnAppAbout)
 		COMMAND_ID_HANDLER(IDOK, OnOK)
+		COMMAND_ID_HANDLER(IDC_BTN_OPENDBPATH, OpenDbPath)
+		COMMAND_ID_HANDLER(IDC_BTN_OPENDBFOLDERPATH, OpenDbFolderPath)
 		COMMAND_ID_HANDLER(IDCANCEL, OnCancel)
 		NOTIFY_HANDLER_EX(IDC_TREEXZM, NM_CLICK, OnTreeXzmClickTree)
 		ALT_MSG_MAP(1)
@@ -59,6 +61,7 @@ public:
 		ALT_MSG_MAP(2)
 		MSG_WM_SETCURSOR(OnSetCursor_Exit)
 		ALT_MSG_MAP(3)
+		REFLECT_NOTIFICATIONS() // bianjikuang 
 	END_MSG_MAP()
 
 	BEGIN_DDX_MAP(CMainAppDlg)
@@ -80,6 +83,8 @@ public:
 	LRESULT OnAppAbout(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/);
 	LRESULT OnOK(WORD /*wNotifyCode*/, WORD wID, HWND /*hWndCtl*/, BOOL& /*bHandled*/);
 	LRESULT OnCancel(WORD /*wNotifyCode*/, WORD wID, HWND /*hWndCtl*/, BOOL& /*bHandled*/);
+	LRESULT OpenDbPath(WORD /*wNotifyCode*/, WORD wID, HWND /*hWndCtl*/, BOOL& /*bHandled*/);
+	LRESULT OpenDbFolderPath(WORD /*wNotifyCode*/, WORD wID, HWND /*hWndCtl*/, BOOL& /*bHandled*/);
 	void CloseDialog(int nVal);
 
 

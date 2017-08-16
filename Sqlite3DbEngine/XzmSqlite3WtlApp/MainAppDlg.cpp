@@ -34,7 +34,8 @@ CComPtr <ISqlite3Connect> CheckDataConnectEx(HWND hWnd)
 
 
 CMainAppDlg::CMainAppDlg(void)
-	: m_wndOKBtn(0x01), m_wndExitBtn(0x02),m_wndAboutBtn(0x03)
+	: m_wndOKBtn(0x01), m_wndExitBtn(0x02),m_wndAboutBtn(0x03),
+	m_strDbName(_T("")),m_DbPwd(_T("")),m_strDbPath(_T(""))
 {
 	m_spiSqlite3Connect   = NULL;
 	m_spiParaService      = NULL;
@@ -114,6 +115,47 @@ LRESULT CMainAppDlg::OnOK(WORD /*wNotifyCode*/, WORD wID, HWND /*hWndCtl*/, BOOL
 LRESULT CMainAppDlg::OnCancel(WORD /*wNotifyCode*/, WORD wID, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
 {
 	CloseDialog(wID);
+	return 0;
+}
+
+// 打开文件路径
+LRESULT CMainAppDlg::OpenDbPath(WORD /*wNotifyCode*/, WORD wID, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
+{
+	// 数据从控件到变量
+	if(!DoDataExchange(true)){
+		return FALSE;
+		_tprintf(_T("ssssssssssssssssssss"));
+	}
+	_tprintf(_T("ssssssssssssssssssss"));
+
+	TCHAR  strFileFilters[1024]=_T("Png Files(*.png)\0*.png\0\0");
+	CFileDialog   selImageDialog(TRUE,NULL,NULL,OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT,strFileFilters,this->m_hWnd);
+
+
+	TCHAR  temp[1024];  
+	ZeroMemory(temp,sizeof(TCHAR)*1024);
+
+
+	selImageDialog.m_ofn.lpstrFile=temp;
+	selImageDialog.m_ofn.nMaxFile=1024;
+
+	if (IDOK==selImageDialog.DoModal())
+	{
+		wstring   wstrImagePath=temp;
+		m_strDbPath.Format(_T("%s"),temp);
+	}
+
+	// 数据从变量到控件
+	if(!DoDataExchange(false)){
+		return FALSE;
+	}
+
+	return 0;
+}
+
+// 打开文件夹路径
+LRESULT CMainAppDlg::OpenDbFolderPath(WORD /*wNotifyCode*/, WORD wID, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
+{
 	return 0;
 }
 

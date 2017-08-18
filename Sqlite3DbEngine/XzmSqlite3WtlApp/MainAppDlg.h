@@ -68,7 +68,7 @@ public:
 		DDX_CONTROL(IDC_TREEXZM, m_TreeXzm)
 		DDX_CONTROL(IDC_TREEDLGS, m_TreeDlgs)
 		DDX_TEXT(IDC_EDIT_DBNAME, m_strDbName)
-		DDX_TEXT(IDC_EDIT_DBPWD, m_DbPwd)
+		DDX_TEXT(IDC_EDIT_DBOPENPWD, m_DbOpenPwd)
 		DDX_TEXT(IDC_EDIT_DBPATH, m_strDbPath)
 		DDX_TEXT(IDC_EDIT_DBFOLDERPATH, m_DbFolderPath)
 		DDX_TEXT(IDC_EDIT_DBMODIFYPWD, m_DbModifyPwd)
@@ -107,18 +107,19 @@ protected:
 	CButtonImpl      m_wndAboutBtn;
 
 	CString m_strDbName;    // 数据库的名字
-	CString m_DbPwd;        // 数据库的密码
+	CString m_DbOpenPwd;    // 数据库的密码
 	CString m_strDbPath;    // 数据库的绝对路径
 	CString m_DbFolderPath; // 数据库所在文件夹的路径
 	CString m_DbModifyPwd;  // 数据库新密码
 
 public:
-	CComPtr <ISqlite3Connect> m_spiSqlite3Connect;
-	CComPtr <IParaService>    m_spiParaService;
-	CComPtr <IJsonService>    m_spiJsonService;
+	CComPtr <ISqlite3Connect>   m_spiSqlite3Connect;
+	CComPtr <IParaService>      m_spiParaService;
+	CComPtr <IJsonService>      m_spiJsonService;
 	CComPtr <ITestInterface>    m_spiTestInterface;
 	CComPtr <IXMsXmlWrapper>    m_spiXMsXmlWrapper;
-	CComPtr <IMySQLLogic>    m_spiMySQLLogic;
+	CComPtr <IMySQLLogic>       m_spiMySQLLogic;
+	CComPtr <IMd5Logic>         m_spiMd5Logic;
 	/// 是否开启上传Syslog
 	BOOL m_bStartSyslog;
 	//创建上传Syslog日志线程

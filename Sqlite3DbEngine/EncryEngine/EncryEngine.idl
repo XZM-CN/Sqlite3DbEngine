@@ -14,13 +14,28 @@ import "ocidl.idl";
 	nonextensible,
 	pointer_default(unique)
 ]
-interface ISoftEncry : IDispatch{
+interface IAesLogic : IDispatch{
 	[id(1), helpstring("AES ECB加密")] HRESULT AesEcbEnc([in] BYTE *szIn,[in] ULONG nInLen,[in] BYTE *szKey,[out] ULONG* pnOutLen,[out,retval] BYTE** ppBuf);
 	[id(2), helpstring("AES ECB解密")] HRESULT AesEcbDes([in] BYTE *szIn,[in] ULONG nInLen,[in] BYTE *szKey,[out] ULONG* pnOutLen,[out,retval] BYTE** ppBuf);
 	[id(3), helpstring("AES CBC加密")] HRESULT AesCbcEnc([in] BYTE *szIn,[in] ULONG nInLen,[in] BYTE *szKey,[in] BYTE *szIV,[out] ULONG* pnOutLen,[out,retval] BYTE** ppBuf);
 	[id(4), helpstring("AES CBC解密")] HRESULT AesCbcDes([in] BYTE *szIn,[in] ULONG nInLen,[in] BYTE *szKey,[in] BYTE *szIV,[out] ULONG* pnOutLen,[out,retval] BYTE** ppBuf);
-	
+	[id(5), helpstring("AES CFB加密")] HRESULT AesCfbEnc(void);
+	[id(6), helpstring("AES CFB解密")] HRESULT AesCfbDes(void);
+	[id(7), helpstring("AES OFB加密")] HRESULT AesOfbEnc(void);
+	[id(8), helpstring("AES OFB解密")] HRESULT AesOfbDes(void);
 	[id(9), helpstring("释放内存")] HRESULT ReleaseBuf([in,out] BYTE* pBuf);
+	[id(10), helpstring("测试程序")] HRESULT Test(void);
+};
+[
+	object,
+	uuid(32A62B42-9814-4256-89DC-A60CC13D35B6),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+interface IMd5Logic : IDispatch{
+	[id(1)] HRESULT StringMD5(BSTR bstrString, [out,retval] BSTR* pbstrMD5);
+	[id(2)] HRESULT StringSha1([in] BSTR bstrString, [out,retval] BSTR* pbstrSha1);
 };
 [
 	uuid(7D7A6FE7-04F4-4C6A-AE87-932820F3341A),
@@ -32,9 +47,16 @@ library EncryEngineLib
 	[
 		uuid(32D4B109-7846-4A43-97FD-1D73FA11F3DA)		
 	]
-	coclass SoftEncry
+	coclass AesLogic
 	{
-		[default] interface ISoftEncry;
+		[default] interface IAesLogic;
+	};
+	[
+		uuid(9206C45F-9FBC-460B-9669-3807DAABC238)		
+	]
+	coclass Md5Logic
+	{
+		[default] interface IMd5Logic;
 	};
 };
 

@@ -35,7 +35,7 @@ CComPtr <ISqlite3Connect> CheckDataConnectEx(HWND hWnd)
 
 CMainAppDlg::CMainAppDlg(void)
 	: m_wndOKBtn(0x01), m_wndExitBtn(0x02),m_wndAboutBtn(0x03),
-	m_strDbName(_T("")),m_DbPwd(_T("")),m_strDbPath(_T(""))
+	m_strDbName(_T("")),m_DbOpenPwd(_T("")),m_strDbPath(_T(""))
 {
 	m_spiSqlite3Connect   = NULL;
 	m_spiParaService      = NULL;
@@ -44,6 +44,7 @@ CMainAppDlg::CMainAppDlg(void)
 	m_spiTestInterface    = NULL;
 	m_spiXMsXmlWrapper    = NULL;
 	m_spiMySQLLogic       = NULL;
+	m_spiMd5Logic         = NULL;
 }
 
 
@@ -124,9 +125,8 @@ LRESULT CMainAppDlg::OpenDbPath(WORD /*wNotifyCode*/, WORD wID, HWND /*hWndCtl*/
 	// 数据从控件到变量
 	if(!DoDataExchange(true)){
 		return FALSE;
-		_tprintf(_T("ssssssssssssssssssss"));
+		printf("更新控件失败\n");
 	}
-	_tprintf(_T("ssssssssssssssssssss"));
 
 	TCHAR  strFileFilters[1024]=_T("Png Files(*.png)\0*.png\0\0");
 	CFileDialog   selImageDialog(TRUE,NULL,NULL,OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT,strFileFilters,this->m_hWnd);
@@ -215,7 +215,7 @@ void CMainAppDlg::InitXzmTree()
 
 	HTREEITEM hItemx = NULL;
 
-	
+
 	/*HTREEITEM*/ hItemx = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("测试接口指针,以后可能废除"));
 	if (hItemx != NULL)
 	{
@@ -232,26 +232,16 @@ void CMainAppDlg::InitXzmTree()
 		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("清空密码"));
 		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("重置密码"));
 		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("释放接口指针"));
-		
+
 		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("清理垃圾文件")); m_TreeXzm.Expand(hItemx, TVE_COLLAPSE);
 	}
 
-	/*HTREEITEM*/ hItemx = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("Sqlite3打开数据库如果不存在就退出"));
+	/*HTREEITEM*/ hItemx = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("Sqlite3-xzm"));
 	if (hItemx != NULL)
 	{
-		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("取得接口指针"));
-		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("打开带密码的数据库"));
-		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("打开不带密码的数据库"));
-		
-		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("清理垃圾文件")); m_TreeXzm.Expand(hItemx, TVE_COLLAPSE);
-	}
-
-	/*HTREEITEM*/ hItemx = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("Sqlite3创建数据库,如果数据库存在就擦除重建"));
-	if (hItemx != NULL)
-	{
-		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("取得接口指针"));
 		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("打开数据库"));
 		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("加密数据库"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("清空数据库密码"));
 		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("解密数据库"));
 		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("创建表T_Sys"));
 		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("向表T_Sys插入数据"));
@@ -265,8 +255,8 @@ void CMainAppDlg::InitXzmTree()
 		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("查询表T_Event"));
 		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("查询表T_Warn"));
 		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("查询表T_Para"));
-		
-		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("清理垃圾文件")); m_TreeXzm.Expand(hItemx, TVE_COLLAPSE);
+
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("清理垃圾文件")); m_TreeXzm.Expand(hItemx, TVE_EXPAND);
 	}
 
 	/*HTREEITEM*/ hItemx = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("MySQL-xzmdb"));
@@ -332,7 +322,7 @@ void CMainAppDlg::InitXzmTree()
 		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_MsXml10"));
 		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_MsXml11"));
 
-		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("清理垃圾文件")); m_TreeXzm.Expand(hItemx, TVE_EXPAND);
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("清理垃圾文件")); m_TreeXzm.Expand(hItemx, TVE_COLLAPSE);
 	}
 
 	/*HTREEITEM*/ hItemx = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("MSXMLBaseEx"));
@@ -351,7 +341,7 @@ void CMainAppDlg::InitXzmTree()
 		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_MsXml10"));
 		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_MsXml11"));
 
-		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("清理垃圾文件")); m_TreeXzm.Expand(hItemx, TVE_EXPAND);
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("清理垃圾文件")); m_TreeXzm.Expand(hItemx, TVE_COLLAPSE);
 	}
 
 	/*HTREEITEM*/ hItemx = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("打印Log测试"));
@@ -370,7 +360,7 @@ void CMainAppDlg::InitXzmTree()
 	/*HTREEITEM*/ hItemx = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("md5测试,使用独立包"));
 	if (hItemx != NULL)
 	{
-		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("对字符串进行MD5并Hash"));
 		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
 		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
 		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
@@ -573,8 +563,8 @@ LRESULT CMainAppDlg::OnTreeXzmClickTree(NMHDR* phdr)
 		m_TreeXzm.GetItemText(hItemHit,bstr);
 		//if(bstr == NULL) return 0;
 		ATL::CString str(bstr);
-		
-		
+
+
 		if(IsYourChild( _T("01"),m_TreeXzm,hItemHit))
 		{
 			if(0 == str.Compare( _T("GetComPtr通过绝对路径")))
@@ -602,34 +592,15 @@ LRESULT CMainAppDlg::OnTreeXzmClickTree(NMHDR* phdr)
 				OutputDebugString(_T("01\n"));
 			}
 		}
-		else if(IsYourChild( _T("解密数据库文件(重置密码)"),m_TreeXzm,hItemHit))
+		else if(IsYourChild( _T("Sqlite3-xzm"),m_TreeXzm,hItemHit))
 		{
-			if(0 == str.Compare( _T("取得接口指针")))
-			{
-				CComPtr <ISqlite3Connect> spiSqlite3Connect = CheckDataConnectEx(this->m_hWnd);
-			}
-			else if(0 == str.Compare( _T("打开带密码的数据库")))
-			{
-			}
-			else if(0 == str.Compare( _T("清空密码")))
-			{
-			}
-			else if(0 == str.Compare( _T("重置密码")))
-			{
-			}
-			else if(0 == str.Compare( _T("释放接口指针")))
-			{
-			}
-		}
-		else if(IsYourChild( _T("Sqlite3创建数据库,如果数据库存在就擦除重建"),m_TreeXzm,hItemHit))
-		{
-			if(0 == str.Compare( _T("取得接口指针")))
+			if(m_spiSqlite3Connect == NULL)
 			{
 				CComPtr <ISqlite3Connect> spiSqlite3Connect = CheckDataConnectEx(this->m_hWnd);
 				if(m_spiSqlite3Connect == NULL)
 					m_spiSqlite3Connect = spiSqlite3Connect;
 				else
-					::MessageBox( 0, _T(""), _T(""), MB_OK);
+					::MessageBox( 0, _T("接口指针获取失败"), _T("warning"), MB_OK);
 			}
 			else if(0 == str.Compare( _T("打开数据库")))
 			{
@@ -640,17 +611,66 @@ LRESULT CMainAppDlg::OnTreeXzmClickTree(NMHDR* phdr)
 				if ( !DoDataExchange(true) ) // == 更新控件关联的变量UpdateData
 					return 0;
 
-				if(m_spiSqlite3Connect == NULL) {
-					::MessageBox( 0, _T("m_spiSqlite3Connect未初始化"), _T(""), MB_OK);
-					return 0;
+				HRESULT hr = E_FAIL;
+				if (0 == m_DbOpenPwd.Compare( _T(""))) {
+					printf("m_DbOpenPwd的值为空\n");
+					hr = m_spiSqlite3Connect->Open(CComBSTR(strPath),_T(""),TRUE);
+					if(FAILED(hr)){
+						printf("打开数据库失败\n");
+					}
 				}
-				m_spiSqlite3Connect->Open(CComBSTR(strPath),_T(""),TRUE);
+				else {
+					printf("m_DbOpenPwd的值不为空\n");
+					hr = m_spiSqlite3Connect->Open(CComBSTR(strPath),CComBSTR(m_DbOpenPwd),TRUE);
+					if(FAILED(hr)){
+						printf("打开数据库失败\n");
+					}
+				}
+				
 			}
 			else if(0 == str.Compare( _T("加密数据库")))
 			{
+				if ( !DoDataExchange(true) ) // == 更新控件关联的变量UpdateData
+					return 0;
+
+				if (0 == m_DbModifyPwd.Compare( _T(""))) {
+					int iMsg = ::MessageBoxW(NULL,_T("密码为空请设置一个密码"),_T("waring"),MB_OKCANCEL);
+					if(iMsg == 1/*确定*/){
+						if ( !DoDataExchange(true) ) // == 更新控件关联的变量UpdateData
+							return 0;
+
+						// 进行数据库加密代码逻辑
+					}
+					else if (iMsg == 2/*取消*/)
+					{
+						return 0;
+					}
+				}
+				else{
+					int iMsg = ::MessageBoxW(NULL,_T("请记住加密的密码"),_T("waring"),MB_OK);
+					if(iMsg == 1/*确定*/){
+						// 解密数据库，使用DbPwd控件对应的变量 -- m_DbPwd
+					}
+					else if (iMsg == 2/*取消*/)
+					{
+						return 0;
+					}
+				}
+			}
+			else if(0 == str.Compare( _T("清空数据库密码")))
+			{
+				int iMsg = ::MessageBoxW(NULL,_T("确定要清空数据库的密码吗?"),_T("waring"),MB_OKCANCEL);
+				if(iMsg == 1/*确定*/){
+					// 清空密码
+				}
+				else if (iMsg == 2/*取消*/)
+				{
+					return 0;
+				}
 			}
 			else if(0 == str.Compare( _T("解密数据库")))
 			{
+
 			}
 			else if(0 == str.Compare( _T("创建表T_Sys")))
 			{
@@ -1162,8 +1182,50 @@ LRESULT CMainAppDlg::OnTreeXzmClickTree(NMHDR* phdr)
 		}
 		else if(IsYourChild( _T("md5测试,使用独立包"),m_TreeXzm,hItemHit))
 		{
-			if(0 == str.Compare( _T("xxx")))
+			if(m_spiMd5Logic ==  NULL) {
+				CComPtr <IMd5Logic> spIMd5Logic = NULL;
+				CString strModulePath = CBaseFuncLib::GetModulePath();
+				strModulePath = strModulePath + _T("EncryEngine.dll");
+				if(!strModulePath.IsEmpty())
+				{
+					HINSTANCE hInst = NULL;
+					hInst = CBaseFuncLib::CreateInstance( strModulePath.GetBuffer(),__uuidof(Md5Logic),__uuidof(IMd5Logic),(VOID **)&spIMd5Logic);
+					if(hInst == NULL)
+						return 0;
+					ATLASSERT(spIMd5Logic);
+				}
+				if(m_spiMd5Logic == NULL)
+					m_spiMd5Logic = spIMd5Logic;
+				else
+					::MessageBox( 0, _T("出现不可能的差错了"), _T("warning"), MB_OK);
+			}
+			if(0 == str.Compare( _T("对字符串进行MD5并Hash")))
 			{
+				if(!DoDataExchange(true))
+					return FALSE;
+				if(m_DbOpenPwd.GetLength() < 5)
+				{
+					this->MessageBox(_T("密码输入不合法！"),_T("Warning"),MB_OK);
+					return 0;
+				}
+
+				CComBSTR bstrMD5,bstrSha1;
+
+				m_spiMd5Logic->StringMD5(CComBSTR(m_DbOpenPwd),&bstrMD5);
+				OutputDebugString(_T("m_DbOpenPwd   "));
+				OutputDebugString(m_DbOpenPwd);
+				OutputDebugString(_T("\n"));
+				OutputDebugString(_T("bstrMD5   "));
+				OutputDebugString(bstrMD5);
+				OutputDebugString(_T("\n"));
+
+				m_spiMd5Logic->StringSha1(bstrMD5,&bstrSha1);
+				OutputDebugString(_T("bstrMD5   "));
+				OutputDebugString(bstrMD5);
+				OutputDebugString(_T("\n"));
+				OutputDebugString(_T("bstrSha1   "));
+				OutputDebugString(bstrSha1);
+				OutputDebugString(_T("\n"));
 			}
 			else if(0 == str.Compare( _T("xxx")))
 			{
@@ -1341,7 +1403,7 @@ UINT CMainAppDlg::DoClientTest(LPVOID pParam)
 		return 0;
 	}
 
-	
+
 	char *pText = NULL;
 	int nSendLen = CBaseFuncLib::Us2ToChar(strSendData, &pText);
 	::send(xxx, pText, strlen(pText), 0);

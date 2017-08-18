@@ -21,7 +21,7 @@
 #define IDC_TREEDLGS                    1009
 #define IDC_EDIT_DBNAME                 1010
 #define IDC_EDIT_DBPATH                 1011
-#define IDC_EDIT_DBPWD                  1012
+#define IDC_EDIT_DBOPENPWD                  1012
 #define IDC_BTN_OPENDBPATH              1013
 #define IDC_EDIT_DBFOLDERPATH           1014
 #define IDC_BTN_OPENDBFOLDERPATH        1015

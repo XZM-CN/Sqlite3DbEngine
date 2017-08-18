@@ -43,7 +43,6 @@ template <typename P>
 class LocalMemory
 {
 public:
-
 	LocalMemory() :
 		m_p(0)
 	{

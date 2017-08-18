@@ -79,7 +79,7 @@
       <SubSystem>Windows</SubSystem>
       <ModuleDefinitionFile>.\EncryEngine.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <RegisterOutput>true</RegisterOutput>
+      <RegisterOutput>false</RegisterOutput>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -117,6 +117,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\Common\BaseFuncLib.cpp" />
+    <ClCompile Include="..\Common\HXRegKey.cpp" />
     <ClCompile Include="dllmain.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -134,7 +136,9 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="SoftEncry.cpp" />
+    <ClCompile Include="Md5Logic.cpp" />
+    <ClCompile Include="Md5Wrapper.cpp" />
+    <ClCompile Include="AesLogic.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -151,8 +155,10 @@
   <ItemGroup>
     <ClInclude Include="dllmain.h" />
     <ClInclude Include="EncryEngine_i.h" />
+    <ClInclude Include="Md5Logic.h" />
+    <ClInclude Include="Md5Wrapper.h" />
     <ClInclude Include="Resource.h" />
-    <ClInclude Include="SoftEncry.h" />
+    <ClInclude Include="AesLogic.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="xdlldata.h" />
@@ -163,8 +169,9 @@
   <ItemGroup>
     <None Include="EncryEngine.def" />
     <None Include="EncryEngine.rgs" />
+    <None Include="Md5Logic.rgs" />
     <None Include="ReadMe.txt" />
-    <None Include="SoftEncry.rgs" />
+    <None Include="AesLogic.rgs" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="EncryEngine.idl" />

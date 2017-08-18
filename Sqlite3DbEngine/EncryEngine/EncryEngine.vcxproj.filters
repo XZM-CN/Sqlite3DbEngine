@@ -34,7 +34,19 @@
     <ClCompile Include="EncryEngine_i.c">
       <Filter>生成的文件</Filter>
     </ClCompile>
-    <ClCompile Include="SoftEncry.cpp">
+    <ClCompile Include="Md5Wrapper.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\BaseFuncLib.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\HXRegKey.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Md5Logic.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="AesLogic.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -57,7 +69,13 @@
     <ClInclude Include="EncryEngine_i.h">
       <Filter>生成的文件</Filter>
     </ClInclude>
-    <ClInclude Include="SoftEncry.h">
+    <ClInclude Include="Md5Wrapper.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Md5Logic.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="AesLogic.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -74,7 +92,10 @@
     <None Include="EncryEngine.def">
       <Filter>源文件</Filter>
     </None>
-    <None Include="SoftEncry.rgs">
+    <None Include="Md5Logic.rgs">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="AesLogic.rgs">
       <Filter>资源文件</Filter>
     </None>
   </ItemGroup>

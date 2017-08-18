@@ -14,6 +14,8 @@ void CSidInfo::Print(std::wostream& os) const
 	PrintSidString(os);
 	PrintSidAccount(os);
 }
+
+// 将m_pSid（SID）转化成字符串，m_pSid是以二进制存储的，没法显示
 void CSidInfo::PrintSidString(std::wostream& os) const
 {
 	LPTSTR lpszSid = NULL;
@@ -22,6 +24,12 @@ void CSidInfo::PrintSidString(std::wostream& os) const
 	::LocalFree(lpszSid);
 }
 
+// 输出与m_pSid（SID）相关的
+// 
+// 账户名称
+// 域名称
+// 账户类型
+// 
 void CSidInfo::PrintSidAccount(std::wostream& os) const
 {
 	DWORD dwLen = 256;

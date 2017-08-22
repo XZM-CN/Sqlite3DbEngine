@@ -10,7 +10,8 @@
 //#define	QDAK_VRSION_SINGLE
 
 /// 定义是否用USB安全U卡方案
-//#define TDHXKJ_VERSION_NOUSB
+#define TDHXKJ_VERSION_NOUSB
+//#undef  TDHXKJ_VERSION_NOUSB
 /// 定义适用于XP和2000系统版本
 #define TDHXKJ_VERSION_XP2K 
 

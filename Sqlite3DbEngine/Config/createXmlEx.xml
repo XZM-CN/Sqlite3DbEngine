@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<China><!--所在的洲--><Continent xmlns="dddd">Asia</Continent><!--人口数量--><Population Units="Million Person" StatisticalYear="2000">1,296</Population><!--四个直辖市--><Municipality xmlns="dddd"><TianJin xmlns=""><Population Units="Million Person" StatisticalYear="10.01">1,296</Population><Area Units="Thousand Square kilometers">17</Area></TianJin></Municipality></China>

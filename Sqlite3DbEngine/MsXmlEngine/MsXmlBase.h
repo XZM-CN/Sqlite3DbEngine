@@ -29,6 +29,10 @@ using namespace MSXML2;
 
 #define IXML
 //#undef  IXML
+#define XMLNS       _T("XML Namespaces(XML的命名空间)")
+#define XMLNOTE     _T("Extensible Markup Language(可扩展置标语言)")
+
+
 
 #ifdef IXML
 	// xml文档
@@ -104,6 +108,9 @@ public:
 	int CreateDemo09(TCHAR* filePath);
 	//
 	void OpenXml(TCHAR* filePath);
+	//
+	void SystemCfg(TCHAR* filePath);
+
 	// 文档接口实例化
 	BOOL CreateDoc(IXZMDocumentPtr& pIXZMDocumentPtr);
 	// 创建声明

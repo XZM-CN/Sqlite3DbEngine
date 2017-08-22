@@ -692,6 +692,8 @@ public:
 	static BOOL ClearFiles(CString strFile,CString strConfigFolderPath);
 	static BOOL ClearConfigFolderFiles(CString strFile);
 	static BOOL ClearDebugFolderFiles(CString strFile);
+
+	static int StringFind(const char *pSrc, const char *pDst);
 protected:
 	/// ´°¿ÚÃû³Æ
 	static ATL::CString	m_strWndName;

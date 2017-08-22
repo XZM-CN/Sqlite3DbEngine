@@ -54,7 +54,7 @@ int CMsXmlBase::createXml(TCHAR* filePath)
 	pComment = pDoc->createComment((_bstr_t)(TCHAR*)_T("所在的洲"));
 	pRootElement->appendChild((MSXML2::IXMLDOMNode*)pComment); // 注释
 
-	pNode = pDoc->createNode((_variant_t)(long)XZMNodeType::NODE_ELEMENT, (_bstr_t)(TCHAR*)_T("Continent"), (_bstr_t)(TCHAR*)_T("dddd"));
+	pNode = pDoc->createNode((_variant_t)(long)XZMNodeType::NODE_ELEMENT, (_bstr_t)(TCHAR*)_T("Continent"), (_bstr_t)(TCHAR*)XMLNS);
 	pNode->Puttext((_bstr_t)(TCHAR*)_T("Asia")); // pNode->text = "Asia";
 	pRootElement->appendChild(pNode); // 节点
 
@@ -138,7 +138,7 @@ int CMsXmlBase::createXmlEx(TCHAR* filePath){
 
 
 	IXZMNodePtr pNode1 = NULL;
-	pNode1 = CreateNode(pIXZMDocumentPtr,_T("Continent"),_T("Asia"),_T("dddd"));
+	pNode1 = CreateNode(pIXZMDocumentPtr,_T("Continent"),_T("Asia"),XMLNS);
 	pRootElement->appendChild(pNode1); // 节点
 
 	IXZMCommentPtr pComment2 = NULL;
@@ -161,7 +161,7 @@ int CMsXmlBase::createXmlEx(TCHAR* filePath){
 	pRootElement->appendChild((IXZMNode*)pComment3); // 注释
 
 	IXZMNodePtr pNode2 = NULL;
-	pNode2 = CreateNode(pIXZMDocumentPtr,_T("Municipality"),_T(""),_T("dddd"));
+	pNode2 = CreateNode(pIXZMDocumentPtr,_T("Municipality"),_T(""),XMLNS);
 	pRootElement->appendChild(pNode2); // 节点
 
 	IXZMNodePtr pNode21 = NULL;
@@ -269,7 +269,7 @@ int CMsXmlBase::CreateDemo04(TCHAR* filePath)
 
 
 	IXZMNodePtr pNode = NULL;
-	pNode = CreateNode(pIXZMDocumentPtr,_T("子节点-IXZMNodePtr"),_T(""),_T("dddd"));
+	pNode = CreateNode(pIXZMDocumentPtr,_T("子节点-IXZMNodePtr"),_T(""),XMLNS);
 	pRootElement->appendChild(pNode);
 
 	IXZMNodePtr pNodeChild = NULL;
@@ -308,7 +308,7 @@ int CMsXmlBase::CreateDemo05(TCHAR* filePath)
 
 
 	IXZMNodePtr pNode = NULL;
-	pNode = CreateNode(pIXZMDocumentPtr,_T("Municipality"),_T(""),_T("dddd"));
+	pNode = CreateNode(pIXZMDocumentPtr,_T("Municipality"),_T(""),XMLNS);
 	pRootElement->appendChild(pNode); // 节点
 
 	IXZMNodePtr pNodeChild = NULL;
@@ -524,6 +524,90 @@ void CMsXmlBase::OpenXml(TCHAR* filePath)
 	}
 }
 
+void CMsXmlBase::SystemCfg(TCHAR* filePath)
+{
+	BOOL bRet = FALSE;
+
+	IXZMDocumentPtr pIXZMDocumentPtr = NULL;
+	bRet = CreateDoc(pIXZMDocumentPtr);
+
+	bRet = CreateStatement(pIXZMDocumentPtr,_T("xml"),_T("version=\"1.0\" encoding=\"utf-8\""));
+
+	IXZMElementPtr pRootElement = NULL;
+	pRootElement = CreateRoot(pIXZMDocumentPtr,_T("SysCfg"));
+
+
+
+
+	IXZMCommentPtr pComment1 = NULL;
+	pComment1 = CreateComment(pIXZMDocumentPtr,_T("CryptLib的XML注释"));
+	pRootElement->appendChild((IXZMNode*)pComment1); // 注释
+
+
+	IXZMNodePtr pNode1 = NULL;
+	pNode1 = CreateNode(pIXZMDocumentPtr,_T("CryptLib"),_T("Asia"),XMLNS);
+	pRootElement->appendChild(pNode1); // 节点
+
+	IXZMCommentPtr pComment2 = NULL;
+	pComment2 = CreateComment(pIXZMDocumentPtr,_T("DecryptEngine的XML注释"));
+	pRootElement->appendChild((IXZMNode*)pComment2); // 注释
+
+	IXZMElementPtr pElement1 = NULL;
+	pElement1 = CreateElement(pIXZMDocumentPtr,_T("DecryptEngine"),_T("1,296"));
+
+	IXZMAttributePtr pAttr1 = NULL;
+	pAttr1 = CreateAttr(pIXZMDocumentPtr,_T("Units"),_T("Million Person"));
+	pElement1->setAttributeNode(pAttr1); // 统计单位
+	pAttr1 = CreateAttr(pIXZMDocumentPtr,_T("StatisticalYear"),_T("2000"));
+	pElement1->setAttributeNode(pAttr1); // 统计年份
+
+	pRootElement->appendChild(pElement1); // 节点
+
+	IXZMCommentPtr pComment3 = NULL;
+	pComment3 = CreateComment(pIXZMDocumentPtr,_T("DispatchModuleCenter的XML注释"));
+	pRootElement->appendChild((IXZMNode*)pComment3); // 注释
+
+	IXZMNodePtr pNode2 = NULL;
+	pNode2 = CreateNode(pIXZMDocumentPtr,_T("DispatchModuleCenter"),_T(""),XMLNS);
+	pRootElement->appendChild(pNode2); // 节点
+
+	IXZMNodePtr pNode21 = NULL;
+	pNode21 = CreateNode(pIXZMDocumentPtr,_T("TianJin"),_T(""),_T(""));
+
+	IXZMElementPtr pElement2 = NULL;
+	pElement2 = CreateElement(pIXZMDocumentPtr,_T("Population"),_T("1,296"));
+
+	IXZMAttributePtr pAttr2 = NULL;
+	pAttr2 = CreateAttr(pIXZMDocumentPtr,_T("Units"),_T("Million Person"));
+	pElement2->setAttributeNode(pAttr2); // 统计单位
+	pAttr2 = CreateAttr(pIXZMDocumentPtr,_T("StatisticalYear"),_T("10.01"));
+	pElement2->setAttributeNode(pAttr2); // 统计年份
+	pNode21->appendChild((MSXML2::IXMLDOMNode*)pElement2);
+
+	IXZMElementPtr pElement3 = NULL;
+	pElement3 = CreateElement(pIXZMDocumentPtr,_T("Area"),_T("17"));
+
+	IXZMAttributePtr pAttr3 = NULL;
+	pAttr3 = CreateAttr(pIXZMDocumentPtr,_T("Units"),_T("Thousand Square kilometers"));
+	pElement3->setAttributeNode(pAttr3); // 统计单位
+	pNode21->appendChild((MSXML2::IXMLDOMNode*)pElement3);
+
+
+	pNode2->appendChild(pNode21);
+
+
+
+
+	pIXZMDocumentPtr->save((_variant_t)filePath);
+}
+IXZMElementPtr pElement2 = NULL;
+pElement2 = CreateElement(pIXZMDocumentPtr,_T("Population"),_T("1,296"));
+IXZMAttributePtr pAttr0 = NULL;
+pAttr0 = CreateAttr(pIXZMDocumentPtr,_T("Units"),_T("Million Person"));
+pElement2->setAttributeNode(pAttr0); // 统计单位
+pAttr0 = CreateAttr(pIXZMDocumentPtr,_T("StatisticalYear"),_T("10.01"));
+pElement2->setAttributeNode(pAttr0); // 统计年份
+pNode21->appendChild((MSXML2::IXMLDOMNode*)pElement2);
 //////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////
 /////////              封装的内部核心函数            /////////////////////

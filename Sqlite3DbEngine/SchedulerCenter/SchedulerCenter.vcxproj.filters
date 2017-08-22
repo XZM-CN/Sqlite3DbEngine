@@ -34,6 +34,12 @@
     <ClCompile Include="SchedulerCenter_i.c">
       <Filter>生成的文件</Filter>
     </ClCompile>
+    <ClCompile Include="SchedulerBase.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="MsXmlScheduler.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -53,6 +59,12 @@
     </ClInclude>
     <ClInclude Include="SchedulerCenter_i.h">
       <Filter>生成的文件</Filter>
+    </ClInclude>
+    <ClInclude Include="SchedulerBase.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="MsXmlScheduler.h">
+      <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

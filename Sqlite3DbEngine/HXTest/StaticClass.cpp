@@ -6,7 +6,7 @@
 
 CRITICAL_SECTION csHeartBeat;
 CRITICAL_SECTION csUpLoad;
-
+#define SERVERIP   "192.168.0.67"
 CStaticClass::CStaticClass(void)
 {
 	m_spiJsonService = NULL;
@@ -47,7 +47,7 @@ UINT CStaticClass::ApplyRegister(LPVOID pParam)
 {
 	PCStaticClass pThis = (PCStaticClass)pParam;
 	// 创建套节字
-	SOCKET xxx = ::socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+	SOCKET xxx = ::socket(AF_INET, SOCK_STREAM, 0);
 
 	if(xxx == INVALID_SOCKET)
 	{
@@ -64,9 +64,11 @@ UINT CStaticClass::ApplyRegister(LPVOID pParam)
 
 	// 注意,这里要填写服务器程序(TCPServer程序)所在机器的IP地址
 	// 如果你的计算机没有联网,直接使用127.0.0.1即可
-	servAddr.sin_addr.S_un.S_addr = inet_addr("192.168.0.25");
+	servAddr.sin_addr.S_un.S_addr = inet_addr(SERVERIP);
 
-	if(::connect(xxx, (sockaddr*)&servAddr, sizeof(servAddr)) == SOCKET_ERROR)
+	int cRet = 0;
+	cRet = ::connect(xxx, (sockaddr*)&servAddr, sizeof(servAddr));
+	if(cRet == SOCKET_ERROR)
 	{
 		// ::MessageBox(NULL,_T("未初始化socket库"),_T(""),MB_OK);
 		printf(" Failed connect() \n");
@@ -123,6 +125,7 @@ UINT CStaticClass::ApplyRegister(LPVOID pParam)
 			if(senfRet == SOCKET_ERROR)
 			{
 				printf("发送数据失败%s%d", __FILE__, __LINE__);
+				return 0;
 			}
 			senfRet = SOCKET_ERROR;
 			// 	if(::sendto(xxx, pText, 10,0,(sockaddr*)&servAddr,sizeof(pText)) == SOCKET_ERROR)
@@ -145,6 +148,8 @@ UINT CStaticClass::ApplyRegister(LPVOID pParam)
 				JsonBuff[nRecv] = '\0';
 				OutputAReceiveMsg(JsonBuff);
 			}
+			else
+				return 0;
 		}
 		else // 解析字符串
 		{
@@ -165,6 +170,7 @@ UINT CStaticClass::ApplyRegister(LPVOID pParam)
 						if(senfRet == SOCKET_ERROR)
 						{
 							printf("发送数据失败%s%d", __FILE__, __LINE__);
+							return 0;
 						}
 						nRecv = -1;
 						nRecv = ::recv(xxx, JsonBuff, 256, 0);
@@ -172,6 +178,8 @@ UINT CStaticClass::ApplyRegister(LPVOID pParam)
 						{
 							continue;
 						}
+						else
+							return 0;
 						break;
 					}
 				case 2:
@@ -182,6 +190,7 @@ UINT CStaticClass::ApplyRegister(LPVOID pParam)
 						if(senfRet == SOCKET_ERROR)
 						{
 							printf("发送数据失败%s%d", __FILE__, __LINE__);
+							return 0;
 						}
 						nRecv = -1;
 						nRecv = ::recv(xxx, JsonBuff, 256, 0);
@@ -189,6 +198,8 @@ UINT CStaticClass::ApplyRegister(LPVOID pParam)
 						{
 							continue;
 						}
+						else
+							return 0;
 						break;
 					}
 				case 3:
@@ -199,6 +210,7 @@ UINT CStaticClass::ApplyRegister(LPVOID pParam)
 						if(senfRet == SOCKET_ERROR)
 						{
 							printf("发送数据失败%s%d", __FILE__, __LINE__);
+							return 0;
 						}
 						nRecv = -1;
 						nRecv = ::recv(xxx, JsonBuff, 256, 0);
@@ -206,6 +218,8 @@ UINT CStaticClass::ApplyRegister(LPVOID pParam)
 						{
 							continue;
 						}
+						else
+							return 0;
 						break;
 					}
 				case 4:
@@ -216,6 +230,7 @@ UINT CStaticClass::ApplyRegister(LPVOID pParam)
 						if(senfRet == SOCKET_ERROR)
 						{
 							printf("发送数据失败%s%d", __FILE__, __LINE__);
+							return 0;
 						}
 						nRecv = -1;
 						nRecv = ::recv(xxx, JsonBuff, 256, 0);
@@ -223,6 +238,8 @@ UINT CStaticClass::ApplyRegister(LPVOID pParam)
 						{
 							continue;
 						}
+						else
+							return 0;
 						break;
 					}
 				case 5:
@@ -233,6 +250,7 @@ UINT CStaticClass::ApplyRegister(LPVOID pParam)
 						if(senfRet == SOCKET_ERROR)
 						{
 							printf("发送数据失败%s%d", __FILE__, __LINE__);
+							return 0;
 						}
 						nRecv = -1;
 						nRecv = ::recv(xxx, JsonBuff, 256, 0);
@@ -240,6 +258,8 @@ UINT CStaticClass::ApplyRegister(LPVOID pParam)
 						{
 							continue;
 						}
+						else
+							return 0;
 						break;
 					}
 				case 6:
@@ -250,6 +270,7 @@ UINT CStaticClass::ApplyRegister(LPVOID pParam)
 						if(senfRet == SOCKET_ERROR)
 						{
 							printf("发送数据失败%s%d", __FILE__, __LINE__);
+							return 0;
 						}
 						nRecv = -1;
 						nRecv = ::recv(xxx, JsonBuff, 256, 0);
@@ -257,6 +278,8 @@ UINT CStaticClass::ApplyRegister(LPVOID pParam)
 						{
 							continue;
 						}
+						else
+							return 0;
 						break;
 					}
 				case 7:
@@ -272,6 +295,7 @@ UINT CStaticClass::ApplyRegister(LPVOID pParam)
 						if(senfRet == SOCKET_ERROR)
 						{
 							printf("发送数据失败%s%d", __FILE__, __LINE__);
+							return 0;
 							break;
 						}
 
@@ -290,6 +314,8 @@ UINT CStaticClass::ApplyRegister(LPVOID pParam)
 						{
 							continue;
 						}
+						else
+							return 0;
 
 					}
 					break;
@@ -334,7 +360,7 @@ UINT CStaticClass::ApplyRegister2(LPVOID pParam)
 
 	// 注意,这里要填写服务器程序(TCPServer程序)所在机器的IP地址
 	// 如果你的计算机没有联网,直接使用127.0.0.1即可
-	servAddr.sin_addr.S_un.S_addr = inet_addr("192.168.0.25");
+	servAddr.sin_addr.S_un.S_addr = inet_addr(SERVERIP);
 
 	if(::connect(xxx, (sockaddr*)&servAddr, sizeof(servAddr)) == SOCKET_ERROR)
 	{
@@ -415,6 +441,8 @@ UINT CStaticClass::ApplyRegister2(LPVOID pParam)
 				JsonBuff[nRecv] = '\0';
 				OutputAReceiveMsg(JsonBuff);
 			}
+			else
+				return 0;
 		}
 		else // 解析字符串
 		{
@@ -442,6 +470,8 @@ UINT CStaticClass::ApplyRegister2(LPVOID pParam)
 						{
 							continue;
 						}
+						else
+							return 0;
 						break;
 					}
 				case 2:
@@ -459,6 +489,8 @@ UINT CStaticClass::ApplyRegister2(LPVOID pParam)
 						{
 							continue;
 						}
+						else
+							return 0;
 						break;
 					}
 				case 3:
@@ -604,7 +636,7 @@ UINT CStaticClass::ApplyRegister3(LPVOID pParam)
 
 	// 注意,这里要填写服务器程序(TCPServer程序)所在机器的IP地址
 	// 如果你的计算机没有联网,直接使用127.0.0.1即可
-	servAddr.sin_addr.S_un.S_addr = inet_addr("192.168.0.25");
+	servAddr.sin_addr.S_un.S_addr = inet_addr(SERVERIP);
 
 	if(::connect(xxx, (sockaddr*)&servAddr, sizeof(servAddr)) == SOCKET_ERROR)
 	{
@@ -874,7 +906,7 @@ UINT CStaticClass::ApplyRegister4(LPVOID pParam)
 
 	// 注意,这里要填写服务器程序(TCPServer程序)所在机器的IP地址
 	// 如果你的计算机没有联网,直接使用127.0.0.1即可
-	servAddr.sin_addr.S_un.S_addr = inet_addr("192.168.0.25");
+	servAddr.sin_addr.S_un.S_addr = inet_addr(SERVERIP);
 
 	if(::connect(xxx, (sockaddr*)&servAddr, sizeof(servAddr)) == SOCKET_ERROR)
 	{
@@ -1144,7 +1176,7 @@ UINT CStaticClass::ApplyRegister5(LPVOID pParam)
 
 	// 注意,这里要填写服务器程序(TCPServer程序)所在机器的IP地址
 	// 如果你的计算机没有联网,直接使用127.0.0.1即可
-	servAddr.sin_addr.S_un.S_addr = inet_addr("192.168.0.25");
+	servAddr.sin_addr.S_un.S_addr = inet_addr(SERVERIP);
 
 	if(::connect(xxx, (sockaddr*)&servAddr, sizeof(servAddr)) == SOCKET_ERROR)
 	{
@@ -1414,7 +1446,7 @@ UINT CStaticClass::ApplyRegister6(LPVOID pParam)
 
 	// 注意,这里要填写服务器程序(TCPServer程序)所在机器的IP地址
 	// 如果你的计算机没有联网,直接使用127.0.0.1即可
-	servAddr.sin_addr.S_un.S_addr = inet_addr("192.168.0.25");
+	servAddr.sin_addr.S_un.S_addr = inet_addr(SERVERIP);
 
 	if(::connect(xxx, (sockaddr*)&servAddr, sizeof(servAddr)) == SOCKET_ERROR)
 	{
@@ -1684,7 +1716,7 @@ UINT CStaticClass::ApplyRegister7(LPVOID pParam)
 
 	// 注意,这里要填写服务器程序(TCPServer程序)所在机器的IP地址
 	// 如果你的计算机没有联网,直接使用127.0.0.1即可
-	servAddr.sin_addr.S_un.S_addr = inet_addr("192.168.0.25");
+	servAddr.sin_addr.S_un.S_addr = inet_addr(SERVERIP);
 
 	if(::connect(xxx, (sockaddr*)&servAddr, sizeof(servAddr)) == SOCKET_ERROR)
 	{
@@ -1954,7 +1986,7 @@ UINT CStaticClass::ApplyRegister8(LPVOID pParam)
 
 	// 注意,这里要填写服务器程序(TCPServer程序)所在机器的IP地址
 	// 如果你的计算机没有联网,直接使用127.0.0.1即可
-	servAddr.sin_addr.S_un.S_addr = inet_addr("192.168.0.25");
+	servAddr.sin_addr.S_un.S_addr = inet_addr(SERVERIP);
 
 	if(::connect(xxx, (sockaddr*)&servAddr, sizeof(servAddr)) == SOCKET_ERROR)
 	{
@@ -2224,7 +2256,7 @@ UINT CStaticClass::ApplyRegister9(LPVOID pParam)
 
 	// 注意,这里要填写服务器程序(TCPServer程序)所在机器的IP地址
 	// 如果你的计算机没有联网,直接使用127.0.0.1即可
-	servAddr.sin_addr.S_un.S_addr = inet_addr("192.168.0.25");
+	servAddr.sin_addr.S_un.S_addr = inet_addr(SERVERIP);
 
 	if(::connect(xxx, (sockaddr*)&servAddr, sizeof(servAddr)) == SOCKET_ERROR)
 	{
@@ -2494,7 +2526,7 @@ UINT CStaticClass::ApplyRegister10(LPVOID pParam)
 
 	// 注意,这里要填写服务器程序(TCPServer程序)所在机器的IP地址
 	// 如果你的计算机没有联网,直接使用127.0.0.1即可
-	servAddr.sin_addr.S_un.S_addr = inet_addr("192.168.0.25");
+	servAddr.sin_addr.S_un.S_addr = inet_addr(SERVERIP);
 
 	if(::connect(xxx, (sockaddr*)&servAddr, sizeof(servAddr)) == SOCKET_ERROR)
 	{
@@ -2764,7 +2796,7 @@ UINT CStaticClass::ApplyRegister11(LPVOID pParam)
 
 	// 注意,这里要填写服务器程序(TCPServer程序)所在机器的IP地址
 	// 如果你的计算机没有联网,直接使用127.0.0.1即可
-	servAddr.sin_addr.S_un.S_addr = inet_addr("192.168.0.25");
+	servAddr.sin_addr.S_un.S_addr = inet_addr(SERVERIP);
 
 	if(::connect(xxx, (sockaddr*)&servAddr, sizeof(servAddr)) == SOCKET_ERROR)
 	{
@@ -3034,7 +3066,7 @@ UINT CStaticClass::ApplyRegister12(LPVOID pParam)
 
 	// 注意,这里要填写服务器程序(TCPServer程序)所在机器的IP地址
 	// 如果你的计算机没有联网,直接使用127.0.0.1即可
-	servAddr.sin_addr.S_un.S_addr = inet_addr("192.168.0.25");
+	servAddr.sin_addr.S_un.S_addr = inet_addr(SERVERIP);
 
 	if(::connect(xxx, (sockaddr*)&servAddr, sizeof(servAddr)) == SOCKET_ERROR)
 	{
@@ -3304,7 +3336,7 @@ UINT CStaticClass::ApplyRegister13(LPVOID pParam)
 
 	// 注意,这里要填写服务器程序(TCPServer程序)所在机器的IP地址
 	// 如果你的计算机没有联网,直接使用127.0.0.1即可
-	servAddr.sin_addr.S_un.S_addr = inet_addr("192.168.0.25");
+	servAddr.sin_addr.S_un.S_addr = inet_addr(SERVERIP);
 
 	if(::connect(xxx, (sockaddr*)&servAddr, sizeof(servAddr)) == SOCKET_ERROR)
 	{
@@ -3574,7 +3606,7 @@ UINT CStaticClass::ApplyRegister14(LPVOID pParam)
 
 	// 注意,这里要填写服务器程序(TCPServer程序)所在机器的IP地址
 	// 如果你的计算机没有联网,直接使用127.0.0.1即可
-	servAddr.sin_addr.S_un.S_addr = inet_addr("192.168.0.25");
+	servAddr.sin_addr.S_un.S_addr = inet_addr(SERVERIP);
 
 	if(::connect(xxx, (sockaddr*)&servAddr, sizeof(servAddr)) == SOCKET_ERROR)
 	{
@@ -3844,7 +3876,7 @@ UINT CStaticClass::ApplyRegister15(LPVOID pParam)
 
 	// 注意,这里要填写服务器程序(TCPServer程序)所在机器的IP地址
 	// 如果你的计算机没有联网,直接使用127.0.0.1即可
-	servAddr.sin_addr.S_un.S_addr = inet_addr("192.168.0.25");
+	servAddr.sin_addr.S_un.S_addr = inet_addr(SERVERIP);
 
 	if(::connect(xxx, (sockaddr*)&servAddr, sizeof(servAddr)) == SOCKET_ERROR)
 	{
@@ -4114,7 +4146,7 @@ UINT CStaticClass::ApplyRegister16(LPVOID pParam)
 
 	// 注意,这里要填写服务器程序(TCPServer程序)所在机器的IP地址
 	// 如果你的计算机没有联网,直接使用127.0.0.1即可
-	servAddr.sin_addr.S_un.S_addr = inet_addr("192.168.0.25");
+	servAddr.sin_addr.S_un.S_addr = inet_addr(SERVERIP);
 
 	if(::connect(xxx, (sockaddr*)&servAddr, sizeof(servAddr)) == SOCKET_ERROR)
 	{
@@ -4384,7 +4416,7 @@ UINT CStaticClass::ApplyRegister17(LPVOID pParam)
 
 	// 注意,这里要填写服务器程序(TCPServer程序)所在机器的IP地址
 	// 如果你的计算机没有联网,直接使用127.0.0.1即可
-	servAddr.sin_addr.S_un.S_addr = inet_addr("192.168.0.25");
+	servAddr.sin_addr.S_un.S_addr = inet_addr(SERVERIP);
 
 	if(::connect(xxx, (sockaddr*)&servAddr, sizeof(servAddr)) == SOCKET_ERROR)
 	{
@@ -4654,7 +4686,7 @@ UINT CStaticClass::ApplyRegister18(LPVOID pParam)
 
 	// 注意,这里要填写服务器程序(TCPServer程序)所在机器的IP地址
 	// 如果你的计算机没有联网,直接使用127.0.0.1即可
-	servAddr.sin_addr.S_un.S_addr = inet_addr("192.168.0.25");
+	servAddr.sin_addr.S_un.S_addr = inet_addr(SERVERIP);
 
 	if(::connect(xxx, (sockaddr*)&servAddr, sizeof(servAddr)) == SOCKET_ERROR)
 	{
@@ -4924,7 +4956,7 @@ UINT CStaticClass::ApplyRegister19(LPVOID pParam)
 
 	// 注意,这里要填写服务器程序(TCPServer程序)所在机器的IP地址
 	// 如果你的计算机没有联网,直接使用127.0.0.1即可
-	servAddr.sin_addr.S_un.S_addr = inet_addr("192.168.0.25");
+	servAddr.sin_addr.S_un.S_addr = inet_addr(SERVERIP);
 
 	if(::connect(xxx, (sockaddr*)&servAddr, sizeof(servAddr)) == SOCKET_ERROR)
 	{
@@ -5194,7 +5226,7 @@ UINT CStaticClass::ApplyRegister20(LPVOID pParam)
 
 	// 注意,这里要填写服务器程序(TCPServer程序)所在机器的IP地址
 	// 如果你的计算机没有联网,直接使用127.0.0.1即可
-	servAddr.sin_addr.S_un.S_addr = inet_addr("192.168.0.25");
+	servAddr.sin_addr.S_un.S_addr = inet_addr(SERVERIP);
 
 	if(::connect(xxx, (sockaddr*)&servAddr, sizeof(servAddr)) == SOCKET_ERROR)
 	{
@@ -5453,7 +5485,7 @@ UINT CStaticClass::HeartBeat(LPVOID pParam)
 	while(1){
 		EnterCriticalSection(&csHeartBeat);// 进入临界区，其它线程则无法进入
 		memset(pText,0,256);
-		sprintf(pText,"_HeartBeat%d\t",count);
+		sprintf(pText,"_HeartBeat%d\n",count);
 		senfRet = SOCKET_ERROR;
 		senfRet = ::send(xxx, pText, strlen(pText), 0);
 		if(senfRet != SOCKET_ERROR){
@@ -5461,6 +5493,9 @@ UINT CStaticClass::HeartBeat(LPVOID pParam)
 			cout<<"发送心跳成功!"<<count++<<endl;
 			cout<<endl;
 		}
+		else
+			return 0;
+
 		Sleep(1000);
 
 		printf("发送数据失败%s%d\n", __FILE__, __LINE__);

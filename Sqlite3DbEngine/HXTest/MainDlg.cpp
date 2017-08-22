@@ -108,7 +108,7 @@ LRESULT CMainDlg::OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam
 		int status;
 
 		//初始化windows Socket Dll
-		status = WSAStartup(MAKEWORD(1,1),&Data);
+		status = WSAStartup(MAKEWORD(0x101,1),&Data);
 		if (0!=status)
 		{
 			OutputDebugString(_T("初始化失败\n"));

@@ -60,6 +60,7 @@ interface IHehe : IDispatch{
 ]
 interface IXMsXmlWrapper : IDispatch{
 	[id(1), helpstring("运行模式")] HRESULT TestAllMsxmlDesignFormat(MsXmlTest eMsXml);
+	[id(2), helpstring("运行模式")] HRESULT SystemCfg(void);
 };
 [
 	uuid(2D5F92AA-297E-4339-96E2-E416DF108E1F),

@@ -92,3 +92,13 @@ STDMETHODIMP CXMsXmlWrapper::TestAllMsxmlDesignFormat(MsXmlTest eMsXml)
 
 	return S_OK;
 }
+
+
+STDMETHODIMP CXMsXmlWrapper::SystemCfg(void)
+{
+	// TODO: 在此添加实现代码
+	CString strPath = CBaseFuncLib::GetAppConfigPath();
+	strPath = strPath + _T("SystemCfg.xml");
+	m_pMsXmlBase->SystemCfg(strPath.GetBuffer());
+	return S_OK;
+}

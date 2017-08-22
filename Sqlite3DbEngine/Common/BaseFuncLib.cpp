@@ -2055,3 +2055,24 @@ BOOL CBaseFuncLib::ClearDebugFolderFiles(CString strFile)
 	return ClearFiles(strFile,strConfigFolderPath);
 }
 
+// 查找pSrc字符串中是否含有pDst子串，如果有则返回pDst第一次出现的位置
+int CBaseFuncLib::StringFind(const char *pSrc, const char *pDst)
+{
+	int i, j;
+	for (i=0; pSrc[i]!='\0'; i++)
+	{
+		if(pSrc[i]!=pDst[0])
+			continue;
+		j = 0;
+		while(pDst[j]!='\0' && pSrc[i+j]!='\0')
+		{
+			j++;
+			if(pDst[j]!=pSrc[i+j])
+				break;
+		}
+		if(pDst[j]=='\0')
+			return i;
+	}
+	return -1;
+}
+

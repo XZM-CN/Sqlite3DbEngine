@@ -23,3 +23,24 @@
 #include <atlbase.h>
 #include <atlcom.h>
 #include <atlctl.h>
+
+
+// xzm_@_
+//////////////////////////////////////////////////////////////////////////
+#include <atlstr.h> // for error C2039: “CString”: 不是“ATL”的成员
+using namespace ATL; // for error C2504: “CRegKey”: 未定义基类
+
+
+#ifndef WIN64
+#ifdef _DEBUG
+#import "..\\bin\\Debug\\MsXmlEngine.dll" no_namespace, raw_interfaces_only, raw_native_types, named_guids
+#else
+#import "..\\bin\\Release\\MsXmlEngine.dll" no_namespace, raw_interfaces_only, raw_native_types, named_guids
+#endif
+#else
+#ifdef _DEBUG
+#import "..\\..\\Release\\X64\\MsXmlEngine.dll" no_namespace, raw_interfaces_only, raw_native_types, named_guids
+#else
+#import "..\\..\\Release\\X64\\MsXmlEngine.dll" no_namespace, raw_interfaces_only, raw_native_types, named_guids
+#endif
+#endif

@@ -52,14 +52,17 @@ END_COM_MAP()
 			delete m_pMsXmlBase;
 	}
 
+protected:
+	CMsXmlBase*  m_pMsXmlBase;
+
+
 public:
 
 
 
 	STDMETHOD(TestAllMsxmlDesignFormat)(MsXmlTest eMsXml);
-
-protected:
-	CMsXmlBase*  m_pMsXmlBase;
+	// system configuration
+	STDMETHOD(SystemCfg)(void);
 };
 
 OBJECT_ENTRY_AUTO(__uuidof(XMsXmlWrapper), CXMsXmlWrapper)

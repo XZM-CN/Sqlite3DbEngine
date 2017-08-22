@@ -321,6 +321,7 @@ void CMainAppDlg::InitXzmTree()
 		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_MsXml09"));
 		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_MsXml10"));
 		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("e_MsXml11"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("SystemCfg"));// 正常(没有经过编码的)系统性配置文件（针对本工程）
 
 		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("清理垃圾文件")); m_TreeXzm.Expand(hItemx, TVE_COLLAPSE);
 	}
@@ -1072,6 +1073,10 @@ LRESULT CMainAppDlg::OnTreeXzmClickTree(NMHDR* phdr)
 			else if(0 == str.Compare( _T("e_MsXml11")))
 			{
 				m_spiXMsXmlWrapper->TestAllMsxmlDesignFormat(e_MsXml11);
+			}
+			else if(0 == str.Compare( _T("SystemCfg")))
+			{
+				m_spiXMsXmlWrapper->SystemCfg();
 			}
 			else if(0 == str.Compare( _T("清理垃圾文件")))
 			{

@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SysCfg><!--CryptLib的XML注释--><CryptLib xmlns="XML Namespaces(XML的命名空间)">Asia</CryptLib><!--DecryptEngine的XML注释--><DecryptEngine Units="Million Person" StatisticalYear="2000">1,296</DecryptEngine><!--DispatchModuleCenter的XML注释--><DispatchModuleCenter xmlns="XML Namespaces(XML的命名空间)"><TianJin xmlns=""><Population Units="Million Person" StatisticalYear="10.01">1,296</Population><Area Units="Thousand Square kilometers">17</Area></TianJin></DispatchModuleCenter></SysCfg>

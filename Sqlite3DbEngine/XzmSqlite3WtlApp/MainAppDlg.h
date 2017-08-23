@@ -120,6 +120,7 @@ public:
 	CComPtr <IXMsXmlWrapper>    m_spiXMsXmlWrapper;
 	CComPtr <IMySQLLogic>       m_spiMySQLLogic;
 	CComPtr <IMd5Logic>         m_spiMd5Logic;
+	CComPtr <IAccountMgr>       m_spiAccountMgr;
 	/// 是否开启上传Syslog
 	BOOL m_bStartSyslog;
 	//创建上传Syslog日志线程

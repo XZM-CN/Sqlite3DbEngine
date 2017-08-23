@@ -45,6 +45,7 @@ CMainAppDlg::CMainAppDlg(void)
 	m_spiXMsXmlWrapper    = NULL;
 	m_spiMySQLLogic       = NULL;
 	m_spiMd5Logic         = NULL;
+	m_spiAccountMgr       = NULL;
 }
 
 
@@ -378,6 +379,15 @@ void CMainAppDlg::InitXzmTree()
 		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("SC03"));
 		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("SC04"));
 		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("SC05"));
+
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("清理垃圾文件")); m_TreeXzm.Expand(hItemx, TVE_COLLAPSE);
+	}
+
+	/*HTREEITEM*/ hItemx = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("Authorization"));
+	if (hItemx != NULL)
+	{
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("创建授权文件"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("解析授权文件"));
 
 		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("清理垃圾文件")); m_TreeXzm.Expand(hItemx, TVE_COLLAPSE);
 	}
@@ -1278,48 +1288,40 @@ LRESULT CMainAppDlg::OnTreeXzmClickTree(NMHDR* phdr)
 			{
 			}
 		}
-		else if(IsYourChild( _T("xxx"),m_TreeXzm,hItemHit))
+		else if(IsYourChild( _T("Authorization"),m_TreeXzm,hItemHit))
 		{
-			if(0 == str.Compare( _T("xxx")))
+			if(m_spiAccountMgr == NULL)
+			{
+				CComPtr <IAccountMgr> spiAccountMgr = NULL;
+				CString strModulePath = CBaseFuncLib::GetModulePath();
+				strModulePath = strModulePath + _T("DispatchModuleCenter.dll");
+				if(!strModulePath.IsEmpty())
+				{
+					HINSTANCE hInst = NULL;
+					hInst = CBaseFuncLib::CreateInstance( strModulePath.GetBuffer(),__uuidof(AccountMgr),__uuidof(IAccountMgr),(VOID **)&spiAccountMgr);
+					if(hInst == NULL)
+						return 0;
+					ATLASSERT(spiAccountMgr);
+				}
+				if(m_spiAccountMgr == NULL)
+					m_spiAccountMgr = spiAccountMgr;
+				else
+					::MessageBox( 0, _T("m_spiAccountMgr意外错误"), _T("waring"), MB_OK);
+			}
+
+			if(0 == str.Compare( _T("创建授权文件")))
+			{
+				CString strDeviceID;
+				CString strFilePath;
+				strDeviceID.Format(_T("EA60626EDF483F5A79AE8B6DA8009678"));
+				strFilePath = CBaseFuncLib::GetModulePath();
+				strFilePath = strFilePath + _T("Authorization.hsa");
+				m_spiAccountMgr->CreateAuth(CComBSTR(strDeviceID),CComBSTR(strFilePath));
+			}
+			else if(0 == str.Compare( _T("解析授权文件")))
 			{
 			}
-			else if(0 == str.Compare( _T("xxx")))
-			{
-			}
-			else if(0 == str.Compare( _T("xxx")))
-			{
-			}
-			else if(0 == str.Compare( _T("xxx")))
-			{
-			}
-		}
-		else if(IsYourChild( _T("xxx"),m_TreeXzm,hItemHit))
-		{
-			if(0 == str.Compare( _T("xxx")))
-			{
-			}
-			else if(0 == str.Compare( _T("xxx")))
-			{
-			}
-			else if(0 == str.Compare( _T("xxx")))
-			{
-			}
-			else if(0 == str.Compare( _T("xxx")))
-			{
-			}
-		}
-		else if(IsYourChild( _T("xxx"),m_TreeXzm,hItemHit))
-		{
-			if(0 == str.Compare( _T("xxx")))
-			{
-			}
-			else if(0 == str.Compare( _T("xxx")))
-			{
-			}
-			else if(0 == str.Compare( _T("xxx")))
-			{
-			}
-			else if(0 == str.Compare( _T("xxx")))
+			else if(0 == str.Compare( _T("清理垃圾文件")))
 			{
 			}
 		}

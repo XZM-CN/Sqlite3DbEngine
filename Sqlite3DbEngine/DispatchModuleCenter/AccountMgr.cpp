@@ -272,6 +272,7 @@ STDMETHODIMP CAccountMgr::CreateAuth(BSTR bstrDeviceID,BSTR bstrFilePath)
 	}
 
 #ifndef TDHXKJ_VERSION_NOUSB
+	m_nRight = USEAUTHTYPE_AUTHMGR;
 	if(USEAUTHTYPE_AUTHMGR != (m_nRight & USEAUTHTYPE_AUTHMGR))
 	{
 		m_strLastErr = _T("没有权限执行此操作！");

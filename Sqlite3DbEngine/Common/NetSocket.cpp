@@ -9,7 +9,6 @@
 unsigned int CNetSocket::m_nRefCount = 0;
 
 
-
 CLIENT::CLIENT()
 {
 	m_Sock = INVALID_SOCKET;

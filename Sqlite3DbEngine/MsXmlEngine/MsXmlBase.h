@@ -29,8 +29,8 @@ using namespace MSXML2;
 
 #define IXML
 //#undef  IXML
-#define XMLNS       _T("XML Namespaces(XML的命名空间)")
-#define XMLNOTE     _T("Extensible Markup Language(可扩展置标语言)")
+#define XMLNS       _T("AAAA")   // XML Namespaces(XML的命名空间)
+#define XMLNOTE     _T("BBBB")   // Extensible Markup Language(可扩展置标语言)
 
 
 
@@ -110,6 +110,36 @@ public:
 	void OpenXml(TCHAR* filePath);
 	//
 	void SystemCfg(TCHAR* filePath);
+	BOOL SysCfg_CryptLib(IXZMDocumentPtr& pIXZMDocumentPtr,IXZMElementPtr& pRootElement);
+	BOOL SysCfg_DecryptEngine(IXZMDocumentPtr& pIXZMDocumentPtr,IXZMElementPtr& pRootElement);
+	BOOL SysCfg_DispatchModuleCenter(IXZMDocumentPtr& pIXZMDocumentPtr,IXZMElementPtr& pRootElement);
+	BOOL SysCfg_EncryEngine(IXZMDocumentPtr& pIXZMDocumentPtr,IXZMElementPtr& pRootElement);
+	BOOL SysCfg_HXTest(IXZMDocumentPtr& pIXZMDocumentPtr,IXZMElementPtr& pRootElement);
+	BOOL SysCfg_HXTestClient(IXZMDocumentPtr& pIXZMDocumentPtr,IXZMElementPtr& pRootElement);
+	BOOL SysCfg_JsonEngine(IXZMDocumentPtr& pIXZMDocumentPtr,IXZMElementPtr& pRootElement);
+	BOOL SysCfg_JsonLib(IXZMDocumentPtr& pIXZMDocumentPtr,IXZMElementPtr& pRootElement);
+	BOOL SysCfg_LogEngine(IXZMDocumentPtr& pIXZMDocumentPtr,IXZMElementPtr& pRootElement);
+	BOOL SysCfg_MsXmlEngine(IXZMDocumentPtr& pIXZMDocumentPtr,IXZMElementPtr& pRootElement);
+	BOOL SysCfg_MySqlDbEngine(IXZMDocumentPtr& pIXZMDocumentPtr,IXZMElementPtr& pRootElement);
+	BOOL SysCfg_NetComm(IXZMDocumentPtr& pIXZMDocumentPtr,IXZMElementPtr& pRootElement);
+	BOOL SysCfg_NetSocketServerTest(IXZMDocumentPtr& pIXZMDocumentPtr,IXZMElementPtr& pRootElement);
+	BOOL SysCfg_SchedulerCenter(IXZMDocumentPtr& pIXZMDocumentPtr,IXZMElementPtr& pRootElement);
+	BOOL SysCfg_SecurityCollection(IXZMDocumentPtr& pIXZMDocumentPtr,IXZMElementPtr& pRootElement);
+	BOOL SysCfg_ServiceModular(IXZMDocumentPtr& pIXZMDocumentPtr,IXZMElementPtr& pRootElement);
+	BOOL SysCfg_SignalToDriveceModular(IXZMDocumentPtr& pIXZMDocumentPtr,IXZMElementPtr& pRootElement);
+	BOOL SysCfg_SignalToServiceModular(IXZMDocumentPtr& pIXZMDocumentPtr,IXZMElementPtr& pRootElement);
+	BOOL SysCfg_SKFEncry(IXZMDocumentPtr& pIXZMDocumentPtr,IXZMElementPtr& pRootElement);
+	BOOL SysCfg_Sqlite3DbEngine(IXZMDocumentPtr& pIXZMDocumentPtr,IXZMElementPtr& pRootElement);
+	BOOL SysCfg_SqliteLib(IXZMDocumentPtr& pIXZMDocumentPtr,IXZMElementPtr& pRootElement);
+	BOOL SysCfg_TelnetServer(IXZMDocumentPtr& pIXZMDocumentPtr,IXZMElementPtr& pRootElement);
+	BOOL SysCfg_XzmSqlite3MfcApp(IXZMDocumentPtr& pIXZMDocumentPtr,IXZMElementPtr& pRootElement);
+	BOOL SysCfg_XzmSqlite3WtlApp(IXZMDocumentPtr& pIXZMDocumentPtr,IXZMElementPtr& pRootElement);
+	BOOL SysCfg_ZLib(IXZMDocumentPtr& pIXZMDocumentPtr,IXZMElementPtr& pRootElement);
+	void OpenSysCfgXml(TCHAR* filePath,
+		TCHAR* ServerMajorIP, LONG& ServerMajorPort,
+		TCHAR* ServerMinorIP, LONG& ServerMinorPort,
+		TCHAR* ServerSpareIP, LONG& ServerSparePort);
+	
 
 	// 文档接口实例化
 	BOOL CreateDoc(IXZMDocumentPtr& pIXZMDocumentPtr);

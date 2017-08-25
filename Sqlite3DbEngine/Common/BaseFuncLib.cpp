@@ -55,8 +55,12 @@ HWND			CBaseFuncLib::m_hWnd = NULL;
 
 /// 日志文件
 ATL::CString	CBaseFuncLib::m_strLogFile = _T("");
-/// 应用路径
+
+
+// 不同进程使用的log日志名称
 ATL::CString	CBaseFuncLib::m_strAppPath = _T("");
+
+ATL::CString	CBaseFuncLib::m_strProcessName = _T("\\Log.txt");
 
 BOOL CBaseFuncLib::IsW2K()
 {
@@ -860,7 +864,7 @@ BOOL CBaseFuncLib::WriteXzmLogToFile(const ATL::CString& strLogInfo, const char*
 	strTempPath.ReleaseBuffer ();
 	nPos=strTempPath.ReverseFind ('\\');
 	strTempPath=strTempPath.Left (nPos);
-	strTempPath = strTempPath + _T("\\Log.txt");
+	strTempPath = strTempPath + CBaseFuncLib::m_strProcessName;
 
 	BOOL bWriteFlag = CBaseFuncLib::WriteToFile(strTempPath,(BYTE *)szLog,nLen-1,TRUE);
 

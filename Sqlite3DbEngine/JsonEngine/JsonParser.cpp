@@ -619,10 +619,10 @@ bool CJsonParser::SetObjAsChild(const char* pName,const char* pValue)
 		pRoot = NULL;
 		return false;
 	}
-	cout << "子节点Json"<< endl ;
-	cout << pRoot->toStyledString().c_str() << endl << endl;
-	cout << "父节点Json" << endl ;
-	cout << m_pRoot->toStyledString().c_str() << endl << endl;
+	// cout << "子节点Json"<< endl ;
+	// cout << pRoot->toStyledString().c_str() << endl << endl;
+	// cout << "父节点Json" << endl ;
+	// cout << m_pRoot->toStyledString().c_str() << endl << endl;
 
 	/// 判断是否重复
 	if(Json::nullValue == m_pRoot->type() || Json::objectValue == m_pRoot->type())
@@ -635,8 +635,8 @@ bool CJsonParser::SetObjAsChild(const char* pName,const char* pValue)
 
 		(*m_pRoot)[pName] = *pRoot;
 
-		cout << "追加节点以后Json, " << __FILE__<< ","<< __LINE__<< ","<< __TIME__<< endl ;
-		cout << m_pRoot->toStyledString().c_str() << endl << endl;
+		// cout << "追加节点以后Json, " << __FILE__<< ","<< __LINE__<< ","<< __TIME__<< endl ;
+		// cout << m_pRoot->toStyledString().c_str() << endl << endl;
 
 		Json::StyledWriter writer;
 		std::string output = writer.write((*m_pRoot));

@@ -63,6 +63,10 @@ public:
 	STDMETHOD(TestAllMsxmlDesignFormat)(MsXmlTest eMsXml);
 	// system configuration
 	STDMETHOD(SystemCfg)(void);
+	STDMETHOD(GetSysCfg)(BSTR filePath,
+		BSTR* ServerMajorIP, LONG* ServerMajorPort,
+		BSTR* ServerMinorIP, LONG* ServerMinorPort,
+		BSTR* ServerSpareIP, LONG* ServerSparePort);
 };
 
 OBJECT_ENTRY_AUTO(__uuidof(XMsXmlWrapper), CXMsXmlWrapper)

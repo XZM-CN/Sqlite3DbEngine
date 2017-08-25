@@ -8,6 +8,11 @@
 #include "SqliteHelper.h "
 
 
+ULONG syslog_operation_Count = 0;
+ULONG syslog_warnning_Count  = 0;
+ULONG syslog_event_Count     = 0;
+
+
 CComPtr <ISqlite3Connect> GetLogConnect(BOOL bReadFlag)
 {
 	CComPtr <ISqlite3Connect> spiSqlite3Connect = NULL;
@@ -234,7 +239,6 @@ BOOL CSysLog::GetLogDataFromDB(BOOL SetSyslogFlag /*= FALSE*/)
 			//发送此条syslog日志
 			if (m_pNetSock != NULL)
 			{
-
 				CString strstr;
 				strstr.Format(_T("发送的内容是:%s\n"),strSendData);
 				OutputDebugString(strstr);
@@ -243,9 +247,13 @@ BOOL CSysLog::GetLogDataFromDB(BOOL SetSyslogFlag /*= FALSE*/)
 				int nSendLen = CBaseFuncLib::Us2ToChar(strSendData, &pSendData);
 				if (nSendLen > 0 && pSendData != NULL)
 				{
-					OutputDebugString(_T("执行发送"));
 					//发送
-					m_pNetSock->SendDataTo(m_sock, pSendData, nSendLen,m_ServerMajorIP,UDPSYSLOGPORT);
+					BOOL bRet = m_pNetSock->SendDataTo(m_sock, pSendData, nSendLen,m_ServerMajorIP,UDPSYSLOGPORT);
+					if (bRet)
+					{
+						strstr.Format(_T("用户操作日志:%3d\n"),syslog_operation_Count++);
+						WRITEXZMLOGTOFILE(strstr);
+					}
 
 					//向备用服务器发送
 					m_pNetSock->SendDataTo(m_sock, pSendData, nSendLen,m_ServerMinorIP,UDPSYSLOGPORT);
@@ -499,9 +507,13 @@ BOOL CSysLog::GetLogDataFromDB(BOOL SetSyslogFlag /*= FALSE*/)
 				int nSendLen = CBaseFuncLib::Us2ToChar(strSendData, &pSendData);
 				if (nSendLen > 0 && pSendData != NULL)
 				{
-					OutputDebugString(_T("执行发送"));
 					//发送
-					m_pNetSock->SendDataTo(m_sock, pSendData, nSendLen,m_ServerMajorIP,UDPSYSLOGPORT);
+					BOOL bRet= m_pNetSock->SendDataTo(m_sock, pSendData, nSendLen,m_ServerMajorIP,UDPSYSLOGPORT);
+					if (bRet)
+					{
+						strstr.Format(_T("预警信息日志:%3d\n"),syslog_warnning_Count++);
+						WRITEXZMLOGTOFILE(strstr);
+					}
 
 					//向备用服务器发送
 					m_pNetSock->SendDataTo(m_sock, pSendData, nSendLen,m_ServerMinorIP,UDPSYSLOGPORT);
@@ -670,9 +682,14 @@ BOOL CSysLog::GetLogDataFromDB(BOOL SetSyslogFlag /*= FALSE*/)
 				int nSendLen = CBaseFuncLib::Us2ToChar(strSendData, &pSendData);
 				if (nSendLen > 0 && pSendData != NULL)
 				{
-					OutputDebugString(_T("执行发送"));
 					//发送
-					m_pNetSock->SendDataTo(m_sock, pSendData, nSendLen,m_ServerMajorIP,UDPSYSLOGPORT);
+					BOOL bRet = m_pNetSock->SendDataTo(m_sock, pSendData, nSendLen,m_ServerMajorIP,UDPSYSLOGPORT);
+
+					if (bRet)
+					{
+						strstr.Format(_T("Windows日志:%3d\n"),syslog_event_Count++);
+						WRITEXZMLOGTOFILE(strstr);
+					}
 
 					//向备用服务器发送
 					m_pNetSock->SendDataTo(m_sock, pSendData, nSendLen,m_ServerMinorIP,UDPSYSLOGPORT);

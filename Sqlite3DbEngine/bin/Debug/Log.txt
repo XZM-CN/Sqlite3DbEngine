@@ -1,0 +1,16 @@
+*App*08-24 15:09:38 TID:8876 FileName:g:\programking\sqlite3dbengine\sqlite3dbengine\hxtestclient\hxtestclient.cpp LineNum:90 Log:WaitForSingleObject -- WAIT_OBJECT_0
+*App*08-24 15:09:38 TID:8876 FileName:g:\programking\sqlite3dbengine\sqlite3dbengine\hxtestclient\hxtestclient.cpp LineNum:112 Log:已经等待到WAIT_OBJECT_0程序即将退出
+*App*08-24 15:10:34 TID:4936 FileName:g:\programking\sqlite3dbengine\sqlite3dbengine\hxtestclient\hxtestclient.cpp LineNum:90 Log:WaitForSingleObject -- WAIT_OBJECT_0
+*App*08-24 15:10:34 TID:4936 FileName:g:\programking\sqlite3dbengine\sqlite3dbengine\hxtestclient\hxtestclient.cpp LineNum:112 Log:已经等待到WAIT_OBJECT_0程序即将退出
+*App*08-25 09:26:46 TID:6848 FileName:g:\programking\sqlite3dbengine\sqlite3dbengine\hxtest\maindlg.cpp LineNum:463 Log:tttttttt
+*App*08-25 09:30:21 TID:1064 FileName:g:\programking\sqlite3dbengine\sqlite3dbengine\hxtest\maindlg.cpp LineNum:463 Log:tttttttt
+*App*08-25 09:33:36 TID:11324 FileName:g:\programking\sqlite3dbengine\sqlite3dbengine\hxtest\maindlg.cpp LineNum:463 Log:tttttttt
+*App*08-25 09:42:28 TID:6276 FileName:g:\programking\sqlite3dbengine\sqlite3dbengine\hxtest\maindlg.cpp LineNum:463 Log:tttttttt
+*App*08-25 09:44:29 TID:13976 FileName:g:\programking\sqlite3dbengine\sqlite3dbengine\hxtest\maindlg.cpp LineNum:463 Log:tttttttt
+*App*08-25 09:47:32 TID:496 FileName:g:\programking\sqlite3dbengine\sqlite3dbengine\hxtest\maindlg.cpp LineNum:463 Log:tttttttt
+*App*08-25 09:48:47 TID:14008 FileName:g:\programking\sqlite3dbengine\sqlite3dbengine\hxtest\maindlg.cpp LineNum:463 Log:tttttttt
+*App*08-25 16:14:25 TID:8080 FileName:g:\programking\sqlite3dbengine\sqlite3dbengine\hxtest\maindlg.cpp LineNum:603 Log:tttttttt
+*App*08-25 16:22:12 TID:11324 FileName:g:\programking\sqlite3dbengine\sqlite3dbengine\hxtest\maindlg.cpp LineNum:615 Log:tttttttt
+*App*08-25 16:25:05 TID:5104 FileName:g:\programking\sqlite3dbengine\sqlite3dbengine\hxtest\maindlg.cpp LineNum:615 Log:tttttttt
+*App*08-25 16:27:40 TID:13256 FileName:g:\programking\sqlite3dbengine\sqlite3dbengine\hxtest\maindlg.cpp LineNum:587 Log:tttttttt
+*App*08-25 16:45:19 TID:10784 FileName:g:\programking\sqlite3dbengine\sqlite3dbengine\hxtest\maindlg.cpp LineNum:587 Log:tttttttt

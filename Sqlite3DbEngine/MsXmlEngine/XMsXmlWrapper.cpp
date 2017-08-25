@@ -102,3 +102,21 @@ STDMETHODIMP CXMsXmlWrapper::SystemCfg(void)
 	m_pMsXmlBase->SystemCfg(strPath.GetBuffer());
 	return S_OK;
 }
+
+
+STDMETHODIMP CXMsXmlWrapper::GetSysCfg(BSTR filePath,
+	BSTR* ServerMajorIP, LONG* ServerMajorPort,
+	BSTR* ServerMinorIP, LONG* ServerMinorPort,
+	BSTR* ServerSpareIP, LONG* ServerSparePort)
+{
+	// TODO: 在此添加实现代码
+	CString strKeyName(filePath);
+	TCHAR* _ServerMajorIP = NULL; LONG _ServerMajorPort = 0 ;
+	TCHAR* _ServerMinorIP = NULL; LONG _ServerMinorPort = 0 ;
+	TCHAR* _ServerSpareIP = NULL; LONG _ServerSparePort = 0 ;
+	m_pMsXmlBase->OpenSysCfgXml(strKeyName.GetBuffer(),
+		_ServerMajorIP, _ServerMajorPort,
+		_ServerMinorIP, _ServerMinorPort,
+		_ServerSpareIP, _ServerSparePort);
+	return S_OK;
+}

@@ -533,81 +533,741 @@ void CMsXmlBase::SystemCfg(TCHAR* filePath)
 
 	bRet = CreateStatement(pIXZMDocumentPtr,_T("xml"),_T("version=\"1.0\" encoding=\"utf-8\""));
 
+	// 根标签
 	IXZMElementPtr pRootElement = NULL;
-	pRootElement = CreateRoot(pIXZMDocumentPtr,_T("SysCfg"));
 
+	if (TRUE) {
+		pRootElement = CreateRoot(pIXZMDocumentPtr,_T("SysCfg"));
+	}
 
-
-
-	IXZMCommentPtr pComment1 = NULL;
-	pComment1 = CreateComment(pIXZMDocumentPtr,_T("CryptLib的XML注释"));
-	pRootElement->appendChild((IXZMNode*)pComment1); // 注释
-
-
-	IXZMNodePtr pNode1 = NULL;
-	pNode1 = CreateNode(pIXZMDocumentPtr,_T("CryptLib"),_T("Asia"),XMLNS);
-	pRootElement->appendChild(pNode1); // 节点
-
-	IXZMCommentPtr pComment2 = NULL;
-	pComment2 = CreateComment(pIXZMDocumentPtr,_T("DecryptEngine的XML注释"));
-	pRootElement->appendChild((IXZMNode*)pComment2); // 注释
-
-	IXZMElementPtr pElement1 = NULL;
-	pElement1 = CreateElement(pIXZMDocumentPtr,_T("DecryptEngine"),_T("1,296"));
-
-	IXZMAttributePtr pAttr1 = NULL;
-	pAttr1 = CreateAttr(pIXZMDocumentPtr,_T("Units"),_T("Million Person"));
-	pElement1->setAttributeNode(pAttr1); // 统计单位
-	pAttr1 = CreateAttr(pIXZMDocumentPtr,_T("StatisticalYear"),_T("2000"));
-	pElement1->setAttributeNode(pAttr1); // 统计年份
-
-	pRootElement->appendChild(pElement1); // 节点
-
-	IXZMCommentPtr pComment3 = NULL;
-	pComment3 = CreateComment(pIXZMDocumentPtr,_T("DispatchModuleCenter的XML注释"));
-	pRootElement->appendChild((IXZMNode*)pComment3); // 注释
-
-	IXZMNodePtr pNode2 = NULL;
-	pNode2 = CreateNode(pIXZMDocumentPtr,_T("DispatchModuleCenter"),_T(""),XMLNS);
-	pRootElement->appendChild(pNode2); // 节点
-
-	IXZMNodePtr pNode21 = NULL;
-	pNode21 = CreateNode(pIXZMDocumentPtr,_T("TianJin"),_T(""),_T(""));
-
-	IXZMElementPtr pElement2 = NULL;
-	pElement2 = CreateElement(pIXZMDocumentPtr,_T("Population"),_T("1,296"));
-
-	IXZMAttributePtr pAttr2 = NULL;
-	pAttr2 = CreateAttr(pIXZMDocumentPtr,_T("Units"),_T("Million Person"));
-	pElement2->setAttributeNode(pAttr2); // 统计单位
-	pAttr2 = CreateAttr(pIXZMDocumentPtr,_T("StatisticalYear"),_T("10.01"));
-	pElement2->setAttributeNode(pAttr2); // 统计年份
-	pNode21->appendChild((MSXML2::IXMLDOMNode*)pElement2);
-
-	IXZMElementPtr pElement3 = NULL;
-	pElement3 = CreateElement(pIXZMDocumentPtr,_T("Area"),_T("17"));
-
-	IXZMAttributePtr pAttr3 = NULL;
-	pAttr3 = CreateAttr(pIXZMDocumentPtr,_T("Units"),_T("Thousand Square kilometers"));
-	pElement3->setAttributeNode(pAttr3); // 统计单位
-	pNode21->appendChild((MSXML2::IXMLDOMNode*)pElement3);
-
-
-	pNode2->appendChild(pNode21);
-
+	if(!SysCfg_CryptLib(pIXZMDocumentPtr, pRootElement))
+		return;
+	if(!SysCfg_DecryptEngine(pIXZMDocumentPtr, pRootElement))
+		return;
+	if(!SysCfg_DispatchModuleCenter(pIXZMDocumentPtr, pRootElement))
+		return;
+	if(!SysCfg_EncryEngine(pIXZMDocumentPtr, pRootElement))
+		return;
+	if(!SysCfg_HXTest(pIXZMDocumentPtr, pRootElement))
+		return;
+	if(!SysCfg_HXTestClient(pIXZMDocumentPtr, pRootElement))
+		return;
+	if(!SysCfg_JsonEngine(pIXZMDocumentPtr, pRootElement))
+		return;
+	if(!SysCfg_JsonLib(pIXZMDocumentPtr, pRootElement))
+		return;
+	if(!SysCfg_LogEngine(pIXZMDocumentPtr, pRootElement))
+		return;
+	if(!SysCfg_MsXmlEngine(pIXZMDocumentPtr, pRootElement))
+		return;
+	if(!SysCfg_MySqlDbEngine(pIXZMDocumentPtr, pRootElement))
+		return;
+	if(!SysCfg_NetComm(pIXZMDocumentPtr, pRootElement))
+		return;
+	if(!SysCfg_NetSocketServerTest(pIXZMDocumentPtr, pRootElement))
+		return;
+	if(!SysCfg_SchedulerCenter(pIXZMDocumentPtr, pRootElement))
+		return;
+	if(!SysCfg_SecurityCollection(pIXZMDocumentPtr, pRootElement))
+		return;
+	if(!SysCfg_ServiceModular(pIXZMDocumentPtr, pRootElement))
+		return;
+	if(!SysCfg_SignalToDriveceModular(pIXZMDocumentPtr, pRootElement))
+		return;
+	if(!SysCfg_SignalToServiceModular(pIXZMDocumentPtr, pRootElement))
+		return;
+	if(!SysCfg_SKFEncry(pIXZMDocumentPtr, pRootElement))
+		return;
+	if(!SysCfg_Sqlite3DbEngine(pIXZMDocumentPtr, pRootElement))
+		return;
+	if(!SysCfg_SqliteLib(pIXZMDocumentPtr, pRootElement))
+		return;
+	if(!SysCfg_TelnetServer(pIXZMDocumentPtr, pRootElement))
+		return;
+	if(!SysCfg_XzmSqlite3MfcApp(pIXZMDocumentPtr, pRootElement))
+		return;
+	if(!SysCfg_XzmSqlite3WtlApp(pIXZMDocumentPtr, pRootElement))
+		return;
+	if(!SysCfg_ZLib(pIXZMDocumentPtr, pRootElement))
+		return;
 
 
 
 	pIXZMDocumentPtr->save((_variant_t)filePath);
 }
-IXZMElementPtr pElement2 = NULL;
-pElement2 = CreateElement(pIXZMDocumentPtr,_T("Population"),_T("1,296"));
-IXZMAttributePtr pAttr0 = NULL;
-pAttr0 = CreateAttr(pIXZMDocumentPtr,_T("Units"),_T("Million Person"));
-pElement2->setAttributeNode(pAttr0); // 统计单位
-pAttr0 = CreateAttr(pIXZMDocumentPtr,_T("StatisticalYear"),_T("10.01"));
-pElement2->setAttributeNode(pAttr0); // 统计年份
-pNode21->appendChild((MSXML2::IXMLDOMNode*)pElement2);
+
+BOOL CMsXmlBase::SysCfg_CryptLib(IXZMDocumentPtr& pIXZMDocumentPtr,IXZMElementPtr& pRootElement)
+{
+	IXZMCommentPtr pComment      = NULL;// 注释标签指针
+	IXZMNodePtr    pNode         = NULL;// 节点标签指针
+	IXZMElementPtr pElement      = NULL;// 元素标签指针
+	IXZMAttributePtr pAttr       = NULL;// 属性标签指针
+
+	if (TRUE) {
+		// 创建注释标签，并将其挂载到SysCfg节点下
+		pComment = NULL;
+		pComment = CreateComment(pIXZMDocumentPtr,_T("CryptLib的XML注释"));
+		pRootElement->appendChild((IXZMNode*)pComment);	
+
+		// 创建节点标签，并将其挂在到SysCfg节点下
+		pNode = NULL;
+		pNode = CreateNode(pIXZMDocumentPtr,_T("CryptLib"),_T("Asia"));
+		pRootElement->appendChild(pNode);
+	}
+
+	return TRUE;
+}
+
+BOOL CMsXmlBase::SysCfg_DecryptEngine(IXZMDocumentPtr& pIXZMDocumentPtr,IXZMElementPtr& pRootElement)
+{
+	IXZMCommentPtr pComment      = NULL;// 注释标签指针
+	IXZMNodePtr    pNode         = NULL;// 节点标签指针
+	IXZMElementPtr pElement      = NULL;// 元素标签指针
+	IXZMAttributePtr pAttr       = NULL;// 属性标签指针
+
+	if (TRUE) {
+		// 创建注释标签，并将其挂载到SysCfg节点下
+		pComment = NULL;
+		pComment = CreateComment(pIXZMDocumentPtr,_T("DecryptEngine的XML注释"));
+		pRootElement->appendChild((IXZMNode*)pComment); // 注释
+
+		// 创建元素标签
+		pElement = NULL;
+		pElement = CreateElement(pIXZMDocumentPtr,_T("DecryptEngine"),_T("1,296"));
+
+		// 创建属性节点，并将其挂在到元素标签内
+		pAttr = NULL;
+		pAttr = CreateAttr(pIXZMDocumentPtr,_T("Units"),_T("Million Person"));
+		pElement->setAttributeNode(pAttr);
+		pAttr = NULL;
+		pAttr = CreateAttr(pIXZMDocumentPtr,_T("StatisticalYear"),_T("2000"));
+		pElement->setAttributeNode(pAttr);
+
+		// 将元素标签挂载到SysCfg节点下
+		pRootElement->appendChild(pElement);
+	}
+
+	return TRUE;
+}
+
+BOOL CMsXmlBase::SysCfg_DispatchModuleCenter(IXZMDocumentPtr& pIXZMDocumentPtr,IXZMElementPtr& pRootElement)
+{
+	IXZMCommentPtr pComment      = NULL;// 注释标签指针
+	IXZMNodePtr    pNode         = NULL;// 节点标签指针
+	IXZMElementPtr pElement      = NULL;// 元素标签指针
+	IXZMAttributePtr pAttr       = NULL;// 属性标签指针
+
+	if (TRUE) {
+		pComment = NULL;
+		pComment = CreateComment(pIXZMDocumentPtr,_T("DispatchModuleCenter的XML注释"));
+		pRootElement->appendChild((IXZMNode*)pComment); // 注释
+
+		pNode = NULL;
+		pNode = CreateNode(pIXZMDocumentPtr,_T("DispatchModuleCenter"),_T(""));
+		pRootElement->appendChild(pNode); // 节点
+
+		if (TRUE) {
+			IXZMNodePtr pLever02Node = NULL;
+			pLever02Node = CreateNode(pIXZMDocumentPtr,_T("TianJin"),_T(""),_T(""));
+
+			if (TRUE) {
+				pElement = NULL;
+				pElement = CreateElement(pIXZMDocumentPtr,_T("Population"),_T("1,296"));
+
+				pAttr = NULL;
+				pAttr = CreateAttr(pIXZMDocumentPtr,_T("Units"),_T("Million Person"));
+				pElement->setAttributeNode(pAttr); // 统计单位
+				pAttr = CreateAttr(pIXZMDocumentPtr,_T("StatisticalYear"),_T("10.01"));
+				pElement->setAttributeNode(pAttr); // 统计年份
+				pLever02Node->appendChild((MSXML2::IXMLDOMNode*)pElement);
+			}
+
+			if (TRUE) {
+				pElement = NULL;
+				pElement = CreateElement(pIXZMDocumentPtr,_T("Area"),_T("17"));
+
+				pAttr = NULL;
+				pAttr = CreateAttr(pIXZMDocumentPtr,_T("Units"),_T("Thousand Square kilometers"));
+				pElement->setAttributeNode(pAttr); // 统计单位
+				pLever02Node->appendChild((MSXML2::IXMLDOMNode*)pElement);
+			}
+
+			pNode->appendChild(pLever02Node);
+		}
+	}
+
+	return TRUE;
+}
+
+BOOL CMsXmlBase::SysCfg_EncryEngine(IXZMDocumentPtr& pIXZMDocumentPtr,IXZMElementPtr& pRootElement)
+{
+	IXZMCommentPtr pComment      = NULL;// 注释标签指针
+	IXZMNodePtr    pNode         = NULL;// 节点标签指针
+	IXZMElementPtr pElement      = NULL;// 元素标签指针
+	IXZMAttributePtr pAttr       = NULL;// 属性标签指针
+
+	if (TRUE) {
+		// 创建注释标签，并将其挂载到SysCfg节点下
+		pComment = NULL;
+		pComment = CreateComment(pIXZMDocumentPtr,_T("EncryEngine的XML注释"));
+		pRootElement->appendChild((IXZMNode*)pComment);	
+
+		// 创建节点标签，并将其挂在到SysCfg节点下
+		pNode = NULL;
+		pNode = CreateNode(pIXZMDocumentPtr,_T("EncryEngine"),_T("NodeValue"));
+		pRootElement->appendChild(pNode);
+	}
+
+	return TRUE;
+}
+
+BOOL CMsXmlBase::SysCfg_HXTest(IXZMDocumentPtr& pIXZMDocumentPtr,IXZMElementPtr& pRootElement)
+{
+	IXZMCommentPtr pComment      = NULL;// 注释标签指针
+	IXZMNodePtr    pNode         = NULL;// 节点标签指针
+	IXZMElementPtr pElement      = NULL;// 元素标签指针
+	IXZMAttributePtr pAttr       = NULL;// 属性标签指针
+
+	if (TRUE) {
+		// 创建注释标签，并将其挂载到SysCfg节点下
+		pComment = NULL;
+		pComment = CreateComment(pIXZMDocumentPtr,_T("HXTest的XML注释"));
+		pRootElement->appendChild((IXZMNode*)pComment);	
+
+		// 创建节点标签，并将其挂在到SysCfg节点下
+		pNode = NULL;
+		pNode = CreateNode(pIXZMDocumentPtr,_T("HXTest"),_T("NodeValue"));
+		pRootElement->appendChild(pNode);
+	}
+
+	return TRUE;
+}
+
+BOOL CMsXmlBase::SysCfg_HXTestClient(IXZMDocumentPtr& pIXZMDocumentPtr,IXZMElementPtr& pRootElement)
+{
+	IXZMCommentPtr pComment      = NULL;// 注释标签指针
+	IXZMNodePtr    pNode         = NULL;// 节点标签指针
+	IXZMElementPtr pElement      = NULL;// 元素标签指针
+	IXZMAttributePtr pAttr       = NULL;// 属性标签指针
+
+	if (TRUE) {
+		pComment = NULL;
+		pComment = CreateComment(pIXZMDocumentPtr,_T("HXTestClient的XML注释"));
+		pRootElement->appendChild((IXZMNode*)pComment); // 注释
+
+		pNode = NULL;
+		pNode = CreateNode(pIXZMDocumentPtr,_T("HXTestClient"),_T(""));
+		pRootElement->appendChild(pNode); // 节点
+
+		if (TRUE) {
+			IXZMNodePtr pLever02Node = NULL;
+			pLever02Node = CreateNode(pIXZMDocumentPtr,_T("TargetServer"),_T(""),_T(""));
+
+			if (TRUE) {
+				pElement = NULL;
+				pElement = CreateElement(pIXZMDocumentPtr,_T("ServerMajorIP"),_T("514"));
+
+				pAttr = NULL;
+				pAttr = CreateAttr(pIXZMDocumentPtr,_T("IP"),_T("192.168.101.123"));
+				pElement->setAttributeNode(pAttr); // 统计单位
+				pLever02Node->appendChild((MSXML2::IXMLDOMNode*)pElement);
+			}
+			if (TRUE) {
+				pElement = NULL;
+				pElement = CreateElement(pIXZMDocumentPtr,_T("ServerMinorIP"),_T("514"));
+
+				pAttr = NULL;
+				pAttr = CreateAttr(pIXZMDocumentPtr,_T("IP"),_T("192.168.101.123"));
+				pElement->setAttributeNode(pAttr); // 统计单位
+				pLever02Node->appendChild((MSXML2::IXMLDOMNode*)pElement);
+			}
+			if (TRUE) {
+				pElement = NULL;
+				pElement = CreateElement(pIXZMDocumentPtr,_T("ServerSpareIP"),_T("514"));
+
+				pAttr = NULL;
+				pAttr = CreateAttr(pIXZMDocumentPtr,_T("IP"),_T("192.168.101.123"));
+				pElement->setAttributeNode(pAttr); // 统计单位
+				pLever02Node->appendChild((MSXML2::IXMLDOMNode*)pElement);
+			}
+			pNode->appendChild(pLever02Node);
+		}
+
+
+		if (TRUE) {
+			IXZMNodePtr pLever02Node = NULL;
+			pLever02Node = CreateNode(pIXZMDocumentPtr,_T("SpareServer"),_T(""),_T(""));
+
+			if (TRUE) {
+				pElement = NULL;
+				pElement = CreateElement(pIXZMDocumentPtr,_T("ServerMajorIP"),_T("ServerMajorIP呵呵"));
+
+				pAttr = NULL;
+				pAttr = CreateAttr(pIXZMDocumentPtr,_T("IP"),_T("192.168.101.123"));
+				pElement->setAttributeNode(pAttr); // 统计单位
+				pAttr = CreateAttr(pIXZMDocumentPtr,_T("Port"),_T("514"));
+				pElement->setAttributeNode(pAttr); // 统计年份
+				pLever02Node->appendChild((MSXML2::IXMLDOMNode*)pElement);
+			}
+			if (TRUE) {
+				pElement = NULL;
+				pElement = CreateElement(pIXZMDocumentPtr,_T("ServerMinorIP"),_T(""));
+
+				pAttr = NULL;
+				pAttr = CreateAttr(pIXZMDocumentPtr,_T("IP"),_T("192.168.101.123"));
+				pElement->setAttributeNode(pAttr); // 统计单位
+				pAttr = CreateAttr(pIXZMDocumentPtr,_T("Port"),_T("514"));
+				pElement->setAttributeNode(pAttr); // 统计年份
+				pLever02Node->appendChild((MSXML2::IXMLDOMNode*)pElement);
+			}
+			if (TRUE) {
+				pElement = NULL;
+				pElement = CreateElement(pIXZMDocumentPtr,_T("ServerSpareIP"),_T("ServerSpareIP呵呵"));
+
+				pAttr = NULL;
+				pAttr = CreateAttr(pIXZMDocumentPtr,_T("IP"),_T("192.168.101.123"));
+				pElement->setAttributeNode(pAttr); // 统计单位
+				pAttr = CreateAttr(pIXZMDocumentPtr,_T("Port"),_T("514"));
+				pElement->setAttributeNode(pAttr); // 统计年份
+				pLever02Node->appendChild((MSXML2::IXMLDOMNode*)pElement);
+			}
+			pNode->appendChild(pLever02Node);
+		}
+
+	}
+
+	return TRUE;
+}
+
+BOOL CMsXmlBase::SysCfg_JsonEngine(IXZMDocumentPtr& pIXZMDocumentPtr,IXZMElementPtr& pRootElement)
+{
+	IXZMCommentPtr pComment      = NULL;// 注释标签指针
+	IXZMNodePtr    pNode         = NULL;// 节点标签指针
+	IXZMElementPtr pElement      = NULL;// 元素标签指针
+	IXZMAttributePtr pAttr       = NULL;// 属性标签指针
+
+	if (TRUE) {
+		// 创建注释标签，并将其挂载到SysCfg节点下
+		pComment = NULL;
+		pComment = CreateComment(pIXZMDocumentPtr,_T("JsonEngine的XML注释"));
+		pRootElement->appendChild((IXZMNode*)pComment);	
+
+		// 创建节点标签，并将其挂在到SysCfg节点下
+		pNode = NULL;
+		pNode = CreateNode(pIXZMDocumentPtr,_T("JsonEngine"),_T("NodeValue"));
+		pRootElement->appendChild(pNode);
+	}
+
+	return TRUE;
+}
+
+BOOL CMsXmlBase::SysCfg_JsonLib(IXZMDocumentPtr& pIXZMDocumentPtr,IXZMElementPtr& pRootElement)
+{
+	IXZMCommentPtr pComment      = NULL;// 注释标签指针
+	IXZMNodePtr    pNode         = NULL;// 节点标签指针
+	IXZMElementPtr pElement      = NULL;// 元素标签指针
+	IXZMAttributePtr pAttr       = NULL;// 属性标签指针
+
+	if (TRUE) {
+		// 创建注释标签，并将其挂载到SysCfg节点下
+		pComment = NULL;
+		pComment = CreateComment(pIXZMDocumentPtr,_T("JsonLib的XML注释"));
+		pRootElement->appendChild((IXZMNode*)pComment);	
+
+		// 创建节点标签，并将其挂在到SysCfg节点下
+		pNode = NULL;
+		pNode = CreateNode(pIXZMDocumentPtr,_T("JsonLib"),_T("NodeValue"));
+		pRootElement->appendChild(pNode);
+	}
+
+	return TRUE;
+}
+
+BOOL CMsXmlBase::SysCfg_LogEngine(IXZMDocumentPtr& pIXZMDocumentPtr,IXZMElementPtr& pRootElement)
+{
+	IXZMCommentPtr pComment      = NULL;// 注释标签指针
+	IXZMNodePtr    pNode         = NULL;// 节点标签指针
+	IXZMElementPtr pElement      = NULL;// 元素标签指针
+	IXZMAttributePtr pAttr       = NULL;// 属性标签指针
+
+	if (TRUE) {
+		// 创建注释标签，并将其挂载到SysCfg节点下
+		pComment = NULL;
+		pComment = CreateComment(pIXZMDocumentPtr,_T("LogEngine的XML注释"));
+		pRootElement->appendChild((IXZMNode*)pComment);	
+
+		// 创建节点标签，并将其挂在到SysCfg节点下
+		pNode = NULL;
+		pNode = CreateNode(pIXZMDocumentPtr,_T("LogEngine"),_T("NodeValue"));
+		pRootElement->appendChild(pNode);
+	}
+
+	return TRUE;
+}
+
+BOOL CMsXmlBase::SysCfg_MsXmlEngine(IXZMDocumentPtr& pIXZMDocumentPtr,IXZMElementPtr& pRootElement)
+{
+	IXZMCommentPtr pComment      = NULL;// 注释标签指针
+	IXZMNodePtr    pNode         = NULL;// 节点标签指针
+	IXZMElementPtr pElement      = NULL;// 元素标签指针
+	IXZMAttributePtr pAttr       = NULL;// 属性标签指针
+
+	if (TRUE) {
+		// 创建注释标签，并将其挂载到SysCfg节点下
+		pComment = NULL;
+		pComment = CreateComment(pIXZMDocumentPtr,_T("MsXmlEngine的XML注释"));
+		pRootElement->appendChild((IXZMNode*)pComment);	
+
+		// 创建节点标签，并将其挂在到SysCfg节点下
+		pNode = NULL;
+		pNode = CreateNode(pIXZMDocumentPtr,_T("MsXmlEngine"),_T("NodeValue"));
+		pRootElement->appendChild(pNode);
+	}
+
+	return TRUE;
+}
+
+BOOL CMsXmlBase::SysCfg_MySqlDbEngine(IXZMDocumentPtr& pIXZMDocumentPtr,IXZMElementPtr& pRootElement)
+{
+	IXZMCommentPtr pComment      = NULL;// 注释标签指针
+	IXZMNodePtr    pNode         = NULL;// 节点标签指针
+	IXZMElementPtr pElement      = NULL;// 元素标签指针
+	IXZMAttributePtr pAttr       = NULL;// 属性标签指针
+
+	if (TRUE) {
+		// 创建注释标签，并将其挂载到SysCfg节点下
+		pComment = NULL;
+		pComment = CreateComment(pIXZMDocumentPtr,_T("MySqlDbEngine的XML注释"));
+		pRootElement->appendChild((IXZMNode*)pComment);	
+
+		// 创建节点标签，并将其挂在到SysCfg节点下
+		pNode = NULL;
+		pNode = CreateNode(pIXZMDocumentPtr,_T("MySqlDbEngine"),_T("NodeValue"));
+		pRootElement->appendChild(pNode);
+	}
+
+	return TRUE;
+}
+
+BOOL CMsXmlBase::SysCfg_NetComm(IXZMDocumentPtr& pIXZMDocumentPtr,IXZMElementPtr& pRootElement)
+{
+	IXZMCommentPtr pComment      = NULL;// 注释标签指针
+	IXZMNodePtr    pNode         = NULL;// 节点标签指针
+	IXZMElementPtr pElement      = NULL;// 元素标签指针
+	IXZMAttributePtr pAttr       = NULL;// 属性标签指针
+
+	if (TRUE) {
+		// 创建注释标签，并将其挂载到SysCfg节点下
+		pComment = NULL;
+		pComment = CreateComment(pIXZMDocumentPtr,_T("NetComm的XML注释"));
+		pRootElement->appendChild((IXZMNode*)pComment);	
+
+		// 创建节点标签，并将其挂在到SysCfg节点下
+		pNode = NULL;
+		pNode = CreateNode(pIXZMDocumentPtr,_T("NetComm"),_T("NodeValue"));
+		pRootElement->appendChild(pNode);
+	}
+
+	return TRUE;
+}
+
+BOOL CMsXmlBase::SysCfg_NetSocketServerTest(IXZMDocumentPtr& pIXZMDocumentPtr,IXZMElementPtr& pRootElement)
+{
+	IXZMCommentPtr pComment      = NULL;// 注释标签指针
+	IXZMNodePtr    pNode         = NULL;// 节点标签指针
+	IXZMElementPtr pElement      = NULL;// 元素标签指针
+	IXZMAttributePtr pAttr       = NULL;// 属性标签指针
+
+	if (TRUE) {
+		// 创建注释标签，并将其挂载到SysCfg节点下
+		pComment = NULL;
+		pComment = CreateComment(pIXZMDocumentPtr,_T("NetSocketServerTest的XML注释"));
+		pRootElement->appendChild((IXZMNode*)pComment);	
+
+		// 创建节点标签，并将其挂在到SysCfg节点下
+		pNode = NULL;
+		pNode = CreateNode(pIXZMDocumentPtr,_T("NetSocketServerTest"),_T("NodeValue"));
+		pRootElement->appendChild(pNode);
+	}
+
+	return TRUE;
+}
+
+BOOL CMsXmlBase::SysCfg_SchedulerCenter(IXZMDocumentPtr& pIXZMDocumentPtr,IXZMElementPtr& pRootElement)
+{
+	IXZMCommentPtr pComment      = NULL;// 注释标签指针
+	IXZMNodePtr    pNode         = NULL;// 节点标签指针
+	IXZMElementPtr pElement      = NULL;// 元素标签指针
+	IXZMAttributePtr pAttr       = NULL;// 属性标签指针
+
+	if (TRUE) {
+		// 创建注释标签，并将其挂载到SysCfg节点下
+		pComment = NULL;
+		pComment = CreateComment(pIXZMDocumentPtr,_T("SchedulerCenter的XML注释"));
+		pRootElement->appendChild((IXZMNode*)pComment);	
+
+		// 创建节点标签，并将其挂在到SysCfg节点下
+		pNode = NULL;
+		pNode = CreateNode(pIXZMDocumentPtr,_T("SchedulerCenter"),_T("NodeValue"));
+		pRootElement->appendChild(pNode);
+	}
+
+	return TRUE;
+}
+
+BOOL CMsXmlBase::SysCfg_SecurityCollection(IXZMDocumentPtr& pIXZMDocumentPtr,IXZMElementPtr& pRootElement)
+{
+	IXZMCommentPtr pComment      = NULL;// 注释标签指针
+	IXZMNodePtr    pNode         = NULL;// 节点标签指针
+	IXZMElementPtr pElement      = NULL;// 元素标签指针
+	IXZMAttributePtr pAttr       = NULL;// 属性标签指针
+
+	if (TRUE) {
+		// 创建注释标签，并将其挂载到SysCfg节点下
+		pComment = NULL;
+		pComment = CreateComment(pIXZMDocumentPtr,_T("SecurityCollection的XML注释"));
+		pRootElement->appendChild((IXZMNode*)pComment);	
+
+		// 创建节点标签，并将其挂在到SysCfg节点下
+		pNode = NULL;
+		pNode = CreateNode(pIXZMDocumentPtr,_T("SecurityCollection"),_T("NodeValue"));
+		pRootElement->appendChild(pNode);
+	}
+
+	return TRUE;
+}
+
+BOOL CMsXmlBase::SysCfg_ServiceModular(IXZMDocumentPtr& pIXZMDocumentPtr,IXZMElementPtr& pRootElement)
+{
+	IXZMCommentPtr pComment      = NULL;// 注释标签指针
+	IXZMNodePtr    pNode         = NULL;// 节点标签指针
+	IXZMElementPtr pElement      = NULL;// 元素标签指针
+	IXZMAttributePtr pAttr       = NULL;// 属性标签指针
+
+	if (TRUE) {
+		// 创建注释标签，并将其挂载到SysCfg节点下
+		pComment = NULL;
+		pComment = CreateComment(pIXZMDocumentPtr,_T("ServiceModular的XML注释"));
+		pRootElement->appendChild((IXZMNode*)pComment);	
+
+		// 创建节点标签，并将其挂在到SysCfg节点下
+		pNode = NULL;
+		pNode = CreateNode(pIXZMDocumentPtr,_T("ServiceModular"),_T("NodeValue"));
+		pRootElement->appendChild(pNode);
+	}
+
+	return TRUE;
+}
+
+BOOL CMsXmlBase::SysCfg_SignalToDriveceModular(IXZMDocumentPtr& pIXZMDocumentPtr,IXZMElementPtr& pRootElement)
+{
+	IXZMCommentPtr pComment      = NULL;// 注释标签指针
+	IXZMNodePtr    pNode         = NULL;// 节点标签指针
+	IXZMElementPtr pElement      = NULL;// 元素标签指针
+	IXZMAttributePtr pAttr       = NULL;// 属性标签指针
+
+	if (TRUE) {
+		// 创建注释标签，并将其挂载到SysCfg节点下
+		pComment = NULL;
+		pComment = CreateComment(pIXZMDocumentPtr,_T("SignalToDriveceModular的XML注释"));
+		pRootElement->appendChild((IXZMNode*)pComment);	
+
+		// 创建节点标签，并将其挂在到SysCfg节点下
+		pNode = NULL;
+		pNode = CreateNode(pIXZMDocumentPtr,_T("SignalToDriveceModular"),_T("NodeValue"));
+		pRootElement->appendChild(pNode);
+	}
+
+	return TRUE;
+}
+
+BOOL CMsXmlBase::SysCfg_SignalToServiceModular(IXZMDocumentPtr& pIXZMDocumentPtr,IXZMElementPtr& pRootElement)
+{
+	IXZMCommentPtr pComment      = NULL;// 注释标签指针
+	IXZMNodePtr    pNode         = NULL;// 节点标签指针
+	IXZMElementPtr pElement      = NULL;// 元素标签指针
+	IXZMAttributePtr pAttr       = NULL;// 属性标签指针
+
+	if (TRUE) {
+		// 创建注释标签，并将其挂载到SysCfg节点下
+		pComment = NULL;
+		pComment = CreateComment(pIXZMDocumentPtr,_T("SignalToServiceModular的XML注释"));
+		pRootElement->appendChild((IXZMNode*)pComment);	
+
+		// 创建节点标签，并将其挂在到SysCfg节点下
+		pNode = NULL;
+		pNode = CreateNode(pIXZMDocumentPtr,_T("SignalToServiceModular"),_T("NodeValue"));
+		pRootElement->appendChild(pNode);
+	}
+
+	return TRUE;
+}
+
+BOOL CMsXmlBase::SysCfg_SKFEncry(IXZMDocumentPtr& pIXZMDocumentPtr,IXZMElementPtr& pRootElement)
+{
+	IXZMCommentPtr pComment      = NULL;// 注释标签指针
+	IXZMNodePtr    pNode         = NULL;// 节点标签指针
+	IXZMElementPtr pElement      = NULL;// 元素标签指针
+	IXZMAttributePtr pAttr       = NULL;// 属性标签指针
+
+	if (TRUE) {
+		// 创建注释标签，并将其挂载到SysCfg节点下
+		pComment = NULL;
+		pComment = CreateComment(pIXZMDocumentPtr,_T("SKFEncry的XML注释"));
+		pRootElement->appendChild((IXZMNode*)pComment);	
+
+		// 创建节点标签，并将其挂在到SysCfg节点下
+		pNode = NULL;
+		pNode = CreateNode(pIXZMDocumentPtr,_T("SKFEncry"),_T("NodeValue"));
+		pRootElement->appendChild(pNode);
+	}
+
+	return TRUE;
+}
+
+BOOL CMsXmlBase::SysCfg_Sqlite3DbEngine(IXZMDocumentPtr& pIXZMDocumentPtr,IXZMElementPtr& pRootElement)
+{
+	IXZMCommentPtr pComment      = NULL;// 注释标签指针
+	IXZMNodePtr    pNode         = NULL;// 节点标签指针
+	IXZMElementPtr pElement      = NULL;// 元素标签指针
+	IXZMAttributePtr pAttr       = NULL;// 属性标签指针
+
+	if (TRUE) {
+		// 创建注释标签，并将其挂载到SysCfg节点下
+		pComment = NULL;
+		pComment = CreateComment(pIXZMDocumentPtr,_T("Sqlite3DbEngine的XML注释"));
+		pRootElement->appendChild((IXZMNode*)pComment);	
+
+		// 创建节点标签，并将其挂在到SysCfg节点下
+		pNode = NULL;
+		pNode = CreateNode(pIXZMDocumentPtr,_T("Sqlite3DbEngine"),_T("NodeValue"));
+		pRootElement->appendChild(pNode);
+	}
+
+	return TRUE;
+}
+
+BOOL CMsXmlBase::SysCfg_SqliteLib(IXZMDocumentPtr& pIXZMDocumentPtr,IXZMElementPtr& pRootElement)
+{
+	IXZMCommentPtr pComment      = NULL;// 注释标签指针
+	IXZMNodePtr    pNode         = NULL;// 节点标签指针
+	IXZMElementPtr pElement      = NULL;// 元素标签指针
+	IXZMAttributePtr pAttr       = NULL;// 属性标签指针
+
+	if (TRUE) {
+		// 创建注释标签，并将其挂载到SysCfg节点下
+		pComment = NULL;
+		pComment = CreateComment(pIXZMDocumentPtr,_T("SqliteLib的XML注释"));
+		pRootElement->appendChild((IXZMNode*)pComment);	
+
+		// 创建节点标签，并将其挂在到SysCfg节点下
+		pNode = NULL;
+		pNode = CreateNode(pIXZMDocumentPtr,_T("SqliteLib"),_T("NodeValue"));
+		pRootElement->appendChild(pNode);
+	}
+
+	return TRUE;
+}
+
+BOOL CMsXmlBase::SysCfg_TelnetServer(IXZMDocumentPtr& pIXZMDocumentPtr,IXZMElementPtr& pRootElement)
+{
+	IXZMCommentPtr pComment      = NULL;// 注释标签指针
+	IXZMNodePtr    pNode         = NULL;// 节点标签指针
+	IXZMElementPtr pElement      = NULL;// 元素标签指针
+	IXZMAttributePtr pAttr       = NULL;// 属性标签指针
+
+	if (TRUE) {
+		// 创建注释标签，并将其挂载到SysCfg节点下
+		pComment = NULL;
+		pComment = CreateComment(pIXZMDocumentPtr,_T("TelnetServer的XML注释"));
+		pRootElement->appendChild((IXZMNode*)pComment);	
+
+		// 创建节点标签，并将其挂在到SysCfg节点下
+		pNode = NULL;
+		pNode = CreateNode(pIXZMDocumentPtr,_T("TelnetServer"),_T("NodeValue"));
+		pRootElement->appendChild(pNode);
+	}
+
+	return TRUE;
+}
+
+BOOL CMsXmlBase::SysCfg_XzmSqlite3MfcApp(IXZMDocumentPtr& pIXZMDocumentPtr,IXZMElementPtr& pRootElement)
+{
+	IXZMCommentPtr pComment      = NULL;// 注释标签指针
+	IXZMNodePtr    pNode         = NULL;// 节点标签指针
+	IXZMElementPtr pElement      = NULL;// 元素标签指针
+	IXZMAttributePtr pAttr       = NULL;// 属性标签指针
+
+	if (TRUE) {
+		// 创建注释标签，并将其挂载到SysCfg节点下
+		pComment = NULL;
+		pComment = CreateComment(pIXZMDocumentPtr,_T("XzmSqlite3MfcApp的XML注释"));
+		pRootElement->appendChild((IXZMNode*)pComment);	
+
+		// 创建节点标签，并将其挂在到SysCfg节点下
+		pNode = NULL;
+		pNode = CreateNode(pIXZMDocumentPtr,_T("XzmSqlite3MfcApp"),_T("NodeValue"));
+		pRootElement->appendChild(pNode);
+	}
+
+	return TRUE;
+}
+
+BOOL CMsXmlBase::SysCfg_XzmSqlite3WtlApp(IXZMDocumentPtr& pIXZMDocumentPtr,IXZMElementPtr& pRootElement)
+{
+	IXZMCommentPtr pComment      = NULL;// 注释标签指针
+	IXZMNodePtr    pNode         = NULL;// 节点标签指针
+	IXZMElementPtr pElement      = NULL;// 元素标签指针
+	IXZMAttributePtr pAttr       = NULL;// 属性标签指针
+
+	if (TRUE) {
+		// 创建注释标签，并将其挂载到SysCfg节点下
+		pComment = NULL;
+		pComment = CreateComment(pIXZMDocumentPtr,_T("XzmSqlite3WtlApp的XML注释"));
+		pRootElement->appendChild((IXZMNode*)pComment);	
+
+		// 创建节点标签，并将其挂在到SysCfg节点下
+		pNode = NULL;
+		pNode = CreateNode(pIXZMDocumentPtr,_T("XzmSqlite3WtlApp"),_T("NodeValue"));
+		pRootElement->appendChild(pNode);
+	}
+
+	return TRUE;
+}
+
+BOOL CMsXmlBase::SysCfg_ZLib(IXZMDocumentPtr& pIXZMDocumentPtr,IXZMElementPtr& pRootElement)
+{
+	IXZMCommentPtr pComment      = NULL;// 注释标签指针
+	IXZMNodePtr    pNode         = NULL;// 节点标签指针
+	IXZMElementPtr pElement      = NULL;// 元素标签指针
+	IXZMAttributePtr pAttr       = NULL;// 属性标签指针
+
+	if (TRUE) {
+		// 创建注释标签，并将其挂载到SysCfg节点下
+		pComment = NULL;
+		pComment = CreateComment(pIXZMDocumentPtr,_T("ZLib的XML注释"));
+		pRootElement->appendChild((IXZMNode*)pComment);	
+
+		// 创建节点标签，并将其挂在到SysCfg节点下
+		pNode = NULL;
+		pNode = CreateNode(pIXZMDocumentPtr,_T("ZLib"),_T("NodeValue"));
+		pRootElement->appendChild(pNode);
+	}
+
+
+	return TRUE;
+}
+
+void CMsXmlBase::OpenSysCfgXml(TCHAR* filePath,
+	TCHAR* ServerMajorIP, LONG& ServerMajorPort,
+	TCHAR* ServerMinorIP, LONG& ServerMinorPort,
+	TCHAR* ServerSpareIP, LONG& ServerSparePort)
+{
+	ServerMajorPort = 100;
+	ServerMajorPort = 200;
+	ServerMajorPort = 300;
+}
+
 //////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////
 /////////              封装的内部核心函数            /////////////////////

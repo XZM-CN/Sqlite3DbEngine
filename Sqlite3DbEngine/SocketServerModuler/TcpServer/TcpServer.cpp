@@ -25,6 +25,9 @@ void _tmain(int argc, _TCHAR* argv[])
 
 	// 打印本机地址
 	outputHostIP();
+	system("pause");
+	return
+		;
 
 
 	// 初始化本地客户端套接字

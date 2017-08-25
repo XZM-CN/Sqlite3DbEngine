@@ -5571,9 +5571,9 @@ void CStaticClass::Get_CmdContext(const char* bstrContent,BSTR bstrKeyName,CStri
 		wchar_t *szBuf = NULL;
 		CBaseFuncLib::CharToUS2(bstrContent,&szBuf);
 		spiJsonService->ParseString(szBuf,&bParseRet);
-		cout<<"获取CString的Value"<<endl<<endl;
-		spiJsonService->OutputStyledJson();
-		cout<<endl<<endl;
+		// cout<<"获取CString的Value"<<endl<<endl;
+		// spiJsonService->OutputStyledJson();
+		// cout<<endl<<endl;
 		CComBSTR bstrVal;
 		spiJsonService->GetStringValue(bstrKeyName,&bstrVal);
 		strJson = bstrVal.m_str;
@@ -5590,9 +5590,9 @@ void CStaticClass::Get_CmdContext(const char* bstrContent,BSTR bstrKeyName,LONGL
 		wchar_t *szBuf = NULL;
 		CBaseFuncLib::CharToUS2(bstrContent,&szBuf);
 		spiJsonService->ParseString(szBuf,&bParseRet);
-		cout<<"获取int的Value"<<endl<<endl;
-		spiJsonService->OutputStyledJson();
-		cout<<endl<<endl;
+		//cout<<"获取int的Value"<<endl<<endl;
+		//spiJsonService->OutputStyledJson();
+		//cout<<endl<<endl;
 		LONGLONG bstrVal;
 		spiJsonService->GetIntValue(bstrKeyName,&bstrVal);
 		intJson = bstrVal;

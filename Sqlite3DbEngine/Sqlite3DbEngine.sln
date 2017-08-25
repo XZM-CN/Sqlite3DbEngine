@@ -70,6 +70,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ServiceModular", "ServiceMo
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MySqlDbEngine", "MySqlDbEngine\MySqlDbEngine.vcxproj", "{224C07AC-A8A4-49C4-B594-FEECF2775B03}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HXTestClient", "HXTestClient\HXTestClient.vcxproj", "{EE99FE72-17B1-4CBC-8715-D6267CEE44D9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -238,6 +240,12 @@ Global
 		{224C07AC-A8A4-49C4-B594-FEECF2775B03}.Release|Win32.ActiveCfg = Release|Win32
 		{224C07AC-A8A4-49C4-B594-FEECF2775B03}.Release|Win32.Build.0 = Release|Win32
 		{224C07AC-A8A4-49C4-B594-FEECF2775B03}.Release|x64.ActiveCfg = Release|Win32
+		{EE99FE72-17B1-4CBC-8715-D6267CEE44D9}.Debug|Win32.ActiveCfg = Debug|Win32
+		{EE99FE72-17B1-4CBC-8715-D6267CEE44D9}.Debug|Win32.Build.0 = Debug|Win32
+		{EE99FE72-17B1-4CBC-8715-D6267CEE44D9}.Debug|x64.ActiveCfg = Debug|Win32
+		{EE99FE72-17B1-4CBC-8715-D6267CEE44D9}.Release|Win32.ActiveCfg = Release|Win32
+		{EE99FE72-17B1-4CBC-8715-D6267CEE44D9}.Release|Win32.Build.0 = Release|Win32
+		{EE99FE72-17B1-4CBC-8715-D6267CEE44D9}.Release|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

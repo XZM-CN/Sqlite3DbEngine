@@ -79,6 +79,7 @@ public:
 	void CloseDialog(int nVal);
 	void EnableRadio(BOOL b);
 	static UINT CreateSocketThread(LPVOID pParam);
+	static UINT CreateSocketThreadA(LPVOID pParam);
 public:
 	LRESULT OnTreeXzmClickTree(NMHDR* phdr);
 	void InitXzmTree();

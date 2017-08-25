@@ -694,6 +694,8 @@ public:
 	static BOOL ClearDebugFolderFiles(CString strFile);
 
 	static int StringFind(const char *pSrc, const char *pDst);
+	// 不同进程使用的log日志名称
+	static ATL::CString m_strProcessName;
 protected:
 	/// 窗口名称
 	static ATL::CString	m_strWndName;
@@ -706,6 +708,9 @@ protected:
 	static ATL::CString m_strLogFile;
 	/// 应用路径
 	static ATL::CString m_strAppPath;
+
+
+
 
 	static BOOL m_bTable;
 	static UINT m_uTable[256];

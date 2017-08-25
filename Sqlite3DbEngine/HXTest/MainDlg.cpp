@@ -169,37 +169,6 @@ UINT CMainDlg::CreateSocketThread(LPVOID pParam)
 	pThreadParam->TP_pCMainDlg->m_ListCtrl.InsertItem(listCount,_T("0"));
 	pThreadParam->TP_pCMainDlg->m_ListCtrl.SetItemText(listCount++,1,_T("********************************************************************"));
 
-
-	
-
-	HANDLE *hThread;
-	//HANDLE hThread2[30];
-	//hThread = hThread2;
-	/*
-	switch (pThreadParam->TP_RadioID)
-	{
-	case IDC_NODE01:
-		hThread = (HANDLE *)malloc( sizeof(unsigned long) * 1 ); // 以字节为单位分配
-		pThreadParam->TP_ThreadCount = 1;
-		break;
-	case IDC_NODE05:
-		hThread = (HANDLE *)malloc( sizeof(unsigned long) * 30 ); // 以字节为单位分配
-		pThreadParam->TP_ThreadCount = 30;
-		break;
-	case IDC_NODE10:
-		hThread = (HANDLE *)malloc( sizeof(unsigned long) * 50 ); // 以字节为单位分配
-		pThreadParam->TP_ThreadCount = 50;
-		break;
-	case IDC_NODE15:
-		hThread = (HANDLE *)malloc( sizeof(unsigned long) * 100 ); // 以字节为单位分配
-		pThreadParam->TP_ThreadCount = 100;
-		break;
-	case IDC_NODE20:
-		hThread = (HANDLE *)malloc( sizeof(unsigned long) * 150 ); // 以字节为单位分配
-		pThreadParam->TP_ThreadCount = 150;
-		break;
-	}
-	*/
 	switch (pThreadParam->TP_RadioID)
 	{
 	case IDC_NODE01:
@@ -297,44 +266,282 @@ UINT CMainDlg::CreateSocketThread(LPVOID pParam)
 		}
 		break;
 	}
-	DWORD dwThreadId;
-
-
-	
-
-
-	
-	for (int i=10000;i<pThreadParam->TP_ThreadCount;i++,listCount++)
-	{
-		PCStaticClass pCStaticClass = new CStaticClass();
-		hThread[i]=::CreateThread(
-			NULL,//default security attributes
-			0,//use default stack size
-			(LPTHREAD_START_ROUTINE)CStaticClass::ApplyRegister,//thread function
-			pCStaticClass,//argument to thread function
-			0,//use default creation flags
-			&dwThreadId);//returns the thread identifier
-
-		Sleep(2000);
-
-		hThread[i]=::CreateThread(
-			NULL,//default security attributes
-			0,//use default stack size
-			(LPTHREAD_START_ROUTINE)CStaticClass::ApplyRegister2,//thread function
-			NULL,//argument to thread function
-			0,//use default creation flags
-			&dwThreadId);//returns the thread identifier
-
-
-
-		CString str1,str2;
-		str1.Format(_T("%d"),listCount);
-		pThreadParam->TP_pCMainDlg->m_ListCtrl.InsertItem(listCount,str1);
-		str2.Format(_T("模拟客户端%d号启动"),i);
-		pThreadParam->TP_pCMainDlg->m_ListCtrl.SetItemText(listCount,1,str2);
-	}
 
 	// 等待所有ApplyRegister线程结束，向主框架窗口发送消息，所有线程已经结束，按钮可以恢复了
+	return 0;
+}
+
+UINT CMainDlg::CreateSocketThreadA(LPVOID pParam)
+{
+	PThreadParam pThreadParam = (PThreadParam)pParam;
+
+	// 在进入多线程环境之前，初始化临界区  
+	InitializeCriticalSection(&csHeartBeat);  
+	InitializeCriticalSection(&csUpLoad);  
+
+	int listCount = pThreadParam->TP_pCMainDlg->m_ListCtrl.GetItemCount();
+
+	pThreadParam->TP_pCMainDlg->m_ListCtrl.InsertItem(listCount,_T("0"));
+	pThreadParam->TP_pCMainDlg->m_ListCtrl.SetItemText(listCount++,1,_T("********************************************************************"));
+
+	switch (pThreadParam->TP_RadioID)
+	{
+	case IDC_NODE01:
+		{
+			CString strMgrTool = CBaseFuncLib::GetAppDir() + _T("HXTestClient.exe");
+			BOOL bShowFlag = TRUE;
+			BOOL bWaitFlag = FALSE;
+			CString szCommandLine;
+			int count = 1;
+			for (int i=0;i<=1;i++)
+			{
+				szCommandLine.Format(_T("%d %s"),i,_T("bbb"));
+
+				STARTUPINFO stStartUpInfo;
+				memset(&stStartUpInfo, 0, sizeof(STARTUPINFO));
+				stStartUpInfo.cb = sizeof(STARTUPINFO);
+				if(bShowFlag)
+					stStartUpInfo.wShowWindow = SW_SHOWNORMAL;
+				else
+					stStartUpInfo.wShowWindow = SW_HIDE;
+				PROCESS_INFORMATION stProcessInfo;
+				::memset(&stProcessInfo,0,sizeof(PROCESS_INFORMATION));
+
+				try
+				{
+					if(CreateProcess((LPCTSTR)strMgrTool,(LPWSTR)szCommandLine.GetBuffer(0),NULL,NULL,FALSE,NORMAL_PRIORITY_CLASS,NULL,NULL,&stStartUpInfo,&stProcessInfo))
+					{
+						if(bWaitFlag)
+						{
+							//等待结束
+							WaitForSingleObject(stProcessInfo.hProcess,INFINITE);
+							::CloseHandle(stProcessInfo.hProcess);
+							stProcessInfo.hThread=NULL;
+							stProcessInfo.hProcess=NULL;
+							stProcessInfo.dwProcessId = 0;
+							stProcessInfo.dwThreadId = 0;
+						}
+					}
+					else
+					{
+						DWORD dwErrCode = ::GetLastError();
+						if(dwErrCode)
+						{
+							WRITELASTLOGTOFILE2(dwErrCode,_T("RunExe"));
+						}
+					}
+				}
+				catch( ... )
+				{
+				}
+			}
+		}
+		break;
+	case IDC_NODE05:
+		{
+			CString strMgrTool = CBaseFuncLib::GetAppDir() + _T("HXTestClient.exe");
+			BOOL bShowFlag = TRUE;
+			BOOL bWaitFlag = FALSE;
+			CString szCommandLine;
+			int count = 1;
+			for (int i=0;i<=5;i++)
+			{
+				szCommandLine.Format(_T("%d %s"),i,_T("bbb"));
+
+				STARTUPINFO stStartUpInfo;
+				memset(&stStartUpInfo, 0, sizeof(STARTUPINFO));
+				stStartUpInfo.cb = sizeof(STARTUPINFO);
+				if(bShowFlag)
+					stStartUpInfo.wShowWindow = SW_SHOWNORMAL;
+				else
+					stStartUpInfo.wShowWindow = SW_HIDE;
+				PROCESS_INFORMATION stProcessInfo;
+				::memset(&stProcessInfo,0,sizeof(PROCESS_INFORMATION));
+
+				try
+				{
+					if(CreateProcess((LPCTSTR)strMgrTool,(LPWSTR)szCommandLine.GetBuffer(0),NULL,NULL,FALSE,NORMAL_PRIORITY_CLASS,NULL,NULL,&stStartUpInfo,&stProcessInfo))
+					{
+						if(bWaitFlag)
+						{
+							//等待结束
+							WaitForSingleObject(stProcessInfo.hProcess,INFINITE);
+							::CloseHandle(stProcessInfo.hProcess);
+							stProcessInfo.hThread=NULL;
+							stProcessInfo.hProcess=NULL;
+							stProcessInfo.dwProcessId = 0;
+							stProcessInfo.dwThreadId = 0;
+						}
+					}
+					else
+					{
+						DWORD dwErrCode = ::GetLastError();
+						if(dwErrCode)
+						{
+							WRITELASTLOGTOFILE2(dwErrCode,_T("RunExe"));
+						}
+					}
+				}
+				catch( ... )
+				{
+				}
+			}
+		}
+		break;
+	case IDC_NODE10:
+		{
+			CString strMgrTool = CBaseFuncLib::GetAppDir() + _T("HXTestClient.exe");
+			BOOL bShowFlag = TRUE;
+			BOOL bWaitFlag = FALSE;
+			CString szCommandLine;
+			int count = 1;
+			for (int i=1;i<=10;i++)
+			{
+				szCommandLine.Format(_T("%d %s"),i,_T("bbb"));
+
+				STARTUPINFO stStartUpInfo;
+				memset(&stStartUpInfo, 0, sizeof(STARTUPINFO));
+				stStartUpInfo.cb = sizeof(STARTUPINFO);
+				if(bShowFlag)
+					stStartUpInfo.wShowWindow = SW_SHOWNORMAL;
+				else
+					stStartUpInfo.wShowWindow = SW_HIDE;
+				PROCESS_INFORMATION stProcessInfo;
+				::memset(&stProcessInfo,0,sizeof(PROCESS_INFORMATION));
+
+				try
+				{
+					if(CreateProcess((LPCTSTR)strMgrTool,(LPWSTR)szCommandLine.GetBuffer(0),NULL,NULL,FALSE,NORMAL_PRIORITY_CLASS,NULL,NULL,&stStartUpInfo,&stProcessInfo))
+					{
+						if(bWaitFlag)
+						{
+							//等待结束
+							WaitForSingleObject(stProcessInfo.hProcess,INFINITE);
+							::CloseHandle(stProcessInfo.hProcess);
+							stProcessInfo.hThread=NULL;
+							stProcessInfo.hProcess=NULL;
+							stProcessInfo.dwProcessId = 0;
+							stProcessInfo.dwThreadId = 0;
+						}
+					}
+					else
+					{
+						DWORD dwErrCode = ::GetLastError();
+						if(dwErrCode)
+						{
+							WRITELASTLOGTOFILE2(dwErrCode,_T("RunExe"));
+						}
+					}
+				}
+				catch( ... )
+				{
+				}
+			}
+		}
+		break;
+	case IDC_NODE15:
+		{
+			CString strMgrTool = CBaseFuncLib::GetAppDir() + _T("HXTestClient.exe");
+			BOOL bShowFlag = TRUE;
+			BOOL bWaitFlag = FALSE;
+			CString szCommandLine;
+			int count = 1;
+			for (int i=1;i<=15;i++)
+			{
+				szCommandLine.Format(_T("%d %s"),i,_T("bbb"));
+
+				STARTUPINFO stStartUpInfo;
+				memset(&stStartUpInfo, 0, sizeof(STARTUPINFO));
+				stStartUpInfo.cb = sizeof(STARTUPINFO);
+				if(bShowFlag)
+					stStartUpInfo.wShowWindow = SW_SHOWNORMAL;
+				else
+					stStartUpInfo.wShowWindow = SW_HIDE;
+				PROCESS_INFORMATION stProcessInfo;
+				::memset(&stProcessInfo,0,sizeof(PROCESS_INFORMATION));
+
+				try
+				{
+					if(CreateProcess((LPCTSTR)strMgrTool,(LPWSTR)szCommandLine.GetBuffer(0),NULL,NULL,FALSE,NORMAL_PRIORITY_CLASS,NULL,NULL,&stStartUpInfo,&stProcessInfo))
+					{
+						if(bWaitFlag)
+						{
+							//等待结束
+							WaitForSingleObject(stProcessInfo.hProcess,INFINITE);
+							::CloseHandle(stProcessInfo.hProcess);
+							stProcessInfo.hThread=NULL;
+							stProcessInfo.hProcess=NULL;
+							stProcessInfo.dwProcessId = 0;
+							stProcessInfo.dwThreadId = 0;
+						}
+					}
+					else
+					{
+						DWORD dwErrCode = ::GetLastError();
+						if(dwErrCode)
+						{
+							WRITELASTLOGTOFILE2(dwErrCode,_T("RunExe"));
+						}
+					}
+				}
+				catch( ... )
+				{
+				}
+			}
+		}
+		break;
+	case IDC_NODE20:
+		{
+			CString strMgrTool = CBaseFuncLib::GetAppDir() + _T("HXTestClient.exe");
+			BOOL bShowFlag = TRUE;
+			BOOL bWaitFlag = FALSE;
+			CString szCommandLine;
+			for (int i=1;i<=21;i++)
+			{
+				szCommandLine.Format(_T("%d %s"),i,_T("bbb"));
+
+				STARTUPINFO stStartUpInfo;
+				memset(&stStartUpInfo, 0, sizeof(STARTUPINFO));
+				stStartUpInfo.cb = sizeof(STARTUPINFO);
+				if(bShowFlag)
+					stStartUpInfo.wShowWindow = SW_SHOWNORMAL;
+				else
+					stStartUpInfo.wShowWindow = SW_HIDE;
+				PROCESS_INFORMATION stProcessInfo;
+				::memset(&stProcessInfo,0,sizeof(PROCESS_INFORMATION));
+
+				try
+				{
+					if(CreateProcess((LPCTSTR)strMgrTool,(LPWSTR)szCommandLine.GetBuffer(0),NULL,NULL,FALSE,NORMAL_PRIORITY_CLASS,NULL,NULL,&stStartUpInfo,&stProcessInfo))
+					{
+						if(bWaitFlag)
+						{
+							//等待结束
+							WaitForSingleObject(stProcessInfo.hProcess,INFINITE);
+							::CloseHandle(stProcessInfo.hProcess);
+							stProcessInfo.hThread=NULL;
+							stProcessInfo.hProcess=NULL;
+							stProcessInfo.dwProcessId = 0;
+							stProcessInfo.dwThreadId = 0;
+						}
+					}
+					else
+					{
+						DWORD dwErrCode = ::GetLastError();
+						if(dwErrCode)
+						{
+							WRITELASTLOGTOFILE2(dwErrCode,_T("RunExe"));
+						}
+					}
+				}
+				catch( ... )
+				{
+				}
+			}
+		}
+		break;
+	}
+
 	return 0;
 }
 
@@ -419,7 +626,7 @@ LRESULT CMainDlg::OnBtnStart(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHa
 	hThread=::CreateThread(
 		NULL,//default security attributes
 		0,//use default stack size
-		(LPTHREAD_START_ROUTINE)CMainDlg::CreateSocketThread,//thread function
+		(LPTHREAD_START_ROUTINE)CMainDlg::CreateSocketThreadA,//thread function
 		pThreadParam,//argument to thread function
 		0,//use default creation flags
 		&dwThreadId);//returns the thread identifier
@@ -562,10 +769,10 @@ void CMainDlg::InitXzmTree()
 		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx")); m_TreeXzm.Expand(hItemx, TVE_COLLAPSE);
 	}
 
-	/*HTREEITEM*/ hItemx = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("xxxxxxxxx"));
+	/*HTREEITEM*/ hItemx = InsertXzmTree( m_TreeXzm, hItem, TCItem, _T("测试局部功能"));
 	if(hItemx != NULL) {
-		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
-		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("调用进程"));
+		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("复杂调用进程"));
 		InsertXzmTree( m_TreeXzm, hItemx, TCItem, _T("xxx")); m_TreeXzm.Expand(hItemx, TVE_COLLAPSE);
 	}
 
@@ -680,6 +887,73 @@ LRESULT CMainDlg::OnTreeXzmClickTree(NMHDR* phdr)
 			else if(0 == str.Compare( _T("打包获取当前配置信息命令"))) {
 			}
 			else if(0 == str.Compare( _T("打包上传用户信息返回状态命令"))) {
+			}
+		}
+		else if(IsYourChild( _T("测试局部功能"),m_TreeXzm,hItemHit))
+		{
+			if(0 == str.Compare( _T("调用进程")))
+			{
+				CString strMgrTool = CBaseFuncLib::GetAppDir() + _T("HXTestClient.exe");
+				CBaseFuncLib::RunExe(strMgrTool,_T(""),FALSE,TRUE);
+			}
+			else if(0 == str.Compare( _T("复杂调用进程")))
+			{
+				CString strMgrTool = CBaseFuncLib::GetAppDir() + _T("HXTestClient.exe");
+				BOOL bShowFlag = TRUE;
+				BOOL bWaitFlag = FALSE;
+				CString szCommandLine;
+				szCommandLine.Format(_T("%s %s"),_T("aaa"),_T("bbb"));
+
+				STARTUPINFO stStartUpInfo;
+				memset(&stStartUpInfo, 0, sizeof(STARTUPINFO));
+				stStartUpInfo.cb = sizeof(STARTUPINFO);
+				if(bShowFlag)
+					stStartUpInfo.wShowWindow = SW_SHOWNORMAL;
+				else
+					stStartUpInfo.wShowWindow = SW_HIDE;
+				PROCESS_INFORMATION stProcessInfo;
+				::memset(&stProcessInfo,0,sizeof(PROCESS_INFORMATION));
+
+				try
+				{
+					if(CreateProcess(
+						(LPCTSTR)strMgrTool,
+						(LPWSTR)szCommandLine.GetBuffer(0),
+						NULL,
+						NULL,
+						FALSE,
+						NORMAL_PRIORITY_CLASS,
+						NULL,
+						NULL,
+						&stStartUpInfo,
+						&stProcessInfo))
+					{
+						if(bWaitFlag)
+						{
+							//等待结束
+							WaitForSingleObject(stProcessInfo.hProcess,INFINITE);
+							::CloseHandle(stProcessInfo.hProcess);
+							stProcessInfo.hThread=NULL;
+							stProcessInfo.hProcess=NULL;
+							stProcessInfo.dwProcessId = 0;
+							stProcessInfo.dwThreadId = 0;
+						}
+					}
+					else
+					{
+						DWORD dwErrCode = ::GetLastError();
+						if(dwErrCode)
+						{
+							WRITELASTLOGTOFILE2(dwErrCode,_T("RunExe"));
+						}
+					}
+				}
+				catch( ... )
+				{
+				}
+			}
+			else if(0 == str.Compare( _T("xxxx")))
+			{
 			}
 		}
 	}

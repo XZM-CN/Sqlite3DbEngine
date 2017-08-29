@@ -46,6 +46,13 @@ bin/*/*/*.res
 !MySqlDbEngine/MySql/lib/mysqlpp.lib
 !MySqlDbEngine/MySql/lib/mysqlpp.dll
 !MySqlDbEngine/MySql/lib/libmysql.lib
+
+!MsXmlEngine/msxml/msxml4.dll
+!MsXmlEngine/msxml/msxml4.inf
+!MsXmlEngine/msxml/msxml4a.dll
+!MsXmlEngine/msxml/msxml4r.dll
+!MsXmlEngine/msxml/msxml6.dll
+!MsXmlEngine/msxml/msxml6r.dll
 # 
 # VS工程文件
 # 

@@ -74,6 +74,7 @@ CString CSchedulerBase::GetPtrPath(LPCTSTR lpszFilename)
 	CString strModulePath = GetModulePath();
 
 	strModulePath = strModulePath + lpszFilename;
+	return _T("");
 }
 
 ATL::CString CSchedulerBase::GetModulePath(HANDLE hModule/* = NULL*/)

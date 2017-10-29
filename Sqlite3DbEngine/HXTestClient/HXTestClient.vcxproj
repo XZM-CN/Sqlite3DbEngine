@@ -36,7 +36,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>../Common;C:\WTL91_5321_Final\Include;$(IncludePath);C:\Program Files (x86)\BCGSoft\BCGControlBarPro\BCGCBPro</IncludePath>
+    <IncludePath>../Common;D:\ProgramFilesMe\WTL10_7294\Include;$(IncludePath);C:\Program Files (x86)\BCGSoft\BCGControlBarPro\BCGCBPro</IncludePath>
     <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>

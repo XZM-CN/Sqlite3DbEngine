@@ -38,7 +38,7 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin\$(Configuration)\$(ProjectName)\</IntDir>
-    <IncludePath>C:\WTL91_5321_Final\Include;../common;$(IncludePath)</IncludePath>
+    <IncludePath>D:\ProgramFilesMe\WTL10_7294\Include;../common;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>

@@ -6,9 +6,15 @@
 #pragma once
 
 // Change these values to use different versions
-#define WINVER			0x0500
+// WTL91_5321
+// #define WINVER			0x0500
+// #define _WIN32_WINNT	0x0501
+// #define _WIN32_IE		0x0501
+// #define _RICHEDIT_VER	0x0500
+// WTL10_7294
+#define WINVER			0x0501
 #define _WIN32_WINNT	0x0501
-#define _WIN32_IE		0x0501
+#define _WIN32_IE		0x0600
 #define _RICHEDIT_VER	0x0500
 
 #define _ATL_CSTRING_EXPLICIT_CONSTRUCTORS      // 某些 CString 构造函数将是显式的
